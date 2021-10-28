@@ -2,7 +2,7 @@ function Header(props) {
     return (
         <header className="header">
             <div className="header-content">
-                <a href="#">Truffle</a>
+                <a href="#"><img src="../images/truffle.png"></img></a>
                 <nav className="header-content-nav">
                     <a className="header-content-nav-link" href="#">About Me</a>
                     <a className="header-content-nav-link" href="#">Experiences</a>

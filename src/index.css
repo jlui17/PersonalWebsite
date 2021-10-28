@@ -52,6 +52,11 @@ h2 {
     padding-right: 35px;
 }
 
+.header-content img {
+    aspect-ratio: 100%;
+    height: 60px;
+}
+
 .header-content-nav-link {
     display: inline-block;
     font-family: var(--heading-font);
@@ -109,6 +114,10 @@ section {
 
 .aboutme-content-me {
     margin-bottom: 40px;
+}
+
+.aboutme-content-me-name {
+    display: flex;
 }
 
 .aboutme-content-description {
