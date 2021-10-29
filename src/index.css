@@ -4,6 +4,7 @@
     --white: rgb(245,245,245);
     --heading-font: 'Quicksand', sans-serif;
     --body-font: 'Source Sans Pro', sans-serif;
+    --shadow: 0px 0px 17px 3px rgba(102,102,102,0.35);
 }
 
 html, body {
@@ -19,6 +20,7 @@ h1, h2, h3, h4, h5 {
 p, li, a, button {
     font-family: var(--body-font);
     margin: 0;
+    font-size: 1.1rem;
 }
 
 h1 {
@@ -35,6 +37,18 @@ h2 {
     display: flex;
 }
 
+.button  {
+    background-color: var(--orange);
+    transition: background-color 300ms linear;
+    border-radius: 0.5rem;
+    padding: 0.3rem 1.25rem;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    margin-right: 20px;
+    font-size: 1rem;
+}
+
 .header {
     display: flex;
     justify-content: center;
@@ -42,14 +56,18 @@ h2 {
     height: 100px;
 }
 
+.header-align {
+    height: 100px;
+    width: 1000px;
+}
+
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1000px;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
     height: 100px;
-    padding-left: 35px;
-    padding-right: 35px;
 }
 
 .header-content img {
@@ -84,58 +102,58 @@ section {
 }
 
 .aboutme {
-    -webkit-box-pack: start;
-    justify-content: start;
-    justify-items: start;
-    margin-left: -2.5rem;
-    margin-right: -2.5rem;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
     overflow: hidden;
     height: 800px;
-    
+    width: 100vw;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.aboutme-align {
+    width: 1000px;
 }
 
 .aboutme-content {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: space-between;
     justify-content: space-between;
-    width: 1000px;
-    padding-left: 35px;
-    padding-right: 35px;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    flex-grow: 100;
 }
 
-.aboutme-content-greeting {
+.aboutme-desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutme-desc-greeting {
     margin-bottom: 10px;
 }
 
-.aboutme-content-me {
+.aboutme-desc-me {
     margin-bottom: 40px;
 }
 
-.aboutme-content-me-name {
+.aboutme-desc-me-name {
     display: flex;
 }
 
-.aboutme-content-description {
+.aboutme-desc-text {
     margin-bottom: 40px;
 }
 
-.aboutme-content-buttons a {
-    background-color: var(--orange);
-    transition: background-color 300ms linear;
-    border-radius: 0.5rem;
-    padding: 0.3rem 1.25rem;
-    text-decoration: none;
-    color: black;
-    font-weight: 500;
-    margin-right: 20px;
-}
-
-.aboutme-content-buttons a:hover {
+.aboutme-desc-buttons a:hover {
     background-color: var(--orange-hover);
     transition: background-color 300ms linear;
+}
+
+.aboutme-pic img {
+    aspect-ratio: auto;
+    height: 300px;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    -webkit-box-shadow: var(--shadow);
+    -moz-box-shadow: var(--shadow);
 }
