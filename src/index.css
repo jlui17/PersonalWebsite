@@ -101,7 +101,7 @@ section {
     display: block;
 }
 
-.aboutme {
+.intro {
     overflow: hidden;
     height: 800px;
     width: 100vw;
@@ -110,46 +110,48 @@ section {
     justify-content: center;
 }
 
-.aboutme-align {
+.intro-align {
     width: 1000px;
+    display: grid;
+
 }
 
-.aboutme-content {
+.intro-content {
     display: flex;
     align-items: space-between;
     justify-content: space-between;
+    flex-grow: 100;
     padding-left: 2.5rem;
     padding-right: 2.5rem;
-    flex-grow: 100;
 }
 
-.aboutme-desc {
+.intro-desc {
     display: flex;
     flex-direction: column;
 }
 
-.aboutme-desc-greeting {
+.intro-desc-greeting {
     margin-bottom: 10px;
 }
 
-.aboutme-desc-me {
+.intro-desc-me {
     margin-bottom: 40px;
 }
 
-.aboutme-desc-me-name {
+.intro-desc-me-name {
     display: flex;
 }
 
-.aboutme-desc-text {
+.intro-desc-text {
     margin-bottom: 40px;
 }
 
-.aboutme-desc-buttons a:hover {
+.intro-desc-buttons a:hover {
     background-color: var(--orange-hover);
     transition: background-color 300ms linear;
 }
 
-.aboutme-pic img {
+.intro-pic img {
     aspect-ratio: auto;
     height: 300px;
     border-radius: 0.5rem;
