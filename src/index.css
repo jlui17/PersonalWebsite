@@ -2,14 +2,16 @@
     --orange: #FFE7B3;
     --orange-hover: #FFD271;
     --white: rgb(245,245,245);
+    --scrollbar-color: #7B7B7B;
     --heading-font: 'Quicksand', sans-serif;
     --body-font: 'Source Sans Pro', sans-serif;
-    --shadow: 0px 0px 17px 3px rgba(102,102,102,0.35);
+    --shadow: 0px 0px 8px 0px rgba(0,0,0,0.37);
 }
 
 html, body {
     scroll-behavior: smooth;
     background-color: var(--white);
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5 {
@@ -30,7 +32,17 @@ h1 {
 
 h2 {
     font-size: 2rem;
-    line-height: 2rem;
+    line-height: 3rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+    line-height: 1.1rem;
 }
 
 .body {
@@ -93,6 +105,7 @@ h2 {
 
 .main-content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -135,7 +148,7 @@ section {
 }
 
 .intro-desc-me {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .intro-desc-me-name {
@@ -158,4 +171,113 @@ section {
     box-shadow: var(--shadow);
     -webkit-box-shadow: var(--shadow);
     -moz-box-shadow: var(--shadow);
+}
+
+.aboutme {
+    overflow: hidden;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aboutme-align {
+    width: 1000px;
+    display: grid;
+
+}
+
+.aboutme-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "title title"
+        "education interests"
+        "career skills"
+        "truffle truffle";
+    column-gap: 2rem;
+    row-gap: 2rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.aboutme-content h4 {
+    margin-bottom: 1rem;
+}
+
+.aboutme-content-title {
+    grid-area: title;
+}
+
+.aboutme-content-education {
+    grid-area: education;
+}
+
+.aboutme-content-interests {
+    grid-area: interests;
+}
+
+.aboutme-content-interests-container, .aboutme-content-skills-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.aboutme-content-interests-container-item, .aboutme-content-skills-container-item {
+    border: 0.125rem solid black;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-right: 0.25rem;
+    display: flex;
+    margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+.aboutme-content-interests-container-item img, .aboutme-content-skills-container-item img {
+    aspect-ratio: attr(width) / attr(height);
+    height: 1.2rem;
+    padding-left: 0.5rem;
+}
+
+.aboutme-content-career {
+    grid-area: career;
+}
+
+.aboutme-content-skills {
+    grid-area: skills;
+}
+
+.aboutme-content-truffle {
+    grid-area: truffle;
+}
+
+.aboutme-content-truffle-pics {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+
+.aboutme-content-truffle-pics::-webkit-scrollbar {
+    height: 0.5rem;
+}
+
+.aboutme-content-truffle-pics::-webkit-scrollbar-track {
+    border-radius: 0.5rem;
+}
+
+.aboutme-content-truffle-pics::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background-color: var(--scrollbar-color);
+}
+
+.aboutme-content-truffle img {
+    aspect-ratio: 1/1;
+    height: 12rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    -webkit-box-shadow: var(--shadow);
+    -moz-box-shadow: var(--shadow);
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
 }
