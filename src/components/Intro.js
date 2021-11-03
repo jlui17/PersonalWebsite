@@ -1,6 +1,6 @@
 function Intro(props) {
     return (
-        <section className="intro">
+        <section style={{paddingTop:"0"}} id="intro" className="intro">
             <div className="intro-align">
                 <div className="intro-content">
                     <div className="intro-desc">
@@ -18,8 +18,8 @@ function Intro(props) {
                             <i>Always finding ways to work smarter (and sometimes harder).</i></p>
                         </div>
                         <div className="intro-desc-buttons">
-                            <a target="_blank" href="https://www.linkedin.com/in/jlui17" className="button">LinkedIn</a>
-                            <a target="_blank" href="https://github.com/jlui17" className="button">Github</a>
+                            <a target="_blank" href="https://www.linkedin.com/in/jlui17" rel="noopener noreferrer" className="button">LinkedIn</a>
+                            <a target="_blank" href="https://github.com/jlui17" rel="noopener noreferrer" className="button">Github</a>
                         </div>
                     </div>
                     <div className="intro-pic">

@@ -10,15 +10,13 @@ const truffles = [
 ]
 
 function AboutMe(props) {
-
-
     return (
         <section id="aboutme" className="aboutme">
             <div className="aboutme-align">
                 <div className="aboutme-content">
                     <h3 className="aboutme-content-title">About Me</h3>
                     <div className="aboutme-content-education">
-                        <h4>Education</h4>
+                        <h4>Education - 3rd Year BUCS</h4>
                         <p>I'm a 3rd year student in the Combined Major in Business and Computer Science (BUCS) program at the UBC Sauder School of Business.
                             <br></br>
                             <br></br>
@@ -39,7 +37,7 @@ function AboutMe(props) {
                         </div>
                     </div>
                     <div className="aboutme-content-career">
-                        <h4>Career</h4>
+                        <h4>Career - Software Engineer</h4>
                         <p>Currently exploring all the different avenues of tech. Looking to focus on front- and back-end SWE positions, then branch out into TPM.</p>
                     </div>
                     <div className="aboutme-content-skills">

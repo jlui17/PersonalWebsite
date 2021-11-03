@@ -6,6 +6,12 @@
         ]
     },
     {
+        "tag":"NodeJS",
+        "images":[
+            {"alt":"nodejs","loc":"nodejs.png"}
+        ]
+    },
+    {
         "tag":"Django",
         "images":[]
     },

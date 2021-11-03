@@ -2,10 +2,15 @@
     --orange: #FFE7B3;
     --orange-hover: #FFD271;
     --white: rgb(245,245,245);
+    --date-color: #9B9A9A;
     --scrollbar-color: #7B7B7B;
     --heading-font: 'Quicksand', sans-serif;
     --body-font: 'Source Sans Pro', sans-serif;
     --shadow: 0px 0px 8px 0px rgba(0,0,0,0.37);
+    --section-row-spacing: 4rem;
+    --section-spacing: 10rem;
+    --title-detail-spacing: 1rem;
+    --experiences-description-spacing: 0.5rem;
 }
 
 html, body {
@@ -42,14 +47,19 @@ h3 {
 
 h4 {
     font-size: 1.25rem;
-    line-height: 1.1rem;
+    line-height: 1.5rem;
 }
 
 .body {
     display: flex;
 }
 
-.button  {
+section {
+    display: block;
+    padding-top: var(--section-spacing);
+}
+
+.button {
     background-color: var(--orange);
     transition: background-color 300ms linear;
     border-radius: 0.5rem;
@@ -59,6 +69,27 @@ h4 {
     font-weight: 500;
     margin-right: 20px;
     font-size: 1rem;
+}
+
+.show-button {
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.3rem 1.25rem;
+    background-color: var(--orange);
+    transition: background-color 300ms linear;
+}
+
+.show-button:hover {
+    cursor: pointer;
+    background-color: var(--orange-hover);
+    transition: background-color 300ms linear;
+}
+
+.showmore-align {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .header {
@@ -108,10 +139,6 @@ h4 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-section {
-    display: block;
 }
 
 .intro {
@@ -196,7 +223,7 @@ section {
         "career skills"
         "truffle truffle";
     column-gap: 2rem;
-    row-gap: 2rem;
+    row-gap: var(--section-row-spacing);
     padding-left: 2.5rem;
     padding-right: 2.5rem;
 }
@@ -280,4 +307,55 @@ section {
     -moz-box-shadow: var(--shadow);
     margin-right: 1rem;
     margin-bottom: 0.5rem;
+}
+
+.experiences {
+    overflow: hidden;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.experiences-align {
+    width: 1000px;
+    display: grid;
+
+}
+
+.experiences-content {
+    display: flex;
+    align-items: space-between;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-grow: 100;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.experiences-content-item {
+    display: grid;
+    grid-area: "img text";
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: var(--section-row-spacing);
+}
+
+.experiences-content-item-text {
+    grid-area: "text";
+}
+
+.experiences-content-item-text-title, .experiences-content-item-text-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.experiences-content-item img {
+    grid-area: "img";
+    aspect-ratio: attr(width) / attr(height);
+    width: 15rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    -webkit-box-shadow: var(--shadow);
+    -moz-box-shadow: var(--shadow);
 }

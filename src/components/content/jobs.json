@@ -1,0 +1,84 @@
+[
+    {
+        "position":"Incoming Software Engineer Intern",
+        "company":"Amazon",
+        "link":"https://www.amazon.ca/",
+        "image":{"file":"amazon.jpg","alt":"amazon"},
+        "duration":"May 2022 - Aug 2022",
+        "location":"Vancouver, BC, CAN",
+        "description":[
+            "I honestly can't believe I got this opportunity without any prior internship experience. I'm super excited and ready to grind this summer!"
+        ]
+    },
+    {
+        "position":"Incoming Software Engineer Intern",
+        "company":"Galvanize, now Diligent",
+        "link":"https://www.wegalvanize.com/",
+        "image":{"file":"galvanize.png","alt":"galvanize"},
+        "duration":"Jan 2022 - May 2022",
+        "location":"Vancouver, BC, CAN",
+        "description":[
+            "Galvanize was my first offer and choice when I was applying for my first internship. They took a chance on me and I'm ready to show them that was the right choice."
+        ]
+    },
+    {
+        "position":"Teaching Assistant (COMM 205: MIS)",
+        "company":"UBC Sauder School of Business",
+        "link":"https://www.sauder.ubc.ca/",
+        "image":{"file":"sauder.png","alt":"ubcsauder"},
+        "duration":"Sep 2021 - Present",
+        "location":"Vancouver, BC, CAN",
+        "description":[
+            "Supporting Professors Sabrina Rai, Zorana Svedic, Hasan Cavusoglu, and 120 students in UBC's largest business technology course."
+        ]
+    },
+    {
+        "position":"Assistant Manager",
+        "company":"Wun2Free Entertainment (Richmond Night Market)",
+        "link":"https://wun2free.com/",
+        "image":{"file":"wun2free.png","alt":"wun2free"},
+        "duration":"Oct 2019 - Present",
+        "location":"Richmond, BC, CAN",
+        "description":[
+            "Contributed in preseason inventory, planning, and setup processes. Oversaw nightly operations, ordered inventory, streamlined employee onboarding, and facilitated interviews.",
+            "Optimized inventory ordering by 50% (40 to < 20 hours) by implementing an automated excel database."
+        ]
+    },
+    {
+        "position":"Programming Instructor",
+        "company":"GeekEducation",
+        "link":"https://www.geekedu.org/",
+        "image":{"file":"geekedu.png","alt":"geekedu"},
+        "duration":"Jan 2021 - Aug 2021",
+        "location":"Vancouver, BC, CAN",
+        "description":[
+            "Helped K-12 students build fundamental programming skills in Python and Java.",
+            "Taught complex DSA computer science topics such as graphs, BFS/DFS, linked lists, recursion, fractals, and backtracking search to senior students."
+        ]
+    },
+    {
+        "position":"Supervisor",
+        "company":"Wun2Free Entertainment (Richmond Night Market)",
+        "link":"https://wun2free.com/",
+        "image":{"file":"wun2free.png","alt":"wun2free"},
+        "duration":"May 2019 - Oct 2019",
+        "location":"Richmond, BC, CAN",
+        "description":[
+            "Talked to people, sold carnival games, gave away prizes, and had a great time.",
+            "Rising Star Award for distinguishing myself among games attendants in communication, customer service and leadership skills."
+        ]
+    },
+    {
+        "position":"Games Attendant",
+        "company":"Wun2Free Entertainment (Richmond Night Market)",
+        "link":"https://wun2free.com/",
+        "image":{"file":"wun2free.png","alt":"wun2free"},
+        "duration":"May 2017 - Oct 2018",
+        "location":"Richmond, BC, CAN",
+        "description":[
+            "Contributed in preseason inventory, planning, and setup processes. Oversaw nightly operations, ordered inventory, streamlined employee onboarding, and facilitated interviews.",
+            "Optimized inventory ordering by 50% (40 to < 20 hours) by implementing an automated excel database."
+        ]
+    }
+    
+]
