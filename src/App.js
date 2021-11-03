@@ -4,6 +4,7 @@ import Header from "./components/Header.js";
 import Intro from "./components/Intro.js"
 import AboutMe from "./components/AboutMe.js"
 import Experiences from "./components/Experiences.js"
+import Contact from "./components/Contact";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Intro></Intro>
                 <AboutMe></AboutMe>
                 <Experiences></Experiences>
+                <Contact></Contact>
             </main>
         </div>
     );

@@ -9,7 +9,7 @@ const truffles = [
     {"alt":"truffle5","loc":"truffle5.jpeg"},
 ]
 
-function AboutMe(props) {
+function AboutMe() {
     return (
         <section id="aboutme" className="aboutme">
             <div className="aboutme-align">
@@ -29,10 +29,10 @@ function AboutMe(props) {
                             {interests.map((interest) => {
                                 const imgs = interest.images.map((img) => {
                                     return (
-                                        <img src={"./images/" + img["loc"]} alt={img["alt"]}></img>
+                                        <img key={img["loc"]} src={"./images/" + img["loc"]} alt={img["alt"]}></img>
                                     )
                                 })
-                                return (<div className="aboutme-content-interests-container-item"><p>{interest["tag"]}</p>{imgs}</div>)
+                                return (<div key={interest["tag"]} className="aboutme-content-interests-container-item"><p>{interest["tag"]}</p>{imgs}</div>)
                             })}
                         </div>
                     </div>
@@ -46,10 +46,10 @@ function AboutMe(props) {
                             {skills.map((skill) => {
                                 const imgs = skill.images.map((img) => {
                                     return (
-                                        <img src={"./images/" + img["loc"]} alt={img["alt"]}></img>
+                                        <img key={img["loc"]} src={"./images/" + img["loc"]} alt={img["alt"]}></img>
                                     )
                                 })
-                                return (<div className="aboutme-content-skills-container-item"><p>{skill["tag"]}</p>{imgs}</div>)
+                                return (<div key={skill["tag"]} className="aboutme-content-skills-container-item"><p>{skill["tag"]}</p>{imgs}</div>)
                             })}
                         </div>
                     </div>
@@ -58,7 +58,7 @@ function AboutMe(props) {
                         <div className="aboutme-content-truffle-pics">
                             {truffles.map((pic) => {
                                 return (
-                                    <img src={"./images/" + pic["loc"]} alt={pic["alt"]}></img>
+                                    <img key={pic["loc"]} src={"./images/" + pic["loc"]} alt={pic["alt"]}></img>
                                 )
                             })}
                         </div>
