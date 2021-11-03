@@ -1,94 +1,5 @@
-const interests = [
-    {
-        "tag":"Gaming",
-        "images":[
-            {"alt":"lol","loc":"lol.svg"},
-            {"alt":"val","loc":"val.png"}
-        ]
-    },
-    {
-        "tag":"Keyboards",
-        "images":[
-            {"alt":"keyboard","loc":"keyboard.png"}
-        ]
-    },
-    {
-        "tag":"Anime",
-        "images":[
-            {"alt":"onepiece","loc":"onepiece.png"},
-            {"alt":"naruto","loc":"naruto.png"}
-        ]
-    },
-    {
-        "tag":"PC Building",
-        "images":[
-            {"alt":"pc","loc":"pc.png"}
-        ]
-    },
-    {
-        "tag":"Basketball",
-        "images":[
-            {"alt":"gsw","loc":"gsw.png"},
-            {"alt":"bkn","loc":"bkn.png"}
-        ]
-    },
-    {
-        "tag":"Frisbee",
-        "images":[
-            {"alt":"frisbee","loc":"frisbee.png"}
-        ]
-    },
-]
-
-const skills = [
-    {
-        "tag":"React",
-        "images":[
-            {"alt":"react","loc":"react.png"}
-        ]
-    },
-    {
-        "tag":"Django",
-        "images":[]
-    },
-    {
-        "tag":"Java",
-        "images":[
-            {"alt":"java","loc":"java.png"}
-        ]
-    },
-    {
-        "tag":"Python",
-        "images":[
-            {"alt":"python","loc":"python.png"}
-        ]
-    },
-    {
-        "tag":"JavaScript",
-        "images":[
-            {"alt":"javascript","loc":"javascript.png"}
-        ]
-    },
-    {
-        "tag":"HTML/CSS",
-        "images":[
-            {"alt":"html","loc":"html.png"},
-            {"alt":"css","loc":"css.png"}
-        ]
-    },
-    {
-        "tag":"Excel",
-        "images":[
-            {"alt":"ms excel","loc":"excel.png"}
-        ]
-    },
-    {
-        "tag":"R",
-        "images":[
-            {"alt":"r","loc":"r.png"}
-        ]
-    },
-]
+import interests from "./content/interests.json"
+import skills from "./content/skills.json"
 
 const truffles = [
     {"alt":"truffle1","loc":"truffle1.jpg"},
@@ -159,14 +70,5 @@ function AboutMe(props) {
         </section>
     )
 }
-
-/*
-<div className="aboutme-content-interests-container-item"><p>Gaming</p><img src="./images/lol.svg" alt="League of Legends"></img><img src="./images/val.png" alt="Valorant"></img></div>
-<div className="aboutme-content-interests-container-item"><p>Keyboards</p><img src="./images/keyboard.png" alt="Keyboard"></img></div>
-<div className="aboutme-content-interests-container-item"><p>Anime</p><img src="./images/onepiece.png" alt="One Piece"></img><img src="./images/naruto.png" alt="Naruto"></img></div>
-<div className="aboutme-content-interests-container-item"><p>PC Building</p><img src="./images/pc.png" alt="PC"></img></div>
-<div className="aboutme-content-interests-container-item"><p>Basketball</p><img src="./images/gsw.png" alt="GSW"></img><img src="./images/bkn.png" alt="BKN"></img></div>
-<div className="aboutme-content-interests-container-item"><p>Frisbee</p><img src="./images/frisbee.png" alt="Frisbee"></img></div>
-*/
 
 export default AboutMe;
