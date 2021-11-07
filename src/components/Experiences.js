@@ -30,7 +30,6 @@ class Experiences extends React.Component {
     }
 
     changeShow() {
-        console.log(this.state.showMore ? "hiding" : "showing")
         this.setState({
             "showMore":!this.state.showMore
         })

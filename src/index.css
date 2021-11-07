@@ -9,7 +9,7 @@
     --body-font: 'Source Sans Pro', sans-serif;
     --shadow: 0px 0px 8px 0px rgba(0,0,0,0.37);
     --section-row-spacing: 4rem;
-    --section-spacing: 15rem;
+    --section-spacing: 10rem;
     --title-detail-spacing: 1rem;
     --experiences-description-spacing: 0.5rem;
 }
@@ -321,21 +321,20 @@ section {
     margin-bottom: 0.5rem;
 }
 
-.experiences {
-    overflow: hidden;
+.experiences, .projects {
     width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.experiences-align {
+.experiences-align, .projects-align {
     width: 1000px;
     display: grid;
 
 }
 
-.experiences-content {
+.experiences-content, .projects-content {
     display: flex;
     align-items: space-between;
     justify-content: space-between;
@@ -370,6 +369,50 @@ section {
     box-shadow: var(--shadow);
     -webkit-box-shadow: var(--shadow);
     -moz-box-shadow: var(--shadow);
+}
+
+.projects-content-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.projects-content-item img {
+    aspect-ratio: 4/3;
+    height: 15rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    -webkit-box-shadow: var(--shadow);
+    -moz-box-shadow: var(--shadow);
+}
+
+.projects-content-item-text {
+    margin-right: 5rem;
+}
+
+.projects-content-item-text-purpose p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.875rem;
+}
+
+.projects-content-item-text-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 2rem;
+}
+
+.projects-content-item-text-tools p {
+    margin-right: 1rem;
+    background-color: var(--orange);
+    transition: background-color 300ms linear;
+    border-radius: 0.5rem;
+    padding: 0.35rem;
+}
+
+.projects-content-item-text-tools p:hover {
+    background-color: var(--orange-hover);
+    transition: background-color 300ms linear;
 }
 
 .contact {
