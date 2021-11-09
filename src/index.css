@@ -252,6 +252,7 @@ section {
     box-shadow: var(--shadow);
     -webkit-box-shadow: var(--shadow);
     -moz-box-shadow: var(--shadow);
+    margin-left: 2rem;
 }
 
 @keyframes fade-in {
@@ -281,8 +282,6 @@ section {
 
 .aboutme-align {
     width: 1000px;
-    display: grid;
-
 }
 
 .aboutme-content {
@@ -570,7 +569,7 @@ section {
 
 .contact-content-container-card-text {
     display: flex;
-    flex-grow: 2;
+    flex-grow: 100;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
@@ -589,4 +588,104 @@ section {
 .contact-content-container-card-text-buttons a:hover {
     background-color: var(--orange-hover);
     transition: background-color var(--button-hover-speed) linear;
+}
+
+@media only screen and (max-width: 750px) {
+    p, li, a, button {
+        font-size: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        line-height: 2.375rem;
+    }
+    
+    h2 {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+        line-height: 1.25rem;
+    }
+    
+    h4 {
+        font-size: 1.075rem;
+        line-height: 1.125rem;
+    }
+
+    .intro-align, .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
+        width: 80vw;
+    }
+
+    .intro-content {
+        flex-direction: column;
+    }
+
+    .intro-pic img {
+        height: 300px;
+        margin-top: var(--section-row-spacing);
+        margin-left: 0px;
+    }
+
+    .aboutme-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .experiences-content-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .projects-content-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .experiences-content-item a, .projects-content-item-text {
+        margin-bottom: 2rem;
+        margin-right: 0px;
+    }
+
+    .projects-content-item a img {
+        width: 100%;
+        height: 75%;
+    }
+
+    .projects-content-item-text-purpose a img, .projects-content-item-text-purpose-div img {
+        height: 1rem;
+        width: 1.25rem;
+        border: none;
+        border-radius: 100%;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+    }
+
+    .projects-content-item {
+        margin-bottom: 0px;
+    }
+
+    .contact-content-container-card {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .experiences-content-item-text-title, .experiences-content-item-text-details {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 0.35rem;
+    }
+    
+    .experiences-content-item-text-title h4 {
+        margin-bottom: 0.1rem;
+    }
 }
