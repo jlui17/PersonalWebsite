@@ -27,7 +27,7 @@
             "LetMeIn UBC is a full stack web scraping app that helps UBC students track the seat of availability of courses and notifies them when they can register for a seat.",
             "*Yes it does work."
         ],
-        "tools":["Django","Node.js","Docker","Azure"],
+        "tools":["Django","Node.js","Docker","Azure","Twilio"],
         "img":"letmeinubc.png",
         "alt":"letmeinubc",
         "github":"https://github.com/kel-z/LetMeInUBC",

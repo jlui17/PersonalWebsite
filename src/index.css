@@ -615,7 +615,17 @@ section {
         line-height: 1.125rem;
     }
 
+    .button, .show-button {
+        padding: 0.3rem 0.75rem;
+    }
+
     .intro-align, .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
+        width: 80vw;
+    }
+
+    .intro-content, .aboutme-content, .experiences-content, .projects-content, .contact-content {
+        padding-left: 0rem;
+        padding-right: 0rem;
         width: 80vw;
     }
 
@@ -666,6 +676,10 @@ section {
         box-shadow: none;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
+    }
+
+    .projects-content-item-text-tools {
+        flex-wrap: wrap;
     }
 
     .projects-content-item {
