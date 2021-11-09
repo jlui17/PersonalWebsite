@@ -1,0 +1,47 @@
+[
+    {
+        "purpose": {
+            "link":"",
+            "img":"personal.png",
+            "alt":"personalproject",
+            "title":"Personal Project"
+        },
+        "title":"Sorting Visualizer",
+        "description":"A side project to help me learn react.",
+        "tools":["ReactJS","JavaScript"],
+        "img":"sortingvisualizer.jpg",
+        "alt":"sortingvisualizer",
+        "github":"https://github.com/jlui17/SortingVisualizer",
+        "link":"https://jlui17sortingvisualizer.netlify.app/"
+    },
+    {
+        "purpose": {
+            "link":"",
+            "img":"personal.png",
+            "alt":"personalproject",
+            "title":"Personal Project"
+        },
+        "title":"LetMeIn UBC",
+        "description":"Inspired by July 13, 2021 (UBC course registration day) when some of my friends and I couldn't register for some courses, instead of paying for a tracking service, we built our own. The project was super",
+        "tools":["Django","Node.js","Docker","Azure"],
+        "img":"letmeinubc.png",
+        "alt":"letmeinubc",
+        "github":"https://github.com/kel-z/LetMeInUBC",
+        "link":""
+    },
+    {
+        "purpose": {
+            "link":"https://globalgamejam.org/",
+            "img":"gamejam.png",
+            "alt":"globalgamejam",
+            "title":"Global Game Jam 2020"
+        },
+        "title":"Echo",
+        "description":"I teamed up with some friends to create this 2D side scroller game concept using Unity. Although it didn't win any prizes/awards, this was my first hackathon and it was super enjoyable.",
+        "tools":["Unity","C#"],
+        "img":"echo.png",
+        "alt":"echo",
+        "github":"https://github.com/jlui17/Echo",
+        "link":""
+    }
+]

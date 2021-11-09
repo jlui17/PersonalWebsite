@@ -391,8 +391,8 @@ section {
     margin-right: 5rem;
 }
 
-.projects-content-item-text-purpose a {
-    display: flex;
+.projects-content-item-text-purpose a, .projects-content-item-text-purpose-div {
+    display: inline-flex;
     justify-content: flex-start;
     align-items: center;
     text-decoration: none;
@@ -400,13 +400,13 @@ section {
     margin-bottom: 0.5rem;
 }
 
-.projects-content-item-text-purpose p {
+.projects-content-item-text-purpose a p, .projects-content-item-text-purpose-div p {
     font-family: 'Quicksand', sans-serif;
     font-size: 0.875rem;
     margin-left: 0.5rem;
 }
 
-.projects-content-item-text-purpose img {
+.projects-content-item-text-purpose a img, .projects-content-item-text-purpose-div img {
     aspect-ratio: attr(width) / attr(height);
     height: 1rem;
     border: none;
