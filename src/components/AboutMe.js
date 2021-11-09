@@ -38,7 +38,7 @@ function AboutMe() {
                     </div>
                     <div className="aboutme-content-career">
                         <h4>Career - Software Engineer</h4>
-                        <p>Currently exploring all the different avenues of tech. Looking to focus on front- and back-end SWE positions, then branch out into TPM.</p>
+                        <p>Currently exploring all the different avenues of tech. Looking to focus on front- and back-end Software Engineering (SWE) positions, then branch out into Product Management (TPM).</p>
                     </div>
                     <div className="aboutme-content-skills">
                         <h4>Skills</h4>

@@ -1,25 +1,6 @@
 import React from "react"
 import jobs from "./content/jobs.json"
 
-const experiences = jobs.map((job) => {
-    return (
-        <div key={job["position"] + job["duration"]} className="experiences-content-item">
-            <a target="_blank" href={job["link"]} rel="noopener noreferrer"><img src={"./images/"+job["image"]["file"]} alt={job["image"]["alt"]}></img></a>
-            <div className="experiences-content-item-text">
-                <div className="experiences-content-item-text-title">
-                    <h4>{job["position"]}</h4>
-                    <h4 style={{color:"var(--date-color)"}}>{job["duration"]}</h4>
-                </div>
-                <div style={{marginBottom:"var(--title-detail-spacing)"}} className="experiences-content-item-text-details">
-                    <p>{job["company"]}</p>
-                    <p>{job["location"]}</p>
-                </div>
-                {job["description"].map((text) => {return(<p key={text} style={{marginBottom:"var(--experiences-description-spacing)"}}>{text}</p>)})}
-            </div>
-        </div>
-    )
-})
-
 class Experiences extends React.Component {
     constructor() {
         super();
@@ -36,6 +17,25 @@ class Experiences extends React.Component {
     }
 
     render() {
+        const experiences = jobs.map((job) => {
+            return (
+                <div key={job["position"] + job["duration"]} className="experiences-content-item">
+                    <a target="_blank" href={job["link"]} rel="noopener noreferrer"><img src={"./images/"+job["image"]["file"]} alt={job["image"]["alt"]}></img></a>
+                    <div className="experiences-content-item-text">
+                        <div className="experiences-content-item-text-title">
+                            <h4>{job["position"]}</h4>
+                            <h4 style={{color:"var(--date-color)"}}>{job["duration"]}</h4>
+                        </div>
+                        <div style={{marginBottom:"var(--title-detail-spacing)"}} className="experiences-content-item-text-details">
+                            <p>{job["company"]}</p>
+                            <p>{job["location"]}</p>
+                        </div>
+                        {job["description"].map((text) => {return(<p key={text} style={{marginBottom:"var(--experiences-description-spacing)"}}>{text}</p>)})}
+                    </div>
+                </div>
+            )
+        })        
+
         return (
             <section id="experiences" className="experiences">
                 <div className="experiences-align">

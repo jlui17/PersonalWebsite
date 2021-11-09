@@ -3,12 +3,12 @@
         "purpose": {
             "link":"",
             "img":"personal.png",
-            "alt":"personalproject",
+            "alt":"truffle",
             "title":"Personal Project"
         },
         "title":"Sorting Visualizer",
-        "description":"A side project to help me learn react.",
-        "tools":["ReactJS","JavaScript"],
+        "description":["Needed more skills to add to my resume so I could get a job 😉.", "This React app visualizes different sorting algorithms to help people understand how they work."],
+        "tools":["React","JavaScript"],
         "img":"sortingvisualizer.jpg",
         "alt":"sortingvisualizer",
         "github":"https://github.com/jlui17/SortingVisualizer",
@@ -18,15 +18,37 @@
         "purpose": {
             "link":"",
             "img":"personal.png",
-            "alt":"personalproject",
+            "alt":"truffle",
             "title":"Personal Project"
         },
         "title":"LetMeIn UBC",
-        "description":"Inspired by July 13, 2021 (UBC course registration day) when some of my friends and I couldn't register for some courses, instead of paying for a tracking service, we built our own. The project was super",
+        "description":[
+            "Inspired by July 13, 2021 (UBC course registration day) when some of my friends and I couldn't register for courses because they filled up. Instead of paying for a tracking service, we built our own.",
+            "LetMeIn UBC is a full stack web scraping app that helps UBC students track the seat of availability of courses and notifies them when they can register for a seat.",
+            "*Yes it does work."
+        ],
         "tools":["Django","Node.js","Docker","Azure"],
         "img":"letmeinubc.png",
         "alt":"letmeinubc",
         "github":"https://github.com/kel-z/LetMeInUBC",
+        "link":""
+    },
+    {
+        "purpose": {
+            "link":"",
+            "img":"personal.png",
+            "alt":"truffle",
+            "title":"Personal Project"
+        },
+        "title":"Algorithmic Trading Bot",
+        "description":[
+            "On April 6, 2021, I attended an algorithmic trading workshop hosted by Scotiabank. In the Q&A, I asked about getting started and they recommended using Interactive Brokers TWS API. So, I teamed up with a friend and started my journey in algo trading.",
+            "This application trades stocks using core algorithmic trading strategies (moving averages, momentum, growth) and the IB TWS API."
+        ],
+        "tools":["IB TWS API","Python", "Pandas", "PyQT"],
+        "img":"tradingbot.png",
+        "alt":"algotrader",
+        "github":"https://github.com/jlui17/tws_api_trading_bot",
         "link":""
     },
     {
@@ -37,11 +59,50 @@
             "title":"Global Game Jam 2020"
         },
         "title":"Echo",
-        "description":"I teamed up with some friends to create this 2D side scroller game concept using Unity. Although it didn't win any prizes/awards, this was my first hackathon and it was super enjoyable.",
+        "description":[
+            "In January, my friend Alexa asked me to join her team. I was a bit worried because I didn't have any game development experience, but I had a great time and the end product exceeded my expectations.",
+            "Echo is a 2D side scroller RPG game concept developed in Unity. It's story is based around a child who has been separated from their mother in a forest and lost their vision. Follow them on their journey to reunite with their mother."
+        ],
         "tools":["Unity","C#"],
         "img":"echo.png",
         "alt":"echo",
         "github":"https://github.com/jlui17/Echo",
+        "link":""
+    },
+    {
+        "purpose": {
+            "link":"",
+            "img":"personal.png",
+            "alt":"truffle",
+            "title":"Personal Project"
+        },
+        "title":"Sudoku Solver",
+        "description":[
+            "At the start of 2020, despite very limited Python knowledge, the co-founders of GeekEdu hired me to teach K-12 students Python. I felt like an imposter, so I developed this project to learn the basics of Python.",
+            "This application uses backtracking search to solve any sudoku puzzle."
+        ],
+        "tools":["PyGame","Python"],
+        "img":"sudoku.png",
+        "alt":"sudoku",
+        "github":"https://github.com/jlui17/Sudoku-solver",
+        "link":""
+    },
+    {
+        "purpose": {
+            "link":"",
+            "img":"academic.png",
+            "alt":"ubc",
+            "title":"Academic Project (CPSC 210 - Software Construction)"
+        },
+        "title":"Inventory Manager",
+        "description":[
+            "Based on the inventory management system at the Richmond Night Market.",
+            "This application applies core OOP principles and the observable design pattern to emulate an inventory management system used in a carnival games operation."
+        ],
+        "tools":["Java","Observale Design Pattern"],
+        "img":"inventorymanager.png",
+        "alt":"inventory manager",
+        "github":"https://github.com/jlui17/W2F_Inv_Manager",
         "link":""
     }
 ]

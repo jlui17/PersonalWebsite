@@ -9,7 +9,7 @@ function Intro() {
                         </div>
                         <div className="intro-desc-me">
                             <div className="intro-desc-me-name">
-                                <h1>I'm <mark style={{backgroundColor: "var(--orange)", paddingRight: "8px", paddingLeft: "8px", borderRadius: "0.5rem"}}>Justin Lui</mark>.</h1>
+                                <h1>I'm <mark style={{color:"rgb(18, 18, 18)", backgroundColor: "var(--orange)", paddingRight: "8px", paddingLeft: "8px", borderRadius: "0.5rem"}}>Justin Lui</mark>.</h1>
                             </div>
                             <h2>Software Engineer Intern @ Galvanize</h2>
                         </div>
