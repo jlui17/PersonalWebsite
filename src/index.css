@@ -153,7 +153,7 @@ section {
 }
 
 .header-content img:hover {
-    animation: shake 0.5s;
+    animation: shake 0.5s infinite;
 }
 
 .header-content-nav-link {
