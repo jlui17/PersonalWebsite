@@ -644,6 +644,10 @@ section {
         width: 80vw;
     }
 
+    .intro {
+        height: 655px;
+    }
+
     .intro-content {
         flex-direction: column;
     }
