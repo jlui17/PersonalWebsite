@@ -636,8 +636,12 @@ section {
         padding: 0.3rem 0.75rem;
     }
 
-    .header-align, .intro-align, .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
+    .intro-align, .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
         width: 80vw;
+    }
+
+    .header-content {
+        border-radius: 0rem;
     }
 
     .intro-content, .aboutme-content, .experiences-content, .projects-content, .contact-content {
