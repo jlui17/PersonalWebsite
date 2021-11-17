@@ -30,7 +30,7 @@ html, body {
 }
 
 html {
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 body::-webkit-scrollbar {
@@ -139,6 +139,8 @@ section {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
     height: 100px;
+    border-radius: 0rem 0rem 0.5rem 0.5rem;
+    background-color: var(--background2);
 }
 
 @keyframes shake {
@@ -634,7 +636,7 @@ section {
         padding: 0.3rem 0.75rem;
     }
 
-    .intro-align, .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
+    .header-align, .intro-align, .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
         width: 80vw;
     }
 
@@ -645,7 +647,7 @@ section {
     }
 
     .intro {
-        height: 655px;
+        height: 700px;
     }
 
     .intro-content {
