@@ -120,11 +120,27 @@ section {
     align-items: center;
 }
 
-.header {
+.header-hide {
+    position: fixed;
+    top: -100px;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100px;
+    transition: top 500ms;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    transition: top 500ms;
+    z-index: 5;
 }
 
 .header-align {
@@ -212,6 +228,7 @@ section {
 
 .intro {
     overflow: hidden;
+    margin-top: 200px;
     height: 600px;
     width: 100vw;
     display: flex;

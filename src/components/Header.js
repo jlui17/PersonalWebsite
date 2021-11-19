@@ -1,6 +1,23 @@
+import {useEffect, useState} from "react";
+
 function Header() {
+    const [showHeader, setShowHeader] = useState(true);
+
+    useEffect(() => {
+        const onScroll = (event) => {
+            if (event.wheelDelta > 0) {
+                setShowHeader(true);
+            }
+            else {
+                setShowHeader(false);
+            }
+        };
+        window.addEventListener('mousewheel', onScroll);
+        return () => window.removeEventListener('mousewheel', onScroll);
+    })
+
     return (
-        <header id="top" className="header">
+        <header id="top" className={showHeader ? "header" : "header-hide"}>
             <div className="header-align">
                 <div className="header-content">
                     <a href="#top"><img src="../images/truffle.png" alt="trufflebday"></img></a>
