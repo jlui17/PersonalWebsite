@@ -16,6 +16,7 @@ function Footer() {
                                 <div className="contact-content-container-card-text-buttons">
                                     <a target="_blank" href="https://www.linkedin.com/in/jlui17" rel="noopener noreferrer" className="button">LinkedIn</a>
                                     <a target="_blank" href="https://github.com/jlui17" rel="noopener noreferrer" className="button">Github</a>
+                                    <a target="_blank" href="https://justinlui17.medium.com/" rel="noopener noreferrer" className="button">Medium</a>
                                     <a target="_blank" href="./justinlui_resume2021.pdf" rel="noopener noreferrer" className="button">Resume</a>
                                 </div>
                             </div>

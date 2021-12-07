@@ -25,7 +25,6 @@ function Header() {
                         <a onClick={() => {setMobileHide(!mobileHide)}} className="header-content-nav-link" href="#aboutme">About Me</a>
                         <a onClick={() => {setMobileHide(!mobileHide)}} className="header-content-nav-link" href="#experiences">Experiences</a>
                         <a onClick={() => {setMobileHide(!mobileHide)}} className="header-content-nav-link" href="#projects">Projects</a>
-                        <a onClick={() => {setMobileHide(!mobileHide)}} className="header-content-nav-link" href="#blogs">Blogs</a>
                         <a onClick={() => {setMobileHide(!mobileHide)}} className="header-content-nav-link" href="#contact">Contact</a>
                     </nav>
                 </div>
@@ -40,7 +39,6 @@ function Header() {
                             <a className="header-content-nav-link" href="#aboutme">About Me</a>
                             <a className="header-content-nav-link" href="#experiences">Experiences</a>
                             <a className="header-content-nav-link" href="#projects">Projects</a>
-                            <a className="header-content-nav-link" href="#blogs">Blogs</a>
                             <a className="header-content-nav-link" href="#contact">Contact</a>
                         </nav>
                     </div>

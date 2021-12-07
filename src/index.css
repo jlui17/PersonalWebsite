@@ -93,7 +93,7 @@ section {
     background-color: var(--orange);
     transition: background-color var(--button-hover-speed) linear;
     border-radius: 0.5rem;
-    padding: 0.3rem 1.25rem;
+    padding: 0.3rem 0.75rem;
     text-decoration: none;
     font-weight: 500;
     margin-right: 20px;
@@ -103,7 +103,7 @@ section {
 .show-button {
     border: none;
     border-radius: 0.5rem;
-    padding: 0.3rem 1.25rem;
+    padding: 0.3rem 0.75rem;
     background-color: var(--orange);
     transition: background-color var(--button-hover-speed) linear;
 }
@@ -118,6 +118,15 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.intro-desc-buttons, .contact-content-container-card-text-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.intro-desc-buttons a, .contact-content-container-card-text-buttons a {
+    margin-top: 0.5rem;
 }
 
 .header {
@@ -262,7 +271,7 @@ section {
 
 .intro-desc-text p {
     font-size: 1.1rem;
-    margin-bottom: 40px;
+    margin-bottom: 1rem;
 }
 
 .intro-desc-buttons a:hover {
