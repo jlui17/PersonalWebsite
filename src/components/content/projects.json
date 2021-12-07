@@ -78,19 +78,20 @@
     {
         "purpose": {
             "link":"",
-            "img":"personal.png",
-            "alt":"truffle",
-            "title":"Personal Project"
+            "img":"academic.png",
+            "alt":"ubc",
+            "title":"Academic Project (CPSC 304 - Relational Databases)"
         },
-        "title":"Sudoku Solver",
+        "title":"Carnival Operations DBMS",
         "description":[
-            "At the start of 2020, despite almost no Python knowledge, the co-founders of GeekEdu hired me to teach K-12 students programming in Python. Not wanting to be a terrible instructor, I developed this project to learn the basics of Python.",
-            "This application uses backtracking search to solve any sudoku puzzle."
+            "Based on the operations of a carnival games company.",
+            "This application is a full stack project, with a React front-end, Flask back-end, and Oracle database. It allows users to interact with their operations database through a simple UI. Analysis is also provided using complex SQL queries to help the user evaluate their business performance.",
+            "I led the system design and front-end development, helping design the tech stack, flow of information, and the implementation of each UI component."
         ],
-        "tools":["PyGame","Python"],
-        "img":"sudoku.png",
-        "alt":"sudoku",
-        "github":"https://github.com/jlui17/Sudoku-solver",
+        "tools":["React", "Flask", "SQL", "TypeScript", "Python", "Oracle"],
+        "img":"304.png",
+        "alt":"cs304",
+        "github":"https://github.students.cs.ubc.ca/CPSC304-2021W-T1/project_p7w2b_v9h3b_x8z2b",
         "link":""
     },
     {
@@ -109,6 +110,24 @@
         "img":"inventorymanager.png",
         "alt":"inventory manager",
         "github":"https://github.com/jlui17/W2F_Inv_Manager",
+        "link":""
+    },
+    {
+        "purpose": {
+            "link":"",
+            "img":"personal.png",
+            "alt":"truffle",
+            "title":"Personal Project"
+        },
+        "title":"Sudoku Solver",
+        "description":[
+            "At the start of 2020, despite almost no Python knowledge, the co-founders of GeekEdu hired me to teach K-12 students programming in Python. Not wanting to be a terrible instructor, I developed this project to learn the basics of Python.",
+            "This application uses backtracking search to solve any sudoku puzzle."
+        ],
+        "tools":["PyGame","Python"],
+        "img":"sudoku.png",
+        "alt":"sudoku",
+        "github":"https://github.com/jlui17/Sudoku-solver",
         "link":""
     }
 ]
