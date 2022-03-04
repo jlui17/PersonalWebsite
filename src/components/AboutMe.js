@@ -16,7 +16,7 @@ function AboutMe() {
                 <div className="aboutme-content">
                     <h3 className="aboutme-content-title">About Me</h3>
                     <div className="aboutme-content-education">
-                        <h4>Education - 3rd Year BUCS</h4>
+                        <h4>Education - 3rd Year CS + Business @ UBC</h4>
                         <p>I'm a 3rd year student in the Combined Major in Business and Computer Science (BUCS) program at the UBC Sauder School of Business.
                             <br></br>
                             <br></br>
