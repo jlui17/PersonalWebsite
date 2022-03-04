@@ -5,13 +5,13 @@ function Intro() {
                 <div className="intro-content">
                     <div className="intro-desc">
                         <div className="intro-desc-greeting">
-                            <h1>Hellurrr</h1>
+                            <h1>Hey!</h1>
                         </div>
                         <div className="intro-desc-me">
                             <div className="intro-desc-me-name">
                                 <h1>I'm <mark style={{color:"rgb(18, 18, 18)", backgroundColor: "var(--orange)", paddingRight: "8px", paddingLeft: "8px", borderRadius: "0.5rem"}}>Justin Lui</mark>.</h1>
                             </div>
-                            <h2>Software Engineer Intern @ Galvanize</h2>
+                            <h2>Software Engineer Co-op @ Galvanize</h2>
                         </div>
                         <div className="intro-desc-text">
                             <p>I'm passionate about using technology to make work and life easier. 💻 <br></br>
