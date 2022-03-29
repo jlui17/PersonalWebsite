@@ -18,7 +18,8 @@
         "duration":"Jan 2022 - May 2022",
         "location":"Vancouver, BC, CAN",
         "description":[
-            "Working with the TriForce R&D team on the HighBond Projects application."
+            "Working with the TriForce team on the Projects component of Diligent's HighBond platform.",
+            "Applying serverless infrastructure on AWS using Terraform, leading meetings and E2E feature development, and developing and deploying production fixes for customer facing issue."
         ]
     },
     {
