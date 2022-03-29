@@ -31,7 +31,7 @@ function Experiences() {
                     {showMore ? experiences : experiences.slice(0,3)}
                     <div className="showmore-align">
                         <button className="show-button" onClick={() => {setShowMore(!showMore)}} style={{marginRight:"20px"}}>{showMore ? "Show Less" : "Show More"}</button>
-                        <a target="_blank" href="./justinlui_resume2021.pdf"><button className="show-button">Resume</button></a>
+                        <a target="_blank" href="./justinlui_resume2022.pdf"><button className="show-button">Resume</button></a>
                     </div>
                 </div>
             </div>
