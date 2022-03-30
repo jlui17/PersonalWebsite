@@ -11,7 +11,7 @@ function Intro() {
                             <div className="intro-desc-me-name">
                                 <h1>I'm <mark style={{color:"rgb(18, 18, 18)", backgroundColor: "var(--orange)", paddingRight: "8px", paddingLeft: "8px", borderRadius: "0.5rem"}}>Justin Lui</mark>.</h1>
                             </div>
-                            <h2>Software Engineer Co-op @ Galvanize</h2>
+                            <h2>Software Engineer Co-op @ Diligent</h2>
                         </div>
                         <div className="intro-desc-text">
                             <p>Using technology to make work and life easier 💻 <br />
