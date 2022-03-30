@@ -14,8 +14,8 @@ function Intro() {
                             <h2>Software Engineer Co-op @ Galvanize</h2>
                         </div>
                         <div className="intro-desc-text">
-                            <p>I'm passionate about using technology to make work and life easier. 💻 <br></br>
-                            <i>Always finding ways to work smarter (and sometimes harder).</i></p>
+                            <p>Using technology to make work and life easier 💻 <br />
+                            Find me on summer weekends at the Richmond Night Market 🎪 </p>
                         </div>
                         <div className="intro-desc-buttons">
                             <a target="_blank" href="https://www.linkedin.com/in/jlui17" rel="noopener noreferrer" className="button">LinkedIn</a>
