@@ -26,7 +26,6 @@
 
 html, body {
     scroll-behavior: smooth;
-    background-color: var(--background);
     overflow-x: hidden;
     height: 100%;
     width: 100%;
@@ -628,7 +627,7 @@ section {
     transition: background-color var(--button-hover-speed) linear;
 }
 
-@media only screen and (max-width: 825px) {
+@media only screen and (max-width: 1023px) {
     p, li, a, button {
         font-size: 1rem;
     }
