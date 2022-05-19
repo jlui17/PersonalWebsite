@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
     --orange: #FFE7B3;
     --orange-hover: #FFD271;
