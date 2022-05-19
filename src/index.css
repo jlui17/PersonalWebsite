@@ -2,6 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
+@media only screen and (max-width: 1023px) {
+    h1 {
+        font-size: 2rem;
+        line-height: 2.375rem;
+    }
+    
+    h2 {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+        line-height: 1.25rem;
+    }
+    
+    h4 {
+        font-size: 1.075rem;
+        line-height: 1.125rem;
+    }
+}
+
+@layer base {
+    h1, h2, h3, h4, h5 {
+        @apply font-heading m-0 font-bold !important
+    }
+
+    h1 {
+        @apply text-[2rem] leading-[2.375rem] lg:text-[2.625rem] lg:leading-[4rem] !important
+    }
+    
+    h2 {
+        @apply text-xl leading-6 lg:text-[2rem] lg:leading-[3rem] !important
+    }
+    
+    h3 {
+        @apply text-[1.2rem] leading-5 lg:text-3xl lg:leading-9 mb-6 !important
+    }
+    
+    h4 {
+        @apply text-[1.075rem] leading-[1.125rem] lg:text-xl lg:leading-6 !important
+    }
+
+    p, li, a, button {
+        @apply font-body m-0 text-base font-light leading-6 !important
+    }
+}
+
+@layer components {
+    .button {
+        @apply last:mr-0 mr-3 mt-3 font-heading font-medium text-gray-900 bg-orange-200 hover:bg-orange-300 transition-colors ease-linear px-3 py-1 lg:py-2 rounded-xl !important
+    }
+}
+
 :root {
     --orange: #FFE7B3;
     --orange-hover: #FFD271;
@@ -50,41 +104,7 @@ a, button, .projects-content-item-text-tools p, .button, .show-button {
     text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: var(--heading-font);
-    margin: 0;
-}
 
-p, li, a, button {
-    font-family: var(--body-font);
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 400;
-}
-
-h1 {
-    font-size: 2.625rem;
-    line-height: 4rem;
-}
-
-h2 {
-    font-size: 2rem;
-    line-height: 3rem;
-}
-
-h3 {
-    font-size: 1.75rem;
-    line-height: 2.25rem;
-}
-
-h4 {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-}
-
-.body {
-    display: flex;
-}
 
 section {
     display: block;
@@ -93,43 +113,16 @@ section {
 }
 
 .button {
-    background-color: var(--orange);
-    transition: background-color var(--button-hover-speed) linear;
-    border-radius: 0.5rem;
-    padding: 0.3rem 0.75rem;
     text-decoration: none;
     font-weight: 500;
     margin-right: 20px;
     font-size: 1rem;
 }
 
-.show-button {
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.3rem 0.75rem;
-    background-color: var(--orange);
-    transition: background-color var(--button-hover-speed) linear;
-}
-
-.show-button:hover {
-    cursor: pointer;
-    background-color: var(--orange-hover);
-    transition: background-color var(--button-hover-speed) linear;
-}
-
 .showmore-align {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.intro-desc-buttons, .contact-content-container-card-text-buttons {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.intro-desc-buttons a, .contact-content-container-card-text-buttons a {
-    margin-top: 0.5rem;
 }
 
 .header {
@@ -228,58 +221,6 @@ section {
 @-webkit-keyframes fade-in-top {
     0% {transform: translateY(-5%); opacity: 0;}
     100% {transform: translateY(0%); opacity: 1;}
-}
-
-.intro {
-    overflow: hidden;
-    height: 600px;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fade-in-top 1.25s;
-}
-
-.intro-align {
-    width: 1000px;
-    display: grid;
-
-}
-
-.intro-content {
-    display: flex;
-    align-items: space-between;
-    justify-content: space-between;
-    flex-grow: 100;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-}
-
-.intro-desc {
-    display: flex;
-    flex-direction: column;
-}
-
-.intro-desc-greeting {
-    margin-bottom: 10px;
-}
-
-.intro-desc-me {
-    margin-bottom: 20px;
-}
-
-.intro-desc-me-name {
-    display: flex;
-}
-
-.intro-desc-text p {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-}
-
-.intro-desc-buttons a:hover {
-    background-color: var(--orange-hover);
-    transition: background-color var(--button-hover-speed) linear;
 }
 
 .intro-pic img {
@@ -628,35 +569,11 @@ section {
 }
 
 @media only screen and (max-width: 1023px) {
-    p, li, a, button {
-        font-size: 1rem;
-    }
-    
-    h1 {
-        font-size: 2rem;
-        line-height: 2.375rem;
-    }
-    
-    h2 {
-        font-size: 1.25rem;
-        line-height: 1.5rem;
-    }
-    
-    h3 {
-        font-size: 1.2rem;
-        line-height: 1.25rem;
-    }
-    
-    h4 {
-        font-size: 1.075rem;
-        line-height: 1.125rem;
-    }
-
     .button, .show-button {
         padding: 0.3rem 0.75rem;
     }
 
-    .intro-align, .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
+    .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
         width: 80vw;
     }
 
@@ -664,7 +581,7 @@ section {
         border-radius: 0rem;
     }
 
-    .intro-content, .aboutme-content, .experiences-content, .projects-content, .contact-content {
+    .aboutme-content, .experiences-content, .projects-content, .contact-content {
         padding-left: 0rem;
         padding-right: 0rem;
         width: 80vw;
@@ -740,14 +657,6 @@ section {
 
     .header-button-x-2 {
         transform: rotate(-45deg) translateY(-3px);
-    }
-
-    .intro {
-        height: 700px;
-    }
-
-    .intro-content {
-        flex-direction: column;
     }
 
     .intro-pic img {

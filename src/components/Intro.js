@@ -1,37 +1,29 @@
 const Intro = () => {
   return (
     <>
-      <div className="intro-desc">
-        <div className="intro-desc-greeting">
+      <div className="flex flex-col">
+        <div className="mb-5">
           <h1>Hey!</h1>
         </div>
-        <div className="intro-desc-me">
-          <div className="intro-desc-me-name">
+        <div className="mb-5">
+          <div className="flex">
             <h1>
               I'm{" "}
-              <mark
-                style={{
-                  color: "rgb(18, 18, 18)",
-                  backgroundColor: "var(--orange)",
-                  paddingRight: "8px",
-                  paddingLeft: "8px",
-                  borderRadius: "0.5rem",
-                }}
-              >
+              <mark className="bg-orange-200 px-3 py-1 lg:py-2 rounded-xl color-black">
                 Justin Lui
               </mark>
               .
             </h1>
           </div>
-          <h2>Software Development Engineer @ Amazon</h2>
+          <h2 className="mt-3 lg:mt-0">
+            Software Development Engineer @ Amazon
+          </h2>
         </div>
-        <div className="intro-desc-text">
-          <p>
-            Using technology to make work and life easier 💻 <br />
-            Find me on summer weekends at the Richmond Night Market 🎪{" "}
-          </p>
-        </div>
-        <div className="intro-desc-buttons">
+        <p>
+          Using technology to make work and life easier 💻 <br />
+          Find me on summer weekends at the Richmond Night Market 🎪{" "}
+        </p>
+        <div className="flex flex-wrap">
           <a
             target="_blank"
             href="https://www.linkedin.com/in/jlui17"
@@ -66,9 +58,11 @@ const Intro = () => {
           </a>
         </div>
       </div>
-      <div className="intro-pic">
-        <img src="./images/JustinLui.jpg" alt="Headshot of Justin Lui"></img>
-      </div>
+      <img
+        className="h-[300px] rounded-xl aspect-auto shadow-lg lg:ml-8 mt-8 lg:mt-0"
+        src="./images/JustinLui.jpg"
+        alt="Headshot of Justin Lui"
+      ></img>
     </>
   );
 };

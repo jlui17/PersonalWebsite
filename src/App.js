@@ -12,7 +12,7 @@ function App() {
     <div className="bg-neutral-900">
       <Header></Header>
       <main className="main-content">
-        <div className="flex flex-col lg:flex-row justify-between lg:justify-center items-center pt-0 min-w-[50rem] h-[40rem] mt-20 mb-20">
+        <div className="flex flex-col lg:flex-row lg:justify-center items-center px-10 lg:px-0 pt-0 h-[40rem] mt-20 mb-20">
           <Intro />
         </div>
         <div>
