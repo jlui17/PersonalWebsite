@@ -1,8 +1,7 @@
 module.exports = {
   mode: "jit",
   important: true,
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
   theme: {
     fontFamily: {
       heading: ["Quicksand", "sans-serif"],

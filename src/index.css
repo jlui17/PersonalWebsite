@@ -41,24 +41,22 @@
 
 
 @layer utilities {
-    @variants responsive {
-        .scroll::-webkit-scrollbar {
-            height: 0.5rem;
-        }
+    .scroll::-webkit-scrollbar {
+        height: 0.5rem;
+    }
 
-        .scroll::-webkit-scrollbar-track {
-            border-radius: 0.5rem;
-        }
-        
-        .scroll::-webkit-scrollbar-thumb {
-            border-radius: 0.5rem;
-            background-color: var(--scrollbar-color);
-        }
+    .scroll::-webkit-scrollbar-track {
+        border-radius: 0.5rem;
+    }
+    
+    .scroll::-webkit-scrollbar-thumb {
+        border-radius: 0.5rem;
+        background-color: var(--scrollbar-color);
+    }
 
-        .scroll {
-            -ms-overflow-style: scrollbar;
-            scrollbar-width: 0.5rem;
-        }
+    .scroll {
+        -ms-overflow-style: scrollbar;
+        scrollbar-width: 0.5rem;
     }
 }
 
