@@ -23,20 +23,20 @@ export const App = () => {
           <div className="mt-20 mb-20 flex h-[40rem] w-full flex-col items-center justify-center pt-0 lg:flex-row lg:justify-between">
             <Intro />
           </div>
-          <div className="mt-20 mb-20 w-full">
+          <div id="aboutme" className="mt-20 mb-20 w-full">
             <AboutMe />
           </div>
-          <div className="mt-20 mb-20 w-full">
+          <div id="experiences" className="mt-20 mb-20 w-full">
             <div className="flex flex-grow flex-col items-start justify-between">
               <Experiences />
             </div>
           </div>
-          <div className="mt-20 mb-20 w-full">
+          <div id="projects" className="mt-20 mb-20 w-full">
             <div className="flex flex-grow flex-col items-start justify-between">
               <Projects />
             </div>
           </div>
-          <div className="mt-20 mb-20 w-full">
+          <div id="contact" className="mt-20 mb-20 w-full">
             <div className="flex flex-grow flex-col items-center justify-center">
               <Contact />
             </div>
