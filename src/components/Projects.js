@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import work from "./content/projects.json";
 
-function Projects() {
+export const Projects = () => {
   const [showMore, setShowMore] = useState(false);
 
   const projects = work.map((project) => {
@@ -91,6 +91,4 @@ function Projects() {
       </div>
     </>
   );
-}
-
-export default Projects;
+};

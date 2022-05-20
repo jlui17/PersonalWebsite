@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import jobs from "./content/jobs.json";
 
-function Experiences() {
+export const Experiences = () => {
   const [showMore, setShowMore] = useState(false);
 
   const experiences = jobs.map((job) => {
@@ -56,6 +56,4 @@ function Experiences() {
       </div>
     </>
   );
-}
-
-export default Experiences;
+};

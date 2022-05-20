@@ -3,9 +3,9 @@ import "./components/Header/Header.js";
 import { Header } from "./components/Header/Header.js";
 import { Intro } from "./components/Intro.js";
 import { AboutMe } from "./components/AboutMe.js";
-import Experiences from "./components/Experiences.js";
+import { Experiences } from "./components/Experiences.js";
 import Contact from "./components/Contact";
-import Projects from "./components/Projects";
+import { Projects } from "./components/Projects";
 
 export const App = () => {
   return (
@@ -36,8 +36,10 @@ export const App = () => {
               <Projects />
             </div>
           </div>
-          <div>
-            <Contact />
+          <div className="mt-20 mb-20 w-full">
+            <div className="flex flex-grow flex-col items-center justify-center">
+              <Contact />
+            </div>
           </div>
         </main>
       </div>
