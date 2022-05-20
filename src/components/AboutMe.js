@@ -2,6 +2,8 @@ import interests from "./content/interests.json";
 import skills from "./content/skills.json";
 
 const truffles = [
+  { alt: "truffle7", loc: "truffle7.jpg" },
+  { alt: "truffle6", loc: "truffle6.jpg" },
   { alt: "truffle1", loc: "truffle1.jpg" },
   { alt: "truffle2", loc: "truffle2.jpg" },
   { alt: "truffle3", loc: "truffle3.jpg" },
