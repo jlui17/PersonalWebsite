@@ -13,7 +13,7 @@ export const AboutMe = () => {
   return (
     <div className="justify-centre flex flex-col items-start lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
       <h3 className=" lg:col-span-2">About Me</h3>
-      <div className="mb-6 lg:mb-0">
+      <div className="mb-12 lg:mb-0">
         <h4 className="mb-2">CS + Business @ UBC</h4>
         <p>
           I'm a 3rd year student in the Combined Major in Business and Computer
@@ -24,7 +24,7 @@ export const AboutMe = () => {
           shaped who I am today.
         </p>
       </div>
-      <div className="mb-6 lg:mb-0">
+      <div className="mb-12 lg:mb-0">
         <h4 className="mb-2">Interests</h4>
         <div className="flex flex-wrap">
           {interests.map((interest) => {
@@ -50,7 +50,7 @@ export const AboutMe = () => {
           })}
         </div>
       </div>
-      <div className="mb-6 lg:mb-0">
+      <div className="mb-12 lg:mb-0">
         <h4 className="mb-2">Software Engineer</h4>
         <p>
           I'm particularly interested in infrastructure and back-end design as I
@@ -59,7 +59,7 @@ export const AboutMe = () => {
           can to become the best developer I can be.
         </p>
       </div>
-      <div className="mb-6 lg:mb-0">
+      <div className="mb-12 lg:mb-0">
         <h4 className="mb-2">Skills</h4>
         <div className="flex flex-wrap">
           {skills.map((skill) => {

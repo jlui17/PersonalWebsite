@@ -26,8 +26,10 @@ export const App = () => {
           <div className="mt-20 mb-20 w-full">
             <AboutMe />
           </div>
-          <div>
-            <Experiences />
+          <div className="mt-20 mb-20 w-full">
+            <div className="flex flex-grow flex-col items-start justify-between">
+              <Experiences />
+            </div>
           </div>
           <div>
             <Projects />

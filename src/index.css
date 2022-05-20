@@ -24,7 +24,7 @@
     }
 
     p, li, a, button {
-        @apply font-body m-0 text-base font-light leading-6 text-white !important
+        @apply font-body m-0 text-base font-light leading-4 lg:leading-6 text-white !important
     }
 }
 
@@ -34,7 +34,7 @@
     }
 
     .button {
-        @apply last:mr-0 mr-3 mt-3 font-heading font-medium text-gray-900 bg-orange-200 hover:bg-orange-300 transition-colors ease-linear px-3 py-1 lg:py-2 rounded-xl !important
+        @apply last:mr-0 mr-3 mt-3 font-heading font-medium text-gray-900 bg-orange-200 hover:bg-orange-300 transition-colors ease-linear px-3 py-3 rounded-xl !important
     }
 }
 
@@ -118,19 +118,6 @@ section {
     margin-top: var(--section-spacing);
 }
 
-.button {
-    text-decoration: none;
-    font-weight: 500;
-    margin-right: 20px;
-    font-size: 1rem;
-}
-
-.showmore-align {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 @keyframes shake {
     0% {transform: rotate(0deg);}
     25% {transform: rotate(20deg);}
@@ -208,7 +195,7 @@ section {
     -moz-box-shadow: var(--shadow-hover);
 }
 
-.experiences, .projects {
+.projects {
     width: 100vw;
     display: flex;
     align-items: center;
@@ -216,13 +203,13 @@ section {
     animation: fade-in 1.75s;
 }
 
-.experiences-align, .projects-align {
+.projects-align {
     width: 1000px;
     display: grid;
 
 }
 
-.experiences-content, .projects-content {
+.projects-content {
     display: flex;
     align-items: space-between;
     justify-content: space-between;
@@ -230,33 +217,6 @@ section {
     flex-grow: 100;
     padding-left: 2.5rem;
     padding-right: 2.5rem;
-}
-
-.experiences-content-item {
-    display: grid;
-    grid-area: "img text";
-    grid-template-columns: 1fr 2fr;
-    margin-bottom: var(--section-row-spacing);
-}
-
-.experiences-content-item-text {
-    grid-area: "text";
-}
-
-.experiences-content-item-text-title, .experiences-content-item-text-details {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.experiences-content-item img {
-    grid-area: "img";
-    aspect-ratio: attr(width) / attr(height);
-    width: 15rem;
-    border-radius: 0.5rem;
-    box-shadow: var(--shadow);
-    -webkit-box-shadow: var(--shadow);
-    -moz-box-shadow: var(--shadow);
 }
 
 .projects-content-item {

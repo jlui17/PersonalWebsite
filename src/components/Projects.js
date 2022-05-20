@@ -76,7 +76,7 @@ function Projects() {
             Projects
           </h3>
           {showMore ? projects : projects.slice(0, 3)}
-          <div className="showmore-align">
+          <div className="ml-auto mr-auto flex items-center justify-center">
             <button
               className="button"
               onClick={() => setShowMore(!showMore)}
