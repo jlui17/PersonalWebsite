@@ -1,4 +1,4 @@
-const Intro = () => {
+export const Intro = () => {
   return (
     <>
       <div className="flex flex-col">
@@ -9,7 +9,7 @@ const Intro = () => {
           <div className="flex">
             <h1>
               I'm{" "}
-              <mark className="bg-orange-200 px-3 py-1 lg:py-2 rounded-xl color-black">
+              <mark className="color-black rounded-xl bg-orange-300 px-3 py-1 lg:py-2">
                 Justin Lui
               </mark>
               .
@@ -59,12 +59,10 @@ const Intro = () => {
         </div>
       </div>
       <img
-        className="h-[300px] rounded-xl aspect-auto shadow-lg lg:ml-8 mt-8 lg:mt-0"
+        className="mt-8 aspect-auto h-[300px] rounded-xl shadow-lg lg:ml-8 lg:mt-0"
         src="./images/JustinLui.jpg"
         alt="Headshot of Justin Lui"
       ></img>
     </>
   );
 };
-
-export default Intro;

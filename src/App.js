@@ -1,7 +1,7 @@
 import "./App.css";
 import "./components/Header.js";
-import Header from "./components/Header.js";
-import Intro from "./components/Intro.js";
+import { Header } from "./components/Header.js";
+import { Intro } from "./components/Intro.js";
 import AboutMe from "./components/AboutMe.js";
 import Experiences from "./components/Experiences.js";
 import Contact from "./components/Contact";
@@ -9,25 +9,34 @@ import Projects from "./components/Projects";
 
 function App() {
   return (
-    <div className="bg-neutral-900">
-      <Header></Header>
-      <main className="main-content">
-        <div className="flex flex-col lg:flex-row lg:justify-center items-center px-10 lg:px-0 pt-0 h-[40rem] mt-20 mb-20">
-          <Intro />
+    <div className="flex w-full flex-col items-center justify-center bg-neutral-900">
+      <header
+        id="top"
+        className="flex h-24 w-full max-w-[1000px] items-center justify-center bg-neutral-800 shadow-xl lg:rounded-b-xl"
+      >
+        <div className="mx-4 flex w-full items-center justify-between">
+          <Header />
         </div>
-        <div>
-          <AboutMe />
-        </div>
-        <div>
-          <Experiences />
-        </div>
-        <div>
-          <Projects />
-        </div>
-        <div>
-          <Contact />
-        </div>
-      </main>
+      </header>
+      <div className="w-[95vw] max-w-[1000px]">
+        <main className="flex w-full flex-col items-center justify-center px-4">
+          <div className="mt-20 mb-20 flex h-[40rem] w-auto flex-col items-center justify-center pt-0 lg:flex-row lg:justify-between">
+            <Intro />
+          </div>
+          <div>
+            <AboutMe />
+          </div>
+          <div>
+            <Experiences />
+          </div>
+          <div>
+            <Projects />
+          </div>
+          <div>
+            <Contact />
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
