@@ -1,72 +1,105 @@
-import interests from "./content/interests.json"
-import skills from "./content/skills.json"
+import interests from "./content/interests.json";
+import skills from "./content/skills.json";
 
 const truffles = [
-    {"alt":"truffle1","loc":"truffle1.jpg"},
-    {"alt":"truffle2","loc":"truffle2.jpg"},
-    {"alt":"truffle3","loc":"truffle3.jpg"},
-    {"alt":"truffle4","loc":"truffle4.jpeg"},
-    {"alt":"truffle5","loc":"truffle5.jpeg"},
-]
+  { alt: "truffle1", loc: "truffle1.jpg" },
+  { alt: "truffle2", loc: "truffle2.jpg" },
+  { alt: "truffle3", loc: "truffle3.jpg" },
+  { alt: "truffle4", loc: "truffle4.jpeg" },
+  { alt: "truffle5", loc: "truffle5.jpeg" },
+];
 
-function AboutMe() {
-    return (
-        <section id="aboutme" className="aboutme">
-            <div className="aboutme-align">
-                <div className="aboutme-content">
-                    <h3 className="aboutme-content-title">About Me</h3>
-                    <div className="aboutme-content-education">
-                        <h4>Education - 3rd Year CS + Business @ UBC</h4>
-                        <p>I'm a 3rd year student in the Combined Major in Business and Computer Science (BUCS) program at the UBC Sauder School of Business.
-                            <br></br>
-                            <br></br>
-                            I love this program. Not only does it combine my two passions, but it has helped me meet so many amazing people who have shaped who I am today.
-                        </p>
-                    </div>
-                    <div className="aboutme-content-interests">
-                        <h4>Interests</h4>
-                        <div className="aboutme-content-interests-container">
-                            {interests.map((interest) => {
-                                const imgs = interest.images.map((img) => {
-                                    return (
-                                        <img key={img["loc"]} src={"./images/" + img["loc"]} alt={img["alt"]}></img>
-                                    )
-                                })
-                                return (<div key={interest["tag"]} className="aboutme-content-interests-container-item"><p>{interest["tag"]}</p>{imgs}</div>)
-                            })}
-                        </div>
-                    </div>
-                    <div className="aboutme-content-career">
-                        <h4>Career - Software Engineer</h4>
-                        <p>Currently exploring all the different avenues of tech. Looking to focus on front- and back-end Software Engineering (SWE) positions, then branch out into Product Management (TPM).</p>
-                    </div>
-                    <div className="aboutme-content-skills">
-                        <h4>Skills</h4>
-                        <div className="aboutme-content-skills-container">
-                            {skills.map((skill) => {
-                                const imgs = skill.images.map((img) => {
-                                    return (
-                                        <img key={img["loc"]} src={"./images/" + img["loc"]} alt={img["alt"]}></img>
-                                    )
-                                })
-                                return (<div key={skill["tag"]} className="aboutme-content-skills-container-item"><p>{skill["tag"]}</p>{imgs}</div>)
-                            })}
-                        </div>
-                    </div>
-                    <div className="aboutme-content-truffle">
-                        <h4>Truffle</h4>
-                        <div className="aboutme-content-truffle-pics">
-                            {truffles.map((pic) => {
-                                return (
-                                    <img key={pic["loc"]} src={"./images/" + pic["loc"]} alt={pic["alt"]}></img>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    )
-}
-
-export default AboutMe;
+export const AboutMe = () => {
+  return (
+    <div className="justify-centre flex flex-col items-start lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
+      <h3 className="lg:col-span-2">About Me</h3>
+      <div className="mb-12 lg:mb-0">
+        <h4 className="mb-2">CS + Business @ UBC</h4>
+        <p>
+          I'm a 3rd year student in the Combined Major in Business and Computer
+          Science (BUCS) program at the UBC Sauder School of Business.
+          <br></br>
+          <br></br>I love this program. Not only does it combine my two
+          passions, but it has helped me meet so many amazing people who have
+          shaped who I am today.
+        </p>
+      </div>
+      <div className="mb-12 lg:mb-0">
+        <h4 className="mb-2">Interests</h4>
+        <div className="flex flex-wrap">
+          {interests.map((interest) => {
+            const imgs = interest.images.map((img) => {
+              return (
+                <img
+                  key={img["loc"]}
+                  src={"./images/" + img["loc"]}
+                  alt={img["alt"]}
+                  className="aspect-auto h-5 pl-2"
+                ></img>
+              );
+            });
+            return (
+              <div
+                key={interest["tag"]}
+                className="mr-1 mb-2 flex items-center rounded-xl border-2 bg-neutral-800 p-3"
+              >
+                <p>{interest["tag"]}</p>
+                {imgs}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="mb-12 lg:mb-0">
+        <h4 className="mb-2">Software Engineer</h4>
+        <p>
+          I'm particularly interested in infrastructure and back-end design as I
+          find understanding and improving systems to be the coolest part of
+          developing. Currently working in as many different internships as I
+          can to become the best developer I can be.
+        </p>
+      </div>
+      <div className="mb-12 lg:mb-0">
+        <h4 className="mb-2">Skills</h4>
+        <div className="flex flex-wrap">
+          {skills.map((skill) => {
+            const skills = skill.images.map((img) => {
+              return (
+                <img
+                  key={img["loc"]}
+                  src={"./images/" + img["loc"]}
+                  alt={img["alt"]}
+                  className="aspect-auto h-5 pl-2"
+                ></img>
+              );
+            });
+            return (
+              <div
+                key={skill["tag"]}
+                className="mr-1 mb-2 flex items-center rounded-xl border-2 bg-neutral-800 p-3"
+              >
+                <p>{skill["tag"]}</p>
+                {skills}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="col-span-2 flex flex-wrap overflow-hidden">
+        <h4 className="mb-2">Truffle</h4>
+        <div className="scroll flex flex-nowrap overflow-x-scroll">
+          {truffles.map((pic) => {
+            return (
+              <img
+                key={pic["loc"]}
+                src={"./images/" + pic["loc"]}
+                alt={pic["alt"]}
+                className="aspect-1/1 mr-4 mb-2 h-48 rounded-xl shadow-lg"
+              />
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
