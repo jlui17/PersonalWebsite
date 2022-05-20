@@ -37,9 +37,7 @@ function Experiences() {
 
   return (
     <>
-      <h3 style={{ marginBottom: "var(--section-row-spacing)" }}>
-        Experiences
-      </h3>
+      <h3 className="mb-12">Experiences</h3>
       <div className="flex flex-col items-start justify-center lg:grid lg:grid-cols-3 lg:items-start lg:gap-y-12">
         {showMore ? experiences : experiences.slice(0, 3)}
       </div>
@@ -49,7 +47,6 @@ function Experiences() {
           onClick={() => {
             setShowMore(!showMore);
           }}
-          style={{ marginRight: "20px" }}
         >
           {showMore ? "Show Less" : "Show More"}
         </button>
