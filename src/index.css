@@ -80,7 +80,6 @@
     --section-row-spacing: 4rem;
     --section-spacing: 6rem;
     --title-detail-spacing: 1rem;
-    --experiences-description-spacing: 0.5rem;
     --button-hover-speed: 250ms;
 }
 
@@ -180,7 +179,7 @@ section {
     100% {opacity: 1;}
 }
 
-.experiences img, .projects img {
+.projects img {
     transform: translateY(0%);
     box-shadow: var(--shadow);
     -webkit-box-shadow: var(--shadow);
@@ -188,7 +187,7 @@ section {
     transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, -webkit-box-shadow 0.5s ease-out, -mox-box-shadow 0.5s ease-out;
 }
 
-.experiences img:hover, .projects img:hover {
+.projects img:hover {
     transform: translateY(-3%);
     box-shadow: var(--shadow-hover);
     -webkit-box-shadow: var(--shadow-hover);
@@ -370,11 +369,11 @@ section {
         padding: 0.3rem 0.75rem;
     }
 
-    .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
+    .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
         width: 80vw;
     }
 
-    .experiences-content, .projects-content, .contact-content {
+    .projects-content, .contact-content {
         padding-left: 0rem;
         padding-right: 0rem;
         width: 80vw;
@@ -386,13 +385,6 @@ section {
         margin-left: 0px;
     }
 
-    .experiences-content-item {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
     .projects-content-item {
         display: flex;
         flex-direction: column;
@@ -400,7 +392,7 @@ section {
         align-items: center;
     }
     
-    .experiences-content-item a, .projects-content-item-text {
+    .projects-content-item-text {
         margin-bottom: 2rem;
         margin-right: 0px;
     }
@@ -431,17 +423,5 @@ section {
     .contact-content-container-card {
         display: flex;
         flex-direction: column;
-    }
-}
-
-@media only screen and (max-width: 900px) {    
-    .experiences-content-item-text-title, .experiences-content-item-text-details {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 0.35rem;
-    }
-    
-    .experiences-content-item-text-title h4 {
-        margin-bottom: 0.1rem;
     }
 }
