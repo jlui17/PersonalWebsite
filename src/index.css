@@ -38,6 +38,30 @@
     }
 }
 
+
+
+@layer utilities {
+    @variants responsive {
+        .scroll::-webkit-scrollbar {
+            height: 0.5rem;
+        }
+
+        .scroll::-webkit-scrollbar-track {
+            border-radius: 0.5rem;
+        }
+        
+        .scroll::-webkit-scrollbar-thumb {
+            border-radius: 0.5rem;
+            background-color: var(--scrollbar-color);
+        }
+
+        .scroll {
+            -ms-overflow-style: scrollbar;
+            scrollbar-width: 0.5rem;
+        }
+    }
+}
+
 :root {
     --orange: #FFE7B3;
     --orange-hover: #FFD271;
@@ -167,113 +191,6 @@ section {
 @-webkit-keyframes fade-in {
     0% {opacity: 0;}
     100% {opacity: 1;}
-}
-
-.aboutme {
-    overflow: hidden;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fade-in 1.75s;
-}
-
-.aboutme-align {
-    width: 1000px;
-}
-
-.aboutme-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-        "title title"
-        "education interests"
-        "career skills"
-        "truffle truffle";
-    column-gap: 2rem;
-    row-gap: var(--section-row-spacing);
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-}
-
-.aboutme-content h4 {
-    margin-bottom: 1rem;
-}
-
-.aboutme-content-title {
-    grid-area: title;
-}
-
-.aboutme-content-education {
-    grid-area: education;
-}
-
-.aboutme-content-interests {
-    grid-area: interests;
-}
-
-.aboutme-content-interests-container, .aboutme-content-skills-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.aboutme-content-interests-container-item, .aboutme-content-skills-container-item {
-    border: 0.125rem solid var(--text-color);
-    border-radius: 1rem;
-    padding: 0.75rem;
-    margin-right: 0.25rem;
-    display: flex;
-    margin-bottom: 0.5rem;
-    align-items: center;
-    background-color: var(--background2);
-}
-
-.aboutme-content-interests-container-item img, .aboutme-content-skills-container-item img {
-    aspect-ratio: attr(width) / attr(height);
-    height: 1.2rem;
-    padding-left: 0.5rem;
-}
-
-.aboutme-content-career {
-    grid-area: career;
-}
-
-.aboutme-content-skills {
-    grid-area: skills;
-}
-
-.aboutme-content-truffle {
-    grid-area: truffle;
-}
-
-.aboutme-content-truffle-pics {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-}
-
-.aboutme-content-truffle-pics::-webkit-scrollbar {
-    height: 0.5rem;
-}
-
-.aboutme-content-truffle-pics::-webkit-scrollbar-track {
-    border-radius: 0.5rem;
-}
-
-.aboutme-content-truffle-pics::-webkit-scrollbar-thumb {
-    border-radius: 0.5rem;
-    background-color: var(--scrollbar-color);
-}
-
-.aboutme-content-truffle img {
-    aspect-ratio: 1/1;
-    height: 12rem;
-    border-radius: 0.5rem;
-    box-shadow: var(--shadow);
-    -webkit-box-shadow: var(--shadow);
-    -moz-box-shadow: var(--shadow);
-    margin-right: 1rem;
-    margin-bottom: 0.5rem;
 }
 
 .experiences img, .projects img {
