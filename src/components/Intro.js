@@ -1,3 +1,10 @@
+import {
+  AiFillGithub,
+  AiFillLinkedin,
+  AiOutlineMedium,
+  AiFillFileText,
+} from "react-icons/ai";
+
 export const Intro = () => {
   return (
     <>
@@ -30,6 +37,7 @@ export const Intro = () => {
             rel="noopener noreferrer"
             className="button"
           >
+            <AiFillLinkedin size={"1.5rem"} className="mr-2 text-neutral-900" />
             LinkedIn
           </a>
           <a
@@ -38,6 +46,7 @@ export const Intro = () => {
             rel="noopener noreferrer"
             className="button"
           >
+            <AiFillGithub size={"1.5rem"} className="mr-2 text-neutral-900" />
             Github
           </a>
           <a
@@ -46,6 +55,10 @@ export const Intro = () => {
             rel="noopener noreferrer"
             className="button"
           >
+            <AiOutlineMedium
+              size={"1.5rem"}
+              className="mr-2 text-neutral-900"
+            />
             Medium
           </a>
           <a
@@ -54,6 +67,7 @@ export const Intro = () => {
             rel="noopener noreferrer"
             className="button"
           >
+            <AiFillFileText size={"1.5rem"} className="mr-2 text-neutral-900" />
             Resume
           </a>
         </div>

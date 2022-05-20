@@ -1,6 +1,13 @@
-function Footer() {
+import {
+  AiFillGithub,
+  AiFillLinkedin,
+  AiOutlineMedium,
+  AiFillFileText,
+} from "react-icons/ai";
+
+export const Contact = () => {
   return (
-    <div className="contact-content-container mb-12 w-full md:w-2/3">
+    <div className="contact-content-container mb-12 w-full md:w-3/4">
       <h3 className="mb-4">Connect With Me!</h3>
       <p className="mb-4">
         Interested in learning more about me? Feel free to connect via email or
@@ -12,7 +19,7 @@ function Footer() {
           src="../images/contact.jpg"
           alt="justinlui"
         ></img>
-        <div className="flex h-40 flex-col flex-wrap items-start justify-evenly">
+        <div className="flex h-40 flex-col items-start justify-evenly">
           <div>
             <h4>Justin Lui</h4>
             <a
@@ -29,6 +36,10 @@ function Footer() {
               rel="noopener noreferrer"
               className="button"
             >
+              <AiFillLinkedin
+                size={"1.5rem"}
+                className="mr-2 text-neutral-900"
+              />
               LinkedIn
             </a>
             <a
@@ -37,6 +48,7 @@ function Footer() {
               rel="noopener noreferrer"
               className="button"
             >
+              <AiFillGithub size={"1.5rem"} className="mr-2 text-neutral-900" />
               Github
             </a>
             <a
@@ -45,6 +57,10 @@ function Footer() {
               rel="noopener noreferrer"
               className="button"
             >
+              <AiOutlineMedium
+                size={"1.5rem"}
+                className="mr-2 text-neutral-900"
+              />
               Medium
             </a>
             <a
@@ -53,6 +69,10 @@ function Footer() {
               rel="noopener noreferrer"
               className="button"
             >
+              <AiFillFileText
+                size={"1.5rem"}
+                className="mr-2 text-neutral-900"
+              />
               Resume
             </a>
           </div>
@@ -60,6 +80,4 @@ function Footer() {
       </div>
     </div>
   );
-}
-
-export default Footer;
+};

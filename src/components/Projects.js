@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaGithub } from "react-icons/fa";
+import { AiFillGithub } from "react-icons/ai";
 import work from "./content/projects.json";
 
 export const Projects = () => {
@@ -48,8 +48,8 @@ export const Projects = () => {
               href={project["github"]}
               rel="noopener noreferrer"
             >
-              <FaGithub
-                size={"2rem"}
+              <AiFillGithub
+                size={"2.5rem"}
                 className="mb-2 text-neutral-700 transition-colors duration-300 hover:text-white"
               />
             </a>
