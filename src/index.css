@@ -410,11 +410,11 @@ section {
         padding: 0.3rem 0.75rem;
     }
 
-    .aboutme-align, .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
+    .experiences-align, .projects-align, .contact-align, .contact-content-container, .contact-content-container-card {
         width: 80vw;
     }
 
-    .aboutme-content, .experiences-content, .projects-content, .contact-content {
+    .experiences-content, .projects-content, .contact-content {
         padding-left: 0rem;
         padding-right: 0rem;
         width: 80vw;
@@ -424,11 +424,6 @@ section {
         height: 300px;
         margin-top: var(--section-row-spacing);
         margin-left: 0px;
-    }
-
-    .aboutme-content {
-        display: flex;
-        flex-direction: column;
     }
 
     .experiences-content-item {
