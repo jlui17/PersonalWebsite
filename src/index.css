@@ -38,7 +38,7 @@
     }
 
     .tag {
-        @apply mr-4 mb-2 flex items-center justify-evenly rounded-xl bg-neutral-700 px-3 py-3 lg:py-2 !important
+        @apply mr-4 mb-2 flex items-center justify-evenly rounded-xl bg-neutral-700 px-3 py-3 !important
     }
 }
 
