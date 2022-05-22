@@ -1,3 +1,19 @@
+import {
+  DiReact as React,
+  DiDocker as Docker,
+  DiPython as Python,
+  DiUnitySmall as Unity,
+  DiJava as Java,
+} from "react-icons/di";
+import {
+  SiMicrosoftazure as Azure,
+  SiTwilio as Twilio,
+  SiPandas as Pandas,
+  SiFlask as Flask,
+  SiOracle as Oracle,
+  SiTypescript as TypeScript,
+} from "react-icons/si";
+
 export const ProjectsContent = [
   {
     purpose: {
@@ -11,7 +27,12 @@ export const ProjectsContent = [
       "Needed more skills to add to my resume so I could get a job 😉. Built this project over the weekend while completing a React course on Scrimba.",
       "This React app visualizes different sorting algorithms to help people understand how they work.",
     ],
-    tools: ["React", "JavaScript"],
+    tools: [
+      {
+        icon: <React size="1.5rem" className="mr-1 text-white" />,
+        tool: "React",
+      },
+    ],
     img: "sortingvisualizer.jpg",
     alt: "sortingvisualizer",
     github: "https://github.com/jlui17/SortingVisualizer",
@@ -31,7 +52,21 @@ export const ProjectsContent = [
       "I implemented the front-end and API back-end.",
       "*Yes it does work.",
     ],
-    tools: ["Django", "Node.js", "Docker", "Azure", "Twilio"],
+    tools: [
+      {
+        icon: <Azure size="1rem" className="mr-2 text-white" />,
+        tool: "Azure",
+      },
+      { tool: "Django" },
+      {
+        icon: <Docker size="1.5rem" className="mr-2 text-white" />,
+        tool: "Docker",
+      },
+      {
+        icon: <Twilio size="1.2rem" className="mr-2 text-white" />,
+        tool: "Twilio",
+      },
+    ],
     img: "letmeinubc.png",
     alt: "letmeinubc",
     github: "https://github.com/kel-z/LetMeInUBC",
@@ -50,7 +85,18 @@ export const ProjectsContent = [
       "This application trades stocks using core algorithmic trading strategies (moving averages, momentum, growth) and the IB TWS API.",
       "I implemented the GUI, moving averages, and growth trading strategies.",
     ],
-    tools: ["IB TWS API", "Python", "Pandas", "PyQT"],
+    tools: [
+      { tool: "IB TWS API" },
+      {
+        icon: <Python size="1.5rem" className="mr-1 text-white" />,
+        tool: "Python",
+      },
+      {
+        icon: <Pandas size="1rem" className="mr-1 text-white" />,
+        tool: "Pandas",
+      },
+      { tool: "PyQT" },
+    ],
     img: "tradingbot.png",
     alt: "algotrader",
     github: "https://github.com/jlui17/tws_api_trading_bot",
@@ -69,7 +115,12 @@ export const ProjectsContent = [
       "Echo is a 2D side scroller RPG game concept developed in Unity. It's story is based around a child who has been separated from their mother in a forest and lost their vision. Follow them on their journey to reunite with their mother.",
       "I led the implementation of characters, scripting, game physics, and level design.",
     ],
-    tools: ["Unity", "C#"],
+    tools: [
+      {
+        icon: <Unity size="1.5rem" className="mr-1 text-white" />,
+        tool: "Unity",
+      },
+    ],
     img: "echo.png",
     alt: "echo",
     github: "https://github.com/jlui17/Echo",
@@ -88,7 +139,29 @@ export const ProjectsContent = [
       "This application is a full stack project, with a React front-end, Flask back-end, and Oracle database. It allows users to interact with their operations database through a simple UI. Analysis is also provided using complex SQL queries to help the user evaluate their business performance.",
       "I led the system design and front-end development, helping design the tech stack, flow of information, and the implementation of each UI component.",
     ],
-    tools: ["React", "Flask", "SQL", "TypeScript", "Python", "Oracle"],
+    tools: [
+      {
+        icon: <React size="1.5rem" className="mr-1 text-white" />,
+        tool: "React",
+      },
+      {
+        icon: <Flask size="1rem" className="mr-2 text-white" />,
+        tool: "Flask",
+      },
+      {
+        icon: <TypeScript size="1rem" className="mr-2 rounded-sm text-white" />,
+        tool: "TypeScript",
+      },
+
+      {
+        icon: <Python size="1.5rem" className="mr-1 text-white" />,
+        tool: "Python",
+      },
+      {
+        icon: <Oracle size="1.25rem" className="mr-2 text-white" />,
+        tool: "OracleDB",
+      },
+    ],
     img: "304.png",
     alt: "cs304",
     github:
@@ -107,7 +180,13 @@ export const ProjectsContent = [
       "Based on the inventory management system at the Richmond Night Market.",
       "This application applies core OOP principles and the observable design pattern to emulate an inventory management system used in a carnival games operation.",
     ],
-    tools: ["Java", "Observale Design Pattern"],
+    tools: [
+      {
+        icon: <Java size="1.3rem" className="mr-1 text-white" />,
+        tool: "Java",
+      },
+      { tool: "Observale Design Pattern" },
+    ],
     img: "inventorymanager.png",
     alt: "inventory manager",
     github: "https://github.com/jlui17/W2F_Inv_Manager",
@@ -125,7 +204,13 @@ export const ProjectsContent = [
       "At the start of 2020, despite almost no Python knowledge, the co-founders of GeekEdu hired me to teach K-12 students programming in Python. Not wanting to be a terrible instructor, I developed this project to learn the basics of Python.",
       "This application uses backtracking search to solve any sudoku puzzle.",
     ],
-    tools: ["PyGame", "Python"],
+    tools: [
+      { tool: "PyGame" },
+      {
+        icon: <Python size="1.5rem" className="mr-1 text-white" />,
+        tool: "Python",
+      },
+    ],
     img: "sudoku.png",
     alt: "sudoku",
     github: "https://github.com/jlui17/Sudoku-solver",

@@ -1,4 +1,4 @@
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub as GitHub } from "react-icons/ai";
 import { ProjectsContent } from "./Content";
 
 export const Projects = ProjectsContent.map((project) => {
@@ -29,18 +29,20 @@ export const Projects = ProjectsContent.map((project) => {
           );
         })}
         <div className="mt-3 flex flex-wrap items-center justify-start">
-          {project["tools"].map((tool) => {
+          {project["tools"].map(({ icon, tool }) => {
             return (
-              <p
-                key={tool}
-                className="mr-4 mb-2 rounded-xl bg-neutral-700 px-3 py-3 lg:py-2"
-              >
-                {tool}
-              </p>
+              <div className="tag">
+                {icon ? icon : null}
+                {tool ? (
+                  <p key={tool} className="">
+                    {tool}
+                  </p>
+                ) : null}
+              </div>
             );
           })}
           <a target="_blank" href={project["github"]} rel="noopener noreferrer">
-            <AiFillGithub
+            <GitHub
               size={"2.5rem"}
               className="mb-2 text-neutral-700 transition-colors duration-300 hover:text-white"
             />

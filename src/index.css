@@ -36,6 +36,10 @@
     .button {
         @apply flex justify-around items-center last:mr-0 mr-3 mt-3 font-heading font-medium text-gray-900 bg-orange-200 hover:bg-orange-300 transition-colors ease-linear px-3 py-3 rounded-xl !important
     }
+
+    .tag {
+        @apply mr-4 mb-2 flex items-center justify-evenly rounded-xl bg-neutral-700 px-3 py-3 lg:py-2 !important
+    }
 }
 
 
