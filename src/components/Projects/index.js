@@ -1,3 +1,3 @@
-import { Projects } from "./Projects";
+import { ProjectsSection as Projects } from "./ProjectsSection";
 
 export default Projects;

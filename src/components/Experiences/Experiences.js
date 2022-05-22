@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ExperienceContent } from "./content";
+import { ExperienceContent } from "./Content";
 
 export const Experiences = () => {
   const [showMore, setShowMore] = useState(false);
