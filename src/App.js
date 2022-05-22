@@ -3,7 +3,7 @@ import "./components/Header/Header.js";
 import Header from "./components/Header";
 import { Intro } from "./components/Intro.js";
 import { AboutMe } from "./components/AboutMe.js";
-import { Experiences } from "./components/Experiences.js";
+import Experiences from "./components/Experiences";
 import { Contact } from "./components/Contact";
 import Projects from "./components/Projects";
 
