@@ -54,7 +54,7 @@ export const MobileDropdown = () => {
         >
           <Menu.Items
             className={
-              "shadow-3xl absolute right-4 flex h-1/3 w-5/12 origin-top-right flex-col items-center justify-evenly rounded-xl bg-neutral-700 md:w-1/3"
+              "shadow-3xl absolute left-4 flex h-1/3 w-5/12 origin-top-left flex-col items-center justify-evenly rounded-xl bg-neutral-700 md:w-1/3"
             }
           >
             <Menu.Item>

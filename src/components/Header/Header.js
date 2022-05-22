@@ -5,7 +5,7 @@ export const Header = () => {
     <>
       <a href="#top" className="group">
         <img
-          className="ml-4 aspect-auto h-10 group-hover:animate-bounce lg:ml-0 lg:h-16"
+          className="mr-4 aspect-auto h-10 group-hover:animate-bounce lg:ml-0 lg:h-16"
           src="../images/truffle.png"
           alt="trufflebday"
         ></img>

@@ -14,7 +14,7 @@ export const App = () => {
         id="top"
         className="flex h-16 w-full max-w-[1023px] items-center justify-center bg-neutral-800 shadow-xl lg:h-24 lg:rounded-b-xl"
       >
-        <div className="mx-4 flex w-full items-center justify-between">
+        <div className="mx-4 flex w-full flex-row-reverse items-center justify-between lg:flex-row">
           <Header />
         </div>
       </header>
