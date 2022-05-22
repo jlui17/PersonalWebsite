@@ -17,9 +17,8 @@ export const Intro = () => {
             <h1>
               I'm{" "}
               <mark className="color-black rounded-xl bg-orange-300 px-3 py-1 lg:py-2">
-                Justin Lui
+                Justin Lui.
               </mark>
-              .
             </h1>
           </div>
           <h2 className="mt-3 lg:mt-0">
