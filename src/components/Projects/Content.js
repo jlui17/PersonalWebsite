@@ -12,6 +12,7 @@ import {
   SiFlask as Flask,
   SiOracle as Oracle,
   SiTypescript as TypeScript,
+  SiAmazonaws as AWS,
 } from "react-icons/si";
 
 export const ProjectsContent = [
@@ -22,10 +23,44 @@ export const ProjectsContent = [
       alt: "truffle",
       title: "Personal Project",
     },
+    title: "LetMeIn UBC *2.0",
+    description: [
+      "After working with serverless infrastructure at Diligent, I realized we could use AWS to host our course tracking service for free. We stopped hosting our original LetMeIn UBC app because it was too costly for us to continually host without generating revenue.",
+      "That's why this opportunity to build and deploy an impactful project that could help many UBC students, free of charge, was something I would not pass on.",
+      "As <strong>lead architect and developer</strong>, I'm working with my friends to <strong>design and implement</strong> our app using AWS Lambda, Gateway, and other serverless infrastructure.",
+    ],
+    tools: [
+      {
+        icon: <AWS size="1.5rem" className="text-white" />,
+      },
+      {
+        icon: <React size="1.5rem" className="mr-1 text-white" />,
+        tool: "React",
+      },
+      {
+        icon: <Docker size="1.5rem" className="mr-2 text-white" />,
+        tool: "Docker",
+      },
+      {
+        tool: "Beautiful Soup",
+      },
+    ],
+    img: "letmein20.png",
+    alt: "letmeinubc",
+    github: "",
+    link: "",
+  },
+  {
+    purpose: {
+      link: "https://github.com/jlui17/",
+      img: "personal.png",
+      alt: "truffle",
+      title: "Personal Project",
+    },
     title: "Sorting Visualizer",
     description: [
-      "Needed more skills to add to my resume so I could get a job 😉. Built this project over the weekend while completing a React course on Scrimba.",
-      "This React app visualizes different sorting algorithms to help people understand how they work.",
+      "Built this project over the weekend while completing a React course on Scrimba.",
+      "This app helps people visualize and understajd different sorting algorithms",
     ],
     tools: [
       {

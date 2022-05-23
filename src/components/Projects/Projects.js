@@ -23,9 +23,11 @@ export const Projects = ProjectsContent.map((project) => {
         <h4 className="mb-3">{project["title"]}</h4>
         {project["description"].map((text) => {
           return (
-            <p className="mb-2" key={text.slice(0, 10)}>
-              {text}
-            </p>
+            <p
+              className="mb-2"
+              key={text.slice(0, 10)}
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
           );
         })}
         <div className="mt-3 flex flex-wrap items-center justify-start">
