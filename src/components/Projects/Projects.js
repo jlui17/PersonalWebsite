@@ -4,7 +4,7 @@ import { ProjectsContent } from "./Content";
 export const Projects = ProjectsContent.map((project) => {
   return (
     <>
-      <div className="col-span-2">
+      <div className="col-span-2 lg:mb-0">
         <a
           target="_blank"
           href={project["purpose"]["link"]}

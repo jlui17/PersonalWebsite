@@ -10,7 +10,7 @@ export const ExperiencesSection = () => {
       <div className="flex flex-col items-start justify-center lg:grid lg:grid-cols-4 lg:items-start lg:gap-y-12 lg:gap-x-6">
         {showMore ? ExperienceContent : ExperienceContent.slice(0, 3)}
       </div>
-      <div className="ml-auto mr-auto flex items-center justify-center">
+      <div className="ml-auto mr-auto flex items-center justify-center lg:mt-8">
         <button
           className="button"
           onClick={() => {

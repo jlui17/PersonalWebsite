@@ -28,7 +28,7 @@ export const ExperienceContent = ExperiencesContent.map((job) => {
             />
           );
         })}
-        <div className="mt-3 flex flex-wrap items-center justify-start">
+        <div className="mt-3 mb-12 flex flex-wrap items-center justify-start lg:mb-0">
           {job["tools"].map(({ icon, tool }) => {
             return (
               <div className="tag">
