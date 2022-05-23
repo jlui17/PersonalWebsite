@@ -31,7 +31,8 @@ export const ProjectsContent = [
     ],
     tools: [
       {
-        icon: <AWS size="1.5rem" className="text-white" />,
+        icon: <AWS size="1.5rem" className="mr-2 text-white" />,
+        tool: "AWS CDK",
       },
       {
         icon: <React size="1.5rem" className="mr-1 text-white" />,
@@ -187,7 +188,6 @@ export const ProjectsContent = [
         icon: <TypeScript size="1rem" className="mr-2 rounded-sm text-white" />,
         tool: "TypeScript",
       },
-
       {
         icon: <Python size="1.5rem" className="mr-1 text-white" />,
         tool: "Python",

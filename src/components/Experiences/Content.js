@@ -1,4 +1,21 @@
-const experiences = [
+import {
+  DiReact as React,
+  DiPython as Python,
+  DiJava as Java,
+  DiRor as RubyOnRails,
+} from "react-icons/di";
+
+import {
+  SiTypescript as TypeScript,
+  SiAmazonaws as AWS,
+  SiTerraform as Terraform,
+  SiGooglesheets as GoogleSheets,
+  SiGoogledrive as GoogleDrive,
+  SiMicrosoftexcel as Excel,
+  SiR as R,
+} from "react-icons/si";
+
+export const ExperiencesContent = [
   {
     position: "Software Development Engineer Intern",
     company: "Amazon (OPS)",
@@ -8,6 +25,16 @@ const experiences = [
     location: "Vancouver, BC, CAN",
     description: [
       "Building data services for the Fulfillment Execution team in the Supply Chain and Operations organization.",
+    ],
+    tools: [
+      {
+        icon: <AWS size="1.5rem" className="mr-2 text-white" />,
+        tool: "AWS CDK",
+      },
+      {
+        icon: <Java size="1.3rem" className="mr-1 text-white" />,
+        tool: "Java",
+      },
     ],
   },
   {
@@ -20,7 +47,27 @@ const experiences = [
     description: [
       "Improving business auditing and GRC through Diligent's HighBond platform.",
       "Applying serverless infrastructure on AWS using Terraform, leading meetings and E2E feature development, and developing and deploying production fixes for customer facing issue.",
-      "React, Ruby on Rails, Terraform, AWS, TypeScript",
+    ],
+    tools: [
+      {
+        icon: <AWS size="1.5rem" className="text-white" />,
+      },
+      {
+        icon: <React size="1.5rem" className="mr-1 text-white" />,
+        tool: "React",
+      },
+      {
+        icon: <RubyOnRails size="1.5rem" className="mr-1 text-white" />,
+        tool: "Ruby on Rails",
+      },
+      {
+        icon: <TypeScript size="1rem" className="mr-2 rounded-sm text-white" />,
+        tool: "TypeScript",
+      },
+      {
+        icon: <Terraform size="1rem" className="mr-2 text-white" />,
+        tool: "Terraform",
+      },
     ],
   },
   {
@@ -31,12 +78,26 @@ const experiences = [
     duration: "Oct 2019 - Present",
     location: "Richmond, BC, CAN",
     description: [
-      "I've been here since 2017. Although I could make more money elsewhere, working here is more about being part of the amazing culture and team. I truly enjoy working with everyone and it's something I can do alongside my main career, which is my I'm here to stay.",
+      "I've been here since 2017. Although I could make more money elsewhere, working here is more about being part of the amazing culture and team. I truly enjoy working with everyone and it's something I can do alongside my main career on summer weekends.",
       "2022: Reduced HR costs by 99% ($2000 -> $15) by building a centralized, automated HR system using Google Workspace.",
       "2021: Opened and operated the games section on a shortened timeline and reduced capacity. Was involved in the planning and execution and setup and operations.",
       "2020: COVID-19 :(",
       "2019: Contributed to preseason inventory, planning, and setup processes. Oversaw nightly operations, ordered inventory, streamlined employee onboarding, and facilitated interviews.",
       "Through extra work and gumption, I also optimized inventory ordering by 50% (40 to < 20 hours) by implementing an automated excel database.",
+    ],
+    tools: [
+      {
+        icon: <GoogleSheets size="1.5rem" className="mr-1 text-white" />,
+        tool: "Google Sheets",
+      },
+      {
+        icon: <GoogleDrive size="1.5rem" className="mr-1 text-white" />,
+        tool: "Google Drive",
+      },
+      {
+        icon: <Excel size="1.5rem" className="mr-2 text-white" />,
+        tool: "MS Excel",
+      },
     ],
   },
   {
@@ -49,6 +110,19 @@ const experiences = [
     description: [
       "I took many of the excel skills I learned in the course and applied them to my job at Wun2Free to make a real impact. Seeing how practical and useful this course was inspired me to help others learn and apply the amazing skills this course has to offer.",
       "Currently supporting Professors Sabrina Rai, Zorana Svedic, Hasan Cavusoglu, and 120 students in UBC's largest business technology course.",
+    ],
+    tools: [
+      {
+        icon: <Excel size="1.5rem" className="mr-2 text-white" />,
+        tool: "MS Excel",
+      },
+      {
+        icon: <R size="1.5rem" className="mr-2 text-white" />,
+        tool: "R Studio",
+      },
+      {
+        tool: "Agile & Scrum",
+      },
     ],
   },
   {
@@ -64,6 +138,16 @@ const experiences = [
       "I helped K-12 students build fundamental programming skills in Python and Java.",
       "I also taught complex DSA computer science topics such as graphs, BFS/DFS, linked lists, recursion, fractals, and backtracking search to senior students.",
     ],
+    tools: [
+      {
+        icon: <Python size="1.5rem" className="mr-1 text-white" />,
+        tool: "Python",
+      },
+      {
+        icon: <Java size="1.3rem" className="mr-1 text-white" />,
+        tool: "Java",
+      },
+    ],
   },
   {
     position: "Supervisor",
@@ -77,6 +161,7 @@ const experiences = [
       "I was responsible for supervising nightly operations to keep games up and running, planning social events, and mentoring games attendants. But I wanted to do more than that. I made new friends and helped make incremental improvements to business processes to build an amazing team and operation.",
       "Awarded the Partner of the Year Award for going beyond responsibilities to learn a management role and help realize seasonal success.",
     ],
+    tools: [],
   },
   {
     position: "Games Attendant",
@@ -90,36 +175,6 @@ const experiences = [
       "I talked to people, sold carnival games, gave away prizes, and had a great time.",
       "Awarded the Rising Star Award for distinguishing myself among games attendants in communication, customer service and leadership skills.",
     ],
+    tools: [],
   },
 ];
-
-export const ExperienceContent = experiences.map((job) => {
-  return (
-    <>
-      <a target="_blank" href={job["link"]} rel="noopener noreferrer">
-        <img
-          src={"./images/" + job["image"]["file"]}
-          alt={job["image"]["alt"]}
-          className="mb-3 aspect-auto w-60 rounded-xl shadow-xl transition-transform duration-300 hover:-translate-y-1 lg:mb-0"
-        />
-      </a>
-      <div className="col-span-3 w-full">
-        <div className="mb-1 flex flex-col items-start justify-between sm:mb-0 sm:flex-row sm:items-center">
-          <h4>{job["position"]}</h4>
-          <h4 className="text-neutral-700">{job["duration"]}</h4>
-        </div>
-        <div className="mb-3 flex flex-col items-start justify-start sm:flex-row sm:items-center sm:justify-between">
-          <p>{job["company"]}</p>
-          <p>{job["location"]}</p>
-        </div>
-        {job["description"].map((text) => {
-          return (
-            <p key={text} className="mb-2 last:mb-12">
-              {text}
-            </p>
-          );
-        })}
-      </div>
-    </>
-  );
-});

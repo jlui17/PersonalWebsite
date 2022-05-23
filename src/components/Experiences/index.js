@@ -1,3 +1,3 @@
-import { Experiences } from "./Experiences";
+import { ExperiencesSection as Experiences } from "./ExperiencesSection";
 
 export default Experiences;

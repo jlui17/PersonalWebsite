@@ -35,11 +35,7 @@ export const Projects = ProjectsContent.map((project) => {
             return (
               <div className="tag">
                 {icon ? icon : null}
-                {tool ? (
-                  <p key={tool} className="">
-                    {tool}
-                  </p>
-                ) : null}
+                {tool ? <p key={tool}>{tool}</p> : null}
               </div>
             );
           })}
