@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { AiFillFileText as Resume } from "react-icons/ai";
+import { MdExpandMore as More } from "react-icons/md";
 import { ExperienceContent } from "./Experiences";
 
 export const ExperiencesSection = () => {
@@ -17,9 +19,25 @@ export const ExperiencesSection = () => {
             setShowMore(!showMore);
           }}
         >
-          {showMore ? "Show Less" : "Show More"}
+          {showMore ? (
+            <>
+              <More size={"1.5rem"} className="mr-1 rotate-180" />
+              Show Less
+            </>
+          ) : (
+            <>
+              <More size={"1.5rem"} className="mr-1" />
+              Show More
+            </>
+          )}
         </button>
-        <a target="_blank" href="./justinlui_resume2022.pdf" className="button">
+        <a
+          target="_blank"
+          href="./justinlui_resume2022.pdf"
+          rel="noopener noreferrer"
+          className="button"
+        >
+          <Resume size={"1.5rem"} className="mr-2 text-neutral-900" />
           Resume
         </a>
       </div>

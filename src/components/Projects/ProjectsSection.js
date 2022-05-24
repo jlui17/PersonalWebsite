@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { AiFillGithub as GitHub } from "react-icons/ai";
+import { MdExpandMore as More } from "react-icons/md";
 import { Projects } from "./Projects";
 
 export const ProjectsSection = () => {
@@ -12,7 +14,17 @@ export const ProjectsSection = () => {
       </div>
       <div className="ml-auto mr-auto mt-2 flex items-center justify-center lg:mt-8">
         <button className="button" onClick={() => setShowMore(!showMore)}>
-          {showMore ? "Show Less" : "Show More"}
+          {showMore ? (
+            <>
+              <More size={"1.5rem"} className="mr-1 rotate-180" />
+              Show Less
+            </>
+          ) : (
+            <>
+              <More size={"1.5rem"} className="mr-1" />
+              Show More
+            </>
+          )}
         </button>
         <a
           target="_blank"
@@ -20,7 +32,8 @@ export const ProjectsSection = () => {
           rel="noopener noreferrer"
           className="button"
         >
-          GitHub
+          <GitHub size={"1.5rem"} className="mr-2 text-neutral-900" />
+          Github
         </a>
       </div>
     </>
