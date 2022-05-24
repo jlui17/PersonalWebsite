@@ -16,12 +16,12 @@ export const ProjectsSection = () => {
         <button className="button" onClick={() => setShowMore(!showMore)}>
           {showMore ? (
             <>
-              <More size={"1.5rem"} className="mr-1 rotate-180" />
+              <More className="text-md mr-1 rotate-180 lg:text-2xl" />
               Show Less
             </>
           ) : (
             <>
-              <More size={"1.5rem"} className="mr-1" />
+              <More className="text-md mr-1 lg:text-2xl" />
               Show More
             </>
           )}
@@ -32,7 +32,7 @@ export const ProjectsSection = () => {
           rel="noopener noreferrer"
           className="button"
         >
-          <GitHub size={"1.5rem"} className="mr-2 text-neutral-900" />
+          <GitHub className="text-md mr-2 text-neutral-900 lg:text-2xl" />
           Github
         </a>
       </div>

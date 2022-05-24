@@ -28,11 +28,11 @@ export const ExperiencesContent = [
     ],
     tools: [
       {
-        icon: <AWS size="1.5rem" className="mr-2 text-white" />,
+        icon: <AWS className="text-md mr-2 text-white lg:text-2xl" />,
         tool: "AWS CDK",
       },
       {
-        icon: <Java size="1.3rem" className="mr-1 text-white" />,
+        icon: <Java className="text-md mr-1 text-white lg:text-xl" />,
         tool: "Java",
       },
     ],
@@ -50,22 +50,24 @@ export const ExperiencesContent = [
     ],
     tools: [
       {
-        icon: <AWS size="1.5rem" className="text-white" />,
+        icon: <AWS className="text-md text-white lg:text-2xl" />,
       },
       {
-        icon: <React size="1.5rem" className="mr-1 text-white" />,
+        icon: <React className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "React",
       },
       {
-        icon: <RubyOnRails size="1.5rem" className="mr-1 text-white" />,
+        icon: <RubyOnRails className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "Ruby on Rails",
       },
       {
-        icon: <TypeScript size="1rem" className="mr-2 rounded-sm text-white" />,
+        icon: (
+          <TypeScript className="text-md mr-2 rounded-sm text-white lg:text-lg" />
+        ),
         tool: "TypeScript",
       },
       {
-        icon: <Terraform size="1rem" className="mr-2 text-white" />,
+        icon: <Terraform className="text-md mr-2 text-white lg:text-lg" />,
         tool: "Terraform",
       },
     ],
@@ -87,15 +89,15 @@ export const ExperiencesContent = [
     ],
     tools: [
       {
-        icon: <GoogleSheets size="1.5rem" className="mr-1 text-white" />,
+        icon: <GoogleSheets className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "Google Sheets",
       },
       {
-        icon: <GoogleDrive size="1.5rem" className="mr-1 text-white" />,
+        icon: <GoogleDrive className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "Google Drive",
       },
       {
-        icon: <Excel size="1.5rem" className="mr-2 text-white" />,
+        icon: <Excel className="text-md mr-2 text-white lg:text-2xl" />,
         tool: "MS Excel",
       },
     ],
@@ -113,11 +115,11 @@ export const ExperiencesContent = [
     ],
     tools: [
       {
-        icon: <Excel size="1.5rem" className="mr-2 text-white" />,
+        icon: <Excel className="text-md mr-2 text-white lg:text-2xl" />,
         tool: "MS Excel",
       },
       {
-        icon: <R size="1.5rem" className="mr-2 text-white" />,
+        icon: <R className="text-md mr-2 text-white lg:text-2xl" />,
         tool: "R Studio",
       },
       {
@@ -140,11 +142,11 @@ export const ExperiencesContent = [
     ],
     tools: [
       {
-        icon: <Python size="1.5rem" className="mr-1 text-white" />,
+        icon: <Python className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "Python",
       },
       {
-        icon: <Java size="1.3rem" className="mr-1 text-white" />,
+        icon: <Java className="text-md mr-1 text-white lg:text-xl" />,
         tool: "Java",
       },
     ],

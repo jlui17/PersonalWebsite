@@ -31,15 +31,15 @@ export const ProjectsContent = [
     ],
     tools: [
       {
-        icon: <AWS size="1.5rem" className="mr-2 text-white" />,
+        icon: <AWS className="text-md mr-2 text-white lg:text-2xl" />,
         tool: "AWS CDK",
       },
       {
-        icon: <React size="1.5rem" className="mr-1 text-white" />,
+        icon: <React className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "React",
       },
       {
-        icon: <Docker size="1.5rem" className="mr-2 text-white" />,
+        icon: <Docker className="text-md mr-2 text-white lg:text-2xl" />,
         tool: "Docker",
       },
       {
@@ -65,7 +65,7 @@ export const ProjectsContent = [
     ],
     tools: [
       {
-        icon: <React size="1.5rem" className="mr-1 text-white" />,
+        icon: <React className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "React",
       },
     ],
@@ -90,16 +90,16 @@ export const ProjectsContent = [
     ],
     tools: [
       {
-        icon: <Azure size="1rem" className="mr-2 text-white" />,
+        icon: <Azure className="text-md mr-2 text-white lg:text-lg" />,
         tool: "Azure",
       },
       { tool: "Django" },
       {
-        icon: <Docker size="1.5rem" className="mr-2 text-white" />,
+        icon: <Docker className="text-md mr-2 text-white lg:text-2xl" />,
         tool: "Docker",
       },
       {
-        icon: <Twilio size="1.2rem" className="mr-2 text-white" />,
+        icon: <Twilio className="text-md mr-2 text-white lg:text-xl" />,
         tool: "Twilio",
       },
     ],
@@ -124,11 +124,11 @@ export const ProjectsContent = [
     tools: [
       { tool: "IB TWS API" },
       {
-        icon: <Python size="1.5rem" className="mr-1 text-white" />,
+        icon: <Python className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "Python",
       },
       {
-        icon: <Pandas size="1rem" className="mr-1 text-white" />,
+        icon: <Pandas className="text-md mr-1 text-white lg:text-lg" />,
         tool: "Pandas",
       },
       { tool: "PyQT" },
@@ -153,7 +153,7 @@ export const ProjectsContent = [
     ],
     tools: [
       {
-        icon: <Unity size="1.5rem" className="mr-1 text-white" />,
+        icon: <Unity className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "Unity",
       },
     ],
@@ -177,23 +177,25 @@ export const ProjectsContent = [
     ],
     tools: [
       {
-        icon: <React size="1.5rem" className="mr-1 text-white" />,
+        icon: <React className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "React",
       },
       {
-        icon: <Flask size="1rem" className="mr-2 text-white" />,
+        icon: <Flask className="text-md mr-2 text-white lg:text-lg" />,
         tool: "Flask",
       },
       {
-        icon: <TypeScript size="1rem" className="mr-2 rounded-sm text-white" />,
+        icon: (
+          <TypeScript className="text-md mr-2 rounded-sm text-white lg:text-lg" />
+        ),
         tool: "TypeScript",
       },
       {
-        icon: <Python size="1.5rem" className="mr-1 text-white" />,
+        icon: <Python className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "Python",
       },
       {
-        icon: <Oracle size="1.25rem" className="mr-2 text-white" />,
+        icon: <Oracle className="text-md mr-2 text-white lg:text-xl" />,
         tool: "OracleDB",
       },
     ],
@@ -217,7 +219,7 @@ export const ProjectsContent = [
     ],
     tools: [
       {
-        icon: <Java size="1.3rem" className="mr-1 text-white" />,
+        icon: <Java className="text-md mr-1 text-white lg:text-xl" />,
         tool: "Java",
       },
       { tool: "Observale Design Pattern" },
@@ -242,7 +244,7 @@ export const ProjectsContent = [
     tools: [
       { tool: "PyGame" },
       {
-        icon: <Python size="1.5rem" className="mr-1 text-white" />,
+        icon: <Python className="text-md mr-1 text-white lg:text-2xl" />,
         tool: "Python",
       },
     ],

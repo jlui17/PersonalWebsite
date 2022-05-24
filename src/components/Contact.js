@@ -36,10 +36,7 @@ export const Contact = () => {
               rel="noopener noreferrer"
               className="button"
             >
-              <AiFillLinkedin
-                size={"1.5rem"}
-                className="mr-2 text-neutral-900"
-              />
+              <AiFillLinkedin className="text-md mr-2 text-neutral-900 lg:text-2xl" />
               LinkedIn
             </a>
             <a
@@ -48,7 +45,7 @@ export const Contact = () => {
               rel="noopener noreferrer"
               className="button"
             >
-              <AiFillGithub size={"1.5rem"} className="mr-2 text-neutral-900" />
+              <AiFillGithub className="text-md mr-2 text-neutral-900 lg:text-2xl" />
               Github
             </a>
             <a
@@ -57,10 +54,7 @@ export const Contact = () => {
               rel="noopener noreferrer"
               className="button"
             >
-              <AiOutlineMedium
-                size={"1.5rem"}
-                className="mr-2 text-neutral-900"
-              />
+              <AiOutlineMedium className="text-md mr-2 text-neutral-900 lg:text-2xl" />
               Medium
             </a>
             <a
@@ -69,10 +63,7 @@ export const Contact = () => {
               rel="noopener noreferrer"
               className="button"
             >
-              <AiFillFileText
-                size={"1.5rem"}
-                className="mr-2 text-neutral-900"
-              />
+              <AiFillFileText className="text-md mr-2 text-neutral-900 lg:text-2xl" />
               Resume
             </a>
           </div>

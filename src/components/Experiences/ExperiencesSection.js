@@ -21,12 +21,12 @@ export const ExperiencesSection = () => {
         >
           {showMore ? (
             <>
-              <More size={"1.5rem"} className="mr-1 rotate-180" />
+              <More className="text-md mr-1 rotate-180 lg:text-2xl" />
               Show Less
             </>
           ) : (
             <>
-              <More size={"1.5rem"} className="mr-1" />
+              <More className="text-md mr-1 lg:text-2xl" />
               Show More
             </>
           )}
@@ -37,7 +37,7 @@ export const ExperiencesSection = () => {
           rel="noopener noreferrer"
           className="button"
         >
-          <Resume size={"1.5rem"} className="mr-2 text-neutral-900" />
+          <Resume className="text-md mr-2 text-neutral-900 lg:text-2xl" />
           Resume
         </a>
       </div>

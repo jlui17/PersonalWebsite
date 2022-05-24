@@ -36,7 +36,7 @@ export const Intro = () => {
             rel="noopener noreferrer"
             className="button"
           >
-            <LinkedIn size={"1.5rem"} className="mr-2 text-neutral-900" />
+            <LinkedIn className="text-md mr-2 text-neutral-900 lg:text-2xl" />
             LinkedIn
           </a>
           <a
@@ -45,7 +45,7 @@ export const Intro = () => {
             rel="noopener noreferrer"
             className="button"
           >
-            <GitHub size={"1.5rem"} className="mr-2 text-neutral-900" />
+            <GitHub className="text-md mr-2 text-neutral-900 lg:text-2xl" />
             Github
           </a>
           <a
@@ -54,7 +54,7 @@ export const Intro = () => {
             rel="noopener noreferrer"
             className="button"
           >
-            <Medium size={"1.5rem"} className="mr-2 text-neutral-900" />
+            <Medium className="text-md mr-2 text-neutral-900 lg:text-2xl" />
             Medium
           </a>
           <a
@@ -63,7 +63,7 @@ export const Intro = () => {
             rel="noopener noreferrer"
             className="button"
           >
-            <Resume size={"1.5rem"} className="mr-2 text-neutral-900" />
+            <Resume className="text-md mr-2 text-neutral-900 lg:text-2xl" />
             Resume
           </a>
         </div>
