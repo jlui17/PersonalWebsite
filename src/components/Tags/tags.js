@@ -33,7 +33,7 @@ import { GiFrisbee as Frisbee } from "react-icons/gi";
 export const Tags = {
   Java: (
     <>
-      <Java className="mr-1 text-base text-white lg:text-xl" />
+      <Java className="mr-1 text-base text-white lg:text-2xl" />
       <p>Java</p>
     </>
   ),
