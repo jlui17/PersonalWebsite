@@ -1,19 +1,4 @@
-import {
-  DiReact as React,
-  DiDocker as Docker,
-  DiPython as Python,
-  DiUnitySmall as Unity,
-  DiJava as Java,
-} from "react-icons/di";
-import {
-  SiMicrosoftazure as Azure,
-  SiTwilio as Twilio,
-  SiPandas as Pandas,
-  SiFlask as Flask,
-  SiOracle as Oracle,
-  SiTypescript as TypeScript,
-  SiAmazonaws as AWS,
-} from "react-icons/si";
+import Tags from "../Tags";
 
 export const ProjectsContent = [
   {
@@ -29,23 +14,7 @@ export const ProjectsContent = [
       "That's why this opportunity to build and deploy an impactful project that could help many UBC students, free of charge, was something I would not pass on.",
       "As <strong>lead architect and developer</strong>, I'm working with my friends to <strong>design and implement</strong> our app using AWS Lambda, Gateway, and other serverless infrastructure.",
     ],
-    tools: [
-      {
-        icon: <AWS className="text-md mr-2 text-white lg:text-2xl" />,
-        tool: "AWS CDK",
-      },
-      {
-        icon: <React className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "React",
-      },
-      {
-        icon: <Docker className="text-md mr-2 text-white lg:text-2xl" />,
-        tool: "Docker",
-      },
-      {
-        tool: "Beautiful Soup",
-      },
-    ],
+    tools: [Tags.AwsCdk, Tags.React, Tags.Docker, Tags.BeautifulSoup],
     img: "letmein20.png",
     alt: "letmeinubc",
     github: "",
@@ -63,12 +32,7 @@ export const ProjectsContent = [
       "Built this project over the weekend while completing a React course on Scrimba.",
       "This app helps people visualize and understajd different sorting algorithms",
     ],
-    tools: [
-      {
-        icon: <React className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "React",
-      },
-    ],
+    tools: [Tags.React],
     img: "sortingvisualizer.jpg",
     alt: "sortingvisualizer",
     github: "https://github.com/jlui17/SortingVisualizer",
@@ -88,21 +52,7 @@ export const ProjectsContent = [
       "I implemented the front-end and API back-end.",
       "*Yes it does work.",
     ],
-    tools: [
-      {
-        icon: <Azure className="text-md mr-2 text-white lg:text-lg" />,
-        tool: "Azure",
-      },
-      { tool: "Django" },
-      {
-        icon: <Docker className="text-md mr-2 text-white lg:text-2xl" />,
-        tool: "Docker",
-      },
-      {
-        icon: <Twilio className="text-md mr-2 text-white lg:text-xl" />,
-        tool: "Twilio",
-      },
-    ],
+    tools: [Tags.Azure, Tags.Django, Tags.Twilio],
     img: "letmeinubc.png",
     alt: "letmeinubc",
     github: "https://github.com/kel-z/LetMeInUBC",
@@ -121,18 +71,7 @@ export const ProjectsContent = [
       "This application trades stocks using core algorithmic trading strategies (moving averages, momentum, growth) and the IB TWS API.",
       "I implemented the GUI, moving averages, and growth trading strategies.",
     ],
-    tools: [
-      { tool: "IB TWS API" },
-      {
-        icon: <Python className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "Python",
-      },
-      {
-        icon: <Pandas className="text-md mr-1 text-white lg:text-lg" />,
-        tool: "Pandas",
-      },
-      { tool: "PyQT" },
-    ],
+    tools: [Tags.IbTwsApi, Tags.Python, Tags.Pandas, Tags.PyQt],
     img: "tradingbot.png",
     alt: "algotrader",
     github: "https://github.com/jlui17/tws_api_trading_bot",
@@ -151,12 +90,7 @@ export const ProjectsContent = [
       "Echo is a 2D side scroller RPG game concept developed in Unity. It's story is based around a child who has been separated from their mother in a forest and lost their vision. Follow them on their journey to reunite with their mother.",
       "I led the implementation of characters, scripting, game physics, and level design.",
     ],
-    tools: [
-      {
-        icon: <Unity className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "Unity",
-      },
-    ],
+    tools: [Tags.Unity],
     img: "echo.png",
     alt: "echo",
     github: "https://github.com/jlui17/Echo",
@@ -175,30 +109,7 @@ export const ProjectsContent = [
       "This application is a full stack project, with a React front-end, Flask back-end, and Oracle database. It allows users to interact with their operations database through a simple UI. Analysis is also provided using complex SQL queries to help the user evaluate their business performance.",
       "I led the system design and front-end development, helping design the tech stack, flow of information, and the implementation of each UI component.",
     ],
-    tools: [
-      {
-        icon: <React className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "React",
-      },
-      {
-        icon: <Flask className="text-md mr-2 text-white lg:text-lg" />,
-        tool: "Flask",
-      },
-      {
-        icon: (
-          <TypeScript className="text-md mr-2 rounded-sm text-white lg:text-lg" />
-        ),
-        tool: "TypeScript",
-      },
-      {
-        icon: <Python className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "Python",
-      },
-      {
-        icon: <Oracle className="text-md mr-2 text-white lg:text-xl" />,
-        tool: "OracleDB",
-      },
-    ],
+    tools: [Tags.React, Tags.Flask, Tags.TypeScript, Tags.Python, Tags.Oracle],
     img: "304.png",
     alt: "cs304",
     github:
@@ -217,13 +128,7 @@ export const ProjectsContent = [
       "Based on the inventory management system at the Richmond Night Market.",
       "This application applies core OOP principles and the observable design pattern to emulate an inventory management system used in a carnival games operation.",
     ],
-    tools: [
-      {
-        icon: <Java className="text-md mr-1 text-white lg:text-xl" />,
-        tool: "Java",
-      },
-      { tool: "Observale Design Pattern" },
-    ],
+    tools: [Tags.Java, Tags.ObservableDesignPattern],
     img: "inventorymanager.png",
     alt: "inventory manager",
     github: "https://github.com/jlui17/W2F_Inv_Manager",
@@ -241,13 +146,7 @@ export const ProjectsContent = [
       "At the start of 2020, despite almost no Python knowledge, the co-founders of GeekEdu hired me to teach K-12 students programming in Python. Not wanting to be a terrible instructor, I developed this project to learn the basics of Python.",
       "This application uses backtracking search to solve any sudoku puzzle.",
     ],
-    tools: [
-      { tool: "PyGame" },
-      {
-        icon: <Python className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "Python",
-      },
-    ],
+    tools: [Tags.PyGame, Tags.Python],
     img: "sudoku.png",
     alt: "sudoku",
     github: "https://github.com/jlui17/Sudoku-solver",

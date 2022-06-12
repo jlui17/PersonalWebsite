@@ -31,13 +31,8 @@ export const Projects = ProjectsContent.map((project) => {
           );
         })}
         <div className="mt-3 flex flex-wrap items-center justify-start">
-          {project["tools"].map(({ icon, tool }) => {
-            return (
-              <div className="tag">
-                {icon ? icon : null}
-                {tool ? <p key={tool}>{tool}</p> : null}
-              </div>
-            );
+          {project["tools"].map((tool) => {
+            return <div className="tag">{tool}</div>;
           })}
           <a target="_blank" href={project["github"]} rel="noopener noreferrer">
             <GitHub
