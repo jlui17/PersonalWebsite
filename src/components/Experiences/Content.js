@@ -1,19 +1,4 @@
-import {
-  DiReact as React,
-  DiPython as Python,
-  DiJava as Java,
-  DiRor as RubyOnRails,
-} from "react-icons/di";
-
-import {
-  SiTypescript as TypeScript,
-  SiAmazonaws as AWS,
-  SiTerraform as Terraform,
-  SiGooglesheets as GoogleSheets,
-  SiGoogledrive as GoogleDrive,
-  SiMicrosoftexcel as Excel,
-  SiR as R,
-} from "react-icons/si";
+import Tags from "../Tags";
 
 export const ExperiencesContent = [
   {
@@ -26,16 +11,7 @@ export const ExperiencesContent = [
     description: [
       "Building data services for the Fulfillment Execution team in the Supply Chain and Operations organization.",
     ],
-    tools: [
-      {
-        icon: <AWS className="text-md mr-2 text-white lg:text-2xl" />,
-        tool: "AWS CDK",
-      },
-      {
-        icon: <Java className="text-md mr-1 text-white lg:text-xl" />,
-        tool: "Java",
-      },
-    ],
+    tools: [Tags.AwsCdk, Tags.Java],
   },
   {
     position: "Software Engineer",
@@ -49,27 +25,11 @@ export const ExperiencesContent = [
       "Applying serverless infrastructure on AWS using Terraform, leading meetings and E2E feature development, and developing and deploying production fixes for customer facing issue.",
     ],
     tools: [
-      {
-        icon: <AWS className="text-md text-white lg:text-2xl" />,
-      },
-      {
-        icon: <React className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "React",
-      },
-      {
-        icon: <RubyOnRails className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "Ruby on Rails",
-      },
-      {
-        icon: (
-          <TypeScript className="text-md mr-2 rounded-sm text-white lg:text-lg" />
-        ),
-        tool: "TypeScript",
-      },
-      {
-        icon: <Terraform className="text-md mr-2 text-white lg:text-lg" />,
-        tool: "Terraform",
-      },
+      Tags.Aws,
+      Tags.React,
+      Tags.RubyOnRails,
+      Tags.TypeScript,
+      Tags.Terraform,
     ],
   },
   {
@@ -87,20 +47,7 @@ export const ExperiencesContent = [
       "2019: Contributed to preseason inventory, planning, and setup processes. Oversaw nightly operations, ordered inventory, streamlined employee onboarding, and facilitated interviews.",
       "Through extra work and gumption, I also optimized inventory ordering by 50% (40 to < 20 hours) by implementing an automated excel database.",
     ],
-    tools: [
-      {
-        icon: <GoogleSheets className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "Google Sheets",
-      },
-      {
-        icon: <GoogleDrive className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "Google Drive",
-      },
-      {
-        icon: <Excel className="text-md mr-2 text-white lg:text-2xl" />,
-        tool: "MS Excel",
-      },
-    ],
+    tools: [Tags.GoogleSheets, Tags.GoogleDrive, Tags.Excel],
   },
   {
     position: "Teaching Assistant (COMM 205: MIS)",
@@ -113,19 +60,7 @@ export const ExperiencesContent = [
       "I took many of the excel skills I learned in the course and applied them to my job at Wun2Free to make a real impact. Seeing how practical and useful this course was inspired me to help others learn and apply the amazing skills this course has to offer.",
       "Currently supporting Professors Sabrina Rai, Zorana Svedic, Hasan Cavusoglu, and 120 students in UBC's largest business technology course.",
     ],
-    tools: [
-      {
-        icon: <Excel className="text-md mr-2 text-white lg:text-2xl" />,
-        tool: "MS Excel",
-      },
-      {
-        icon: <R className="text-md mr-2 text-white lg:text-2xl" />,
-        tool: "R Studio",
-      },
-      {
-        tool: "Agile & Scrum",
-      },
-    ],
+    tools: [Tags.Excel, Tags.R, Tags.Agile],
   },
   {
     position: "Programming Instructor",
@@ -140,16 +75,7 @@ export const ExperiencesContent = [
       "I helped K-12 students build fundamental programming skills in Python and Java.",
       "I also taught complex DSA computer science topics such as graphs, BFS/DFS, linked lists, recursion, fractals, and backtracking search to senior students.",
     ],
-    tools: [
-      {
-        icon: <Python className="text-md mr-1 text-white lg:text-2xl" />,
-        tool: "Python",
-      },
-      {
-        icon: <Java className="text-md mr-1 text-white lg:text-xl" />,
-        tool: "Java",
-      },
-    ],
+    tools: [Tags.Python, Tags.Java],
   },
   {
     position: "Supervisor",

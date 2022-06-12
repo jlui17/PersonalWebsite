@@ -46,7 +46,7 @@ export const interests = [
   },
 ];
 
-export const newSkills = [
+export const skills = [
   Tags.AwsCdk,
   Tags.Java,
   Tags.Python,
