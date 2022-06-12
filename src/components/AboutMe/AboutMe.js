@@ -1,4 +1,4 @@
-import { truffle, interests, skills } from "./Content";
+import { truffle, interests, skills, newSkills } from "./Content";
 
 export const AboutMe = () => {
   return (
@@ -29,10 +29,7 @@ export const AboutMe = () => {
               );
             });
             return (
-              <div
-                key={interest["tag"]}
-                className="mr-1 mb-2 flex items-center rounded-xl border-2 bg-neutral-800 p-3"
-              >
+              <div key={interest["tag"]} className="tag">
                 <p>{interest["tag"]}</p>
                 {imgs}
               </div>
@@ -52,24 +49,26 @@ export const AboutMe = () => {
       <div className="mb-12 lg:mb-0">
         <h4 className="mb-2">Skills</h4>
         <div className="flex flex-wrap">
-          {skills.map((skill) => {
-            const skills = skill.images.map((img) => {
-              return (
-                <img
-                  key={img["loc"]}
-                  src={"./images/" + img["loc"]}
-                  alt={img["alt"]}
-                  className="aspect-auto h-5 pl-2"
-                ></img>
-              );
-            });
+          {newSkills.map((skill) => {
+            // const skills = skill.images.map((img) => {
+            //   return (
+            //     <img
+            //       key={img["loc"]}
+            //       src={"./images/" + img["loc"]}
+            //       alt={img["alt"]}
+            //       className="aspect-auto h-5 pl-2"
+            //     ></img>
+            //   );
+            // });
+            // return (
+            //   <div key={skill["tag"]} className="tag">
+            //     <p>{skill["tag"]}</p>
+            //     {skills}
+            //   </div>
+            // );
             return (
-              <div
-                key={skill["tag"]}
-                className="mr-1 mb-2 flex items-center rounded-xl border-2 bg-neutral-800 p-3"
-              >
-                <p>{skill["tag"]}</p>
-                {skills}
+              <div className="tag" key={skill["tag"]}>
+                {skill}
               </div>
             );
           })}

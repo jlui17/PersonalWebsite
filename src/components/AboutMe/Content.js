@@ -1,3 +1,5 @@
+import Tags from "../Tags";
+
 export const truffle = [
   { alt: "truffle7", loc: "truffle7.jpg" },
   { alt: "truffle6", loc: "truffle6.jpg" },
@@ -44,44 +46,11 @@ export const interests = [
   },
 ];
 
-export const skills = [
-  {
-    tag: "React",
-    images: [{ alt: "react", loc: "react.png" }],
-  },
-  {
-    tag: "NodeJS",
-    images: [{ alt: "nodejs", loc: "nodejs.png" }],
-  },
-  {
-    tag: "Django",
-    images: [],
-  },
-  {
-    tag: "Java",
-    images: [{ alt: "java", loc: "java.png" }],
-  },
-  {
-    tag: "Python",
-    images: [{ alt: "python", loc: "python.png" }],
-  },
-  {
-    tag: "JavaScript",
-    images: [{ alt: "javascript", loc: "javascript.png" }],
-  },
-  {
-    tag: "HTML/CSS",
-    images: [
-      { alt: "html", loc: "html.png" },
-      { alt: "css", loc: "css.png" },
-    ],
-  },
-  {
-    tag: "Excel",
-    images: [{ alt: "ms excel", loc: "excel.png" }],
-  },
-  {
-    tag: "R",
-    images: [{ alt: "r", loc: "r.png" }],
-  },
+export const newSkills = [
+  Tags.AwsCdk,
+  Tags.Java,
+  Tags.Python,
+  Tags.TypeScript,
+  Tags.RubyOnRails,
+  Tags.GoogleSheets,
 ];
