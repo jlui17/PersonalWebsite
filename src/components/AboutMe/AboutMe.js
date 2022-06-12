@@ -18,20 +18,9 @@ export const AboutMe = () => {
         <h4 className="mb-2">Interests</h4>
         <div className="flex flex-wrap">
           {interests.map((interest) => {
-            const imgs = interest.images.map((img) => {
-              return (
-                <img
-                  key={img["loc"]}
-                  src={"./images/" + img["loc"]}
-                  alt={img["alt"]}
-                  className="aspect-auto h-5 pl-2"
-                ></img>
-              );
-            });
             return (
               <div key={interest["tag"]} className="tag">
-                <p>{interest["tag"]}</p>
-                {imgs}
+                {interest}
               </div>
             );
           })}

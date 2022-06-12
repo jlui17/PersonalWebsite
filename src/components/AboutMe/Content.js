@@ -11,39 +11,12 @@ export const truffle = [
 ];
 
 export const interests = [
-  {
-    tag: "Gaming",
-    images: [
-      { alt: "lol", loc: "lol.svg" },
-      { alt: "val", loc: "val.png" },
-    ],
-  },
-  {
-    tag: "Keyboards",
-    images: [{ alt: "keyboard", loc: "keyboard.png" }],
-  },
-  {
-    tag: "Anime",
-    images: [
-      { alt: "onepiece", loc: "onepiece.png" },
-      { alt: "naruto", loc: "naruto.png" },
-    ],
-  },
-  {
-    tag: "PC Building",
-    images: [{ alt: "pc", loc: "pc.png" }],
-  },
-  {
-    tag: "Basketball",
-    images: [
-      { alt: "gsw", loc: "gsw.png" },
-      { alt: "bkn", loc: "bkn.png" },
-    ],
-  },
-  {
-    tag: "Frisbee",
-    images: [{ alt: "frisbee", loc: "frisbee.png" }],
-  },
+  Tags.Gaming,
+  Tags.Keyboards,
+  Tags.Basketball,
+  Tags.PcBuilding,
+  Tags.UltimateFrisbee,
+  Tags.Anime,
 ];
 
 export const skills = [
