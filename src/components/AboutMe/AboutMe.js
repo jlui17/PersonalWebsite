@@ -1,20 +1,8 @@
-import interests from "./content/interests.json";
-import skills from "./content/skills.json";
-
-const truffles = [
-  { alt: "truffle7", loc: "truffle7.jpg" },
-  { alt: "truffle6", loc: "truffle6.jpg" },
-  { alt: "truffle1", loc: "truffle1.jpg" },
-  { alt: "truffle2", loc: "truffle2.jpg" },
-  { alt: "truffle3", loc: "truffle3.jpg" },
-  { alt: "truffle4", loc: "truffle4.jpeg" },
-  { alt: "truffle5", loc: "truffle5.jpeg" },
-];
+import { truffle, interests, skills } from "./Content";
 
 export const AboutMe = () => {
   return (
-    <div className="justify-centre flex flex-col items-start lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
-      <h3 className="lg:col-span-2">About Me</h3>
+    <>
       <div className="mb-12 lg:mb-0">
         <h4 className="mb-2">CS + Business @ UBC</h4>
         <p>
@@ -90,7 +78,7 @@ export const AboutMe = () => {
       <div className="col-span-2 flex flex-wrap overflow-hidden">
         <h4 className="mb-2">Truffle</h4>
         <div className="scroll flex flex-nowrap overflow-x-scroll">
-          {truffles.map((pic) => {
+          {truffle.map((pic) => {
             return (
               <img
                 key={pic["loc"]}
@@ -102,6 +90,6 @@ export const AboutMe = () => {
           })}
         </div>
       </div>
-    </div>
+    </>
   );
 };
