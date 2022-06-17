@@ -6,7 +6,7 @@ export const AboutMe = () => {
       <div className="mb-12 lg:mb-0">
         <h4 className="mb-2">CS + Business @ UBC</h4>
         <p>
-          I'm a 3rd year student in the Combined Major in Business and Computer
+          In September of 2019, I started my University journey in the Combined Major in Business and Computer
           Science (BUCS) program at the UBC Sauder School of Business.
           <br></br>
           <br></br>I love this program. Not only does it combine my two
