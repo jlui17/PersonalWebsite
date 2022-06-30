@@ -1,3 +1,5 @@
+import { AiFillFileText as Resume } from "react-icons/ai";
+
 import { MobileDropdown } from "./MobileDropdown";
 
 export const Header = () => {
@@ -20,7 +22,8 @@ export const Header = () => {
         <a className="lg:header-link" href="#projects">
           Projects
         </a>
-        <a className="lg:header-link" href="./justinlui_resume2022.pdf">
+        <a className="lg:header-link" target="_blank" href="./justinlui_resume2022.pdf">
+          <Resume className="text-md mr-2 text-neutral-900 lg:text-2xl" />
           Resume
         </a>
       </nav>
