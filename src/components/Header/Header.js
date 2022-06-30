@@ -12,7 +12,7 @@ export const Header = () => {
           alt="trufflebday"
         ></img>
       </a>
-      <nav className="hidden lg:block">
+      <nav className="hidden lg:flex lg:basis-auto">
         <a className="lg:header-link" href="#aboutme">
           About Me
         </a>
@@ -23,7 +23,7 @@ export const Header = () => {
           Projects
         </a>
         <a className="lg:header-link" target="_blank" href="./justinlui_resume2022.pdf">
-          <Resume className="text-md mr-2 text-neutral-900 lg:text-2xl" />
+          <Resume className="text-md mr-2 text-white hover:text-neutral-900 lg:text-2xl" />
           Resume
         </a>
       </nav>
