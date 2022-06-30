@@ -20,8 +20,8 @@ export const Header = () => {
         <a className="lg:header-link" href="#projects">
           Projects
         </a>
-        <a className="lg:header-link" href="#contact">
-          Contact
+        <a className="lg:header-link" href="./justinlui_resume2022.pdf">
+          Resume
         </a>
       </nav>
       <MobileDropdown />
