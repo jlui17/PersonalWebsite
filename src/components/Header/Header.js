@@ -22,8 +22,12 @@ export const Header = () => {
         <a className="lg:header-link" href="#projects">
           Projects
         </a>
-        <a className="lg:header-link" target="_blank" href="./justinlui_resume2022.pdf">
-          <Resume className="text-md mr-2 text-white hover:text-neutral-900 lg:text-2xl" />
+        <a
+          className="lg:header-link"
+          target="_blank"
+          href="./justinlui_resume2022.pdf"
+        >
+          <Resume className="text-md mr-2 lg:text-2xl" />
           Resume
         </a>
       </nav>

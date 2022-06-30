@@ -30,7 +30,7 @@
 
 @layer components {
     .header-link {
-        @apply lg:last:mr-0 lg:mr-3 font-heading md:font-semibold font-medium md:text-xl text-white hover:text-gray-900 bg-transparent hover:bg-orange-300 transition-colors ease-linear px-3 py-3 rounded-xl !important
+        @apply lg:last:mr-0 lg:mr-3 font-heading flex flex-nowrap items-center justify-center md:font-semibold font-medium md:text-xl text-white hover:text-gray-900 bg-transparent hover:bg-orange-300 transition-colors ease-linear px-3 py-3 rounded-xl !important
     }
 
     .button {

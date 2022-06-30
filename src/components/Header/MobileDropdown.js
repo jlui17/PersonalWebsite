@@ -1,6 +1,7 @@
 import { Squash as Hamburger } from "hamburger-react";
 import { useState, useEffect, useRef, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { AiFillFileText as Resume } from "react-icons/ai";
 
 const useClickOutside = (ref, callback) => {
   const handleClick = (e) => {
@@ -96,9 +97,11 @@ export const MobileDropdown = () => {
                   setIsOpen(false);
                 }}
                 className="header-link"
-                href="#contact"
+                target="_blank"
+                href="./justinlui_resume2022.pdf"
               >
-                Contact
+                <Resume className="text-md mr-2 lg:text-2xl" />
+                Resume
               </a>
             </Menu.Item>
           </Menu.Items>
