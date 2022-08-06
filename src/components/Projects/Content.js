@@ -3,7 +3,7 @@ import Tags from "../Tags";
 export const ProjectsContent = [
   {
     purpose: {
-      link: "https://github.com/jlui17/",
+      link: "https://letmeinubc.com",
       img: "personal.png",
       alt: "truffle",
       title: "Personal Project",
