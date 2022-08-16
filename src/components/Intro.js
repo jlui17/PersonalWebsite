@@ -10,7 +10,7 @@ export const Intro = () => {
     <>
       <div className="flex flex-col">
         <div className="mb-5">
-          <h1>Hey!</h1>
+          <h1>Beep boop.</h1>
         </div>
         <div className="mb-5">
           <div className="flex">
