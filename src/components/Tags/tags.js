@@ -22,6 +22,7 @@ import {
   SiOracle as Oracle,
   SiRiotgames as RiotGames,
   SiNba as Nba,
+  SiTwitter as Twitter,
 } from "react-icons/si";
 
 import { FaRegKeyboard as Keyboard } from "react-icons/fa";
@@ -212,6 +213,12 @@ export const Tags = {
   Anime: (
     <>
       <p>Anime</p>
+    </>
+  ),
+  Twitter: (
+    <>
+      <Twitter className="mr-2 text-base text-white lg:text-2xl" />
+      <p>Twitter</p>
     </>
   ),
 };

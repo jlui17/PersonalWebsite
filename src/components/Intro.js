@@ -1,9 +1,10 @@
 import {
   AiFillGithub as GitHub,
   AiFillLinkedin as LinkedIn,
-  AiOutlineMedium as Medium,
+  AiOutlineTwitter as Twitter,
   AiFillFileText as Resume,
 } from "react-icons/ai";
+import { Tags } from "./Tags/tags";
 
 export const Intro = () => {
   return (
@@ -50,12 +51,12 @@ export const Intro = () => {
           </a>
           <a
             target="_blank"
-            href="https://justinlui17.medium.com/"
+            href="https://twitter.com/justinlui17"
             rel="noopener noreferrer"
             className="button"
           >
-            <Medium className="text-md mr-2 text-neutral-900 lg:text-2xl" />
-            Medium
+            <Twitter className="text-md mr-2 text-neutral-900 lg:text-2xl" />
+            Twitter
           </a>
           <a
             target="_blank"

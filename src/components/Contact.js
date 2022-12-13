@@ -1,7 +1,7 @@
 import {
   AiFillGithub,
   AiFillLinkedin,
-  AiOutlineMedium,
+  AiOutlineTwitter as Twitter,
   AiFillFileText,
 } from "react-icons/ai";
 
@@ -50,12 +50,12 @@ export const Contact = () => {
             </a>
             <a
               target="_blank"
-              href="https://justinlui17.medium.com/"
+              href="https://twitter.com/justinlui17"
               rel="noopener noreferrer"
               className="button"
             >
-              <AiOutlineMedium className="text-md mr-2 text-neutral-900 lg:text-2xl" />
-              Medium
+              <Twitter className="text-md mr-2 text-neutral-900 lg:text-2xl" />
+              Twitter
             </a>
             <a
               target="_blank"
