@@ -33,7 +33,7 @@ export const ExperiencesSection = () => {
         </button>
         <a
           target="_blank"
-          href="./justinlui_resume2022.pdf"
+          href="./justinlui_resume2023.pdf"
           rel="noopener noreferrer"
           className="button"
         >

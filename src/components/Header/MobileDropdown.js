@@ -98,7 +98,7 @@ export const MobileDropdown = () => {
                 }}
                 className="header-link"
                 target="_blank"
-                href="./justinlui_resume2022.pdf"
+                href="./justinlui_resume2023.pdf"
               >
                 <Resume className="text-md mr-2 lg:text-2xl" />
                 Resume
