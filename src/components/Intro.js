@@ -4,7 +4,6 @@ import {
   AiOutlineTwitter as Twitter,
   AiFillFileText as Resume,
 } from "react-icons/ai";
-import { Tags } from "./Tags/tags";
 
 export const Intro = () => {
   return (
