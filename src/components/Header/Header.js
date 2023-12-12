@@ -25,7 +25,7 @@ export const Header = () => {
         <a
           className="lg:header-link"
           target="_blank"
-          href="./justinlui_resume2023.pdf"
+          href="./justinlui_resume.pdf"
         >
           <Resume className="text-md mr-2 lg:text-2xl" />
           Resume

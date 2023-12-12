@@ -59,7 +59,7 @@ export const Contact = () => {
             </a>
             <a
               target="_blank"
-              href="./justinlui_resume2023.pdf"
+              href="./justinlui_resume.pdf"
               rel="noopener noreferrer"
               className="button"
             >
