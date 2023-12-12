@@ -23,6 +23,7 @@ import {
   SiRiotgames as RiotGames,
   SiNba as Nba,
   SiTwitter as Twitter,
+  SiGo as Go,
 } from "react-icons/si";
 
 import { FaRegKeyboard as Keyboard } from "react-icons/fa";
@@ -219,6 +220,12 @@ export const Tags = {
     <>
       <Twitter className="mr-2 text-base text-white lg:text-2xl" />
       <p>Twitter</p>
+    </>
+  ),
+  Go: (
+    <>
+      <Go className="mr-2 text-base text-white lg:text-2xl" />
+      <p>Go</p>
     </>
   ),
 };

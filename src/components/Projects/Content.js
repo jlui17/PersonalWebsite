@@ -14,11 +14,17 @@ export const ProjectsContent = [
       "That's why this opportunity to build and deploy an impactful project that could help many UBC students, free of charge, was something I would not pass on.",
       "As <strong>lead architect and developer</strong>, I'm working with my friends to <strong>design and implement</strong> our app using AWS Lambda, Gateway, and other serverless infrastructure.",
     ],
-    tools: [Tags.AwsCdk, Tags.React, Tags.TypeScript, Tags.Docker, Tags.BeautifulSoup],
+    tools: [
+      Tags.AwsCdk,
+      Tags.React,
+      Tags.TypeScript,
+      Tags.Docker,
+      Tags.BeautifulSoup,
+    ],
     img: "letmein20.png",
     alt: "letmeinubc",
-    github: "",
-    link: "",
+    github: "https://github.com/jlui17/LetMeInUBC-2.0",
+    link: "https://letmeinubc.com",
   },
   {
     purpose: {

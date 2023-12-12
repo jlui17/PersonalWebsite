@@ -2,6 +2,54 @@ import Tags from "../Tags";
 
 export const ExperiencesContent = [
   {
+    position: "Teaching Assistant (CPSC 310: Software Engineering)",
+    company: "The University of British Columbia",
+    link: "https://www.ubc.ca/",
+    image: { file: "ubc.svg", alt: "ubc" },
+    duration: "Sep 2023 - Present",
+    location: "Vancouver, BC, CAN",
+    description: [
+      "Hosting labs and office hours. Helping students beep and boop.",
+    ],
+    tools: [Tags.TypeScript],
+  },
+  {
+    position: "Software Development Engineer Intern",
+    company: "Amazon (OPS)",
+    link: "https://www.amazon.ca/",
+    image: { file: "amazon.jpg", alt: "amazon" },
+    duration: "May 2023 - Sep 2023",
+    location: "Vancouver, BC, CAN",
+    description: [
+      "Returned to SCOT and built a data pipeline and visualization tool on the worlds largest supply chain.",
+    ],
+    tools: [Tags.Aws, Tags.Java],
+  },
+  {
+    position: "Assistant Manager",
+    company: "Wun2Free Entertainment (Richmond Night Market)",
+    link: "https://wun2free.com/",
+    image: { file: "wun2free.png", alt: "wun2free" },
+    duration: "Oct 2019 - Sep 2023",
+    location: "Richmond, BC, CAN",
+    description: [
+      "I beep boop to minimize the amount of work my team does by automating everything with Google Sheets.",
+      "2023: Scaling our HR system by beep booping. React and TypeScript for the frontend. AWS Lambda, API Gateway, Golang and Google Sheets API for the backend.",
+      "2022: Reduced HR costs by 99% ($2000 -> $15) by building a centralized and automated on-boarding, scheduling, record-keeping, and payroll all-in-one system using Google Sheets.",
+      "2021: Optimized inventory ordering by 50% (40 -> 20 hours) by implementing an automated Excel database.",
+      "2019-2020: Learning the ropes.",
+    ],
+    tools: [
+      Tags.Aws,
+      Tags.Go,
+      Tags.React,
+      Tags.TypeScript,
+      Tags.GoogleSheets,
+      Tags.GoogleDrive,
+      Tags.Excel,
+    ],
+  },
+  {
     position: "Software Development Engineer Intern",
     company: "Amazon (OPS)",
     link: "https://www.amazon.ca/",
@@ -9,7 +57,8 @@ export const ExperiencesContent = [
     duration: "May 2022 - Aug 2022",
     location: "Vancouver, BC, CAN",
     description: [
-      "Building data services for the Fulfillment Execution team in the Supply Chain and Operations organization.",
+      "Supply Chain Optimization Technology (SCOT)",
+      "I beeped and booped to build 2 micro-services for a long-term storage big data pipeline using AWS Kinesis, Java, and AWS CDK with TypeScript.",
     ],
     tools: [Tags.AwsCdk, Tags.Java],
   },
@@ -21,8 +70,9 @@ export const ExperiencesContent = [
     duration: "Jan 2022 - May 2022",
     location: "Vancouver, BC, CAN",
     description: [
-      "Improving business auditing and GRC through Diligent's HighBond platform.",
-      "Applying serverless infrastructure on AWS using Terraform, leading meetings and E2E feature development, and developing and deploying production fixes for customer facing issue.",
+      "Core Projects Team",
+      "This was my first time learning how to beep boop in a team of beep boopers.",
+      "I delivered full-stack features, deployed serverless infrastructure on AWS using Terraform, and fixes for customer facing issue in Ruby on Rails, React, and TypeScript.",
     ],
     tools: [
       Tags.Aws,
@@ -33,23 +83,6 @@ export const ExperiencesContent = [
     ],
   },
   {
-    position: "Assistant Manager",
-    company: "Wun2Free Entertainment (Richmond Night Market)",
-    link: "https://wun2free.com/",
-    image: { file: "wun2free.png", alt: "wun2free" },
-    duration: "Oct 2019 - Present",
-    location: "Richmond, BC, CAN",
-    description: [
-      "I've been here since 2017. Although I could make more money elsewhere, working here is more about being part of the amazing culture and team. I truly enjoy working with everyone and it's something I can do alongside my main career on summer weekends.",
-      "2022: Reduced HR costs by 99% ($2000 -> $15) by building a centralized, automated HR system using Google Workspace.",
-      "2021: Opened and operated the games section on a shortened timeline and reduced capacity. Was involved in the planning and execution and setup and operations.",
-      "2020: COVID-19 :(",
-      "2019: Contributed to preseason inventory, planning, and setup processes. Oversaw nightly operations, ordered inventory, streamlined employee onboarding, and facilitated interviews.",
-      "Through extra work and gumption, I also optimized inventory ordering by 50% (40 to < 20 hours) by implementing an automated excel database.",
-    ],
-    tools: [Tags.GoogleSheets, Tags.GoogleDrive, Tags.Excel],
-  },
-  {
     position: "Teaching Assistant (COMM 205: MIS)",
     company: "UBC Sauder School of Business",
     link: "https://www.sauder.ubc.ca/",
@@ -57,8 +90,7 @@ export const ExperiencesContent = [
     duration: "Sep 2021 - Present",
     location: "Vancouver, BC, CAN",
     description: [
-      "I took many of the excel skills I learned in the course and applied them to my job at Wun2Free to make a real impact. Seeing how practical and useful this course was inspired me to help others learn and apply the amazing skills this course has to offer.",
-      "Currently supporting Professors Sabrina Rai, Zorana Svedic, Hasan Cavusoglu, and 120 students in UBC's largest business technology course.",
+      "Supporting professors Adam Saunders, Sabrina Rai, Zorana Svedic, Hasan Cavusoglu, and 120 students in UBC’s largest business technology course. A bit of beep booping.",
     ],
     tools: [Tags.Excel, Tags.R, Tags.Agile],
   },
@@ -70,10 +102,8 @@ export const ExperiencesContent = [
     duration: "Jan 2021 - Aug 2021",
     location: "Vancouver, BC, CAN",
     description: [
-      "I naively went into this job not expecting to learn much from tutoring. However, it ended up being one of the most impactful experiences of my early career and I'm super grateful to Michael and Matthew for believing in me.",
-      "Who knew trying to explain complex programming concepts to K-12 students would help me build the skills that landed me my first internship?",
-      "I helped K-12 students build fundamental programming skills in Python and Java.",
-      "I also taught complex DSA computer science topics such as graphs, BFS/DFS, linked lists, recursion, fractals, and backtracking search to senior students.",
+      "I helped K-12 students learn how to beep boop in Python and Java.",
+      "I taught complex DSA concepts such as graphs, BFS, DDS, linked lists, recursion, fractals, and backtracking search to senior students.",
     ],
     tools: [Tags.Python, Tags.Java],
   },
