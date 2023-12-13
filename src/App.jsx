@@ -1,11 +1,11 @@
 import "./App.css";
-import "./components/Header/Header.js";
-import Header from "./components/Header";
-import { Intro } from "./components/Intro.js";
-import AboutMe from "./components/AboutMe";
-import Experiences from "./components/Experiences";
-import { Contact } from "./components/Contact";
-import Projects from "./components/Projects";
+import "./components/Header/Header.jsx";
+import Header from "./components/Header/index.js";
+import { Intro } from "./components/Intro.jsx";
+import AboutMe from "./components/AboutMe/index.js";
+import Experiences from "./components/Experiences/index.js";
+import { Contact } from "./components/Contact.jsx";
+import Projects from "./components/Projects/index.js";
 
 export const App = () => {
   return (
