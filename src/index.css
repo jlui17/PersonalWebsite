@@ -28,22 +28,6 @@
     }
 }
 
-@layer components {
-    .header-link {
-        @apply lg:last:mr-0 lg:mr-3 font-heading flex flex-nowrap items-center justify-center md:font-semibold font-medium md:text-xl text-white hover:text-gray-900 bg-transparent hover:bg-orange-300 transition-colors ease-linear px-3 py-3 rounded-xl !important
-    }
-
-    .button {
-        @apply flex justify-around items-center last:mr-0 mr-3 mt-3 font-heading font-medium text-gray-900 bg-orange-200 hover:bg-orange-300 transition-colors ease-linear px-3 py-3 rounded-xl !important
-    }
-
-    .tag {
-        @apply mr-4 mb-2 flex items-center justify-evenly rounded-xl bg-neutral-700 px-3 py-3 !important
-    }
-}
-
-
-
 @layer utilities {
     .scroll::-webkit-scrollbar {
         height: 0.5rem;
