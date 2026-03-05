@@ -76,12 +76,45 @@ export const App = () => {
           </section>
 
           {/* Rabbit Hole */}
-          <section className="mb-4">
+          <section className="mb-8">
             <h4 className="text-accent mb-3">Currently obsessed with</h4>
             <p className="text-text-muted">
               Making my dev environment at work feel effortless. Vibe coding is
               the goal — if there's any friction, I'm fixing it.
             </p>
+          </section>
+
+          {/* Projects */}
+          <section className="mb-4">
+            <h4 className="text-accent mb-3">Projects</h4>
+            <div className="space-y-4">
+              <div>
+                <a
+                  href="https://github.com/jlui17/LetMeInUBC-2.0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-main font-medium hover:underline"
+                >
+                  LetMeInUBC-2.0
+                </a>
+                <p className="text-text-muted">
+                  Course availability alerts for UBC students. My friend Kelvin built it for himself originally, then me and Lawrence helped him clean it up and ship it. Hit 800+ users at one point — actually helped me and my friends get into the classes we wanted.
+                </p>
+              </div>
+              <div>
+                <a
+                  href="https://github.com/jlui17/w2fhr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-main font-medium hover:underline"
+                >
+                  w2fhr
+                </a>
+                <p className="text-text-muted">
+                  Scheduling, payroll, and inventory for the Richmond Night Market game section. They were juggling Excel, Google Sheets, and some HR app called Humanity before this. Still running today, handles the whole company — first time I built something that actually mattered to a business.
+                </p>
+              </div>
+            </div>
           </section>
         </main>
       </div>
