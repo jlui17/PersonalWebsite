@@ -9,7 +9,8 @@ export const Link = (props: {
       target="_blank"
       href={props.href}
       rel="noopener noreferrer"
-      className="mr-3 mt-3 flex items-center justify-around rounded-xl bg-orange-200 px-3 py-3 font-heading font-medium text-gray-900 transition-colors ease-linear last:mr-0 hover:bg-orange-300"
+      aria-label={`${props.children} (opens in new tab)`}
+      className="bg-accent hover:bg-accent-hover text-theme-main flex items-center rounded-xl px-3 py-3 font-heading font-medium transition-colors"
     >
       {props.children}
     </a>
