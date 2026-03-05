@@ -1,59 +1,74 @@
 import {
   AiFillGithub as GitHub,
   AiFillLinkedin as LinkedIn,
-  AiFillFileText as Resume,
 } from "react-icons/ai";
-import { SiMedium as Medium } from "react-icons/si";
 import { Link } from "./components/Link.tsx";
 
 export const App = () => {
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center bg-neutral-900">
-      <div className="w-[95vw] max-w-[1023px]">
-        <main className="flex w-full flex-col items-center justify-center px-4">
-          <div className="mb-20 mt-20 flex h-[40rem] w-full flex-col items-center justify-center pt-0 lg:flex-row lg:justify-around">
-            <div className="flex flex-col">
-              <h2 className="mb-5">Open to SWE/PM Opportunities!</h2>
-              <div className="flex">
-                <h1 className="mb-1">
-                  Hello, I'm{" "}
-                  <mark className="color-black rounded-xl bg-orange-300 px-3 py-1 lg:py-2">
-                    Justin Lui.
-                  </mark>
-                </h1>
-              </div>
-              <h2 className="mb-1 mt-3 lg:mt-0">Software Engineer</h2>
-              <p>
-                Most of my friends call me Lui (pronounced <i>loo-wee</i>).{" "}
-                <br /> <br />I like to work backwards from problems to develop
-                effective solutions. I take ownership of my projects and deliver
-                tangible results.
-              </p>
-              <div className="flex flex-wrap">
-                <Link href="https://www.linkedin.com/in/jlui17">
-                  <LinkedIn className="text-md mr-2 text-neutral-900 lg:text-2xl" />
-                  LinkedIn
-                </Link>
-                <Link href="https://github.com/jlui17">
-                  <GitHub className="text-md mr-2 text-neutral-900 lg:text-2xl" />
-                  Github
-                </Link>
-                <Link href="https://medium.com/@justinlui17">
-                  <Medium className="text-md mr-2 text-neutral-900 lg:text-2xl" />
-                  Medium
-                </Link>
-                <Link href="./justinlui_resume.pdf">
-                  <Resume className="text-md mr-2 text-neutral-900 lg:text-2xl" />
-                  Resume
-                </Link>
-              </div>
-            </div>
-            <img
-              className="ml-4 hidden aspect-auto h-[300px] rounded-xl shadow-lg lg:block"
-              src="./images/JustinLui.jpg"
-              alt="Headshot of Justin Lui"
-            ></img>
+    <div className="flex min-h-screen w-full flex-col items-center py-8">
+      <div className="w-[95vw] max-w-[600px]">
+        <main className="flex w-full flex-col px-4">
+          {/* Header */}
+          <div className="mb-6">
+            <h1 className="mb-3">
+              Hi, I'm{" "}
+              <mark className="color-black rounded-xl bg-orange-300 px-3 py-1">
+                Justin Lui
+              </mark>
+            </h1>
+            <p className="text-neutral-400">
+              Most of my friends call me Lui (pronounced <i>loo-wee</i>).
+            </p>
           </div>
+
+          {/* Links */}
+          <div className="mb-8 flex flex-wrap gap-3">
+            <Link href="https://github.com/jlui17">
+              <GitHub className="text-md mr-2 text-neutral-900 lg:text-xl" />
+              GitHub
+            </Link>
+            <Link href="https://www.linkedin.com/in/jlui17">
+              <LinkedIn className="text-md mr-2 text-neutral-900 lg:text-xl" />
+              LinkedIn
+            </Link>
+          </div>
+
+          {/* Now */}
+          <section className="mb-8">
+            <h4 className="mb-3 text-orange-200">What I'm up to</h4>
+            <ul className="space-y-2 text-neutral-300">
+              <li>Building things at Amazon</li>
+              <li>Keeping my money tree happy and healthy</li>
+              <li>Scheming about a brick pizza oven in the backyard</li>
+              <li>Volleyball and frisbee with good people</li>
+              <li>Quality time with my girlfriend and family</li>
+            </ul>
+          </section>
+
+          {/* Stack */}
+          <section className="mb-8">
+            <h4 className="mb-3 text-orange-200">Tools I actually use</h4>
+            <p className="text-neutral-300">OpenCode · Kiro CLI · OpenClaw</p>
+          </section>
+
+          {/* Fun Fact */}
+          <section className="mb-8">
+            <h4 className="mb-3 text-orange-200">Random thing about me</h4>
+            <p className="text-neutral-300">
+              I'm terrible at geography but weirdly good at directions. I can navigate 
+              you anywhere, just don't ask me what country we're in.
+            </p>
+          </section>
+
+          {/* Rabbit Hole */}
+          <section className="mb-4">
+            <h4 className="mb-3 text-orange-200">Currently obsessed with</h4>
+            <p className="text-neutral-300">
+              Making my dev environment at work feel effortless. Vibe coding is the goal — 
+              if there's any friction, I'm fixing it.
+            </p>
+          </section>
         </main>
       </div>
     </div>
