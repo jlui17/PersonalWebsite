@@ -2,8 +2,9 @@ module.exports = {
   content: ["./**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
   theme: {
     fontFamily: {
-      heading: ["Quicksand", "sans-serif"],
-      body: ["Work Sans", "sans-serif"],
+      heading: ['var(--font-heading)', 'Quicksand', 'sans-serif'],
+      body: ['var(--font-body)', 'Work Sans', 'sans-serif'],
+      mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
     },
     extend: {
       colors: {

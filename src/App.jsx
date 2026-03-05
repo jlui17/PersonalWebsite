@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   AiFillGithub as GitHub,
   AiFillLinkedin as LinkedIn,
@@ -6,17 +5,12 @@ import {
 import { Link } from "./components/Link.tsx";
 
 export const App = () => {
-  // Set Sage theme on mount - easy to swap: change "theme-sage" to "theme-terracotta", "theme-coffee", etc.
-  useEffect(() => {
-    document.body.className = "theme-sage";
-  }, []);
-
   return (
-    <div className="bg-theme-main flex min-h-screen w-full flex-col items-center py-8">
+    <div className="bg-theme-main flex min-h-screen w-full flex-col items-center py-8 mode-cafe">
       <div className="w-[95vw] max-w-[600px]">
         <main className="flex w-full flex-col px-4">
           {/* Header */}
-          <div className="mb-6">
+          <div className="mb-6 experience-header">
             <h1 className="text-text-main mb-3">
               Hi, I'm{" "}
               <span className="bg-accent hover:bg-accent-hover text-theme-main rounded-xl px-3 py-1">
@@ -41,7 +35,7 @@ export const App = () => {
           </div>
 
           {/* Now */}
-          <section className="mb-8">
+          <section className="mb-8 experience-section">
             <h4 className="text-accent mb-3">What I'm up to</h4>
             <ul className="space-y-2">
               <li className="text-text-muted">Building things at Amazon</li>
@@ -61,13 +55,13 @@ export const App = () => {
           </section>
 
           {/* Stack */}
-          <section className="mb-8">
+          <section className="mb-8 experience-section">
             <h4 className="text-accent mb-3">Tools I actually use</h4>
-            <p className="text-text-muted">OpenCode · Kiro CLI · OpenClaw</p>
+            <p className="text-text-muted"><code>OpenCode</code> · <code>Kiro CLI</code> · <code>OpenClaw</code></p>
           </section>
 
           {/* Fun Fact */}
-          <section className="mb-8">
+          <section className="mb-8 experience-section">
             <h4 className="text-accent mb-3">Random thing about me</h4>
             <p className="text-text-muted">
               I'm terrible at geography but weirdly good at directions. I can
@@ -76,16 +70,17 @@ export const App = () => {
           </section>
 
           {/* Rabbit Hole */}
-          <section className="mb-8">
+          <section className="mb-8 experience-section">
             <h4 className="text-accent mb-3">Currently obsessed with</h4>
             <p className="text-text-muted">
               Making my dev environment at work feel effortless. Vibe coding is
               the goal — if there's any friction, I'm fixing it.
             </p>
+            <p className="text-text-subtle text-sm mt-2 code-comment">zero friction workflow</p>
           </section>
 
           {/* Projects */}
-          <section className="mb-4">
+          <section className="mb-4 experience-section">
             <h4 className="text-accent mb-3">Projects</h4>
             <div className="space-y-4">
               <div>
@@ -93,7 +88,7 @@ export const App = () => {
                   href="https://github.com/jlui17/LetMeInUBC-2.0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-main font-medium hover:underline"
+                  className="text-text-main font-medium hover:text-accent hover:underline experience-link"
                 >
                   LetMeInUBC-2.0
                 </a>
@@ -106,7 +101,7 @@ export const App = () => {
                   href="https://github.com/jlui17/w2fhr"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-main font-medium hover:underline"
+                  className="text-text-main font-medium hover:text-accent hover:underline experience-link"
                 >
                   w2fhr
                 </a>
@@ -117,6 +112,7 @@ export const App = () => {
             </div>
           </section>
         </main>
+
       </div>
     </div>
   );
