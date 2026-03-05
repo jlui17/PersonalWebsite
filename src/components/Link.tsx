@@ -1,9 +1,9 @@
-import React from "react";
+import type { ReactNode } from "react";
 
 export const Link = (props: {
   href: string;
-  children: JSX.Element;
-}): JSX.Element => {
+  children: ReactNode;
+}): ReactNode => {
   return (
     <a
       target="_blank"

@@ -37,12 +37,12 @@ export const App = () => {
           {/* Now */}
           <section className="mb-8">
             <h4 className="mb-3 text-orange-200">What I'm up to</h4>
-            <ul className="space-y-2 text-neutral-300">
-              <li>Building things at Amazon</li>
-              <li>Keeping my money tree happy and healthy</li>
-              <li>Scheming about a brick pizza oven in the backyard</li>
-              <li>Volleyball and frisbee with good people</li>
-              <li>Quality time with my girlfriend and family</li>
+            <ul className="space-y-2">
+              <li className="text-neutral-300">Building things at Amazon</li>
+              <li className="text-neutral-300">Keeping my money tree happy and healthy</li>
+              <li className="text-neutral-300">Scheming about a brick pizza oven in the backyard</li>
+              <li className="text-neutral-300">Volleyball and frisbee with good people</li>
+              <li className="text-neutral-300">Quality time with my girlfriend and family</li>
             </ul>
           </section>
 
