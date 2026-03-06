@@ -38,7 +38,12 @@ export const App = () => {
           <section className="mb-8 experience-section">
             <h4 className="text-accent mb-3">What I'm up to</h4>
             <ul className="space-y-2">
-              <li className="text-text-muted">Building things at Amazon</li>
+              <li className="text-text-muted">
+                Beeping and booping at Amazon
+              </li>
+              <li className="text-text-muted">
+                Quality time with my girlfriend and family
+              </li>
               <li className="text-text-muted">
                 Keeping my money tree happy and healthy
               </li>
@@ -48,16 +53,7 @@ export const App = () => {
               <li className="text-text-muted">
                 Volleyball and frisbee with good people
               </li>
-              <li className="text-text-muted">
-                Quality time with my girlfriend and family
-              </li>
             </ul>
-          </section>
-
-          {/* Stack */}
-          <section className="mb-8 experience-section">
-            <h4 className="text-accent mb-3">Tools I actually use</h4>
-            <p className="text-text-muted"><code>OpenCode</code> · <code>Kiro CLI</code> · <code>OpenClaw</code></p>
           </section>
 
           {/* Fun Fact */}
@@ -67,16 +63,6 @@ export const App = () => {
               I'm terrible at geography but weirdly good at directions. I can
               navigate you anywhere, just don't ask me what country we're in.
             </p>
-          </section>
-
-          {/* Rabbit Hole */}
-          <section className="mb-8 experience-section">
-            <h4 className="text-accent mb-3">Currently obsessed with</h4>
-            <p className="text-text-muted">
-              Making my dev environment at work feel effortless. Vibe coding is
-              the goal — if there's any friction, I'm fixing it.
-            </p>
-            <p className="text-text-subtle text-sm mt-2 code-comment">zero friction workflow</p>
           </section>
 
           {/* Projects */}
