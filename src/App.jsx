@@ -68,18 +68,18 @@ export const App = () => {
           {/* Projects */}
           <section className="mb-4 experience-section">
             <h4 className="text-accent mb-3">Projects</h4>
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
                 <a
-                  href="https://github.com/jlui17/LetMeInUBC-2.0"
+                  href="https://github.com/jlui17/VLMPrototype"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-main font-medium hover:text-accent hover:underline experience-link"
+                  className="text-text-main font-bold text-lg hover:text-accent hover:underline transition-colors"
                 >
-                  LetMeInUBC-2.0
+                  VLMPrototype
                 </a>
-                <p className="text-text-muted">
-                  Course availability alerts for UBC students. My friend Kelvin built it for himself originally, then me and Lawrence helped him clean it up and ship it. Hit 800+ users at one point — actually helped me and my friends get into the classes we wanted.
+                <p className="text-text-muted mt-1 leading-relaxed">
+                  Did a system design interview that got me thinking about video querying with AI. Thought it was cool so I decided to build it. Upload a video, ask questions in plain English, get answers back. Good learning experience.
                 </p>
               </div>
               <div>
@@ -87,12 +87,25 @@ export const App = () => {
                   href="https://github.com/jlui17/w2fhr"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-main font-medium hover:text-accent hover:underline experience-link"
+                  className="text-text-main font-bold text-lg hover:text-accent hover:underline transition-colors"
                 >
                   w2fhr
                 </a>
-                <p className="text-text-muted">
-                  Scheduling, payroll, and inventory for the Richmond Night Market game section. They were juggling Excel, Google Sheets, and some HR app called Humanity before this. Still running today, handles the whole company — first time I built something that actually mattered to a business.
+                <p className="text-text-muted mt-1 leading-relaxed">
+                  When I got promoted to assistant manager at the Richmond Night Market carnival games section, I saw how messy things were — scheduling, payroll, onboarding all scattered across Excel, Google Sheets, and random HR apps. Pitched my boss, he approved, and I built an all-in-one platform for scheduling, payroll, and onboarding. Still running every season, saved them a couple grand a month, and taught me what it's like to ship something that actually powers an entire company.
+                </p>
+              </div>
+              <div>
+                <a
+                  href="https://github.com/jlui17/LetMeInUBC-2.0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-main font-bold text-lg hover:text-accent hover:underline transition-colors"
+                >
+                  LetMeInUBC-2.0
+                </a>
+                <p className="text-text-muted mt-1 leading-relaxed">
+                  My friend Kelvin had a script running at home that auto-registered him for UBC courses when spots opened up. I convinced him we should (1) host it so others could use it and (2) make it email alerts instead of auto-registering people — turns out students don't love giving their login info to random apps. Learned what it takes to ship something to the cloud and keep it running. Watching my friends actually get into the classes they wanted was pretty sweet.
                 </p>
               </div>
             </div>
