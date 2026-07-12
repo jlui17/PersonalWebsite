@@ -1,0 +1,473 @@
+.postcard-wall {
+  --pw-paper: #faf8f5;
+  --pw-card: #fffdf9;
+  --pw-ink: #3d3833;
+  --pw-muted: #716a63;
+  --pw-tan: #b8956f;
+  --pw-tan-dark: #8c6c4f;
+  --pw-line: rgba(140, 108, 79, 0.3);
+  min-height: 100vh;
+  color: var(--pw-ink);
+  background:
+    radial-gradient(circle at 16% 8%, rgba(184, 149, 111, 0.1), transparent 25rem),
+    repeating-linear-gradient(0deg, transparent 0 35px, rgba(184, 149, 111, 0.035) 35px 36px),
+    var(--pw-paper);
+  font-family: "Inter", sans-serif;
+}
+
+.postcard-wall *,
+.postcard-wall *::before,
+.postcard-wall *::after {
+  box-sizing: border-box;
+}
+
+.postcard-wall__page {
+  width: min(100% - 2rem, 900px);
+  margin: 0 auto;
+  padding: 4rem 0 2.5rem;
+}
+
+.postcard-wall__hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  grid-template-rows: auto 1fr;
+  gap: 2rem 3.5rem;
+  min-height: 28rem;
+  padding: 3.5rem clamp(1.5rem, 5vw, 4.5rem) 3rem;
+  overflow: hidden;
+  border: 1px solid var(--pw-line);
+  border-radius: 3px;
+  background: var(--pw-card);
+  box-shadow: 0 18px 50px rgba(74, 60, 46, 0.08);
+}
+
+.postcard-wall__address {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  color: var(--pw-muted);
+  font-size: 0.67rem;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+}
+
+.postcard-wall__address strong {
+  color: var(--pw-ink);
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.82rem;
+}
+
+.postcard-wall__intro {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  max-width: 36rem;
+}
+
+.postcard-wall__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--pw-tan-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.postcard-wall__intro h1 {
+  max-width: 13ch;
+  margin: 0;
+  color: var(--pw-ink);
+  font-family: "Quicksand", sans-serif;
+  font-size: clamp(2.7rem, 7vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.postcard-wall__intro > p:not(.postcard-wall__eyebrow) {
+  max-width: 35rem;
+  margin: 1.75rem 0 0;
+  color: var(--pw-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.postcard-wall__intro > p:not(.postcard-wall__eyebrow) a {
+  color: var(--pw-ink);
+  font: inherit;
+  font-weight: 600;
+  text-decoration-color: var(--pw-line);
+  text-underline-offset: 0.2em;
+}
+
+.postcard-wall__intro > p:not(.postcard-wall__eyebrow) a:hover,
+.postcard-wall__intro > p:not(.postcard-wall__eyebrow) a:focus-visible {
+  color: var(--pw-tan-dark);
+  text-decoration-color: currentColor;
+}
+
+.postcard-wall__intro .postcard-wall__work {
+  margin-top: 1rem;
+}
+
+.postcard-wall__visual {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: start;
+}
+
+.postcard-wall__photo {
+  margin: 0;
+  padding: 0.45rem 0.45rem 1.5rem;
+  border: 1px solid var(--pw-line);
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(74, 60, 46, 0.12);
+  transform: rotate(1.5deg);
+}
+
+.postcard-wall__photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+}
+
+.postcard-wall__photo-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1.15rem 0 0;
+}
+
+.postcard-wall__photo-facts div {
+  min-width: 0;
+}
+
+.postcard-wall__photo-facts dt {
+  color: var(--pw-muted);
+  font-size: 0.57rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.postcard-wall__photo-facts dd {
+  margin: 0.2rem 0 0;
+  color: var(--pw-ink);
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.postcard-wall__links {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin-top: 0.9rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--pw-line);
+}
+
+.postcard-wall__links a {
+  width: fit-content;
+  color: var(--pw-ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.postcard-wall__links a:hover,
+.postcard-wall__links a:focus-visible {
+  color: var(--pw-tan-dark);
+}
+
+.postcard-wall__table,
+.postcard-wall__people,
+.postcard-wall__projects {
+  padding: 6rem clamp(0rem, 3vw, 2rem) 2rem;
+}
+
+.postcard-wall__section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  color: var(--pw-tan-dark);
+}
+
+.postcard-wall__section-heading h2 {
+  margin: 0;
+  color: inherit;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.postcard-wall__table {
+  display: grid;
+  grid-template-columns: 1.45fr 0.8fr;
+  gap: 1rem 5rem;
+}
+
+.postcard-wall__table .postcard-wall__section-heading {
+  grid-column: 1 / -1;
+}
+
+.postcard-wall__notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.postcard-wall__notes li {
+  min-height: 7.5rem;
+  padding: 1.4rem;
+  border: 1px solid var(--pw-line);
+  background: rgba(255, 253, 249, 0.82);
+  color: var(--pw-ink);
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+  box-shadow: 0 8px 24px rgba(74, 60, 46, 0.05);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.postcard-wall__notes li:nth-child(1) { transform: rotate(-1.2deg); }
+.postcard-wall__notes li:nth-child(2) { transform: rotate(0.8deg) translateY(0.6rem); }
+.postcard-wall__notes li:nth-child(3) { transform: rotate(0.7deg); }
+.postcard-wall__notes li:nth-child(4) { transform: rotate(-0.7deg) translateY(0.6rem); }
+
+.postcard-wall__notes li:hover {
+  z-index: 1;
+  box-shadow: 0 14px 32px rgba(74, 60, 46, 0.1);
+  transform: translateY(-3px) rotate(0);
+}
+
+.postcard-wall__margin-note {
+  align-self: center;
+  padding: 1.5rem 0 1.5rem 1.5rem;
+  border-left: 2px solid var(--pw-tan);
+  color: var(--pw-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  transform: rotate(1.2deg);
+}
+
+.postcard-wall__margin-note b {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--pw-ink);
+  font-family: "Quicksand", sans-serif;
+}
+
+.postcard-wall__people {
+  padding-top: 7rem;
+}
+
+.postcard-wall__people-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.postcard-wall__people-grid article {
+  padding: 1.5rem;
+  border: 1px solid var(--pw-line);
+  background: var(--pw-card);
+  box-shadow: 0 10px 28px rgba(74, 60, 46, 0.06);
+}
+
+.postcard-wall__people-grid article:nth-child(1) { transform: rotate(-0.5deg); }
+.postcard-wall__people-grid article:nth-child(2) { transform: rotate(0.4deg); }
+.postcard-wall__people-grid article:nth-child(3) { transform: rotate(0.35deg); }
+.postcard-wall__people-grid article:nth-child(4) { transform: rotate(-0.4deg); }
+
+.postcard-wall__people-grid article > p {
+  margin: 0 0 0.65rem;
+  color: var(--pw-tan-dark);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.postcard-wall__people-grid h3 {
+  margin: 0;
+  color: var(--pw-ink);
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.postcard-wall__people-grid article > span {
+  display: block;
+  margin-top: 0.7rem;
+  color: var(--pw-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.postcard-wall__people-grid .postcard-wall__person--girlfriend {
+  grid-column: 1 / -1;
+  padding-right: clamp(1.5rem, 10vw, 7rem);
+  background: #f1e8dc;
+  transform: rotate(-0.25deg);
+}
+
+.postcard-wall__projects {
+  padding-top: 7rem;
+}
+
+.postcard-wall__section-heading--projects {
+  margin-left: clamp(0rem, 8vw, 5rem);
+}
+
+.postcard-wall__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.postcard-wall__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) 9rem;
+  gap: 2rem;
+  width: 90%;
+  min-height: 18rem;
+  padding: 2.5rem;
+  border: 1px solid var(--pw-line);
+  border-radius: 2px;
+  background: var(--pw-card);
+  box-shadow: 0 15px 38px rgba(74, 60, 46, 0.07);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.postcard-wall__card:nth-child(1) { align-self: flex-start; transform: rotate(-0.8deg); }
+.postcard-wall__card:nth-child(2) { align-self: flex-end; transform: rotate(0.7deg); }
+.postcard-wall__card:nth-child(3) { align-self: center; transform: rotate(-0.35deg); }
+
+.postcard-wall__card:hover {
+  z-index: 1;
+  box-shadow: 0 22px 50px rgba(74, 60, 46, 0.12);
+  transform: translateY(-4px) rotate(0);
+}
+
+.postcard-wall__card-number {
+  color: rgba(184, 149, 111, 0.55);
+  font-family: "Quicksand", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.postcard-wall__card-copy {
+  align-self: center;
+}
+
+.postcard-wall__kicker {
+  margin: 0 0 0.8rem;
+  color: var(--pw-tan-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.postcard-wall__card h3 {
+  margin: 0 0 1rem;
+  font-family: "Quicksand", sans-serif;
+  font-size: clamp(1.65rem, 4vw, 2.4rem);
+  line-height: 1.1;
+}
+
+.postcard-wall__card h3 a {
+  color: var(--pw-ink);
+  font: inherit;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.postcard-wall__card h3 a:hover,
+.postcard-wall__card h3 a:focus-visible {
+  color: var(--pw-tan-dark);
+  text-decoration-color: currentColor;
+}
+
+.postcard-wall__card-copy > p:last-child {
+  margin: 0;
+  color: var(--pw-muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.postcard-wall__postmark {
+  align-self: start;
+  padding: 0.55rem 0.65rem;
+  border: 2px solid rgba(140, 108, 79, 0.52);
+  border-radius: 50%;
+  color: rgba(140, 108, 79, 0.72);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1.35;
+  text-align: center;
+  transform: rotate(7deg);
+}
+
+.postcard-wall__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: 5rem 0 0;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--pw-line);
+  color: var(--pw-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+  .postcard-wall__page { width: min(100% - 1.25rem, 900px); padding-top: 0.625rem; }
+  .postcard-wall__hero { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; min-height: 38rem; padding: 2rem 1.5rem; }
+  .postcard-wall__hero::after { display: none; }
+  .postcard-wall__address { max-width: calc(100% - 6.5rem); }
+  .postcard-wall__visual { grid-column: 1; grid-row: 2; width: min(72%, 18rem); margin-left: auto; }
+  .postcard-wall__intro { grid-column: 1; grid-row: 3; align-self: end; }
+  .postcard-wall__intro h1 { font-size: clamp(2.7rem, 14vw, 4.2rem); }
+  .postcard-wall__links { margin-top: 0.8rem; }
+  .postcard-wall__table { grid-template-columns: 1fr; padding-top: 4rem; }
+  .postcard-wall__notes { gap: 0.6rem; }
+  .postcard-wall__notes li { min-height: 8.5rem; padding: 1rem; font-size: 0.9rem; }
+  .postcard-wall__margin-note { margin-top: 2rem; }
+  .postcard-wall__people { padding-top: 5rem; }
+  .postcard-wall__people-grid { grid-template-columns: 1fr; }
+  .postcard-wall__people-grid .postcard-wall__person--girlfriend { grid-column: auto; padding-right: 1.5rem; }
+  .postcard-wall__projects { padding-top: 5rem; }
+  .postcard-wall__section-heading--projects { margin-left: 0; }
+  .postcard-wall__card { grid-template-columns: 1fr; gap: 1rem; width: 100%; min-height: 0; padding: 1.5rem; }
+  .postcard-wall__card-number { font-size: 2rem; }
+  .postcard-wall__postmark { position: absolute; top: 1.25rem; right: 1.25rem; max-width: 7rem; }
+  .postcard-wall__footer { flex-direction: column; gap: 0.4rem; }
+}
+
+@media (max-width: 480px) {
+  .postcard-wall__visual { width: 82%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .postcard-wall__notes li,
+  .postcard-wall__card { transition: none; }
+}
