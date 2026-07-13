@@ -148,6 +148,12 @@
   min-width: 0;
 }
 
+.postcard-wall__photo-facts .postcard-wall__current-location {
+  grid-column: 1 / -1;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--pw-line);
+}
+
 .postcard-wall__photo-facts dt {
   color: var(--pw-muted);
   font-size: 0.57rem;

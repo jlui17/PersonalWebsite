@@ -58,6 +58,10 @@ export default function PostcardWall() {
               />
             </figure>
             <dl className="postcard-wall__photo-facts">
+              <div className="postcard-wall__current-location">
+                <dt>Currently in</dt>
+                <dd>San Francisco</dd>
+              </div>
               <div>
                 <dt>Originally from</dt>
                 <dd>Vancouver</dd>
