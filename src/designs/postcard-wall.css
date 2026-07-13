@@ -148,10 +148,10 @@
   min-width: 0;
 }
 
-.postcard-wall__photo-facts .postcard-wall__current-location {
+.postcard-wall__photo-facts .postcard-wall__origin {
   grid-column: 1 / -1;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--pw-line);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--pw-line);
 }
 
 .postcard-wall__photo-facts dt {

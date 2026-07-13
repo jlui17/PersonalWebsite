@@ -58,17 +58,17 @@ export default function PostcardWall() {
               />
             </figure>
             <dl className="postcard-wall__photo-facts">
-              <div className="postcard-wall__current-location">
+              <div>
                 <dt>Currently in</dt>
                 <dd>San Francisco</dd>
               </div>
               <div>
-                <dt>Originally from</dt>
-                <dd>Vancouver</dd>
-              </div>
-              <div>
                 <dt>Working at</dt>
                 <dd>Scorecard</dd>
+              </div>
+              <div className="postcard-wall__origin">
+                <dt>Originally from</dt>
+                <dd>Vancouver</dd>
               </div>
             </dl>
             <nav className="postcard-wall__links" aria-label="Find Justin online">
