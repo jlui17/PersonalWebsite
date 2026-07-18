@@ -1,4 +1,6 @@
 import PostcardWall from "./designs/PostcardWall.jsx";
-import "./designs/postcard-wall.css";
+import SpecSheet from "./designs/SpecSheet.jsx";
 
-export const App = () => <PostcardWall />;
+const design = new URLSearchParams(window.location.search).get("design");
+
+export const App = () => (design === "postcard" ? <PostcardWall /> : <SpecSheet />);
