@@ -1,10 +1,10 @@
 # AGENTS.md - Website2.0
 
-Justin's personal site (justinlui.com). It is about who Justin is, not a portfolio: the people he loves, what he's into, and a few things he's built. He's a developer at heart, so the site should feel built with care, but it must never read as a resume.
+Justin's personal site (justinlui.dev). It is about who Justin is, not a portfolio: the people he loves, what he's into, and a few things he's built. He's a developer at heart, so the site should feel built with care, but it must never read as a resume.
 
 ## Tech stack
 
-React 19 + Vite, single page, no router. Tailwind is installed but the active design uses plain CSS (`src/designs/spec-sheet.css`). `git push` auto-deploys to Netlify.
+React 19 + Vite, single page, no router. Tailwind is installed but the active design uses plain CSS (`src/designs/spec-sheet.css`). Hosting is Cloudflare Pages, project `justinlui`, connected to this GitHub repo: pushing `main` builds `npm run build` and publishes `dist`. Live at justinlui.dev and www.justinlui.dev; justinlui.pages.dev is the project subdomain. Inspect it with `bunx cf pages projects get justinlui` (run `cf auth login` first).
 
 ```bash
 npm start       # dev server (localhost:5173)
@@ -59,6 +59,7 @@ All content lives as consts at the top of `SpecSheet.jsx` (`status`, `now`, `peo
 - **New project**: add to `projects` with `number`, `title`, `href`, `tag` (short mono stamp, sentence-cased by CSS), `kicker` (one-line hook), `story` (a short paragraph with a person or reason in it).
 - **New person**: add to `people` with `name`, `tag`, `heading` (one warm declarative sentence, rendered in Fraunces), `body`.
 - **New section**: follow the existing pattern — `spec-sheet__section-head` with the next two-digit number in a `spec-sheet__label` plus a Fraunces h2 — and renumber nothing (numbers are ordinal, append only).
+- **New photo**: strip EXIF before committing. The build copies `public/` into the deploy verbatim, so a straight-from-iPhone photo publishes its GPS coordinates at meter precision. Drop the APP1 and APP13 JPEG segments and keep APP0/APP2, which removes the metadata without recompressing the image or losing the color profile. If something private does ship, fixing it in git is not enough: every past Pages deployment keeps serving its own copy at a permanent `<hash>.justinlui.pages.dev` URL, so the old deployments have to be deleted as well.
 
 ## What to avoid
 
