@@ -1,4 +1,4 @@
-# AGENTS.md - Website2.0
+# AGENTS.md - PersonalWebsite
 
 Justin's personal site (justinlui.dev). It is about who Justin is, not a portfolio: the people he loves, what he's into, and a few things he's built. He's a developer at heart, so the site should feel built with care, but it must never read as a resume.
 
