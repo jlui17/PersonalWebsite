@@ -4,7 +4,7 @@ Justin's personal site (justinlui.dev). It is about who Justin is, not a portfol
 
 ## Tech stack
 
-React 19 + Vite, single page, no router. Tailwind is installed but the active design uses plain CSS (`src/designs/spec-sheet.css`). Hosting is Cloudflare Pages, project `justinlui`, connected to this GitHub repo: pushing `main` builds `npm run build` and publishes `dist`. Live at justinlui.dev and www.justinlui.dev; justinlui.pages.dev is the project subdomain. Inspect it with `bunx cf pages projects get justinlui` (run `cf auth login` first).
+React 19 + Vite, single page, no router. Tailwind is installed but the active design uses plain CSS (`src/designs/spec-sheet.css`). Hosting is Cloudflare Pages, project `justinlui-site`, connected to this GitHub repo: pushing `main` builds `npm run build` and publishes `dist`. Live at justinlui.dev and www.justinlui.dev; justinlui-site.pages.dev is the project subdomain. Inspect it with `bunx cf pages projects get justinlui-site` (run `cf auth login` first). Do not rename the project back to `justinlui`: a deployment stays reachable at `<hash>.<project>.pages.dev` for as long as a project of that name exists, and the old name is abandoned so that some earlier deployments stay unreachable.
 
 ```bash
 npm start       # dev server (localhost:5173)
