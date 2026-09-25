@@ -137,20 +137,9 @@ a:focus-visible {
   }
 }
 
-/* Default to café mode */
 :root {
-  /* Import café variables as default */
   --bg-main: #faf8f5;
-  --bg-secondary: #f5f2ed;
-  --bg-card: #ede9e3;
-  --bg-hover: #e5e0d8;
   --text-main: #3d3833;
-  --text-muted: #6b6560;
-  --text-subtle: #a39b93;
-  --accent-primary: #b8956f;
-  --accent-primary-hover: #c9a67d;
-  --accent-secondary: #f5f2ed;
-  --heading-color: #3d3833;
 }
 
 /* ============================================
@@ -165,7 +154,6 @@ a:focus-visible {
   h5 {
     margin: 0;
     font-weight: 700;
-    font-family: var(--font-heading);
     color: var(--text-main);
   }
 
@@ -198,7 +186,6 @@ a:focus-visible {
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 1.25rem;
-    font-family: var(--font-body);
     color: var(--text-main);
   }
 
