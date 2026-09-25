@@ -1,4 +1,6 @@
-/* Reset: Tailwind v4 preflight (v4.3.2, as production emitted it), trimmed to the elements the site uses.
+/* Reset: Tailwind v4 preflight (v4.3.2, as production emitted it). A rule group is dropped only when no design
+   uses any element in it, and the redesign in progress counts (it adds button, svg and range inputs). A new
+   element type such as table, code, hr or textarea needs its preflight rule back.
    It stays in `@layer base` so every unlayered design rule keeps beating it, whatever the specificity. */
 @layer base {
   *,
