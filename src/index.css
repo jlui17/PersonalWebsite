@@ -37,37 +37,6 @@ a:focus-visible {
   }
 }
 
-/* ============================================
-   THE MORNING CAFÉ ☕
-   Light, airy, soft warm palette
-   ============================================ */
-
-/* 
-   THE MORNING CAFÉ ☕
-   Light, airy, soft warm palette
-*/
-.mode-cafe {
-  /* Core Colors - Light & Soft */
-  --bg-main: #faf8f5;
-  --bg-secondary: #f5f2ed;
-  --bg-card: #ede9e3;
-  --bg-hover: #e5e0d8;
-  --text-main: #3d3833;
-  --text-muted: #6b6560;
-  --text-subtle: #a39b93;
-  --accent-primary: #b8956f;
-  --accent-primary-hover: #c9a67d;
-  --accent-secondary: #f5f2ed;
-  --heading-color: #3d3833;
-
-  /* Typography */
-  --font-heading: 'Quicksand', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --border-style: 1px solid var(--text-subtle);
-  --card-radius: 1rem;
-  --button-radius: 9999px;
-}
-
 /* Default to café mode */
 :root {
   /* Import café variables as default */
@@ -82,7 +51,6 @@ a:focus-visible {
   --accent-primary-hover: #c9a67d;
   --accent-secondary: #f5f2ed;
   --heading-color: #3d3833;
-  --scrollbar-color: #c4bdb5;
 }
 
 /* ============================================
@@ -123,80 +91,6 @@ a:focus-visible {
     @apply m-0 text-lg font-normal leading-5 lg:leading-7;
     font-family: var(--font-body);
     color: var(--text-main);
-  }
-}
-
-/* ============================================
-   EXPERIENCE-SPECIFIC STYLES
-   ============================================ */
-
-/* Café Mode Specifics */
-.mode-cafe .experience-section {
-  border-bottom: var(--border-style);
-  border-color: rgba(154, 143, 131, 0.3);
-  padding-bottom: 1.5rem;
-}
-
-.mode-cafe .experience-section:last-of-type {
-  border-bottom: none;
-}
-
-/* Steam animation for café */
-@keyframes steam {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateY(-10px) scale(1.2);
-    opacity: 0.3;
-  }
-  100% {
-    transform: translateY(-20px) scale(1.5);
-    opacity: 0;
-  }
-}
-
-.steam-particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: steam 2s ease-out infinite;
-}
-
-.steam-particle:nth-child(2) {
-  animation-delay: 0.3s;
-  left: 4px;
-}
-
-.steam-particle:nth-child(3) {
-  animation-delay: 0.6s;
-  left: 8px;
-}
-
-/* ============================================
-   UTILITIES
-   ============================================ */
-
-@layer utilities {
-  .scroll::-webkit-scrollbar {
-    height: 0.5rem;
-  }
-
-  .scroll::-webkit-scrollbar-track {
-    border-radius: 0.5rem;
-  }
-
-  .scroll::-webkit-scrollbar-thumb {
-    border-radius: 0.5rem;
-    background-color: var(--scrollbar-color);
-  }
-
-  .scroll {
-    -ms-overflow-style: scrollbar;
-    scrollbar-width: 0.5rem;
   }
 }
 
