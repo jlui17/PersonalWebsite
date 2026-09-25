@@ -231,17 +231,8 @@
   text-rendering: optimizeLegibility;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 body {
   min-width: 320px;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
 }
 
 button:focus-visible,
