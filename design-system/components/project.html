@@ -1,0 +1,91 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+
+  /* A project row: "no. 01" in mono on the left; on the right a DM Sans title
+     that links out, a copper tag, a one-line kicker, and a story with a person
+     in it. Soft rule between rows. */
+  .evo__projects { margin: 0; padding: 0; list-style: none; }
+  .evo__project {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 2rem 0 2.25rem;
+    border-bottom: var(--ss-hairline) solid var(--ss-line);
+  }
+  .evo__project:first-child { padding-top: 0; }
+  .evo__project-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 1.5rem; margin-bottom: 0.8rem; }
+  .evo__project-meta .evo__label:last-child { color: var(--ss-accent); }
+  .evo__project h3 {
+    margin: 0 0 0.5rem;
+    font-size: var(--ss-text-title);
+    font-weight: var(--ss-weight-title);
+    letter-spacing: var(--ss-tracking-title);
+    line-height: var(--ss-leading-title);
+  }
+  .evo__project h3 a {
+    color: var(--ss-ink);
+    font: inherit;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% var(--ss-underline-title);
+    transition: background-size var(--ss-motion-draw-title) var(--ss-ease), color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__project h3 a:hover, .evo__project h3 a:focus-visible { background-size: 100% var(--ss-underline-title); color: var(--ss-accent); }
+  .evo__project-kicker { margin: 0 0 0.9rem; font-size: var(--ss-text-ui); font-weight: var(--ss-weight-medium); }
+  .evo__project-story { max-width: 40rem; margin: 0; color: var(--ss-muted); font-size: var(--ss-text-story); line-height: 1.7; }
+  @media (max-width: 720px) { .evo__project { grid-template-columns: 1fr; gap: 0.75rem; } }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <ul class="evo__projects">
+    <li class="evo__project">
+      <span class="evo__label">no. 01</span>
+      <div>
+        <div class="evo__project-meta"><h3><a href="https://github.com/jlui17/puzzlewithme">puzzlewithme</a></h3><span class="evo__label">Made for us</span></div>
+        <p class="evo__project-kicker">A jigsaw puzzle app for my girlfriend, my friends, and me.</p>
+        <p class="evo__project-story">My girlfriend and I are long distance now, and online jigsaw puzzles became one of the things we do together. We wanted to make puzzles from personal photos, but we didn&rsquo;t want to upload them somewhere without knowing how they were stored or used. So I built my own version where I know exactly what happens to them.</p>
+      </div>
+    </li>
+    <li class="evo__project">
+      <span class="evo__label">no. 02</span>
+      <div>
+        <div class="evo__project-meta"><h3><a href="https://github.com/jlui17/VLMPrototype">VLMPrototype</a></h3><span class="evo__label">Video + AI</span></div>
+        <p class="evo__project-kicker">I left a system design interview wanting to try the idea myself.</p>
+        <p class="evo__project-story">The idea was to upload a video, ask questions about it in plain English, and get answers back. It was mostly a way to learn how video querying with AI could work by building it myself.</p>
+      </div>
+    </li>
+    <li class="evo__project">
+      <span class="evo__label">no. 03</span>
+      <div>
+        <div class="evo__project-meta"><h3><a href="https://github.com/jlui17/w2fhr">w2fhr</a></h3><span class="evo__label">Richmond Night Market</span></div>
+        <p class="evo__project-kicker">I built the software I wished we had at the night market.</p>
+        <p class="evo__project-story">When I became an assistant manager at the Richmond Night Market, scheduling, payroll, and onboarding were spread across Excel, Google Sheets, and a few HR apps. I asked my boss if I could build one place for all of it. It still runs every season and saves the team a couple grand a month.</p>
+      </div>
+    </li>
+    <li class="evo__project">
+      <span class="evo__label">no. 04</span>
+      <div>
+        <div class="evo__project-meta"><h3><a href="https://github.com/jlui17/LetMeInUBC-2.0">LetMeInUBC-2.0</a></h3><span class="evo__label">Special delivery: a seat</span></div>
+        <p class="evo__project-kicker">A small project that helped my friends get into the classes they wanted.</p>
+        <p class="evo__project-story">My friend Kelvin had a script that registered him when a UBC course opened up. We hosted it so other people could use it, then changed it to email alerts because nobody wants to give a random app their school password. I learned how to keep something running in the cloud, and a few friends got into classes they needed.</p>
+      </div>
+    </li>
+  </ul>
+</main>
+</body>
+</html>

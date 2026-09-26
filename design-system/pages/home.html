@@ -1,0 +1,642 @@
+<!-- @dsCard group="Pages" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f3e8d8">
+<title>Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  /* The home page of justinlui.dev: the warm spec sheet, as one static page.
+     Tokens and the base classes (evo__page, evo__label, evo__prose-link,
+     evo__sprite) come from ../tokens.css; everything below is this page's own
+     layout, in the site's class names. */
+
+  /* The site's global stylesheet gives the document a 1.5 line-height (labels,
+     fact rows and the masthead take their height from it), so the mock does too. */
+  html { line-height: 1.5; }
+  body { background: var(--ss-bg); }
+  .evo__sprite img { display: block; }
+
+  /* ---- Masthead ----
+     Name and pronunciation left, mono nav and the SF clock right, closed by the
+     strong rule. Justin no longer stands here: he stands beside the h1, and
+     one Justin on the first screen is enough. */
+  .evo__masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--ss-space-grid);
+    padding-bottom: 1rem;
+    border-bottom: var(--ss-hairline) solid var(--ss-line-strong);
+  }
+  .evo__masthead-name { display: flex; align-items: baseline; gap: 0.75rem; }
+  .evo__masthead-name strong {
+    font-size: var(--ss-text-ui);
+    font-weight: var(--ss-weight-name);
+    letter-spacing: -0.01em;
+  }
+  .evo__masthead-nav { display: flex; align-items: baseline; gap: 1.5rem; }
+  .evo__masthead-nav a {
+    color: var(--ss-ink);
+    font-family: var(--ss-mono);
+    font-size: var(--ss-text-nav);
+    font-weight: var(--ss-weight-label);
+    letter-spacing: var(--ss-tracking-nav);
+    text-transform: uppercase;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% var(--ss-underline);
+    transition: background-size var(--ss-motion-draw) var(--ss-ease), color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__masthead-nav a:hover,
+  .evo__masthead-nav a:focus-visible { background-size: 100% var(--ss-underline); color: var(--ss-accent); }
+  .evo__clock {
+    font-family: var(--ss-mono);
+    font-size: var(--ss-text-nav);
+    font-weight: var(--ss-weight-label);
+    letter-spacing: var(--ss-tracking-nav);
+    color: var(--ss-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .evo__clock-seconds { color: var(--ss-line-strong); }
+
+  /* ---- Hero ---- */
+  .evo__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 15.5rem;
+    gap: 3.5rem;
+    padding: var(--ss-space-section) 0 4rem;
+  }
+  /* Justin stands beside his name: the h1 is a row of the words and the
+     sprite, aligned on the last baseline, so his feet are on the baseline of
+     "Lui." whether the words take one line or two. */
+  .evo__hero h1 {
+    display: flex;
+    align-items: last baseline;
+    gap: 1.25rem;
+    margin: 0 0 2rem;
+    font-family: var(--ss-serif);
+    font-size: var(--ss-text-h1);
+    font-weight: var(--ss-weight-h1);
+    line-height: var(--ss-leading-h1);
+    letter-spacing: var(--ss-tracking-h1);
+  }
+  .evo__hero-figure { flex: none; }
+  .evo__hero-intro p { max-width: 34rem; margin: 0 0 1rem; color: var(--ss-muted); }
+  .evo__hero-intro p:last-child { margin-bottom: 0; }
+  .evo__figure { margin: 0; }
+  .evo__figure img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: var(--ss-hairline) solid var(--ss-line-strong);
+  }
+  .evo__figure figcaption { margin-top: 0.6rem; }
+  .evo__facts { margin: 1.5rem 0 0; }
+  .evo__facts > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-top: var(--ss-hairline) solid var(--ss-line);
+  }
+  .evo__facts dd { margin: 0; font-size: var(--ss-text-fact); font-weight: var(--ss-weight-medium); text-align: right; }
+
+  /* ---- Sections ---- */
+  .evo__section { padding: var(--ss-space-section) 0 0; }
+  .evo__section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: var(--ss-space-section-head);
+    padding-bottom: 0.75rem;
+    border-bottom: var(--ss-hairline) solid var(--ss-line-strong);
+  }
+  /* The h2's line box comes from the site's global heading styles: 1.75rem,
+     and 3.5rem from 64rem up, which is the air under each heading on a desktop. */
+  .evo__section-head h2 {
+    margin: 0;
+    font-family: var(--ss-serif);
+    font-size: var(--ss-text-h2);
+    font-weight: var(--ss-weight-h2);
+    line-height: 1.75rem;
+    letter-spacing: 0;
+  }
+  @media (min-width: 64rem) {
+    .evo__section-head h2 { line-height: 3.5rem; }
+  }
+  .evo__section-head .evo__label { color: var(--ss-accent); }
+
+  /* ---- What I'm up to ----
+     The numbered list on the left; on the right the status readout, now rows
+     on hairlines under the same section head, and the aside below it. */
+  .evo__now {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 2rem 4rem;
+  }
+  .evo__now-list { margin: 0; padding: 0; list-style: none; }
+  .evo__now-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 0.85rem 0;
+    border-bottom: var(--ss-hairline) solid var(--ss-line);
+    font-size: var(--ss-text-ui);
+    line-height: 1.6;
+  }
+  .evo__now-list li:first-child { padding-top: 0; }
+  .evo__now-side { display: grid; gap: 2rem; align-content: start; }
+
+  /* Status: STATUS in copper and the updated date over a strong rule, then one
+     row per entry. luibot stands on the head's rule beside the date, which
+     keeps clear of him. */
+  .evo__status-head {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--ss-space-grid);
+    padding-bottom: 0.7rem;
+    border-bottom: var(--ss-hairline) solid var(--ss-line-strong);
+  }
+  .evo__status-head .evo__label:first-child { color: var(--ss-accent); }
+  .evo__updated { padding-right: calc(28px + 0.75rem); }
+  .evo__luibot { position: absolute; right: 0; bottom: 0; }
+  .evo__status-rows > div {
+    position: relative;
+    padding: 0.85rem 0 1rem;
+    border-bottom: var(--ss-hairline) solid var(--ss-line);
+  }
+  .evo__status-rows strong {
+    display: block;
+    margin-top: 0.45rem;
+    font-size: var(--ss-text-ui);
+    font-weight: var(--ss-weight-semibold);
+    line-height: 1.35;
+  }
+  .evo__status-rows span { display: block; margin-top: 0.3rem; color: var(--ss-muted); font-size: var(--ss-text-fact); line-height: 1.55; }
+  /* Brewing: Justin drinks his espresso at the right end of the row, feet on
+     its rule; the text keeps clear of him. */
+  .evo__status-rows > .evo__status-row--brewing { padding-right: calc(36px + 1rem); }
+  .evo__brewing-figure { position: absolute; right: 0; bottom: 0; }
+
+  .evo__aside {
+    padding: var(--ss-space-card-y) var(--ss-space-card-x) 1.2rem;
+    border: var(--ss-hairline) solid var(--ss-line);
+    border-radius: var(--ss-radius);
+    background: var(--ss-tint);
+  }
+  .evo__aside p { margin: 0.5rem 0 0; color: var(--ss-muted); font-size: var(--ss-text-detail); line-height: var(--ss-leading-detail); }
+
+  /* ---- People ---- */
+  .evo__people { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ss-space-grid); }
+  .evo__people article {
+    padding: 1.35rem 1.4rem 1.5rem;
+    border: var(--ss-hairline) solid var(--ss-line);
+    border-radius: var(--ss-radius);
+    background: var(--ss-tint);
+    transition: transform var(--ss-motion) var(--ss-ease), border-color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__people article:hover { transform: translateY(-1px); border-color: var(--ss-line-strong); }
+  .evo__people article > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+  }
+  .evo__people h3 {
+    margin: 0;
+    font-family: var(--ss-serif);
+    font-size: var(--ss-text-h3);
+    font-weight: var(--ss-weight-h3);
+    line-height: var(--ss-leading-h3);
+    letter-spacing: 0;
+  }
+  .evo__people p { margin: 0.6rem 0 0; color: var(--ss-muted); font-size: var(--ss-text-detail); line-height: var(--ss-leading-detail); }
+  .evo__people .evo__person--girlfriend { grid-column: 1 / -1; background: var(--ss-tint-deep); }
+  .evo__people .evo__person--girlfriend p { max-width: 42rem; }
+
+  /* Truffle sleeps on her card's bottom rule, captioned like the photo, with
+     the ball she ignored at her nose. The card gives up its bottom padding so
+     her feet touch the border, and stays put on hover. */
+  .evo__people .evo__person--truffle { display: flex; flex-direction: column; padding-bottom: 0; }
+  .evo__people .evo__person--truffle:hover { transform: none; }
+  .evo__truffle-figure {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    margin: auto 0 0;
+    padding-top: var(--ss-space-card-y);
+  }
+  .evo__truffle { transform: scaleX(-1); }
+  .evo__ball { position: absolute; left: calc(100% - 36px - 10px - 8px); bottom: 0; }
+
+  /* ---- Projects ---- */
+  .evo__projects { margin: 0; padding: 0; list-style: none; }
+  .evo__project {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 2rem 0 2.25rem;
+    border-bottom: var(--ss-hairline) solid var(--ss-line);
+  }
+  .evo__project:first-child { padding-top: 0; }
+  .evo__project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .evo__project-meta .evo__label:last-child { color: var(--ss-accent); }
+  .evo__project h3 {
+    margin: 0 0 0.5rem;
+    font-size: var(--ss-text-title);
+    font-weight: var(--ss-weight-title);
+    letter-spacing: var(--ss-tracking-title);
+    line-height: var(--ss-leading-title);
+  }
+  .evo__project h3 a {
+    color: var(--ss-ink);
+    font: inherit;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% var(--ss-underline-title);
+    transition: background-size var(--ss-motion-draw-title) var(--ss-ease), color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__project h3 a:hover,
+  .evo__project h3 a:focus-visible { background-size: 100% var(--ss-underline-title); color: var(--ss-accent); }
+  /* Kicker and story keep the body size and leading (1rem, 1.75): on the site
+     the page-wide paragraph rule wins over the project classes. */
+  .evo__project-kicker { margin: 0 0 0.9rem; font-weight: var(--ss-weight-medium); }
+  .evo__project-story { max-width: 40rem; margin: 0; color: var(--ss-muted); }
+
+  /* ---- Footer ----
+     The rule is a pseudo-element inside the padding box, so the figures'
+     bottom: 100% lands their feet exactly on it. Justin and Truffle sit at
+     the left, luibuilder stands at the right end with his block. */
+  .evo__footer {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--ss-space-grid);
+    margin-top: 5rem;
+    padding-top: 1rem;
+  }
+  .evo__footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--ss-hairline);
+    background: var(--ss-line-strong);
+  }
+  .evo__footer-figure { position: absolute; bottom: 100%; display: flex; align-items: flex-end; gap: 10px; }
+  .evo__footer-figure--left { left: 0.75rem; }
+  .evo__footer-figure--right { right: 0; }
+
+  @media (max-width: 720px) {
+    .evo__masthead { flex-wrap: wrap; }
+    .evo__hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 0; }
+    .evo__figure { width: min(100%, 20rem); }
+    .evo__now { grid-template-columns: 1fr; }
+    .evo__people { grid-template-columns: 1fr; }
+    .evo__project { grid-template-columns: 1fr; gap: 0.75rem; }
+    .evo__footer { flex-direction: column; gap: 0.4rem; }
+  }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <header class="evo__masthead">
+    <div class="evo__masthead-name">
+      <strong>Justin Lui</strong>
+      <span class="evo__label">pronounced loo-wee</span>
+    </div>
+    <nav class="evo__masthead-nav" aria-label="Find Justin online">
+      <a href="https://github.com/jlui17" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/jlui17" target="_blank" rel="noreferrer">LinkedIn</a>
+      <span class="evo__clock" aria-label="Current time in San Francisco">SF <span class="evo__clock-time">--:--</span><span class="evo__clock-seconds">:--</span></span>
+    </nav>
+  </header>
+
+  <section class="evo__hero">
+    <div class="evo__hero-intro">
+      <h1>
+        <span>Hi, I&rsquo;m Lui.</span>
+        <span class="evo__sprite evo__hero-figure" aria-hidden="true"><img src="../sprites/justin-overshirt-idle.svg" width="36" height="62" alt=""></span>
+      </h1>
+      <p>If there&rsquo;s something you should know about me, it&rsquo;s that I can nerd out over niche details for hours. Dialing in espresso, custom keyboards, the right pair of shoes, or why episode 1070 of One Piece is my favourite. Once I&rsquo;m interested, I&rsquo;ll obsess over the details and talk about them way longer than I meant to.</p>
+      <p>For work, I&rsquo;m at <a class="evo__prose-link" href="https://www.scorecard.io/" target="_blank" rel="noreferrer">Scorecard</a>, where I work across product and engineering to build RL environments. I handle the infra, scaling, and simulations. At home I have two agents of my own, luibot and luibuilder, and I keep finding new things to hand them.</p>
+    </div>
+
+    <figure class="evo__figure">
+      <img src="assets/justin-girlfriend-dog.jpeg" alt="Justin and his girlfriend taking a selfie with a sleepy dog">
+      <figcaption class="evo__label">fig. 01 — the three of us</figcaption>
+      <dl class="evo__facts">
+        <div>
+          <dt class="evo__label">Currently in</dt>
+          <dd>San Francisco</dd>
+        </div>
+        <div>
+          <dt class="evo__label">Working at</dt>
+          <dd>Scorecard</dd>
+        </div>
+        <div>
+          <dt class="evo__label">Originally from</dt>
+          <dd>Vancouver</dd>
+        </div>
+      </dl>
+    </figure>
+  </section>
+
+  <section class="evo__section" aria-labelledby="now-heading">
+    <div class="evo__section-head">
+      <span class="evo__label">01</span>
+      <h2 id="now-heading">What I&rsquo;m up to</h2>
+    </div>
+    <div class="evo__now">
+      <ul class="evo__now-list">
+        <li><span class="evo__label">01</span>Trying cafés around SF</li>
+        <li><span class="evo__label">02</span>Going out to eat and checking out festivals with friends</li>
+        <li><span class="evo__label">03</span>Working out at my apartment gym</li>
+        <li><span class="evo__label">04</span>Building random side quests</li>
+        <li><span class="evo__label">05</span>Starting a Palworld server with my friends</li>
+        <li><span class="evo__label">06</span>Just started playing volleyball and tennis in SF</li>
+        <li><span class="evo__label">07</span>Running a lot of experiments with agents at work</li>
+        <li><span class="evo__label">08</span>Automating my life with my own OpenClaw agents, luibot and luibuilder</li>
+      </ul>
+
+      <div class="evo__now-side">
+        <section class="evo__status" aria-label="Current status">
+          <div class="evo__status-head">
+            <span class="evo__label">Status</span>
+            <span class="evo__label evo__updated">updated 2026-07-18
+              <span class="evo__sprite evo__luibot" aria-hidden="true"><img src="../sprites/luibot-idle.svg" width="28" height="32" alt=""></span>
+            </span>
+          </div>
+          <div class="evo__status-rows">
+            <div>
+              <span class="evo__label">Watching</span>
+              <strong>One Piece</strong>
+              <span>Episode 1070 is my favourite.</span>
+            </div>
+            <div class="evo__status-row--brewing">
+              <span class="evo__label">Brewing</span>
+              <strong>Espresso at home</strong>
+              <span>Breville Bambino Plus with a Baratza Encore. Dialing it in.</span>
+              <span class="evo__sprite evo__brewing-figure" aria-hidden="true"><img src="../sprites/justin-overshirt-sip.svg" width="36" height="62" alt=""></span>
+            </div>
+            <div>
+              <span class="evo__label">Cooking</span>
+              <strong>My girlfriend&rsquo;s cookbook</strong>
+              <span>Handwritten, cover to cover. She&rsquo;s the best.</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="evo__aside">
+          <span class="evo__label">One random thing</span>
+          <p>I&rsquo;m terrible at geography but weirdly good at directions. I can navigate you anywhere, but don&rsquo;t ask me what country we&rsquo;re in.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="evo__section" aria-labelledby="people-heading">
+    <div class="evo__section-head">
+      <span class="evo__label">02</span>
+      <h2 id="people-heading">The best people in my life</h2>
+    </div>
+    <div class="evo__people">
+      <article>
+        <div>
+          <span class="evo__label">My mom</span>
+          <span class="evo__label">Role model</span>
+        </div>
+        <h3>My role model for hard work and perseverance.</h3>
+        <p>She built everything from the ground up. She&rsquo;s detailed, incredibly resilient, and always willing to do the thankless work.</p>
+      </article>
+      <article>
+        <div>
+          <span class="evo__label">My dad</span>
+          <span class="evo__label">Most dependable</span>
+        </div>
+        <h3>The most dependable and honest person I know.</h3>
+        <p>Sometimes a little too honest. I try to be as real with the people I care about as he is, but maybe a bit gentler.</p>
+      </article>
+      <article>
+        <div>
+          <span class="evo__label">Andrea</span>
+          <span class="evo__label">Little sister · NYC</span>
+        </div>
+        <h3>My little sister was made for New York.</h3>
+        <p>I look up to her because she moved to New York, chased what she wanted, and made it happen. She&rsquo;s a huge part of why I finally chased my own dream of working at a startup in San Francisco, and she helped me land at Scorecard.</p>
+      </article>
+      <article class="evo__person--truffle">
+        <div>
+          <span class="evo__label">Truffle</span>
+          <span class="evo__label">Est. 2017</span>
+        </div>
+        <h3>My best friend since 2017.</h3>
+        <p>She&rsquo;s my spoiled, squishy, and very sweet French Bulldog.</p>
+        <figure class="evo__truffle-figure">
+          <figcaption class="evo__label">fig. 02 — asleep, as usual</figcaption>
+          <span class="evo__sprite evo__ball" aria-hidden="true"><img src="../sprites/ball-roll-0.svg" width="10" height="10" alt=""></span>
+          <span class="evo__sprite evo__truffle" aria-hidden="true"><img src="../sprites/truffle-sleep.svg" width="36" height="20" alt=""></span>
+        </figure>
+      </article>
+      <article class="evo__person--girlfriend">
+        <div>
+          <span class="evo__label">My girlfriend</span>
+          <span class="evo__label">Best friend</span>
+        </div>
+        <h3>My best friend and the most thoughtful person I know.</h3>
+        <p>She makes me kinder, healthier, and better at living on my own. We support each other through work and everything else, and I&rsquo;m a better person because of her.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="evo__section" aria-labelledby="projects-heading">
+    <div class="evo__section-head">
+      <span class="evo__label">03</span>
+      <h2 id="projects-heading">Things I&rsquo;ve built</h2>
+    </div>
+    <ul class="evo__projects">
+      <li class="evo__project">
+        <span class="evo__label">no. 01</span>
+        <div>
+          <div class="evo__project-meta">
+            <h3><a href="https://github.com/jlui17/puzzlewithme" target="_blank" rel="noreferrer">puzzlewithme</a></h3>
+            <span class="evo__label">Made for us</span>
+          </div>
+          <p class="evo__project-kicker">A jigsaw puzzle app for my girlfriend, my friends, and me.</p>
+          <p class="evo__project-story">My girlfriend and I are long distance now, and online jigsaw puzzles became one of the things we do together. We wanted to make puzzles from personal photos, but we didn&rsquo;t want to upload them somewhere without knowing how they were stored or used. So I built my own version where I know exactly what happens to them.</p>
+        </div>
+      </li>
+      <li class="evo__project">
+        <span class="evo__label">no. 02</span>
+        <div>
+          <div class="evo__project-meta">
+            <h3><a href="https://github.com/jlui17/VLMPrototype" target="_blank" rel="noreferrer">VLMPrototype</a></h3>
+            <span class="evo__label">Video + AI</span>
+          </div>
+          <p class="evo__project-kicker">I left a system design interview wanting to try the idea myself.</p>
+          <p class="evo__project-story">The idea was to upload a video, ask questions about it in plain English, and get answers back. It was mostly a way to learn how video querying with AI could work by building it myself.</p>
+        </div>
+      </li>
+      <li class="evo__project">
+        <span class="evo__label">no. 03</span>
+        <div>
+          <div class="evo__project-meta">
+            <h3><a href="https://github.com/jlui17/w2fhr" target="_blank" rel="noreferrer">w2fhr</a></h3>
+            <span class="evo__label">Richmond Night Market</span>
+          </div>
+          <p class="evo__project-kicker">I built the software I wished we had at the night market.</p>
+          <p class="evo__project-story">When I became an assistant manager at the Richmond Night Market, scheduling, payroll, and onboarding were spread across Excel, Google Sheets, and a few HR apps. I asked my boss if I could build one place for all of it. It still runs every season and saves the team a couple grand a month.</p>
+        </div>
+      </li>
+      <li class="evo__project">
+        <span class="evo__label">no. 04</span>
+        <div>
+          <div class="evo__project-meta">
+            <h3><a href="https://github.com/jlui17/LetMeInUBC-2.0" target="_blank" rel="noreferrer">LetMeInUBC-2.0</a></h3>
+            <span class="evo__label">Special delivery: a seat</span>
+          </div>
+          <p class="evo__project-kicker">A small project that helped my friends get into the classes they wanted.</p>
+          <p class="evo__project-story">My friend Kelvin had a script that registered him when a UBC course opened up. We hosted it so other people could use it, then changed it to email alerts because nobody wants to give a random app their school password. I learned how to keep something running in the cloud, and a few friends got into classes they needed.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="evo__section" aria-labelledby="agents-heading">
+    <div class="evo__section-head">
+      <span class="evo__label">04</span>
+      <h2 id="agents-heading">My agents</h2>
+    </div>
+    <div class="evo__people">
+      <article>
+        <div>
+          <span class="evo__label">luibot</span>
+          <span class="evo__label">The main one</span>
+        </div>
+        <h3>The agent I talk to most, about almost everything.</h3>
+        <p>luibot does my research. He sorts every transaction into my own categories as it comes in, so my budget ends up in a Google Sheet with a report at the end. He orders my DoorDash and is learning what I like. He also helps me think through investments and triages my email.</p>
+      </article>
+      <article>
+        <div>
+          <span class="evo__label">luibuilder</span>
+          <span class="evo__label">Coding agent</span>
+        </div>
+        <h3>I tell him I have an idea, and he goes off and builds it.</h3>
+        <p>luibuilder is my coding agent. He built the games my girlfriend and I play together since we&rsquo;re long distance, and he looks after the VPS they run on. Same with my other side projects. It&rsquo;s nice having an agent floating around that I can just hand an idea to.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="evo__section" aria-labelledby="home-heading">
+    <div class="evo__section-head">
+      <span class="evo__label">05</span>
+      <h2 id="home-heading">Around my place</h2>
+    </div>
+    <div class="evo__people">
+      <article>
+        <div>
+          <span class="evo__label">The desk</span>
+        </div>
+        <h3>Clean and modern, with a cozy feel.</h3>
+        <p>A custom PC, custom keyboards, a nice chair and monitor, and a few One Piece stuffies and knick-knacks keeping me company. It&rsquo;s one of the things people recognize me for.</p>
+      </article>
+      <article>
+        <div>
+          <span class="evo__label">The shoes</span>
+        </div>
+        <h3>There are a lot of shoes here.</h3>
+        <p>I used to be into buying and selling shoes and streetwear. I don&rsquo;t anymore, but the shoes stayed.</p>
+      </article>
+      <article>
+        <div>
+          <span class="evo__label">The coffee corner</span>
+        </div>
+        <h3>A Breville Bambino Plus and a Baratza Encore.</h3>
+        <p>The other thing people recognize me for. I&rsquo;m still dialing it in, and I&rsquo;m okay with that.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="evo__section" aria-labelledby="someday-heading">
+    <div class="evo__section-head">
+      <span class="evo__label">06</span>
+      <h2 id="someday-heading">Someday</h2>
+    </div>
+    <div class="evo__people">
+      <article>
+        <div>
+          <span class="evo__label">New York</span>
+        </div>
+        <h3>Live in New York with my girlfriend.</h3>
+        <p>My sister Andrea is already there. I want a stretch of my life there too.</p>
+      </article>
+      <article>
+        <div>
+          <span class="evo__label">Japan</span>
+        </div>
+        <h3>Live in Japan with my girlfriend.</h3>
+        <p>I want us to actually live there for a while.</p>
+      </article>
+      <article>
+        <div>
+          <span class="evo__label">The farm</span>
+        </div>
+        <h3>After tech, a family-run farm with lots of dogs.</h3>
+        <p>Cows, chickens, sheep, pigs, and vegetables too. The plan is to spend my days automating every part of it with robots, which is where luibot and luibuilder come in.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="evo__footer">
+    <span class="evo__sprite evo__footer-figure evo__footer-figure--left" aria-hidden="true">
+      <img src="../sprites/justin-overshirt-sit.svg" width="52" height="52" alt="">
+      <img src="../sprites/truffle-sit-0.svg" width="24" height="24" alt="">
+    </span>
+    <span class="evo__sprite evo__footer-figure evo__footer-figure--right" aria-hidden="true"><img src="../sprites/luibuilder-idle.svg" width="30" height="34" alt=""></span>
+    <span class="evo__label">That&rsquo;s all for now.</span>
+    <span class="evo__label">Thanks for stopping by.</span>
+  </footer>
+</main>
+
+<script>
+  // The SF clock, the one live detail on this page. Ticks every second in
+  // America/Los_Angeles; the markup's "--:--" stays if scripts are off.
+  (function () {
+    var time = document.querySelector(".evo__clock-time");
+    var seconds = document.querySelector(".evo__clock-seconds");
+    function tick() {
+      var now = new Date().toLocaleTimeString("en-US", { hour12: false, timeZone: "America/Los_Angeles" });
+      time.textContent = now.slice(0, 5);
+      seconds.textContent = now.slice(5);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+</body>
+</html>

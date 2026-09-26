@@ -1,0 +1,60 @@
+<!-- @dsCard group="Colors" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+  .intro { margin: 0 0 2rem; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: var(--ss-space-grid); margin: 0; padding: 0; list-style: none; }
+  .swatch { border: var(--ss-hairline) solid var(--ss-line); border-radius: var(--ss-radius); overflow: hidden; background: var(--ss-tint); }
+  .swatch__chip { height: 5.5rem; border-bottom: var(--ss-hairline) solid var(--ss-line); }
+  .swatch__text { padding: 0.8rem 1rem 1rem; }
+  .swatch__text strong { display: block; font-size: var(--ss-text-ui); font-weight: var(--ss-weight-semibold); }
+  .swatch__text code { display: block; margin: 0.25rem 0 0.4rem; font-family: var(--ss-mono); font-size: var(--ss-text-nav); color: var(--ss-accent); }
+  .swatch__text p { margin: 0; color: var(--ss-muted); font-size: var(--ss-text-fact); line-height: 1.5; }
+  .lines { margin: 2.5rem 0 0; }
+  .lines .evo__rule { margin: 0.6rem 0 1.4rem; }
+  .ink-sample { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; margin-top: 2.5rem; padding: 1.35rem 1.4rem 1.5rem; border: var(--ss-hairline) solid var(--ss-line); border-radius: var(--ss-radius); background: var(--ss-tint); }
+  .ink-sample div { flex: 1 1 14rem; }
+  .ink-sample p { margin: 0.4rem 0 0; font-size: var(--ss-text-detail); line-height: var(--ss-leading-detail); }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <p class="intro evo__body">One latte palette, no dark mode. The page is deliberately dimmer than white; the ink is espresso, not black; the card fills are the page colour pushed one and two steps deeper. Copper is the only accent. Meaning never rides on colour alone: every coloured element also carries a label or a shape.</p>
+
+  <ul class="swatches">
+    <li class="swatch"><div class="swatch__chip" style="background: var(--ss-bg)"></div><div class="swatch__text"><strong>Background</strong><code>--ss-bg #f3e8d8</code><p>The page. Also the speech bubble fill.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--ss-tint)"></div><div class="swatch__text"><strong>Tint</strong><code>--ss-tint #ecdec7</code><p>Every card fill: status readout, people, the aside.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--ss-tint-deep)"></div><div class="swatch__text"><strong>Tint, deep</strong><code>--ss-tint-deep #e7d5b8</code><p>The girlfriend card only. The one deliberate highlight.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--ss-ink)"></div><div class="swatch__text"><strong>Ink</strong><code>--ss-ink #33291f</code><p>Headings, values, links, the masthead name.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--ss-muted)"></div><div class="swatch__text"><strong>Muted</strong><code>--ss-muted #6f6357</code><p>Labels, body copy under a heading, the clock.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--ss-accent)"></div><div class="swatch__text"><strong>Accent</strong><code>--ss-accent #a5642f</code><p>Copper. Section numbers, the STATUS word, project tags, link hover.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--ss-sprite-ink)"></div><div class="swatch__text"><strong>Sprite ink</strong><code>--ss-sprite-ink #1e1711</code><p>Outline of every pixel sprite. Not for text.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: radial-gradient(circle at 18% 0%, var(--ss-glow), transparent 12rem), var(--ss-bg)"></div><div class="swatch__text"><strong>Glow</strong><code>--ss-glow rgba(196,132,72,.14)</code><p>A faint warm radial at the page's top-left corner.</p></div></li>
+  </ul>
+
+  <section class="lines">
+    <span class="evo__label">Line, 0.18 ink</span>
+    <hr class="evo__rule">
+    <span class="evo__label">Line strong, 0.45 ink</span>
+    <hr class="evo__rule evo__rule--strong">
+    <p class="evo__body">Hairlines do the structural work. The soft line divides rows and borders cards; the strong line closes the masthead and each section head, frames the photo and the status box, and sits under the footer.</p>
+  </section>
+
+  <div class="ink-sample">
+    <div><span class="evo__label">Ink on tint</span><p style="color: var(--ss-ink)">Breville Bambino Plus with a Baratza Encore. Dialing it in.</p></div>
+    <div><span class="evo__label">Muted on tint</span><p style="color: var(--ss-muted)">Breville Bambino Plus with a Baratza Encore. Dialing it in.</p></div>
+    <div><span class="evo__label" style="color: var(--ss-accent)">Accent label on tint</span><p style="color: var(--ss-muted)">Copper is a label colour, never a body colour.</p></div>
+  </div>
+</main>
+</body>
+</html>

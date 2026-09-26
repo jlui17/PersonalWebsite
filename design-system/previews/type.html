@@ -1,0 +1,77 @@
+<!-- @dsCard group="Type" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Type</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+  .face { padding: 2rem 0 2.25rem; border-bottom: var(--ss-hairline) solid var(--ss-line); }
+  .face:first-child { padding-top: 0; }
+  .face__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 1.5rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: var(--ss-hairline) solid var(--ss-line-strong); }
+  .face__head .evo__label:first-child { color: var(--ss-accent); }
+  .row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 0.5rem 1.5rem; align-items: baseline; padding: 0.85rem 0; border-top: var(--ss-hairline) solid var(--ss-line); }
+  .face__head + .row { border-top: 0; padding-top: 0; }
+  .row > * { margin: 0; }
+  .row .evo__label { line-height: 1.6; }
+  @media (max-width: 720px) { .row { grid-template-columns: 1fr; gap: 0.25rem; } }
+
+  .h1 { font-family: var(--ss-serif); font-size: var(--ss-text-h1); font-weight: var(--ss-weight-h1); line-height: var(--ss-leading-h1); letter-spacing: var(--ss-tracking-h1); }
+  .h2 { font-family: var(--ss-serif); font-size: var(--ss-text-h2); font-weight: var(--ss-weight-h2); letter-spacing: 0; }
+  .h3 { font-family: var(--ss-serif); font-size: var(--ss-text-h3); font-weight: var(--ss-weight-h3); line-height: var(--ss-leading-h3); letter-spacing: 0; }
+  .title { font-size: var(--ss-text-title); font-weight: var(--ss-weight-title); letter-spacing: var(--ss-tracking-title); line-height: var(--ss-leading-title); }
+  .name { font-size: var(--ss-text-ui); font-weight: var(--ss-weight-name); letter-spacing: -0.01em; }
+  .body { color: var(--ss-muted); font-size: var(--ss-text-body); line-height: var(--ss-leading-body); max-width: 34rem; }
+  .ui { font-size: var(--ss-text-ui); line-height: 1.6; }
+  .kicker { font-size: var(--ss-text-ui); font-weight: var(--ss-weight-medium); }
+  .value { font-size: var(--ss-text-ui); font-weight: var(--ss-weight-semibold); line-height: 1.35; }
+  .story { color: var(--ss-muted); font-size: var(--ss-text-story); line-height: 1.7; max-width: 40rem; }
+  .detail { color: var(--ss-muted); font-size: var(--ss-text-detail); line-height: var(--ss-leading-detail); }
+  .fact { font-size: var(--ss-text-fact); font-weight: var(--ss-weight-medium); }
+  .fact-detail { color: var(--ss-muted); font-size: var(--ss-text-fact); line-height: 1.55; }
+  .nav { font-family: var(--ss-mono); font-size: var(--ss-text-nav); font-weight: var(--ss-weight-label); letter-spacing: var(--ss-tracking-nav); text-transform: uppercase; }
+  .clock { font-family: var(--ss-mono); font-size: var(--ss-text-nav); font-weight: var(--ss-weight-label); letter-spacing: var(--ss-tracking-nav); color: var(--ss-muted); font-variant-numeric: tabular-nums; }
+  .clock span { color: var(--ss-line-strong); }
+  .lower { text-transform: none; color: var(--ss-ink); }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <section class="face">
+    <div class="face__head"><span class="evo__label">Fraunces</span><span class="evo__label">Display only. This is where the warmth lives.</span></div>
+    <div class="row"><span class="evo__label">h1 · clamp(2.6rem, 7vw, 4.5rem) · 480</span><p class="h1">Hi, I&rsquo;m Lui.</p></div>
+    <div class="row"><span class="evo__label">h2 · 1.45rem · 520</span><p class="h2">The best people in my life</p></div>
+    <div class="row"><span class="evo__label">h3 · 1.2rem · 500</span><p class="h3">My little sister was made for New York.</p></div>
+  </section>
+
+  <section class="face">
+    <div class="face__head"><span class="evo__label">DM Sans</span><span class="evo__label">Body and UI. Chosen over Inter, which read too tech-bro.</span></div>
+    <div class="row"><span class="evo__label">Project title · clamp(1.4rem, 3vw, 1.8rem) · 620</span><p class="title">puzzlewithme</p></div>
+    <div class="row"><span class="evo__label">Masthead name · 0.95rem · 650</span><p class="name">Justin Lui</p></div>
+    <div class="row"><span class="evo__label">Body · 1rem · 400 · 1.75</span><p class="body">If there&rsquo;s something you should know about me, it&rsquo;s that I can nerd out over niche details for hours. Steph Curry&rsquo;s footwork, dialing in espresso, programming, or the right way to peek a specific angle in Valorant.</p></div>
+    <div class="row"><span class="evo__label">Kicker · 0.95rem · 550</span><p class="kicker">A jigsaw puzzle app for my girlfriend, my friends, and me.</p></div>
+    <div class="row"><span class="evo__label">Status value · 0.95rem · 600</span><p class="value">Espresso at home</p></div>
+    <div class="row"><span class="evo__label">List row · 0.95rem · 400 · 1.6</span><p class="ui">Starting a Palworld server with my friends</p></div>
+    <div class="row"><span class="evo__label">Story · 0.92rem · 400 · 1.7</span><p class="story">The idea was to upload a video, ask questions about it in plain English, and get answers back. It was mostly a way to learn how video querying with AI could work by building it myself.</p></div>
+    <div class="row"><span class="evo__label">Detail · 0.88rem · 400 · 1.65</span><p class="detail">She&rsquo;s my spoiled, squishy, and very sweet French Bulldog.</p></div>
+    <div class="row"><span class="evo__label">Fact value · 0.82rem · 550</span><p class="fact">San Francisco</p></div>
+    <div class="row"><span class="evo__label">Status detail · 0.82rem · 400 · 1.55</span><p class="fact-detail">Episode 1070 is my favourite.</p></div>
+  </section>
+
+  <section class="face">
+    <div class="face__head"><span class="evo__label">IBM Plex Mono</span><span class="evo__label">The label voice only. Uppercase, letter-spaced, small.</span></div>
+    <div class="row"><span class="evo__label">Label · 0.68rem · 500 · 0.14em</span><p><span class="evo__label">Currently in</span> &nbsp; <span class="evo__label">Est. 2017</span> &nbsp; <span class="evo__label">no. 01</span> &nbsp; <span class="evo__label">fig. 01 — the three of us</span></p></div>
+    <div class="row"><span class="evo__label">Label, accent</span><p><span class="evo__label" style="color: var(--ss-accent)">01</span> &nbsp; <span class="evo__label" style="color: var(--ss-accent)">Status</span> &nbsp; <span class="evo__label" style="color: var(--ss-accent)">Made for us</span></p></div>
+    <div class="row"><span class="evo__label">Nav · 0.72rem · 500 · 0.08em</span><p class="nav">GitHub &nbsp;&nbsp; LinkedIn</p></div>
+    <div class="row"><span class="evo__label">Clock · tabular numerals</span><p class="clock">SF 14:21<span>:23</span></p></div>
+    <div class="row"><span class="evo__label">Bubble · label, not uppercased</span><p><span class="evo__label lower">Hi, I&rsquo;m luibot</span></p></div>
+  </section>
+</main>
+</body>
+</html>

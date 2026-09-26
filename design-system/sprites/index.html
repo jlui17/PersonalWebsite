@@ -1,0 +1,326 @@
+<!-- @dsCard group="Sprites" -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sprites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../tokens.css">
+  <style>
+    /* Fallbacks for when ../tokens.css is missing; the tokens win when it loads. */
+    body {
+      margin: 0;
+      padding: 2.5rem 16px 4rem;
+      background: var(--ss-bg, #f3e8d8);
+      color: var(--ss-ink, #3b2a20);
+      font-family: var(--ss-sans, "DM Sans", system-ui, sans-serif);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    main { max-width: 1080px; margin: 0 auto; }
+    h1, h2 {
+      font-family: var(--ss-display, "Fraunces", Georgia, serif);
+      font-weight: 500;
+      margin: 0;
+    }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+    h2 { font-size: clamp(1.3rem, 3vw, 1.6rem); }
+    p { margin: 0.4rem 0 0; max-width: 62ch; }
+    .intro { margin-bottom: 2.5rem; }
+    .label {
+      font-family: var(--ss-mono, "IBM Plex Mono", monospace);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ss-muted, #6f6357);
+    }
+    code {
+      font-family: var(--ss-mono, "IBM Plex Mono", monospace);
+      font-size: 0.72rem;
+      color: var(--ss-ink, #3b2a20);
+    }
+    .character {
+      padding: 2rem 0;
+      border-top: 1px solid var(--ss-line-strong, rgba(51, 41, 31, 0.45));
+    }
+    .character header .label { color: var(--ss-accent, #a5642f); }
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem 2rem;
+      margin-top: 1.5rem;
+    }
+    .action {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding: 1rem 1.1rem 1.1rem;
+      background: var(--ss-tint, rgba(51, 41, 31, 0.04));
+      border: 1px solid var(--ss-line, rgba(51, 41, 31, 0.18));
+      border-radius: 4px;
+    }
+    .stage {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.5rem;
+      min-height: 260px;
+      margin-bottom: 0.6rem;
+    }
+    /* Feet on a hairline rule, as on the site. */
+    .stand {
+      display: inline-block;
+      line-height: 0;
+      border-bottom: 1px solid var(--ss-line-strong, rgba(51, 41, 31, 0.45));
+      padding: 0 4px;
+    }
+    .sprite { display: block; }
+    .sprite--big { image-rendering: pixelated; }
+    .use { font-size: 0.9rem; color: var(--ss-muted, #6f6357); }
+    .frames {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1rem;
+      margin-top: 0.6rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--ss-line, rgba(51, 41, 31, 0.18));
+    }
+    .frame { display: flex; flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .frame code { font-size: 0.62rem; color: var(--ss-muted, #6f6357); }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <span class="label">Sprites</span>
+      <h1>The people (and dog, and robots) of justinlui.dev</h1>
+      <p>Pixel sprites exported from the site's sheets as plain SVG. Each action is shown at true size and at 4×. Animated files switch frames with a CSS animation inside the SVG, so an <code>&lt;img&gt;</code> plays them. Place them at true size or a whole-number multiple, never in between, feet on a hairline rule. See README.md for the rules.</p>
+    </header>
+    <section class="character" id="justin-overshirt">
+      <header>
+        <span class="label">justin-overshirt</span>
+        <h2>Justin, over-shirt</h2>
+        <p>Justin in his straw hat (loosely Luffy's), a rust over-shirt open over a plain oat tee, and loose textured trousers. The site shows this outfit from 06:00 to 17:59 San Francisco time.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-idle.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-overshirt-idle.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-overshirt-idle.svg</code>
+        <span class="label">36 × 62 px · 1300 / 160 / 1300 ms, loops</span>
+        <p class="use">standing, blinking: the daytime masthead pose</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-idle-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-idle-1.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-idle-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-idle-2.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-idle-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-walk.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-overshirt-walk.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-overshirt-walk.svg</code>
+        <span class="label">36 × 62 px · 200 ms per frame, loops</span>
+        <p class="use">side view, facing right; stride 7 px per frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-walk-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-walk-1.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-walk-2.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-walk-3.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-walk-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-sit.svg" width="52" height="52" alt="" class="sprite"></span><span class="stand"><img src="justin-overshirt-sit.svg" width="208" height="208" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-overshirt-sit.svg</code>
+        <span class="label">52 × 52 px · 3200 / 160 ms, loops</span>
+        <p class="use">sitting on the rule: the evening masthead pose, and the footer</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-sit-0.svg" width="52" height="52" alt="" class="sprite"></span><code>justin-overshirt-sit-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-sit-1.svg" width="52" height="52" alt="" class="sprite"></span><code>justin-overshirt-sit-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-sleep-0.svg" width="64" height="28" alt="" class="sprite"></span><span class="stand"><img src="justin-overshirt-sleep-0.svg" width="256" height="112" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-overshirt-sleep-0.svg</code>
+        <span class="label">64 × 28 px · 1 frame, static</span>
+        <p class="use">lying on the rule: the night masthead pose</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-sleep-0.svg" width="64" height="28" alt="" class="sprite"></span><code>justin-overshirt-sleep-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-sip.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-overshirt-sip.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-overshirt-sip.svg</code>
+        <span class="label">36 × 62 px · 2600 / 1000 ms, loops</span>
+        <p class="use">espresso: the morning masthead pose</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-sip-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-sip-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-sip-1.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-sip-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-hat-0.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-overshirt-hat-0.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-overshirt-hat-0.svg</code>
+        <span class="label">36 × 62 px · 1 frame, static</span>
+        <p class="use">tips the hat while the pointer is on his name</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-hat-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-hat-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-arms-up-0.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-overshirt-arms-up-0.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-overshirt-arms-up-0.svg</code>
+        <span class="label">36 × 62 px · 1 frame, static</span>
+        <p class="use">both arms up for 1.8 s after someone types 1070</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-arms-up-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-overshirt-arms-up-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="justin-hoodie">
+      <header>
+        <span class="label">justin-hoodie</span>
+        <h2>Justin, hoodie</h2>
+        <p>The same frames with the over-shirt swapped for a slate hoodie, hood down on the shoulders. The site shows this outfit from 18:00 to 05:59 San Francisco time.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-idle.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-hoodie-idle.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-hoodie-idle.svg</code>
+        <span class="label">36 × 62 px · 1300 / 160 / 1300 ms, loops</span>
+        <p class="use">standing, blinking: the daytime masthead pose</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-idle-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-idle-1.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-idle-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-idle-2.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-idle-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-walk.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-hoodie-walk.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-hoodie-walk.svg</code>
+        <span class="label">36 × 62 px · 200 ms per frame, loops</span>
+        <p class="use">side view, facing right; stride 7 px per frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-walk-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-walk-1.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-walk-2.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-walk-3.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-walk-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-sit.svg" width="52" height="52" alt="" class="sprite"></span><span class="stand"><img src="justin-hoodie-sit.svg" width="208" height="208" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-hoodie-sit.svg</code>
+        <span class="label">52 × 52 px · 3200 / 160 ms, loops</span>
+        <p class="use">sitting on the rule: the evening masthead pose, and the footer</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-sit-0.svg" width="52" height="52" alt="" class="sprite"></span><code>justin-hoodie-sit-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-sit-1.svg" width="52" height="52" alt="" class="sprite"></span><code>justin-hoodie-sit-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-sleep-0.svg" width="64" height="28" alt="" class="sprite"></span><span class="stand"><img src="justin-hoodie-sleep-0.svg" width="256" height="112" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-hoodie-sleep-0.svg</code>
+        <span class="label">64 × 28 px · 1 frame, static</span>
+        <p class="use">lying on the rule: the night masthead pose</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-sleep-0.svg" width="64" height="28" alt="" class="sprite"></span><code>justin-hoodie-sleep-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-sip.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-hoodie-sip.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-hoodie-sip.svg</code>
+        <span class="label">36 × 62 px · 2600 / 1000 ms, loops</span>
+        <p class="use">espresso: the morning masthead pose</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-sip-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-sip-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-sip-1.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-sip-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-hat-0.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-hoodie-hat-0.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-hoodie-hat-0.svg</code>
+        <span class="label">36 × 62 px · 1 frame, static</span>
+        <p class="use">tips the hat while the pointer is on his name</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-hat-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-hat-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-arms-up-0.svg" width="36" height="62" alt="" class="sprite"></span><span class="stand"><img src="justin-hoodie-arms-up-0.svg" width="144" height="248" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">justin-hoodie-arms-up-0.svg</code>
+        <span class="label">36 × 62 px · 1 frame, static</span>
+        <p class="use">both arms up for 1.8 s after someone types 1070</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-arms-up-0.svg" width="36" height="62" alt="" class="sprite"></span><code>justin-hoodie-arms-up-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="truffle">
+      <header>
+        <span class="label">truffle</span>
+        <h2>Truffle</h2>
+        <p>Justin's female brindle French bulldog. She sleeps on the bottom rule of her card; the cursor on the card lifts one ear, the cursor on her gets her to sit up.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-sleep.svg" width="36" height="20" alt="" class="sprite"></span><span class="stand"><img src="truffle-sleep.svg" width="144" height="80" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">truffle-sleep.svg</code>
+        <span class="label">36 × 20 px · 2300 / 700 ms, loops</span>
+        <p class="use">asleep on her card's bottom rule, breathing</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-sleep-0.svg" width="36" height="20" alt="" class="sprite"></span><code>truffle-sleep-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-sleep-1.svg" width="36" height="20" alt="" class="sprite"></span><code>truffle-sleep-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-ear.svg" width="36" height="20" alt="" class="sprite"></span><span class="stand"><img src="truffle-ear.svg" width="144" height="80" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">truffle-ear.svg</code>
+        <span class="label">36 × 20 px · 1100 / 300 ms, then holds frame 2</span>
+        <p class="use">one ear pricks up when the cursor enters her card; plays once and holds</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-ear-0.svg" width="36" height="20" alt="" class="sprite"></span><code>truffle-ear-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-ear-1.svg" width="36" height="20" alt="" class="sprite"></span><code>truffle-ear-1.svg</code></span><span class="frame"><span class="stand"><img src="truffle-ear-2.svg" width="36" height="20" alt="" class="sprite"></span><code>truffle-ear-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-sit-0.svg" width="24" height="24" alt="" class="sprite"></span><span class="stand"><img src="truffle-sit-0.svg" width="96" height="96" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">truffle-sit-0.svg</code>
+        <span class="label">24 × 24 px · 1 frame, static</span>
+        <p class="use">sits up while the cursor is on her</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-sit-0.svg" width="24" height="24" alt="" class="sprite"></span><code>truffle-sit-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-walk.svg" width="34" height="26" alt="" class="sprite"></span><span class="stand"><img src="truffle-walk.svg" width="136" height="104" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">truffle-walk.svg</code>
+        <span class="label">34 × 26 px · 110 ms per frame, loops</span>
+        <p class="use">a stroll, facing right; stride 2 px per frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-walk-0.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-1.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-2.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-3.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-walk-3.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-4.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-walk-4.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-5.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-walk-5.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-6.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-walk-6.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-7.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-walk-7.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-trot.svg" width="34" height="26" alt="" class="sprite"></span><span class="stand"><img src="truffle-trot.svg" width="136" height="104" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">truffle-trot.svg</code>
+        <span class="label">34 × 26 px · 90 ms per frame, loops</span>
+        <p class="use">a trot, facing right; stride 6 px per frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-trot-0.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-trot-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-trot-1.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-trot-1.svg</code></span><span class="frame"><span class="stand"><img src="truffle-trot-2.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-trot-2.svg</code></span><span class="frame"><span class="stand"><img src="truffle-trot-3.svg" width="34" height="26" alt="" class="sprite"></span><code>truffle-trot-3.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="luibot">
+      <header>
+        <span class="label">luibot</span>
+        <h2>luibot</h2>
+        <p>One of Justin's two agents: a blue robot in the same straw hat and Justin's slate hoodie. He waves while the pointer is on him.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-idle.svg" width="28" height="32" alt="" class="sprite"></span><span class="stand"><img src="luibot-idle.svg" width="112" height="128" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">luibot-idle.svg</code>
+        <span class="label">28 × 32 px · 2800 / 160 ms, loops</span>
+        <p class="use">standing, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-idle-0.svg" width="28" height="32" alt="" class="sprite"></span><code>luibot-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-idle-1.svg" width="28" height="32" alt="" class="sprite"></span><code>luibot-idle-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-wave.svg" width="28" height="32" alt="" class="sprite"></span><span class="stand"><img src="luibot-wave.svg" width="112" height="128" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">luibot-wave.svg</code>
+        <span class="label">28 × 32 px · 220 ms per frame, loops</span>
+        <p class="use">waves while the pointer is on him</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-wave-0.svg" width="28" height="32" alt="" class="sprite"></span><code>luibot-wave-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-wave-1.svg" width="28" height="32" alt="" class="sprite"></span><code>luibot-wave-1.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="luibuilder">
+      <header>
+        <span class="label">luibuilder</span>
+        <h2>luibuilder</h2>
+        <p>Justin's other agent: an orange, boxy robot in the straw hat and the rust over-shirt, one hand resting on a stone block. He tips his hat while the pointer is on him.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-idle.svg" width="30" height="34" alt="" class="sprite"></span><span class="stand"><img src="luibuilder-idle.svg" width="120" height="136" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">luibuilder-idle.svg</code>
+        <span class="label">30 × 34 px · 3400 / 160 ms, loops</span>
+        <p class="use">standing, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-idle-0.svg" width="30" height="34" alt="" class="sprite"></span><code>luibuilder-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-idle-1.svg" width="30" height="34" alt="" class="sprite"></span><code>luibuilder-idle-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-wave.svg" width="30" height="34" alt="" class="sprite"></span><span class="stand"><img src="luibuilder-wave.svg" width="120" height="136" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">luibuilder-wave.svg</code>
+        <span class="label">30 × 34 px · 240 ms, then holds frame 1</span>
+        <p class="use">tips his hat while the pointer is on him; plays once and holds</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-wave-0.svg" width="30" height="34" alt="" class="sprite"></span><code>luibuilder-wave-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-wave-1.svg" width="30" height="34" alt="" class="sprite"></span><code>luibuilder-wave-1.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="ball">
+      <header>
+        <span class="label">ball</span>
+        <h2>Tennis ball</h2>
+        <p>Rolls up to Truffle's nose the first time her card scrolls into view. On the site its frame is driven by how far it has travelled (a quarter turn per frame, one turn per circumference), not by a clock.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="ball-roll.svg" width="10" height="10" alt="" class="sprite"></span><span class="stand"><img src="ball-roll.svg" width="40" height="40" alt="" class="sprite sprite--big"></span></div>
+        <code class="file">ball-roll.svg</code>
+        <span class="label">10 × 10 px · 1200 ms per frame, loops</span>
+        <p class="use">a quarter turn per frame, rolling to the right; frame 0 is at rest</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="ball-roll-0.svg" width="10" height="10" alt="" class="sprite"></span><code>ball-roll-0.svg</code></span><span class="frame"><span class="stand"><img src="ball-roll-1.svg" width="10" height="10" alt="" class="sprite"></span><code>ball-roll-1.svg</code></span><span class="frame"><span class="stand"><img src="ball-roll-2.svg" width="10" height="10" alt="" class="sprite"></span><code>ball-roll-2.svg</code></span><span class="frame"><span class="stand"><img src="ball-roll-3.svg" width="10" height="10" alt="" class="sprite"></span><code>ball-roll-3.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

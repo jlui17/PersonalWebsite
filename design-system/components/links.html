@@ -1,0 +1,61 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+  .row { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.5rem 1.5rem; align-items: baseline; padding: 1.1rem 0; border-top: var(--ss-hairline) solid var(--ss-line); }
+  .row:first-child { border-top: 0; padding-top: 0; }
+  .row p { margin: 0; }
+  .row .evo__label { line-height: 1.6; }
+  @media (max-width: 720px) { .row { grid-template-columns: 1fr; gap: 0.25rem; } }
+
+  /* Three links, one idea: a 1px (or 2px) underline drawn as a background
+     gradient, and copper on hover. Prose links are always underlined; nav and
+     title links draw the underline in on hover. */
+  .evo__masthead-nav a {
+    color: var(--ss-ink);
+    font-family: var(--ss-mono);
+    font-size: var(--ss-text-nav);
+    font-weight: var(--ss-weight-label);
+    letter-spacing: var(--ss-tracking-nav);
+    text-transform: uppercase;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% var(--ss-underline);
+    transition: background-size var(--ss-motion-draw) var(--ss-ease), color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__masthead-nav a:hover, .evo__masthead-nav a:focus-visible, .evo__masthead-nav a.is-hover { background-size: 100% var(--ss-underline); color: var(--ss-accent); }
+  .evo__prose-link.is-hover { color: var(--ss-accent); }
+  .evo__project h3 { margin: 0; font-size: var(--ss-text-title); font-weight: var(--ss-weight-title); letter-spacing: var(--ss-tracking-title); line-height: var(--ss-leading-title); }
+  .evo__project h3 a {
+    color: var(--ss-ink); font: inherit; text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat; background-position: 0 100%;
+    background-size: 0% var(--ss-underline-title);
+    transition: background-size var(--ss-motion-draw-title) var(--ss-ease), color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__project h3 a:hover, .evo__project h3 a:focus-visible, .evo__project h3 a.is-hover { background-size: 100% var(--ss-underline-title); color: var(--ss-accent); }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <div class="row"><span class="evo__label">Prose link · rest</span><p>For work, I&rsquo;m at <a class="evo__prose-link" href="https://www.scorecard.io/">Scorecard</a>, where I work across product and engineering.</p></div>
+  <div class="row"><span class="evo__label">Prose link · hover</span><p>For work, I&rsquo;m at <a class="evo__prose-link is-hover" href="https://www.scorecard.io/">Scorecard</a>, where I work across product and engineering.</p></div>
+  <div class="row"><span class="evo__label">Nav link · rest</span><nav class="evo__masthead-nav" style="display:flex; gap:1.5rem"><a href="https://github.com/jlui17">GitHub</a><a href="https://www.linkedin.com/in/jlui17">LinkedIn</a></nav></div>
+  <div class="row"><span class="evo__label">Nav link · hover</span><nav class="evo__masthead-nav" style="display:flex; gap:1.5rem"><a class="is-hover" href="https://github.com/jlui17">GitHub</a><a href="https://www.linkedin.com/in/jlui17">LinkedIn</a></nav></div>
+  <div class="row"><span class="evo__label">Title link · rest</span><div class="evo__project"><h3><a href="https://github.com/jlui17/w2fhr">w2fhr</a></h3></div></div>
+  <div class="row"><span class="evo__label">Title link · hover</span><div class="evo__project"><h3><a class="is-hover" href="https://github.com/jlui17/w2fhr">w2fhr</a></h3></div></div>
+</main>
+</body>
+</html>
