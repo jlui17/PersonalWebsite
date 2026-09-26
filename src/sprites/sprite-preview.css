@@ -1,0 +1,80 @@
+.sp {
+  min-height: 100vh;
+  padding: 2rem 1.5rem 4rem;
+  background: #f3e8d8;
+  color: #33291f;
+  font-family: "DM Sans", sans-serif;
+}
+
+.sp h1,
+.sp h2 {
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+}
+
+.sp h2 {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(51, 41, 31, 0.18);
+}
+
+.sp h2 span {
+  margin-left: 1rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6f6357;
+}
+
+.sp-panels {
+  margin-top: 1rem;
+}
+
+.sp figcaption {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6f6357;
+}
+
+.sp-row {
+  margin: 1.5rem 0;
+}
+
+.sp-panels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sp-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(51, 41, 31, 0.18);
+  border-radius: 6px;
+}
+
+.sp-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.sp-figure svg {
+  display: block;
+}
+
+.sp-lineup {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+}

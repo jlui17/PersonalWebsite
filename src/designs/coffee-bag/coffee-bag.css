@@ -1,0 +1,708 @@
+@import url("https://fonts.googleapis.com/css2?family=Young+Serif&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400&family=Courier+Prime:wght@400;700&display=swap");
+
+/* Tokens live on body so the page ground can use them too; .cb inherits them. */
+body:has(.cb) {
+  /* Kraft paper ground, cream label stock, espresso ink. One printed blue, the
+     way a roaster colour-codes a bag; it is the only colour that carries meaning. */
+  --cb-kraft: #b8956b;
+  --cb-kraft-deep: #a27f56;
+  --cb-cream: #f5eddc;
+  --cb-cream-deep: #eadcc1;
+  --cb-ink: #2b2018;
+  --cb-ink-soft: #6e5b4a;
+  --cb-blue: #2f5f95;
+  --cb-line: rgba(43, 32, 24, 0.22);
+  --cb-line-strong: rgba(43, 32, 24, 0.55);
+  /* Label stock is die-cut with a small round corner; 4px is a real one, not a pill. */
+  --cb-radius: 4px;
+  --cb-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --cb-serif: "Young Serif", Georgia, serif;
+  --cb-sans: "Schibsted Grotesk", Helvetica, Arial, sans-serif;
+  --cb-mono: "Courier Prime", "Courier New", monospace;
+
+  /* Laid paper: fine horizontal fibres a shade lighter than the sheet. */
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 244, 224, 0.035) 0 1px,
+      transparent 1px 3px
+    ),
+    var(--cb-kraft);
+  transition: none;
+}
+
+.cb {
+  min-height: 100vh;
+  color: var(--cb-ink);
+  font-family: var(--cb-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.cb *,
+.cb *::before,
+.cb *::after {
+  box-sizing: border-box;
+  transition: none;
+}
+
+.cb h1,
+.cb h2,
+.cb h3,
+.cb p,
+.cb li,
+.cb a,
+.cb dd,
+.cb dt {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.cb a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--cb-line-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.cb a:hover {
+  text-decoration-color: var(--cb-blue);
+}
+
+.cb :focus-visible {
+  outline: 2px solid var(--cb-blue);
+  outline-offset: 3px;
+}
+
+.cb-page {
+  width: min(100% - 2rem, 840px);
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+/* The one mono voice: field names, tags, captions, the clock, the stamp. */
+.cb-label {
+  font-family: var(--cb-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cb-ink-soft);
+  line-height: 1.4;
+}
+
+/* ---- label stock -------------------------------------------------------- */
+
+.cb-card {
+  background: var(--cb-cream);
+  border-radius: var(--cb-radius);
+  padding: 1.25rem 1.375rem;
+}
+
+/* The roaster's colour band along the top edge, kept for the front label and
+   the one highlighted card. */
+.cb-front,
+.cb-card--banded {
+  border-top: 10px solid var(--cb-blue);
+}
+
+.cb-card--banded {
+  background: var(--cb-cream-deep);
+}
+
+/* ---- front label -------------------------------------------------------- */
+
+.cb-front {
+  position: relative;
+  background: var(--cb-cream);
+  border-radius: var(--cb-radius);
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* One-way degassing valve, on the bag beside the label. */
+.cb-valve {
+  position: absolute;
+  top: -1.25rem;
+  right: -2.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--cb-kraft-deep);
+  box-shadow: inset 0 0 0 2px var(--cb-kraft), inset 0 0 0 3px var(--cb-kraft-deep);
+}
+
+.cb-valve::after {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--cb-ink);
+  opacity: 0.6;
+}
+
+.cb-masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding: 1.125rem 0 0.875rem;
+  border-bottom: 1px solid var(--cb-line-strong);
+}
+
+.cb-masthead__name {
+  display: flex;
+  align-items: baseline;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+.cb-brand {
+  font-family: var(--cb-serif);
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+.cb-masthead__nav {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.cb-clock {
+  font-variant-numeric: tabular-nums;
+  color: var(--cb-ink);
+}
+
+.cb-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 2.5rem;
+  padding: 2.25rem 0 2rem;
+}
+
+.cb-hero h1 {
+  font-family: var(--cb-serif);
+  font-size: clamp(2.75rem, 6vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.375rem;
+}
+
+.cb-hero p {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  max-width: 34rem;
+}
+
+.cb-hero p + p {
+  margin-top: 1rem;
+}
+
+.cb-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  align-self: start;
+}
+
+.cb-figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 2px;
+  outline: 1px solid var(--cb-line);
+  outline-offset: 4px;
+}
+
+.cb-figure figcaption {
+  margin-top: 0.25rem;
+}
+
+/* ORIGIN / CURRENTLY / WORKING AT, boxed like the fields a roaster fills in. */
+.cb-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  border-top: 1px solid var(--cb-line-strong);
+  border-bottom: 1px solid var(--cb-line-strong);
+}
+
+.cb-fields > div {
+  padding: 0.875rem 1rem 0.875rem 0;
+}
+
+.cb-fields > div + div {
+  padding-left: 1rem;
+  border-left: 1px solid var(--cb-line);
+}
+
+.cb-fields dd {
+  font-family: var(--cb-serif);
+  font-size: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+/* Tear line between the front label and the back, notched at both edges so the
+   label reads as one sheet with a perforation, not two stuck together. */
+.cb-tear {
+  position: relative;
+  height: 1px;
+  margin: 2rem 0 1.75rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--cb-line-strong) 0 6px,
+    transparent 6px 12px
+  );
+}
+
+.cb-tear::before,
+.cb-tear::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--cb-kraft);
+}
+
+.cb-tear::before {
+  left: calc(-1 * clamp(1.25rem, 4vw, 2.5rem) - 8px);
+}
+
+.cb-tear::after {
+  right: calc(-1 * clamp(1.25rem, 4vw, 2.5rem) - 8px);
+}
+
+/* ---- tasting notes ------------------------------------------------------ */
+
+.cb-tasting {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.cb-tasting__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.cb-tasting__head > .cb-label {
+  color: var(--cb-ink);
+  padding-top: 0.5rem;
+}
+
+/* Rubber stamp: blue ink, a hairline frame, landed a hair off square and
+   printed twice off register, the way a hand stamp does. */
+.cb-stamp {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  padding: 0.375rem 0.625rem 0.3125rem;
+  border: 1.5px solid var(--cb-blue);
+  border-radius: 2px;
+  color: var(--cb-blue);
+  transform: rotate(-1.5deg);
+  cursor: default;
+  user-select: none;
+}
+
+.cb-stamp .cb-label {
+  color: var(--cb-blue);
+  font-size: 0.62rem;
+}
+
+.cb-stamp__date {
+  font-family: var(--cb-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-shadow: 1px 1px 0 rgba(47, 95, 149, 0.28);
+}
+
+.cb-tasting__rows {
+  margin: 0;
+  border-top: 1px solid var(--cb-line);
+}
+
+/* Room at the end of the last row for the mascot standing on it. */
+.cb-tasting__rows > div:last-child {
+  padding-right: 4.5rem;
+}
+
+.cb-tasting__rows > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--cb-line);
+}
+
+.cb-tasting__rows dt {
+  padding-top: 0.3em;
+}
+
+.cb-tasting__rows dd {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.cb-tasting__rows strong {
+  font-weight: 600;
+}
+
+.cb-tasting__rows span {
+  color: var(--cb-ink-soft);
+  font-size: 0.9375rem;
+}
+
+/* ---- the printed mascot ------------------------------------------------- */
+
+/* At rest he is printed in the label's ink: one colour, still. Awake he is
+   himself. Slow enough that noticing it is the whole reward. */
+.cb-print {
+  display: inline-flex;
+  filter: grayscale(1) contrast(0.55) brightness(0.5) sepia(0.9);
+  transition: filter 0.6s var(--cb-ease);
+}
+
+.cb-print svg {
+  display: block;
+}
+
+.cb-print--awake {
+  filter: none;
+}
+
+/* He stands on the last hairline, at the label's edge, like a printed mark. */
+.cb-mascot {
+  position: absolute;
+  right: 0.25rem;
+  bottom: 1.5rem;
+  display: inline-flex;
+  cursor: default;
+}
+
+/* ---- back of the bag ---------------------------------------------------- */
+
+.cb-section {
+  margin-top: 3.5rem;
+}
+
+.cb-section__head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.125rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--cb-line-strong);
+}
+
+.cb-section__head .cb-label {
+  color: var(--cb-ink);
+  flex-shrink: 0;
+}
+
+.cb-section__head h2 {
+  font-family: var(--cb-serif);
+  font-size: 1.75rem;
+  line-height: 1.15;
+}
+
+.cb-now {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.cb-now__list {
+  list-style: none;
+  margin: 0;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.cb-now__list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6875rem 0;
+  border-bottom: 1px solid var(--cb-line);
+  font-size: 1rem;
+}
+
+.cb-now__list li:last-child {
+  border-bottom: 0;
+}
+
+.cb-agents {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.375rem;
+  flex-shrink: 0;
+  cursor: default;
+}
+
+.cb-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.cb-aside p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.cb-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.875rem;
+  border-bottom: 1px solid var(--cb-line);
+}
+
+.cb-card__meta .cb-label:first-child {
+  color: var(--cb-ink);
+}
+
+/* Project tag, stamped in ink rather than blue: it is a mark, not the colour code. */
+.cb-tag {
+  padding: 0.125rem 0.375rem;
+  border: 1px solid var(--cb-line-strong);
+  border-radius: 2px;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  color: var(--cb-ink);
+}
+
+.cb-people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.cb-person h3 {
+  font-family: var(--cb-serif);
+  font-size: 1.375rem;
+  line-height: 1.25;
+  margin-bottom: 0.625rem;
+}
+
+.cb-person p {
+  color: var(--cb-ink-soft);
+  font-size: 0.9375rem;
+}
+
+.cb-card--banded {
+  grid-column: 1 / -1;
+}
+
+.cb-card--banded h3 {
+  font-size: 1.625rem;
+  max-width: 26rem;
+}
+
+.cb-card--banded p {
+  max-width: 40rem;
+}
+
+.cb-projects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.cb-project h3 {
+  font-family: var(--cb-serif);
+  font-size: 1.375rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.cb-project h3 a {
+  text-decoration-color: var(--cb-line);
+}
+
+.cb-project__kicker {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.cb-project p:last-child {
+  color: var(--cb-ink-soft);
+  font-size: 0.9375rem;
+}
+
+/* ---- footer strip ------------------------------------------------------- */
+
+.cb-footer {
+  margin-top: 3.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: end;
+  gap: 1.5rem;
+  padding-top: 1.75rem;
+  padding-bottom: 0;
+}
+
+.cb-footer__words {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 1.375rem;
+}
+
+.cb-footer__words .cb-label:first-child {
+  color: var(--cb-ink);
+}
+
+/* The two of them sit on the label's bottom edge, the way a mascot is printed
+   along a hem. */
+.cb-scene {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  margin-bottom: -1px;
+  border-bottom: 1px solid var(--cb-line-strong);
+  cursor: default;
+}
+
+.cb-scene .cb-print {
+  transition-duration: 1.2s;
+}
+
+.cb-footer__code {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.375rem;
+  padding-bottom: 1.375rem;
+}
+
+/* Hairlines at irregular spacing read as a barcode from across the room. */
+.cb-barcode {
+  display: block;
+  width: 7.5rem;
+  height: 1.75rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--cb-ink) 0 1px,
+    transparent 1px 3px,
+    var(--cb-ink) 3px 6px,
+    transparent 6px 8px,
+    var(--cb-ink) 8px 9px,
+    transparent 9px 12px,
+    var(--cb-ink) 12px 14px,
+    transparent 14px 15px,
+    var(--cb-ink) 15px 16px,
+    transparent 16px 19px
+  );
+}
+
+/* ---- small screens ------------------------------------------------------ */
+
+@media (max-width: 720px) {
+  .cb-page {
+    padding-top: 1.5rem;
+  }
+
+  .cb-valve {
+    top: -1.125rem;
+    right: 1rem;
+  }
+
+  .cb-hero {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding-top: 1.75rem;
+  }
+
+  .cb-figure img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .cb-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .cb-fields > div + div {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--cb-line);
+  }
+
+  .cb-fields > div {
+    padding-right: 0;
+  }
+
+  .cb-tasting__rows > div {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .cb-now,
+  .cb-people,
+  .cb-projects {
+    grid-template-columns: 1fr;
+  }
+
+  .cb-now__list li {
+    flex-wrap: wrap;
+  }
+
+  .cb-footer {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding-top: 1.25rem;
+  }
+
+  .cb-footer__words {
+    padding-bottom: 0;
+  }
+
+  .cb-footer__code {
+    order: 1;
+    align-items: flex-start;
+    padding-bottom: 0;
+  }
+
+  .cb-scene {
+    order: 2;
+    justify-self: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cb-print,
+  .cb-scene .cb-print {
+    transition: none;
+  }
+}

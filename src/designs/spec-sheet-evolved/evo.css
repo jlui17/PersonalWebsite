@@ -1,0 +1,711 @@
+.evo {
+  /* Palette: warm light, pulled down from white so a dark-mode visitor at night
+     isn't flashbanged. Bg sits ~93% luminance (vs ~98% for #faf8f5); ink is
+     espresso-brown instead of black to keep contrast legible but not harsh.
+     Accent is copper, from the coffee-gear references. Eyeballed, not measured. */
+  --ss-bg: #f3e8d8;
+  --ss-ink: #33291f;
+  --ss-muted: #6f6357;
+  --ss-accent: #a5642f;
+  --ss-line: rgba(51, 41, 31, 0.18);
+  --ss-line-strong: rgba(51, 41, 31, 0.45);
+  /* Card fills one step deeper than the page, so boxes read as filled paper
+     rather than outlines; the girlfriend card gets the deepest tint as the
+     one deliberate highlight. Eyeballed against the bg. */
+  --ss-tint: #ecdec7;
+  --ss-tint-deep: #e7d5b8;
+  /* 6px: enough rounding to soften the boxes without reading as pill/bubbly. */
+  --ss-radius: 6px;
+
+  --ss-sans: "DM Sans", sans-serif;
+  --ss-serif: "Fraunces", serif;
+  --ss-mono: "IBM Plex Mono", monospace;
+
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(196, 132, 72, 0.14), transparent 34rem),
+    var(--ss-bg);
+  color: var(--ss-ink);
+  font-family: var(--ss-sans);
+}
+
+.evo *,
+.evo *::before,
+.evo *::after {
+  box-sizing: border-box;
+}
+
+/* The document itself takes the page colour while this design is mounted, so
+   rubber-banding past either end shows latte, not the app's off-white. The
+   literal is --ss-bg, which is scoped to .evo and out of reach here. */
+html:has(.evo),
+body:has(.evo) {
+  background: #f3e8d8;
+}
+
+.evo__page {
+  /* 880px keeps body copy near 70ch at 1rem, the readable-measure sweet spot. */
+  width: min(100% - 2.5rem, 880px);
+  margin: 0 auto;
+  /* 3rem on top (was 2rem): the masthead figure stands 60px above the rule. */
+  padding: 3rem 0 3rem;
+}
+
+.evo p {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* Mono label: the evo voice. Used for section numbers, field names, captions. */
+.evo__label {
+  font-family: var(--ss-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ss-muted);
+}
+
+.evo__prose-link {
+  color: var(--ss-ink);
+  font-weight: 550;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: color 180ms ease;
+}
+
+.evo__prose-link:hover,
+.evo__prose-link:focus-visible {
+  color: var(--ss-accent);
+}
+
+/* ---- Masthead ---- */
+
+.evo__masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ss-line-strong);
+}
+
+.evo__masthead-name {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.evo__masthead-name strong {
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.evo__masthead-nav {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+
+.evo__masthead-nav a {
+  color: var(--ss-ink);
+  font-family: var(--ss-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 200ms ease, color 180ms ease;
+}
+
+.evo__masthead-nav a:hover,
+.evo__masthead-nav a:focus-visible {
+  background-size: 100% 1px;
+  color: var(--ss-accent);
+}
+
+.evo__clock {
+  font-family: var(--ss-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ss-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Hero ---- */
+
+.evo__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15.5rem;
+  gap: 3.5rem;
+  padding: 4.5rem 0 4rem;
+}
+
+.evo__hero h1 {
+  margin: 0 0 2rem;
+  font-family: var(--ss-serif);
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  font-weight: 480;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.evo__hero-intro p {
+  max-width: 34rem;
+  margin: 0 0 1rem;
+  color: var(--ss-muted);
+}
+
+.evo__hero-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.evo__figure {
+  margin: 0;
+}
+
+.evo__figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--ss-line-strong);
+}
+
+.evo__figure figcaption {
+  margin-top: 0.6rem;
+}
+
+.evo__facts {
+  margin: 1.5rem 0 0;
+}
+
+.evo__facts > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--ss-line);
+}
+
+.evo__facts dd {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 550;
+  text-align: right;
+}
+
+/* ---- Status readout ---- */
+
+.evo__status {
+  border: 1px solid var(--ss-line-strong);
+  border-radius: var(--ss-radius);
+  background: var(--ss-tint);
+}
+
+.evo__status-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 1.25rem;
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.evo__status-head .evo__label:first-child {
+  color: var(--ss-accent);
+}
+
+.evo__status-rows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.evo__status-rows > div {
+  padding: 1.1rem 1.25rem 1.2rem;
+}
+
+.evo__status-rows > div + div {
+  border-left: 1px solid var(--ss-line);
+}
+
+.evo__status-rows strong {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.evo__status-rows span {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--ss-muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+/* ---- Sections ---- */
+
+.evo__section {
+  padding: 4.5rem 0 0;
+}
+
+.evo__section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ss-line-strong);
+}
+
+.evo__section-head h2 {
+  margin: 0;
+  font-family: var(--ss-serif);
+  font-size: 1.45rem;
+  font-weight: 520;
+  letter-spacing: 0;
+}
+
+.evo__section-head .evo__label {
+  color: var(--ss-accent);
+}
+
+/* ---- What I'm up to ---- */
+
+.evo__now {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 2rem 4rem;
+}
+
+.evo__now-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.evo__now-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--ss-line);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.evo__now-list li:first-child {
+  padding-top: 0;
+}
+
+.evo__aside {
+  align-self: start;
+  padding: 1.1rem 1.25rem 1.2rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-tint);
+}
+
+.evo__aside p {
+  margin: 0.5rem 0 0;
+  color: var(--ss-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+/* ---- People ---- */
+
+.evo__people {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.evo__people article {
+  padding: 1.35rem 1.4rem 1.5rem;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-tint);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.evo__people article:hover {
+  transform: translateY(-1px);
+  border-color: var(--ss-line-strong);
+}
+
+/* Truffle's card stays put: her ear lifts 1px when the cursor arrives, and a
+   card that lifts 1px at the same moment would hide it. */
+.evo__people .evo__person--truffle:hover {
+  transform: none;
+}
+
+.evo__people article > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.evo__people h3 {
+  margin: 0;
+  font-family: var(--ss-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.evo__people p {
+  margin: 0.6rem 0 0;
+  color: var(--ss-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.evo__people .evo__person--girlfriend {
+  grid-column: 1 / -1;
+  background: var(--ss-tint-deep);
+}
+
+.evo__people .evo__person--girlfriend p {
+  max-width: 42rem;
+}
+
+/* ---- Projects ---- */
+
+.evo__projects {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.evo__project {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 2rem 0 2.25rem;
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.evo__project:first-child {
+  padding-top: 0;
+}
+
+.evo__project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.evo__project-meta .evo__label:last-child {
+  color: var(--ss-accent);
+}
+
+.evo__project h3 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.evo__project h3 a {
+  color: var(--ss-ink);
+  font: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 220ms ease, color 180ms ease;
+}
+
+.evo__project h3 a:hover,
+.evo__project h3 a:focus-visible {
+  background-size: 100% 2px;
+  color: var(--ss-accent);
+}
+
+.evo__project-kicker {
+  margin: 0 0 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 550;
+}
+
+.evo__project-story {
+  max-width: 40rem;
+  margin: 0;
+  color: var(--ss-muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+/* ---- Footer ---- */
+
+.evo__footer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 5rem;
+  padding-top: 1rem;
+}
+
+/* The footer rule is drawn as a pseudo-element rather than a border so that it
+   sits inside the padding box, where the figures' `bottom: 100%` lands their
+   feet exactly on it. */
+.evo__footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ss-line-strong);
+}
+
+@media (max-width: 720px) {
+  .evo__page {
+    width: min(100% - 1.5rem, 880px);
+  }
+
+  .evo__masthead {
+    flex-wrap: wrap;
+  }
+
+  .evo__hero {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 3rem 0;
+  }
+
+  .evo__figure {
+    width: min(100%, 20rem);
+  }
+
+  .evo__status-rows {
+    grid-template-columns: 1fr;
+  }
+
+  .evo__status-rows > div + div {
+    border-left: none;
+    border-top: 1px solid var(--ss-line);
+  }
+
+  .evo__now {
+    grid-template-columns: 1fr;
+  }
+
+  .evo__people {
+    grid-template-columns: 1fr;
+  }
+
+  .evo__project {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .evo__footer {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+}
+
+/* ---- Figures ----
+   The hairline rules are the ground the sprites stand on. Every figure is drawn
+   at 1 CSS px per sprite pixel and positioned with its bottom pixel row on a
+   rule, so it reads as a mark on the sheet rather than a mascot floating over
+   it. */
+
+.evo__sprite {
+  display: block;
+  line-height: 0;
+}
+
+.evo__sprite svg {
+  display: block;
+}
+
+/* A sprite (or the name) that reacts to the pointer says so with the cursor,
+   and nothing else: no tooltip, no motion until it is touched. */
+.evo__reacts {
+  cursor: pointer;
+}
+
+/* Masthead: Justin stands at the right end of the masthead rule, beside the
+   clock that explains his state. The nav leaves him room so the clock never
+   runs under him; the seated evening pose is 52px wide and the asleep pose
+   lies flat at 64px, so those parts of the day widen the gap. */
+.evo__masthead {
+  position: relative;
+}
+
+.evo__masthead-nav {
+  padding-right: calc(36px + 1.25rem);
+}
+
+.evo__masthead--evening .evo__masthead-nav {
+  padding-right: calc(52px + 1.25rem);
+}
+
+.evo__masthead--night .evo__masthead-nav {
+  padding-right: calc(64px + 1.25rem);
+}
+
+.evo__masthead-figure {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.evo__clock-seconds {
+  color: var(--ss-line-strong);
+}
+
+/* Status head: luibot stands on the head's bottom rule beside the updated
+   date, which keeps clear of him. He is 32px in a ~40px row, so he fits
+   without the row growing. */
+.evo__status-head {
+  position: relative;
+}
+
+.evo__updated {
+  padding-right: calc(28px + 0.75rem);
+}
+
+.evo__luibot {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 0;
+}
+
+/* Speech bubble over a robot: the label voice in a hairline box, anchored to
+   the robot's right edge so it grows leftward (both robots sit at the right
+   edge of the page). Absolute, so nothing around it moves; the only motion is
+   a short fade in. */
+.evo__bubble {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 7px);
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--ss-line-strong);
+  border-radius: 3px;
+  background: var(--ss-bg);
+  color: var(--ss-ink);
+  line-height: 1.3;
+  white-space: nowrap;
+  /* The label voice, but the bots' names are lowercase, so no uppercasing. */
+  text-transform: none;
+  animation: evo-bubble 120ms ease-out;
+}
+
+/* The tail: a border triangle in the line colour, with a page-colour triangle
+   laid one pixel higher over it, so the tail opens into the box. */
+.evo__bubble::before,
+.evo__bubble::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  border: 5px solid transparent;
+  border-bottom: 0;
+}
+
+.evo__bubble::before {
+  top: 100%;
+  border-top-color: var(--ss-line-strong);
+}
+
+.evo__bubble::after {
+  top: calc(100% - 1px);
+  border-top-color: var(--ss-bg);
+}
+
+@keyframes evo-bubble {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Truffle's card: she sleeps on the card's bottom rule, captioned like the
+   photo. The card gives up its bottom padding so her feet touch the border,
+   and the figure is pushed to the floor even when the grid row is taller
+   than her card's own text. */
+.evo__people .evo__person--truffle {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+.evo__truffle-figure {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin: auto 0 0;
+  padding-top: 1.1rem;
+}
+
+/* The ball rolls once along the rule, from the card's left edge to her nose,
+   and she does not get up. 36px is her sleeping width, 10px the ball, 8px the
+   gap she leaves it. The curve is a quadratic ease-out, i.e. constant
+   deceleration, which is how a rolled ball slows: quick off the hand, an even
+   slow-down, and a stop rather than a creep. */
+.evo__ball {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.evo__ball--rolling {
+  animation: evo-roll 3s cubic-bezier(0.33, 0.67, 0.67, 1) forwards;
+}
+
+@keyframes evo-roll {
+  to {
+    left: calc(100% - 36px - 10px - 8px);
+  }
+}
+
+/* Footer: Justin and Truffle sit on the rule at the left, luibuilder stands at
+   its right end with his block. */
+.evo__footer-figure {
+  position: absolute;
+  bottom: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.evo__footer-figure--left {
+  left: 0.75rem;
+}
+
+.evo__footer-figure--right {
+  right: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .evo__ball,
+  .evo__ball--rolling {
+    left: calc(100% - 36px - 10px - 8px);
+    animation: none;
+  }
+}

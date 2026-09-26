@@ -1,0 +1,746 @@
+@import url("https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap");
+
+/* ---- Light ----
+   One palette per part of the day (data-light on the root, set from the
+   scroll). The page eases between them, so the light drifts as you read: cool
+   fog at dawn, latte at midday, apricot at dusk, a lamp-lit plum at night.
+   Never pure black or white and never a hard dark mode. Every ink, muted and
+   accent pairs with its background at 4.5:1 or better. The only colour that
+   carries meaning is blue against yellow (the ball, the two robots). */
+
+.dsf,
+.dsf[data-light="dawn"] {
+  --dsf-bg: #e3e6ea;
+  --dsf-ink: #2c3139;
+  --dsf-muted: #5c646f;
+  --dsf-accent: #43678a;
+  --dsf-tint: #d9dde3;
+  --dsf-tint-deep: #cfd5dd;
+  --dsf-line: rgba(44, 49, 57, 0.16);
+  --dsf-line-strong: rgba(44, 49, 57, 0.42);
+}
+
+.dsf[data-light="morning"] {
+  --dsf-bg: #ece6dc;
+  --dsf-ink: #322a22;
+  --dsf-muted: #665b50;
+  --dsf-accent: #8a5a2e;
+  --dsf-tint: #e3dbcd;
+  --dsf-tint-deep: #dbd0be;
+  --dsf-line: rgba(50, 42, 34, 0.16);
+  --dsf-line-strong: rgba(50, 42, 34, 0.42);
+}
+
+.dsf[data-light="day"] {
+  --dsf-bg: #f2e6d3;
+  --dsf-ink: #33291f;
+  --dsf-muted: #6b5e51;
+  --dsf-accent: #8c5024;
+  --dsf-tint: #e9dac2;
+  --dsf-tint-deep: #e2cfae;
+  --dsf-line: rgba(51, 41, 31, 0.16);
+  --dsf-line-strong: rgba(51, 41, 31, 0.42);
+}
+
+.dsf[data-light="dusk"] {
+  --dsf-bg: #ead2bc;
+  --dsf-ink: #3a2a25;
+  --dsf-muted: #66524a;
+  --dsf-accent: #8d4626;
+  --dsf-tint: #e2c5aa;
+  --dsf-tint-deep: #dab798;
+  --dsf-line: rgba(58, 42, 37, 0.18);
+  --dsf-line-strong: rgba(58, 42, 37, 0.45);
+}
+
+.dsf[data-light="night"] {
+  --dsf-bg: #433b43;
+  --dsf-ink: #f0e4d4;
+  --dsf-muted: #c4b6aa;
+  --dsf-accent: #e2a961;
+  --dsf-tint: #4f4650;
+  --dsf-tint-deep: #564449;
+  --dsf-line: rgba(240, 228, 212, 0.18);
+  --dsf-line-strong: rgba(240, 228, 212, 0.42);
+}
+
+.dsf[data-light="late"] {
+  --dsf-bg: #3a333b;
+  --dsf-ink: #ece0d0;
+  --dsf-muted: #bcaea3;
+  --dsf-accent: #d9a15c;
+  --dsf-tint: #463e47;
+  --dsf-tint-deep: #4f4046;
+  --dsf-line: rgba(236, 224, 208, 0.18);
+  --dsf-line-strong: rgba(236, 224, 208, 0.42);
+}
+
+/* ---- Root ---- */
+
+.dsf {
+  /* Three faces, three jobs: Young Serif carries the warmth (h1, section
+     headings, what he says about his people); Figtree is everything you read;
+     DM Mono is time and the small labels, because the order of the day is the
+     information here. */
+  --dsf-serif: "Young Serif", Georgia, serif;
+  --dsf-sans: "Figtree", system-ui, sans-serif;
+  --dsf-mono: "DM Mono", ui-monospace, monospace;
+  --dsf-stage-h: 156px;
+  --dsf-ground: 26px;
+  --dsf-fade: 28px;
+  --dsf-px: calc(1px * var(--dsf-scale, 3));
+
+  min-height: 100vh;
+  background: var(--dsf-bg);
+  color: var(--dsf-ink);
+  font-family: var(--dsf-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The whole page changes light together, slowly. */
+.dsf,
+.dsf *,
+.dsf *::before,
+.dsf *::after {
+  box-sizing: border-box;
+  transition:
+    background-color 1.2s ease,
+    color 1.2s ease,
+    border-color 1.2s ease;
+}
+
+/* Undo index.css's base type. :where() keeps these at element specificity so
+   the class rules below win. */
+:where(.dsf) p,
+:where(.dsf) li,
+:where(.dsf) a {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+:where(.dsf) h1,
+:where(.dsf) h2,
+:where(.dsf) h3 {
+  margin: 0;
+  font-family: var(--dsf-serif);
+  font-weight: 400;
+  color: var(--dsf-ink);
+}
+
+.dsf a {
+  color: var(--dsf-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--dsf-accent);
+  transition:
+    color 1.2s ease,
+    text-decoration-color 200ms ease;
+}
+
+.dsf a:hover {
+  text-decoration-color: currentColor;
+}
+
+.dsf a:focus-visible {
+  outline: 2px solid var(--dsf-accent);
+  outline-offset: 3px;
+}
+
+/* index.css puts overflow-x: hidden on body, which turns body into a scroll
+   container and stops the time markers sticking. clip prevents sideways
+   scroll without doing that. */
+body:has(.dsf) {
+  overflow-x: clip;
+}
+
+.dsf-page {
+  width: min(100% - 3rem, 1040px);
+  margin: 0 auto;
+  padding: 1.5rem 0 calc(var(--dsf-stage-h) + 3rem);
+}
+
+.dsf-label {
+  font-family: var(--dsf-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--dsf-muted);
+}
+
+.dsf-label--accent {
+  color: var(--dsf-accent);
+}
+
+/* ---- Masthead ---- */
+
+.dsf-masthead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--dsf-line-strong);
+}
+
+.dsf-name {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.dsf-name strong {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.dsf-nav {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+
+.dsf-nav a {
+  font-family: var(--dsf-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration-color: transparent;
+}
+
+.dsf-nav a:hover,
+.dsf-nav a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.dsf-clock {
+  font-family: var(--dsf-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--dsf-muted);
+}
+
+/* ---- Parts of the day ---- */
+
+.dsf-part {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  column-gap: 3rem;
+  padding-top: 7rem;
+}
+
+.dsf-part--hero {
+  padding-top: 4.5rem;
+}
+
+/* Tall enough that he can reach the bed before the page runs out, with the
+   sign-off sitting just above it. */
+.dsf-part--last {
+  min-height: 50vh;
+  align-content: end;
+}
+
+/* The time stays in view while its part is read, like a clock on the wall. */
+.dsf-when {
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+}
+
+.dsf-time {
+  display: block;
+  font-family: var(--dsf-mono);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--dsf-ink);
+}
+
+.dsf-caption {
+  max-width: 8.5rem;
+  margin-top: 0.3rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--dsf-muted);
+}
+
+.dsf-here {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-family: var(--dsf-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--dsf-accent);
+}
+
+.dsf-here::before {
+  content: "";
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--dsf-accent);
+}
+
+.dsf-body {
+  max-width: 44rem;
+}
+
+.dsf-part--hero .dsf-body {
+  max-width: none;
+}
+
+/* ---- Hero ---- */
+
+.dsf-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  gap: 3rem;
+  align-items: start;
+}
+
+.dsf-hero h1 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.6rem, 5.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.dsf-hero-intro p {
+  max-width: 32rem;
+}
+
+.dsf-figure {
+  margin: 0;
+}
+
+.dsf-figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--dsf-line-strong);
+}
+
+.dsf-figure figcaption {
+  margin-top: 0.6rem;
+}
+
+.dsf-facts {
+  margin: 1.25rem 0 0;
+}
+
+.dsf-facts > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--dsf-line);
+}
+
+.dsf-facts dd {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+/* ---- Status readouts ---- */
+
+.dsf-readout h2 {
+  margin: 0.5rem 0 0.75rem;
+  font-size: 1.9rem;
+  line-height: 1.2;
+}
+
+.dsf-readout p {
+  max-width: 30rem;
+}
+
+.dsf-label--updated {
+  display: block;
+  margin-top: 1.25rem;
+  font-weight: 400;
+}
+
+/* ---- Lately, prose, aside ---- */
+
+.dsf-prose {
+  max-width: 36rem;
+  margin-bottom: 2.25rem;
+}
+
+.dsf-prose a {
+  font-weight: 500;
+}
+
+.dsf-lately ul {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dsf-lately li {
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--dsf-line);
+  font-size: 1rem;
+}
+
+.dsf-lately li:last-child {
+  border-bottom: 1px solid var(--dsf-line);
+}
+
+.dsf-readout + .dsf-lately {
+  margin-top: 2.5rem;
+}
+
+.dsf-aside {
+  max-width: 30rem;
+  margin-top: 2.5rem;
+  padding: 1.1rem 1.25rem 1.2rem;
+  border-radius: 6px;
+  background: var(--dsf-tint);
+}
+
+.dsf-aside p {
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  color: var(--dsf-muted);
+}
+
+/* ---- Projects ---- */
+
+.dsf-h2 {
+  margin-bottom: 1.75rem;
+  font-size: 1.7rem;
+  line-height: 1.25;
+}
+
+.dsf-lately + .dsf-h2 {
+  margin-top: 3rem;
+}
+
+.dsf-projects {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--dsf-line-strong);
+}
+
+.dsf-project {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.75rem 0 2rem;
+  border-bottom: 1px solid var(--dsf-line);
+}
+
+.dsf-project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.4rem 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.dsf-project h3 {
+  font-family: var(--dsf-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.dsf-project h3 a {
+  text-decoration-color: transparent;
+}
+
+.dsf-project h3 a:hover,
+.dsf-project h3 a:focus-visible {
+  text-decoration-color: var(--dsf-accent);
+}
+
+.dsf-kicker {
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+}
+
+.dsf-story {
+  max-width: 38rem;
+  font-size: 0.97rem;
+  color: var(--dsf-muted);
+}
+
+/* ---- People ---- */
+
+.dsf-people {
+  border-top: 1px solid var(--dsf-line-strong);
+}
+
+.dsf-person {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 0.5rem 2rem;
+  padding: 1.5rem 0 1.75rem;
+  border-bottom: 1px solid var(--dsf-line);
+}
+
+.dsf-person-who {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.dsf-person-who .dsf-label:first-child {
+  color: var(--dsf-ink);
+}
+
+.dsf-person h3 {
+  font-size: 1.3rem;
+  line-height: 1.35;
+}
+
+.dsf-person p {
+  max-width: 34rem;
+  margin-top: 0.5rem;
+  font-size: 0.97rem;
+  color: var(--dsf-muted);
+}
+
+/* The one highlight on the page. */
+.dsf-person--girlfriend {
+  margin-top: 1.25rem;
+  padding: 1.5rem 1.5rem 1.75rem;
+  border-bottom: 0;
+  border-radius: 6px;
+  background: var(--dsf-tint-deep);
+}
+
+.dsf-person--girlfriend p,
+.dsf-person--girlfriend .dsf-label {
+  color: var(--dsf-ink);
+}
+
+/* ---- Footer ---- */
+
+.dsf-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--dsf-line-strong);
+}
+
+/* ---- Stage ----
+   Fixed along the bottom. The set slides under a standing Justin as you
+   scroll; the ground is the hairline his feet rest on. The top fades so the
+   page dissolves into the floor instead of being cut. */
+
+.dsf-stage {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: var(--dsf-stage-h);
+  overflow: hidden;
+  background: var(--dsf-bg);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--dsf-fade));
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--dsf-fade));
+}
+
+.dsf-stage::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--dsf-ground);
+  height: 1px;
+  background: var(--dsf-line-strong);
+}
+
+.dsf-set {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.dsf-set--over {
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dsf-scene {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+}
+
+.dsf-piece,
+.dsf-ball,
+.dsf-justin {
+  position: absolute;
+  line-height: 0;
+}
+
+.dsf-piece svg,
+.dsf-ball svg,
+.dsf-justin svg {
+  display: block;
+}
+
+.dsf-justin {
+  z-index: 1;
+  transform: translateX(-50%);
+}
+
+.dsf-steam {
+  position: absolute;
+  width: 0;
+}
+
+.dsf-steam i {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--dsf-px);
+  height: var(--dsf-px);
+  background: var(--dsf-muted);
+  opacity: 0.35;
+  transform: translateY(calc(-2 * var(--dsf-px)));
+  animation: dsf-steam 3.6s ease-out infinite;
+}
+
+.dsf-steam i:nth-child(2) {
+  left: calc(2 * var(--dsf-px));
+  animation-delay: 1.2s;
+}
+
+.dsf-steam i:nth-child(3) {
+  left: calc(-1 * var(--dsf-px));
+  animation-delay: 2.4s;
+}
+
+@keyframes dsf-steam {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dsf-px), calc(-9 * var(--dsf-px)));
+  }
+}
+
+.dsf-glow {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  transform: translate(-50%, 50%);
+  background: radial-gradient(circle, rgba(226, 169, 97, 0.22), rgba(226, 169, 97, 0) 70%);
+  pointer-events: none;
+}
+
+.dsf-glow--screen {
+  background: radial-gradient(circle, rgba(169, 193, 212, 0.2), rgba(169, 193, 212, 0) 70%);
+}
+
+.dsf-ball {
+  bottom: var(--dsf-ground);
+  animation: dsf-roll 7s linear forwards;
+}
+
+@keyframes dsf-roll {
+  from {
+    transform: translateX(0) rotate(0);
+  }
+  to {
+    transform: translateX(calc(-190 * var(--dsf-px))) rotate(-900deg);
+  }
+}
+
+/* ---- Narrow ---- */
+
+@media (max-width: 720px) {
+  .dsf {
+    --dsf-stage-h: 108px;
+    --dsf-ground: 18px;
+    --dsf-fade: 20px;
+    font-size: 1rem;
+  }
+
+  .dsf-page {
+    width: min(100% - 2rem, 1040px);
+  }
+
+  .dsf-part {
+    grid-template-columns: 1fr;
+    row-gap: 1.25rem;
+    padding-top: 4.5rem;
+  }
+
+  .dsf-part--hero {
+    padding-top: 3rem;
+  }
+
+  .dsf-part--last {
+    min-height: 45vh;
+  }
+
+  .dsf-when {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .dsf-caption {
+    max-width: none;
+    margin: 0;
+  }
+
+  .dsf-here {
+    width: 100%;
+    margin: 0.25rem 0 0;
+  }
+
+  .dsf-hero {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .dsf-figure {
+    width: min(100%, 18rem);
+  }
+
+  .dsf-person,
+  .dsf-project {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .dsf-person--girlfriend {
+    padding: 1.25rem;
+  }
+
+  .dsf-footer {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+}

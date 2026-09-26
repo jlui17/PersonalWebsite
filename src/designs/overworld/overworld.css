@@ -1,0 +1,954 @@
+@import url("https://fonts.googleapis.com/css2?family=Young+Serif&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=DM+Mono:wght@400;500&display=swap");
+
+/* index.css puts overflow-x: hidden on body, which makes body a scroll
+   container and stops the map column sticking. html keeps its own. */
+body:has(.ow) {
+  overflow: visible;
+  background: #f5ecdc;
+}
+
+.ow {
+  /* Palette: a warm page (cream, not white; espresso ink, not black) and a map
+     that is a sunlit meadow, so it reads outdoors without going green-heavy.
+     Blue is the one meaning-carrying colour (the stop you are on); its partner
+     is the copper of section numbers, never red against green. */
+  --ow-bg: #f5ecdc;
+  --ow-ink: #33291f;
+  --ow-muted: #665a4e;
+  --ow-blue: #2a5484; /* 5.2:1 on the map's land at label size */
+  --ow-copper: #875420; /* 5.4:1 on the page */
+  --ow-line: rgba(51, 41, 31, 0.18);
+  --ow-line-strong: rgba(51, 41, 31, 0.45);
+  --ow-tint: #eddfc9;
+  --ow-tint-deep: #e6d3b6;
+  --ow-land: #e3d39e;
+  --ow-land-deep: #d3c283;
+  --ow-shore: #ecdfb6;
+  --ow-water: #a9c6d9;
+  --ow-light: #f6d98a;
+  --ow-radius: 6px;
+
+  --ow-serif: "Young Serif", Georgia, serif;
+  --ow-sans: "Instrument Sans", system-ui, sans-serif;
+  --ow-mono: "DM Mono", monospace;
+
+  width: min(100% - 3rem, 960px);
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+  color: var(--ow-ink);
+  font-family: var(--ow-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.ow *,
+.ow *::before,
+.ow *::after {
+  box-sizing: border-box;
+}
+
+.ow p,
+.ow li,
+.ow a,
+.ow dd {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: inherit;
+}
+
+.ow h1,
+.ow h2,
+.ow h3 {
+  margin: 0;
+  font-family: var(--ow-serif);
+  font-weight: 400;
+  color: var(--ow-ink);
+}
+
+/* Mono label: the map voice. Stop names, section numbers, captions, tags. */
+.ow-label {
+  font-family: var(--ow-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ow-muted);
+}
+
+.ow__prose-link,
+.ow__links a,
+.ow__projects h3 a {
+  color: var(--ow-ink);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: color 180ms ease, background-size 200ms ease;
+}
+
+.ow__prose-link:hover,
+.ow__links a:hover,
+.ow__projects h3 a:hover,
+.ow__prose-link:focus-visible,
+.ow__links a:focus-visible,
+.ow__projects h3 a:focus-visible {
+  color: var(--ow-blue);
+}
+
+/* ---- Masthead ---- */
+
+.ow__masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--ow-line-strong);
+}
+
+.ow__name {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.ow__name strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.ow__links {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+
+.ow__links a {
+  font-family: var(--ow-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background-size: 0% 1px;
+}
+
+.ow__links a:hover,
+.ow__links a:focus-visible {
+  background-size: 100% 1px;
+}
+
+.ow-clock {
+  font-family: var(--ow-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ow-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Layout: the map on top with a strip that stays on screen while
+   reading; from 1200px, two columns with the map sticky on the left ---- */
+
+.ow__body {
+  display: block;
+  padding-top: 2.5rem;
+}
+
+/* 640px of map plus the frame's border */
+.ow__map-col {
+  width: min(100%, 642px);
+  margin: 0 auto;
+}
+
+.ow__map-figure {
+  margin: 0;
+}
+
+.ow__map-figure figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ow-line);
+}
+
+/* The way there is read from the strip while it is on screen; under the
+   sticky map (two columns) it is read here. */
+.ow__map-directions {
+  display: none;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ow-ink);
+}
+
+.ow__map-note {
+  margin-top: 0.25rem;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  color: var(--ow-muted);
+}
+
+.ow__map-swipe {
+  display: none;
+}
+
+/* ---- The map ---- */
+
+/* On a screen narrower than the map this is a window onto it: the camera
+   follows him as he walks, a finger can pan it, and the edge with more map
+   past it fades so it reads as continuing. */
+.ow-map__frame {
+  position: relative;
+  border: 1px solid var(--ow-line-strong);
+  border-radius: var(--ow-radius);
+  overflow: hidden;
+}
+
+.ow-map__frame::before,
+.ow-map__frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.ow-map__frame::before {
+  left: 0;
+  background: linear-gradient(to right, var(--ow-land), transparent);
+}
+
+.ow-map__frame::after {
+  right: 0;
+  background: linear-gradient(to left, var(--ow-land), transparent);
+}
+
+.ow-map__frame[data-more-left]::before,
+.ow-map__frame[data-more-right]::after {
+  opacity: 0.85;
+}
+
+.ow-map__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.ow-map__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.ow-map {
+  position: relative;
+  overflow: hidden;
+  background: var(--ow-water);
+}
+
+.ow-map > svg,
+.ow-actor {
+  position: absolute;
+  display: block;
+  line-height: 0;
+}
+
+.ow-map__ground {
+  left: 0;
+  top: 0;
+}
+
+.ow-map__dot {
+  fill: var(--ow-ink);
+  opacity: 0.34;
+  transition: opacity 400ms ease;
+}
+
+.ow-map__dot--reached {
+  opacity: 0.7;
+}
+
+/* An actor's anchor is its feet: the sprite hangs up and to both sides of the
+   point it is placed at, so a pose of any size stands on the same spot. The
+   anchor span carries the centring and the sprite flips inside it, so turning
+   round moves nothing. */
+.ow-actor--justin,
+.ow-actor--truffle,
+.ow-actor--ball {
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.ow-actor__anchor {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: max-content;
+  transform: translateX(-50%);
+}
+
+.ow-actor__anchor > svg,
+.ow-actor--robot > svg {
+  display: block;
+}
+
+/* Truffle's ear answers the pointer while she sleeps; nothing else on an
+   actor takes the pointer, so the stop links under them get the click. */
+.ow-actor--truffle .ow-actor__anchor {
+  pointer-events: auto;
+}
+
+.ow-actors {
+  transition: opacity 180ms ease;
+}
+
+/* The words on the signpost's planks. */
+.ow-map__sign {
+  position: absolute;
+  font-size: 0.5rem;
+  line-height: 8px;
+  letter-spacing: 0.06em;
+  color: var(--ow-ink);
+}
+
+/* The scene cut for a jump of two or more stops: the map goes to land colour
+   for a beat while the pair move. */
+.ow-map__curtain {
+  position: absolute;
+  inset: 0;
+  background: var(--ow-land);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+/* Dusk over everything but the lights: a blue wash multiplied over the map, and
+   the lit windows painted back on top of it. */
+.ow-map__night {
+  position: absolute;
+  inset: 0;
+  background: #6f7ea8;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.ow-map__lights {
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+/* Stops: each is a link over its prop and the ground he stands on, with the
+   name on a land-coloured pill so the path's dots stop under it. The current
+   one is blue with a filled square beside it; the others are ink. The focus
+   ring goes on the pill, not the box. */
+.ow-map__stops a {
+  position: absolute;
+  display: block;
+  text-decoration: none;
+  outline: none;
+}
+
+.ow-map__stops .ow-label {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1px 4px;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  color: var(--ow-ink);
+  background: var(--ow-land);
+  transform: translateX(-50%);
+  transition: color 180ms ease;
+}
+
+/* a pointer that can hover; on touch the tapped label would keep it */
+@media (hover: hover) {
+  .ow-map__stops a:hover .ow-label {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+}
+
+.ow-map__stops a:focus-visible .ow-label {
+  outline: 2px solid var(--ow-blue);
+  outline-offset: 1px;
+}
+
+.ow-map__stop--current .ow-label {
+  color: var(--ow-blue);
+  font-weight: 500;
+}
+
+.ow-map__here {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  background: var(--ow-blue);
+}
+
+/* Speech bubble above a robot: the label voice in a hairline box over its
+   hat, its tail pointing down at it; the only motion is a short fade in. */
+.ow-bubble {
+  position: absolute;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--ow-line-strong);
+  border-radius: 3px;
+  background: var(--ow-bg);
+  color: var(--ow-ink);
+  font-size: 0.6rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: ow-bubble 120ms ease-out;
+}
+
+/* The tail: a border triangle in the line colour, with a page-colour triangle
+   laid one pixel further in over it, so the tail opens into the box. */
+.ow-bubble::before,
+.ow-bubble::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  border: 5px solid transparent;
+  border-bottom: 0;
+}
+
+.ow-bubble::before {
+  top: 100%;
+  border-top-color: var(--ow-line-strong);
+}
+
+.ow-bubble::after {
+  top: calc(100% - 1px);
+  border-top-color: var(--ow-bg);
+}
+
+@keyframes ow-bubble {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- The strip: where am I, while the map is off screen ---- */
+
+.ow-strip {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  margin: 1.25rem 0 2rem;
+  padding: 0 0.25rem 0 0;
+  background: var(--ow-bg);
+  border-top: 1px solid var(--ow-line);
+  border-bottom: 1px solid var(--ow-line);
+}
+
+.ow-strip button {
+  font: inherit;
+  color: var(--ow-ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.ow-strip__where {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: none;
+  padding: 0.25rem 0.25rem 0.25rem 0;
+}
+
+.ow-strip__where .ow-label {
+  color: var(--ow-blue);
+  white-space: nowrap;
+}
+
+.ow-strip__directions {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  color: var(--ow-muted);
+}
+
+.ow-strip__keys {
+  display: inline-flex;
+  flex: none;
+  gap: 0.25rem;
+}
+
+/* a thumb-sized target: the row is exactly as tall as the buttons */
+.ow-strip__keys button {
+  width: 44px;
+  height: 44px;
+  font-size: 0.9rem;
+  border-radius: 3px;
+}
+
+.ow-strip__keys button:hover:not(:disabled) {
+  color: var(--ow-blue);
+}
+
+.ow-strip__keys button:disabled {
+  color: var(--ow-line-strong);
+  cursor: default;
+}
+
+/* ---- Reading column ---- */
+
+.ow__reading {
+  width: min(100%, 640px);
+  min-width: 0;
+  margin: 0 auto;
+}
+
+.ow__section {
+  padding-bottom: 4.5rem;
+}
+
+.ow__section--end {
+  padding-bottom: 0;
+}
+
+.ow__section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ow-line-strong);
+}
+
+/* The strip already names the stop under 1200px; beside the sticky map the
+   section head carries it. */
+.ow__section-head .ow-label {
+  display: none;
+  color: var(--ow-copper);
+}
+
+.ow__section-head h2 {
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+/* Home */
+
+.ow__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 13rem;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.ow__hero h1 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.ow__hero p {
+  margin: 0 0 1rem;
+  color: var(--ow-muted);
+}
+
+.ow__hero p:last-child {
+  margin-bottom: 0;
+}
+
+.ow__photo {
+  margin: 0;
+}
+
+.ow__photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--ow-line-strong);
+}
+
+.ow__photo figcaption {
+  margin-top: 0.5rem;
+  white-space: nowrap;
+}
+
+.ow__facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 2.25rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ow-line);
+}
+
+.ow__facts dd {
+  margin: 0.25rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+/* The cafe: status readout */
+
+.ow__status {
+  border: 1px solid var(--ow-line-strong);
+  border-radius: var(--ow-radius);
+  background: var(--ow-tint);
+}
+
+.ow__status > div {
+  padding: 1rem 1.2rem 1.1rem;
+}
+
+.ow__status > div + div {
+  border-top: 1px solid var(--ow-line);
+}
+
+.ow__status strong {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ow__status span:last-child {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--ow-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.ow__updated {
+  display: block;
+  margin-top: 0.75rem;
+  text-align: right;
+}
+
+/* The court: now list */
+
+.ow__now {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ow__now li {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--ow-line);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.ow__now li:first-child {
+  padding-top: 0;
+}
+
+/* The table: people */
+
+.ow__people {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.ow__people article {
+  padding: 1.25rem 1.3rem 1.4rem;
+  border: 1px solid var(--ow-line);
+  border-radius: var(--ow-radius);
+  background: var(--ow-tint);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.ow__people article:hover {
+  transform: translateY(-1px);
+  border-color: var(--ow-line-strong);
+}
+
+.ow__people article > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.ow__people h3 {
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+.ow__people p {
+  margin: 0.6rem 0 0;
+  color: var(--ow-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.ow__people .ow__person--girlfriend {
+  grid-column: 1 / -1;
+  background: var(--ow-tint-deep);
+}
+
+/* The workshop: projects */
+
+.ow__projects {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ow__projects li {
+  padding: 1.75rem 0 2rem;
+  border-bottom: 1px solid var(--ow-line);
+}
+
+.ow__projects li:first-child {
+  padding-top: 0;
+}
+
+.ow__project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.ow__project-meta .ow-label {
+  color: var(--ow-copper);
+}
+
+.ow__projects h3 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.ow__projects h3 a {
+  font: inherit;
+  background-size: 0% 2px;
+}
+
+.ow__projects h3 a:hover,
+.ow__projects h3 a:focus-visible {
+  background-size: 100% 2px;
+}
+
+.ow__project-kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.ow__project-story {
+  margin: 0;
+  color: var(--ow-muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+/* The mountains: the end */
+
+.ow__aside {
+  padding: 1.1rem 1.25rem 1.2rem;
+  border: 1px solid var(--ow-line);
+  border-radius: var(--ow-radius);
+  background: var(--ow-tint);
+}
+
+.ow__aside p {
+  margin: 0.5rem 0 0;
+  color: var(--ow-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.ow__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ow-line-strong);
+}
+
+/* ---- Two columns from 1200px: the map keeps its place while the reading
+   scrolls, and the strip is not needed ---- */
+
+@media (min-width: 1200px) {
+  .ow {
+    width: min(100% - 3rem, 1232px);
+  }
+
+  .ow__body {
+    display: grid;
+    grid-template-columns: 642px minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .ow__map-col {
+    position: sticky;
+    top: 2rem;
+    margin: 0;
+  }
+
+  .ow__reading {
+    width: auto;
+    margin: 0;
+  }
+
+  .ow__map-directions {
+    display: block;
+  }
+
+  .ow__section-head .ow-label {
+    display: block;
+  }
+
+  .ow-strip {
+    display: none;
+  }
+}
+
+/* Beside the map the reading column is at most 544px: the photo goes under
+   the text rather than squeezing it. */
+@media (min-width: 1200px) {
+  .ow__hero {
+    grid-template-columns: 1fr;
+  }
+
+  .ow__photo {
+    width: 14rem;
+  }
+}
+
+/* ---- Phone ---- */
+
+@media (max-width: 760px) {
+  .ow {
+    width: min(100% - 2rem, 960px);
+    padding-top: 1.25rem;
+  }
+
+  .ow__body {
+    padding-top: 1.25rem;
+  }
+
+  .ow__map-figure figcaption {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+  }
+
+  .ow__map-keys {
+    display: none;
+  }
+
+  .ow__map-swipe {
+    display: inline;
+  }
+
+  /* the way there wraps onto its own line under the stop */
+  .ow-strip {
+    flex-wrap: wrap;
+    gap: 0 0.75rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0 0.5rem 0.45rem 1rem;
+  }
+
+  .ow-strip__where {
+    order: 0;
+  }
+
+  .ow-strip__keys {
+    order: 1;
+    margin-left: auto;
+  }
+
+  .ow-strip__directions {
+    order: 2;
+    flex-basis: 100%;
+    white-space: normal;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .ow__section {
+    padding-bottom: 3.5rem;
+  }
+
+  .ow__hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .ow__photo {
+    width: min(100%, 16rem);
+  }
+
+  .ow__facts {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .ow__facts > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.55rem 0;
+    border-top: 1px solid var(--ow-line);
+  }
+
+  .ow__facts dd {
+    margin: 0;
+  }
+
+  .ow__people {
+    grid-template-columns: 1fr;
+  }
+
+  .ow__footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ow-map__dot,
+  .ow__people article,
+  .ow-actors,
+  .ow-map__curtain,
+  .ow-map__frame::before,
+  .ow-map__frame::after {
+    transition: none;
+  }
+
+  .ow-bubble {
+    animation: none;
+  }
+}

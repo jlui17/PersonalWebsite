@@ -43,7 +43,7 @@ Three faces, three jobs. Don't let them swap roles:
 ### Live details
 
 - `SFClock` in the masthead ticks in `America/Los_Angeles`.
-- The **status readout** (`status` const in `SpecSheet.jsx`) is the "what's true right now" panel: watching / brewing / cooking, whatever fits. **Bump `status.updated` whenever an entry changes**; a stale date under a "live" readout defeats the panel.
+- The **status readout** (`status` in `src/content.js`) is the "what's true right now" panel: watching / brewing / cooking, whatever fits. **Bump `status.updated` whenever an entry changes**; a stale date under a "live" readout defeats the panel.
 
 ## Voice
 
@@ -54,7 +54,7 @@ Three faces, three jobs. Don't let them swap roles:
 
 ## Editing content
 
-All content lives as consts at the top of `SpecSheet.jsx` (`status`, `now`, `people`, `projects`); the JSX below maps over them, so routine edits never touch markup.
+All content lives as named exports in `src/content.js` (`status`, `now`, `people`, `projects`); `SpecSheet.jsx` imports them and maps over them, so routine edits never touch markup.
 
 - **New project**: add to `projects` with `number`, `title`, `href`, `tag` (short mono stamp, sentence-cased by CSS), `kicker` (one-line hook), `story` (a short paragraph with a person or reason in it).
 - **New person**: add to `people` with `name`, `tag`, `heading` (one warm declarative sentence, rendered in Fraunces), `body`.
