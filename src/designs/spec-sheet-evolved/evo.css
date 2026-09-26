@@ -35,6 +35,17 @@
   box-sizing: border-box;
 }
 
+/* The app's base layer sizes every a, li and button at 1.125rem in the old
+   site's colour. Inside this design they take the size and colour of the text
+   they sit in. */
+.evo a,
+.evo li,
+.evo button {
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
 /* The document itself takes the page colour while this design is mounted, so
    rubber-banding past either end shows latte, not the app's off-white. The
    literal is --ss-bg, which is scoped to .evo and out of reach here. */
@@ -47,8 +58,7 @@ body:has(.evo) {
   /* 880px keeps body copy near 70ch at 1rem, the readable-measure sweet spot. */
   width: min(100% - 2.5rem, 880px);
   margin: 0 auto;
-  /* 3rem on top (was 2rem): the masthead figure stands 60px above the rule. */
-  padding: 3rem 0 3rem;
+  padding: 2rem 0 3rem;
 }
 
 .evo p {
@@ -141,6 +151,10 @@ body:has(.evo) {
   font-variant-numeric: tabular-nums;
 }
 
+.evo__clock-seconds {
+  color: var(--ss-line-strong);
+}
+
 /* ---- Hero ---- */
 
 .evo__hero {
@@ -157,6 +171,11 @@ body:has(.evo) {
   font-weight: 480;
   line-height: 1.05;
   letter-spacing: -0.01em;
+}
+
+/* "Lui." and Justin wrap as one, so he is never alone on a line. */
+.evo__nowrap {
+  white-space: nowrap;
 }
 
 .evo__hero-intro p {
@@ -205,56 +224,6 @@ body:has(.evo) {
   text-align: right;
 }
 
-/* ---- Status readout ---- */
-
-.evo__status {
-  border: 1px solid var(--ss-line-strong);
-  border-radius: var(--ss-radius);
-  background: var(--ss-tint);
-}
-
-.evo__status-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.7rem 1.25rem;
-  border-bottom: 1px solid var(--ss-line);
-}
-
-.evo__status-head .evo__label:first-child {
-  color: var(--ss-accent);
-}
-
-.evo__status-rows {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.evo__status-rows > div {
-  padding: 1.1rem 1.25rem 1.2rem;
-}
-
-.evo__status-rows > div + div {
-  border-left: 1px solid var(--ss-line);
-}
-
-.evo__status-rows strong {
-  display: block;
-  margin-top: 0.45rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.evo__status-rows span {
-  display: block;
-  margin-top: 0.3rem;
-  color: var(--ss-muted);
-  font-size: 0.82rem;
-  line-height: 1.55;
-}
-
 /* ---- Sections ---- */
 
 .evo__section {
@@ -262,6 +231,7 @@ body:has(.evo) {
 }
 
 .evo__section-head {
+  position: relative;
   display: flex;
   align-items: baseline;
   gap: 1rem;
@@ -282,12 +252,12 @@ body:has(.evo) {
   color: var(--ss-accent);
 }
 
-/* ---- What I'm up to ---- */
+/* ---- 01 What I'm up to: the list, with the status readout beside it ---- */
 
 .evo__now {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: 2rem 4rem;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 2rem 3.5rem;
 }
 
 .evo__now-list {
@@ -310,8 +280,58 @@ body:has(.evo) {
   padding-top: 0;
 }
 
+.evo__now-side {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+/* The status readout: what is true right now, dated. It keeps the stronger
+   border of the old standalone panel so it still reads as the live part. */
+.evo__status {
+  border: 1px solid var(--ss-line-strong);
+  border-radius: var(--ss-radius);
+  background: var(--ss-tint);
+}
+
+.evo__status-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 1.25rem;
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.evo__status-head .evo__label:first-child {
+  color: var(--ss-accent);
+}
+
+.evo__status-rows > div {
+  padding: 1rem 1.25rem 1.1rem;
+}
+
+.evo__status-rows > div + div {
+  border-top: 1px solid var(--ss-line);
+}
+
+.evo__status-rows strong {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.evo__status-rows span {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--ss-muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
 .evo__aside {
-  align-self: start;
   padding: 1.1rem 1.25rem 1.2rem;
   border: 1px solid var(--ss-line);
   border-radius: var(--ss-radius);
@@ -325,7 +345,7 @@ body:has(.evo) {
   line-height: 1.65;
 }
 
-/* ---- People ---- */
+/* ---- 02 People ---- */
 
 .evo__people {
   display: grid;
@@ -385,7 +405,7 @@ body:has(.evo) {
   max-width: 42rem;
 }
 
-/* ---- Projects ---- */
+/* ---- 03 Projects ---- */
 
 .evo__projects {
   margin: 0;
@@ -449,12 +469,137 @@ body:has(.evo) {
   font-weight: 550;
 }
 
-.evo__project-story {
+/* The story sits a step under the intro's 1rem and a step over the cards'
+   0.88rem. Scoped under .evo so it outranks the `.evo p` size. */
+.evo .evo__project-story {
   max-width: 40rem;
   margin: 0;
   color: var(--ss-muted);
   font-size: 0.92rem;
   line-height: 1.7;
+}
+
+/* ---- 04 Agents: a spec card each, with what they do as rows ---- */
+
+.evo__agents {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.evo__agent {
+  display: flex;
+  flex-direction: column;
+  padding: 1.35rem 1.4rem 0;
+  border: 1px solid var(--ss-line);
+  border-radius: var(--ss-radius);
+  background: var(--ss-tint);
+}
+
+.evo__agent > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.evo__agent h3 {
+  margin: 0 0 1.4rem;
+  font-family: var(--ss-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.evo__does-label {
+  display: block;
+  padding-bottom: 0.45rem;
+}
+
+.evo__does {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.evo__does li {
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--ss-line);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ss-ink);
+}
+
+/* ---- 05 Around my place: a spec table, one row a corner ---- */
+
+.evo__home {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ss-line);
+}
+
+.evo__home li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 1.5rem;
+  padding: 1.35rem 0 1.5rem;
+  border-bottom: 1px solid var(--ss-line);
+}
+
+.evo__home h3 {
+  margin: 0;
+  font-family: var(--ss-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.evo__home p {
+  margin: 0;
+  color: var(--ss-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+/* ---- 06 Someday: three wishes side by side, on one ground ---- */
+
+.evo__someday {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--ss-line);
+  border-bottom: 1px solid var(--ss-line-strong);
+}
+
+.evo__wish {
+  display: flex;
+  flex-direction: column;
+  padding: 1.35rem 1.5rem 1.5rem 0;
+}
+
+.evo__wish + .evo__wish {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--ss-line);
+}
+
+.evo__wish h3 {
+  margin: 0.9rem 0 0;
+  font-family: var(--ss-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.evo__wish p {
+  margin: 0.6rem 0 0;
+  color: var(--ss-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
 }
 
 /* ---- Footer ---- */
@@ -500,26 +645,37 @@ body:has(.evo) {
     width: min(100%, 20rem);
   }
 
-  .evo__status-rows {
-    grid-template-columns: 1fr;
-  }
-
-  .evo__status-rows > div + div {
-    border-left: none;
-    border-top: 1px solid var(--ss-line);
-  }
-
   .evo__now {
     grid-template-columns: 1fr;
   }
 
-  .evo__people {
+  .evo__people,
+  .evo__agents {
     grid-template-columns: 1fr;
   }
 
   .evo__project {
     grid-template-columns: 1fr;
     gap: 0.75rem;
+  }
+
+  .evo__home li {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .evo__someday {
+    grid-template-columns: 1fr;
+  }
+
+  .evo__wish {
+    padding-right: 0;
+  }
+
+  .evo__wish + .evo__wish {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--ss-line);
   }
 
   .evo__footer {
@@ -531,8 +687,10 @@ body:has(.evo) {
 /* ---- Figures ----
    The hairline rules are the ground the sprites stand on. Every figure is drawn
    at 1 CSS px per sprite pixel and positioned with its bottom pixel row on a
-   rule, so it reads as a mark on the sheet rather than a mascot floating over
-   it. */
+   rule or a baseline, so it reads as a mark on the sheet rather than a mascot
+   floating over it. A figure whose pose can change gets a box the size of its
+   largest pose (--evo-figure-w/h, set inline from the sheet), anchored at a
+   corner, so the text around it never moves. */
 
 .evo__sprite {
   display: block;
@@ -543,63 +701,72 @@ body:has(.evo) {
   display: block;
 }
 
-/* A sprite (or the name) that reacts to the pointer says so with the cursor,
-   and nothing else: no tooltip, no motion until it is touched. */
+/* A sprite that reacts to the pointer says so with the cursor, and nothing
+   else: no tooltip, no motion until it is touched. The reacting sprites are
+   buttons, so the keyboard reaches them too. */
 .evo__reacts {
   cursor: pointer;
 }
 
-/* Masthead: Justin stands at the right end of the masthead rule, beside the
-   clock that explains his state. The nav leaves him room so the clock never
-   runs under him; the seated evening pose is 52px wide and the asleep pose
-   lies flat at 64px, so those parts of the day widen the gap. */
-.evo__masthead {
+.evo__reacts:is(button) {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+
+.evo__reacts:is(button):disabled {
+  cursor: default;
+}
+
+.evo__reacts:focus-visible {
+  outline: 1px solid var(--ss-accent);
+  outline-offset: 3px;
+}
+
+/* Hero: Justin's box sits on the h1's baseline like a glyph after "Lui.". An
+   inline-block with no in-flow content puts its bottom edge on the baseline,
+   and he is anchored bottom-left inside it. */
+.evo__hero-figure {
   position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  width: var(--evo-figure-w);
+  height: var(--evo-figure-h);
+  margin-left: 0.3em;
 }
 
-.evo__masthead-nav {
-  padding-right: calc(36px + 1.25rem);
-}
-
-.evo__masthead--evening .evo__masthead-nav {
-  padding-right: calc(52px + 1.25rem);
-}
-
-.evo__masthead--night .evo__masthead-nav {
-  padding-right: calc(64px + 1.25rem);
-}
-
-.evo__masthead-figure {
+.evo__hero-figure .evo__sprite {
   position: absolute;
-  right: 0;
+  left: 0;
   bottom: 0;
 }
 
-.evo__clock-seconds {
-  color: var(--ss-line-strong);
-}
-
-/* Status head: luibot stands on the head's bottom rule beside the updated
-   date, which keeps clear of him. He is 32px in a ~40px row, so he fits
-   without the row growing. */
-.evo__status-head {
+/* Brewing: Justin stands at the right end of the entry, on the rule under it,
+   and the entry's text keeps clear of him. */
+.evo__status-rows > .evo__status-row--brewing {
   position: relative;
+  padding-right: calc(var(--evo-figure-w) + 1.25rem + 0.75rem);
+  min-height: calc(var(--evo-figure-h) + 1.4rem);
 }
 
-.evo__updated {
-  padding-right: calc(28px + 0.75rem);
-}
-
-.evo__luibot {
+.evo__brewing-figure {
   position: absolute;
   right: 1.25rem;
   bottom: 0;
 }
 
 /* Speech bubble over a robot: the label voice in a hairline box, anchored to
-   the robot's right edge so it grows leftward (both robots sit at the right
-   edge of the page). Absolute, so nothing around it moves; the only motion is
-   a short fade in. */
+   the robot's right edge so it grows leftward (both robots stand at the right
+   edge of their card). Absolute, so nothing around it moves; the only motion
+   is a short fade in. */
+.evo__robot {
+  position: relative;
+}
+
 .evo__bubble {
   position: absolute;
   right: 0;
@@ -643,10 +810,10 @@ body:has(.evo) {
   }
 }
 
-/* Truffle's card: she sleeps on the card's bottom rule, captioned like the
-   photo. The card gives up its bottom padding so her feet touch the border,
-   and the figure is pushed to the floor even when the grid row is taller
-   than her card's own text. */
+/* Truffle's card: she sleeps on the card's bottom rule with Justin crouched
+   behind her, captioned like the photo. The card gives up its bottom padding
+   so their feet touch the border, and the figure is pushed to the floor even
+   when the grid row is taller than her card's own text. */
 .evo__people .evo__person--truffle {
   display: flex;
   flex-direction: column;
@@ -661,51 +828,105 @@ body:has(.evo) {
   gap: 0.5rem;
   margin: auto 0 0;
   padding-top: 1.1rem;
+  /* The ball's stop, at her nose: the card's width less Justin (less the reach
+     of his hand over her), her sleeping width (36px), the ball (10px) and the
+     8px she leaves it. The same sum as `distance` in index.jsx. */
+  --evo-ball-end: calc(100% - var(--evo-pet-w) + var(--evo-pet-reach) - 36px - 10px - 8px);
 }
 
-/* The ball rolls once along the rule, from the card's left edge to her nose,
-   and she does not get up. 36px is her sleeping width, 10px the ball, 8px the
-   gap she leaves it. The curve is a quadratic ease-out, i.e. constant
-   deceleration, which is how a rolled ball slows: quick off the hand, an even
-   slow-down, and a stop rather than a creep. */
+/* Truffle and Justin share the bottom row: she is pulled out of the column
+   flow and lies to his left, her rump under his hand, both with their feet on
+   the border. */
+.evo__truffle {
+  position: absolute;
+  right: calc(var(--evo-pet-w) - var(--evo-pet-reach));
+  bottom: 0;
+}
+
+/* The ball rolls along the rule, from the card's left edge to her nose and, if
+   asked, back. The curve is a quadratic ease-out, i.e. constant deceleration,
+   which is how a rolled ball slows: quick off the hand, an even slow-down,
+   and a stop rather than a creep. */
 .evo__ball {
   position: absolute;
   left: 0;
   bottom: 0;
+  transition: left 3s cubic-bezier(0.33, 0.67, 0.67, 1);
 }
 
-.evo__ball--rolling {
-  animation: evo-roll 3s cubic-bezier(0.33, 0.67, 0.67, 1) forwards;
+.evo__ball--at-truffle {
+  left: var(--evo-ball-end);
 }
 
-@keyframes evo-roll {
-  to {
-    left: calc(100% - 36px - 10px - 8px);
-  }
+/* Desk: Justin at the right end of the projects heading's rule. The heading
+   keeps clear of him. */
+.evo__section-head--desk {
+  padding-right: calc(var(--evo-figure-w) + 1rem);
 }
 
-/* Footer: Justin and Truffle sit on the rule at the left, luibuilder stands at
-   its right end with his block. */
+.evo__desk-figure {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+/* Agents: each robot stands on its card's bottom rule, at the right. */
+.evo__agent-figure {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+
+/* Shoes: Justin with his boxes at the right end of the row, on its rule. */
+.evo__home .evo__home-row--shoes {
+  padding-right: calc(var(--evo-figure-w) + 1.5rem);
+  min-height: calc(var(--evo-figure-h) + 1.35rem);
+}
+
+.evo__home-figure {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+/* The farm: the ground is the bottom of the farm column, on the row's closing
+   rule. Tall enough for a standing Justin plus a breath above him. */
+.evo__wish--farm {
+  padding-bottom: 0;
+}
+
+.evo__farm-ground {
+  position: relative;
+  height: calc(var(--evo-figure-h) + 1.25rem);
+  margin-top: auto;
+}
+
+.evo__walker {
+  position: absolute;
+  bottom: 0;
+}
+
+.evo__walker--going {
+  transition-property: left;
+  transition-timing-function: linear;
+}
+
+/* Footer: Justin and Truffle on the rule at the left, in a box the width of
+   the wider of their two pairings, anchored bottom-left. */
 .evo__footer-figure {
   position: absolute;
+  left: 0.75rem;
   bottom: 100%;
   display: flex;
   align-items: flex-end;
   gap: 10px;
-}
-
-.evo__footer-figure--left {
-  left: 0.75rem;
-}
-
-.evo__footer-figure--right {
-  right: 0;
+  width: var(--evo-figure-w);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .evo__ball,
-  .evo__ball--rolling {
-    left: calc(100% - 36px - 10px - 8px);
-    animation: none;
+  .evo__walker {
+    transition: none;
   }
 }
