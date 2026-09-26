@@ -86,15 +86,15 @@ export default function PostcardWall() {
             <h1>Hi, I’m Lui.</h1>
             <p>
               If there’s something you should know about me, it’s that I can nerd
-              out over niche details for hours. Steph Curry’s footwork, dialing in
-              espresso, programming, or the right way to peek a specific angle in
-              Valorant. Once I’m interested, I’ll obsess over the details and talk
-              about them way longer than I meant to.
+              out over niche details for hours. Dialing in espresso, custom
+              keyboards, the right pair of shoes, or why episode 1070 of One Piece
+              is my favourite. Once I’m interested, I’ll obsess over the details
+              and talk about them way longer than I meant to.
             </p>
             <p className="postcard-wall__work">
               For work, I’m at <a href="https://www.scorecard.io/" target="_blank" rel="noreferrer">Scorecard</a>,
-              where I work across product and engineering and try a bunch of ideas
-              to see what lands.
+              where I work across product and engineering to build RL environments.
+              I handle the infra, scaling, and simulations.
             </p>
           </div>
         </header>

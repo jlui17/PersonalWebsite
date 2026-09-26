@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./spec-sheet.css";
-import { now, people, projects, status } from "../content";
+import { facts, intro, now, people, projects, status } from "../content";
 
 function SFClock() {
   const [time, setTime] = useState(null);
@@ -48,26 +48,25 @@ export default function SpecSheet() {
         <section className="spec-sheet__hero">
           <div className="spec-sheet__hero-intro">
             <h1>Hi, I&rsquo;m Lui.</h1>
-            <p>
-              If there&rsquo;s something you should know about me, it&rsquo;s that I can nerd out
-              over niche details for hours. Steph Curry&rsquo;s footwork, dialing in espresso,
-              programming, or the right way to peek a specific angle in Valorant. Once
-              I&rsquo;m interested, I&rsquo;ll obsess over the details and talk about them way
-              longer than I meant to.
-            </p>
-            <p>
-              For work, I&rsquo;m at{" "}
-              <a
-                className="spec-sheet__prose-link"
-                href="https://www.scorecard.io/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Scorecard
-              </a>
-              , where I work across product and engineering and try a bunch of ideas to
-              see what lands.
-            </p>
+            {intro.map((paragraph, i) => (
+              <p key={i}>
+                {paragraph.map((part, j) =>
+                  typeof part === "string" ? (
+                    part
+                  ) : (
+                    <a
+                      key={j}
+                      className="spec-sheet__prose-link"
+                      href={part.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {part.text}
+                    </a>
+                  ),
+                )}
+              </p>
+            ))}
           </div>
 
           <figure className="spec-sheet__figure">
@@ -77,18 +76,12 @@ export default function SpecSheet() {
             />
             <figcaption className="spec-sheet__label">fig. 01 — the three of us</figcaption>
             <dl className="spec-sheet__facts">
-              <div>
-                <dt className="spec-sheet__label">Currently in</dt>
-                <dd>San Francisco</dd>
-              </div>
-              <div>
-                <dt className="spec-sheet__label">Working at</dt>
-                <dd>Scorecard</dd>
-              </div>
-              <div>
-                <dt className="spec-sheet__label">Originally from</dt>
-                <dd>Vancouver</dd>
-              </div>
+              {facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt className="spec-sheet__label">{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
             </dl>
           </figure>
         </section>

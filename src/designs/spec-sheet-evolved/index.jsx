@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import "./evo.css";
-import { now, people, projects, status } from "../../content";
+import {
+  agents,
+  facts,
+  home,
+  intro,
+  now,
+  people,
+  projects,
+  someday,
+  status,
+} from "../../content";
 import { Sprite } from "../../sprites/Sprite.jsx";
 import ballSheet from "./ball.js";
 
@@ -303,26 +313,25 @@ export default function SpecSheetEvolved() {
         <section className="evo__hero">
           <div className="evo__hero-intro">
             <h1>Hi, I&rsquo;m Lui.</h1>
-            <p>
-              If there&rsquo;s something you should know about me, it&rsquo;s that I can nerd out
-              over niche details for hours. Steph Curry&rsquo;s footwork, dialing in espresso,
-              programming, or the right way to peek a specific angle in Valorant. Once
-              I&rsquo;m interested, I&rsquo;ll obsess over the details and talk about them way
-              longer than I meant to.
-            </p>
-            <p>
-              For work, I&rsquo;m at{" "}
-              <a
-                className="evo__prose-link"
-                href="https://www.scorecard.io/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Scorecard
-              </a>
-              , where I work across product and engineering and try a bunch of ideas to
-              see what lands.
-            </p>
+            {intro.map((paragraph, i) => (
+              <p key={i}>
+                {paragraph.map((part, j) =>
+                  typeof part === "string" ? (
+                    part
+                  ) : (
+                    <a
+                      key={j}
+                      className="evo__prose-link"
+                      href={part.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {part.text}
+                    </a>
+                  ),
+                )}
+              </p>
+            ))}
           </div>
 
           <figure className="evo__figure">
@@ -332,18 +341,12 @@ export default function SpecSheetEvolved() {
             />
             <figcaption className="evo__label">fig. 01 — the three of us</figcaption>
             <dl className="evo__facts">
-              <div>
-                <dt className="evo__label">Currently in</dt>
-                <dd>San Francisco</dd>
-              </div>
-              <div>
-                <dt className="evo__label">Working at</dt>
-                <dd>Scorecard</dd>
-              </div>
-              <div>
-                <dt className="evo__label">Originally from</dt>
-                <dd>Vancouver</dd>
-              </div>
+              {facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt className="evo__label">{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
             </dl>
           </figure>
         </section>
@@ -441,6 +444,61 @@ export default function SpecSheetEvolved() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="evo__section" aria-labelledby="agents-heading">
+          <div className="evo__section-head">
+            <span className="evo__label">04</span>
+            <h2 id="agents-heading">My agents</h2>
+          </div>
+          <div className="evo__people">
+            {agents.map((agent) => (
+              <article key={agent.name}>
+                <div>
+                  <span className="evo__label">{agent.name}</span>
+                  <span className="evo__label">{agent.tag}</span>
+                </div>
+                <h3>{agent.heading}</h3>
+                <p>{agent.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="evo__section" aria-labelledby="home-heading">
+          <div className="evo__section-head">
+            <span className="evo__label">05</span>
+            <h2 id="home-heading">Around my place</h2>
+          </div>
+          <div className="evo__people">
+            {home.map((spot) => (
+              <article key={spot.tag}>
+                <div>
+                  <span className="evo__label">{spot.tag}</span>
+                </div>
+                <h3>{spot.heading}</h3>
+                <p>{spot.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="evo__section" aria-labelledby="someday-heading">
+          <div className="evo__section-head">
+            <span className="evo__label">06</span>
+            <h2 id="someday-heading">Someday</h2>
+          </div>
+          <div className="evo__people">
+            {someday.map((wish) => (
+              <article key={wish.tag}>
+                <div>
+                  <span className="evo__label">{wish.tag}</span>
+                </div>
+                <h3>{wish.heading}</h3>
+                <p>{wish.body}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <footer className="evo__footer">

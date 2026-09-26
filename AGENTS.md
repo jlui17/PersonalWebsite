@@ -54,7 +54,10 @@ Three faces, three jobs. Don't let them swap roles:
 
 ## Editing content
 
-All content lives as named exports in `src/content.js` (`status`, `now`, `people`, `projects`); `SpecSheet.jsx` imports them and maps over them, so routine edits never touch markup.
+All content lives as named exports in `src/content.js` (`intro`, `facts`, `status`, `now`, `people`, `agents`, `home`, `someday`, `projects`); the designs import them and map over them, so routine edits never touch markup.
+
+- **Intro and facts**: `intro` is the hello paragraphs (each an array of strings and `{ text, href }` link parts); `facts` is the label/value rows under the hero photo.
+- **Agents, home, someday**: `agents` (luibot and luibuilder: `name`, `tag`, `heading`, `body`, `does` list), `home` (the desk, the shoes, the coffee corner) and `someday` (New York, Japan, the farm) share the people-card shape (`tag`, `heading`, `body`).
 
 - **New project**: add to `projects` with `number`, `title`, `href`, `tag` (short mono stamp, sentence-cased by CSS), `kicker` (one-line hook), `story` (a short paragraph with a person or reason in it).
 - **New person**: add to `people` with `name`, `tag`, `heading` (one warm declarative sentence, rendered in Fraunces), `body`.

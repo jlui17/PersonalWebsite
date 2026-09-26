@@ -1,3 +1,22 @@
+// The hello paragraphs under the h1. Each paragraph is an array of parts: a
+// string, or { text, href } for a link inside the sentence.
+export const intro = [
+  [
+    "If there’s something you should know about me, it’s that I can nerd out over niche details for hours. Dialing in espresso, custom keyboards, the right pair of shoes, or why episode 1070 of One Piece is my favourite. Once I’m interested, I’ll obsess over the details and talk about them way longer than I meant to.",
+  ],
+  [
+    "For work, I’m at ",
+    { text: "Scorecard", href: "https://www.scorecard.io/" },
+    ", where I work across product and engineering to build RL environments. I handle the infra, scaling, and simulations. At home I have two agents of my own, luibot and luibuilder, and I keep finding new things to hand them.",
+  ],
+];
+
+export const facts = [
+  { label: "Currently in", value: "San Francisco" },
+  { label: "Working at", value: "Scorecard" },
+  { label: "Originally from", value: "Vancouver" },
+];
+
 export const status = {
   updated: "2026-07-18",
   entries: [
@@ -61,6 +80,72 @@ export const people = [
     heading: "My best friend and the most thoughtful person I know.",
     body: "She makes me kinder, healthier, and better at living on my own. We support each other through work and everything else, and I'm a better person because of her.",
     girlfriend: true,
+  },
+];
+
+export const agents = [
+  {
+    name: "luibot",
+    tag: "The main one",
+    heading: "The agent I talk to most, about almost everything.",
+    body: "luibot does my research. He sorts every transaction into my own categories as it comes in, so my budget ends up in a Google Sheet with a report at the end. He orders my DoorDash and is learning what I like. He also helps me think through investments and triages my email.",
+    does: [
+      "Research",
+      "Sorting my transactions into my own categories, into a Google Sheet",
+      "Ordering my DoorDash and learning my preferences",
+      "Thinking through investments with me",
+      "Triaging my email",
+    ],
+  },
+  {
+    name: "luibuilder",
+    tag: "Coding agent",
+    heading: "I tell him I have an idea, and he goes off and builds it.",
+    body: "luibuilder is my coding agent. He built the games my girlfriend and I play together since we're long distance, and he looks after the VPS they run on. Same with my other side projects. It's nice having an agent floating around that I can just hand an idea to.",
+    does: [
+      "Building my side projects",
+      "Building the games my girlfriend and I play",
+      "Looking after the VPS they run on",
+      "Taking an idea and running with it",
+    ],
+  },
+];
+
+// The corners of his place people tend to recognize.
+export const home = [
+  {
+    tag: "The desk",
+    heading: "Clean and modern, with a cozy feel.",
+    body: "A custom PC, custom keyboards, a nice chair and monitor, and a few One Piece stuffies and knick-knacks keeping me company. It's one of the things people recognize me for.",
+  },
+  {
+    tag: "The shoes",
+    heading: "There are a lot of shoes here.",
+    body: "I used to be into buying and selling shoes and streetwear. I don't anymore, but the shoes stayed.",
+  },
+  {
+    tag: "The coffee corner",
+    heading: "A Breville Bambino Plus and a Baratza Encore.",
+    body: "The other thing people recognize me for. I'm still dialing it in, and I'm okay with that.",
+  },
+];
+
+// Where he hopes life goes.
+export const someday = [
+  {
+    tag: "New York",
+    heading: "Live in New York with my girlfriend.",
+    body: "My sister Andrea is already there. I want a stretch of my life there too.",
+  },
+  {
+    tag: "Japan",
+    heading: "Live in Japan with my girlfriend.",
+    body: "I want us to actually live there for a while.",
+  },
+  {
+    tag: "The farm",
+    heading: "After tech, a family-run farm with lots of dogs.",
+    body: "Cows, chickens, sheep, pigs, and vegetables too. The plan is to spend my days automating every part of it with robots, which is where luibot and luibuilder come in.",
   },
 ];
 
