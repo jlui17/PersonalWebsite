@@ -64,7 +64,7 @@ async function play(wait, set, sheet, action, frames, onStep) {
 }
 
 export function FarmScene({ fed }) {
-  const poured = useChore(fed, 1500);
+  const poured = useChore(fed);
   const henAt = useRef(reducedMotion() ? WALK : 0);
   const [hen, setHen] = useState(REST);
   const [ewe, setEwe] = useState(REST);

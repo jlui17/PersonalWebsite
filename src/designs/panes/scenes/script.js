@@ -22,17 +22,9 @@ export function useInView(ref) {
   return inView;
 }
 
-// Whether luibot's chore in a scene is done (the sign lit, the feed poured).
-// The pathway says so when it flies him there (`done` is a boolean); left
-// undefined, the scene keeps its own time: done `delay` ms after it opens.
-// Under reduced motion nobody flies, so it is done from the first paint.
-export function useChore(done, delay) {
-  const [own, setOwn] = useState(false);
-  const driven = done !== undefined;
-  useEffect(() => {
-    if (driven || reducedMotion()) return undefined;
-    const id = setTimeout(() => setOwn(true), delay);
-    return () => clearTimeout(id);
-  }, [driven, delay]);
-  return reducedMotion() || (done ?? own);
+// Whether luibot's chore in a scene is done (the sign lit, the feed poured):
+// the pathway says so when it flies him there (`done`), on a phone too. Under
+// reduced motion nobody flies, so it is done from the first paint.
+export function useChore(done) {
+  return reducedMotion() || done;
 }

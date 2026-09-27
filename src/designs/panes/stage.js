@@ -1533,6 +1533,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
     cancelPaneChores,
     bot,
     botBusy,
+    botChoreFor: (pane) => bot.pane === pane || bot.queue.some((c) => c.pane === pane), // on, or queued for, that pane's errand
     wantBotUp,
     botTaken,
     followAnchor,

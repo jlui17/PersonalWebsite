@@ -13,7 +13,7 @@ import "./scenes.css";
 // it; their hand wins for as long as the pane stays open. On and off never
 // rest on colour: the knob changes side, the dots fill, the word says which.
 export function UpTo({ lit }) {
-  const chore = useChore(lit, 1200);
+  const chore = useChore(lit);
   const [flipped, setFlipped] = useState(null);
   const on = flipped ?? chore;
   return (
