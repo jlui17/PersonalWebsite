@@ -27,7 +27,7 @@ His taste is learned from what he rejected, so this list is the most useful part
 - "use visual hierarchy to direct the attention of the viewer"; "if the viewer just skimmed my website they should be able to know like ... the general gist about me and the different sections"; "right now we just throw all the details at them and that's bad."
 - About a design built as a lab notebook with dials and instruments: "i just like the playfulness of the sprites. the rest is a bit noisy."
 - About a design themed as a game character sheet, with no more detail given: "i don't really like the character sheet".
-- The two designs set aside when `panes` won: `glass` (Liquid Glass widgets), "glass is a cool concept, but i think not to my taste for now", and the warm spec sheet with sprite scenes, after "i think im heavily leaning towards the panes design".
+- The two designs set aside when `panes` won: `glass` (Liquid Glass widgets), "glass is a cool concept, but i think not to my taste for now", and the warm spec sheet with sprite scenes, after "i think im heavily leaning towards the panes design". Both are kept in `main`'s history "so we can go back later if wanted": `git log --grep '^archive:'` finds the two commits that add a runnable snapshot under `archive/<name>/` (each has an `ARCHIVE.md`), and the commit after them removes the folder again.
 
 **How much to show up front**
 - "even like multiple lines is a little too much. if anything it should be like one line".
