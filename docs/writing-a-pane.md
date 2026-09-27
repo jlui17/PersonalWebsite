@@ -73,6 +73,12 @@ card (right column)            open pane
 - A block can hold a paragraph and a list, as long as they share no fact: the paragraph tells one story, the list holds the rest (each agent in pane 3).
 - A living list he keeps up to date gets a plain title, a quiet note beside it that says what the list is, and one line per item ("Future side quests", "Ideas I plan to build with them"). A line that is done moves to where the finished things live.
 
+## How a `###` is worded
+
+- Over a block of sentences, a `###` is an "I" sentence and the fun version ("I automate things that don't need it"; a lead-in such as "Fun fact:" is fine), and the details under it explain in plain terms with a few fun words mixed in.
+- Three exceptions. In a pane about other people, the person is the subject ("She's my role model for hard work and perseverance."; he said no to "I" headings in "My people"). Under a hook that ends in "…", each heading finishes the hook ("Live in Japan with my girlfriend."). Over a list, a `###` is a plain title ("Future side quests" replaced "I keep a list of what I want them to do next").
+- No skim line repeats a `###`, and a block the hook already covers gets none ("the main header already covers it"). The first sentence under a `###` says something new, not the `###` again ("there's a bit too much overalp between the subheader and the first sentence here").
+
 ## Checklist
 
 Each line points to its rule in `AGENTS.md` where one exists.
@@ -84,7 +90,7 @@ Each line points to its rule in `AGENTS.md` where one exists.
 - A skimmer who reads only the `#`, the hook and the `###`s knows what the pane holds ("Two heading levels").
 - The hook is a short, natural opener that does not sum up the blocks: "Meet my AI agents.", "In the future, I want to…" ("Each piece of text a skimmer sees has one job").
 - The card line reads like the other card lines: one sentence in his voice, mostly "I" with a verb. A noun list or a from-to phrase was rejected as not "aligned with the other card lines".
-- Every `###` follows "Two heading levels" in `AGENTS.md`: an "I" sentence and the fun version over a block of sentences, with its three exceptions (people, a hook ending in "…", a list), no skim line repeats it, and the first sentence under it says something new.
+- Every `###` follows "How a `###` is worded" above.
 - Every sentence is complete, and sentences that belong together are joined by "but" or "so" ("Simple, straightforward, complete sentences"). A run of adjectives goes in one clause: "She's so kind, sweet, and beautiful." replaced "She's so kind and sweet, and she's beautiful."
 - A person's details start with what they are like, then what they mean to him: "for my gf, the details should start off with how kind and nice she is."
 - His words for feelings and character stay his: "more emotionally aware", "snarky, fun, playful", "pragmatic and straightforward".
