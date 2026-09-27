@@ -79,38 +79,28 @@ Pixel sprites of Justin in his straw hat, Truffle, the robots luibot and luibuil
 
 ## Voice
 
-- Warm, first-person, conversational. Humor is gentle and sincere, never ironic; the deadpan lives in the small labels (field names, tags), never in headings or sentences.
-- **Specific over generic.** "Episode 1070 is my favourite" and "Breville Bambino Plus with a Baratza Encore" are the register; "I like anime and coffee" is not. Real names, real gear, real numbers.
-- Projects speak through stories with people in them ("helped my friends get into classes"), never metrics or resume verbs ("leveraging", "optimized", "driving results").
+- Warm, first-person, conversational. Humor in sentences is gentle and sincere; the deadpan lives in small labels (field names, tags), never in headings or paragraphs.
+- **Specific over generic**: real names, real gear, real numbers ("Episode 1070 is my favourite", not "I like anime and coffee").
+- Projects speak through stories with people in them ("helped my friends get into classes"), never metrics or resume verbs ("leveraging", "optimized").
 - Personal details (relationships, quirks, the dog) are first-class content, not filler.
-- **Each piece of text a skimmer sees has one job.** In `panes` a section shows these, in this order of rank:
-  - **Title**: says what the section is, in plain words ("My future plans" replaced "Someday": "when i am skimming it, i don't need to think about what it means").
-  - **Card line** (`trailer`, on the section's card in the right column): introduces the thing to a stranger in a fun, specific way: name it, say he has it, and give a detail that makes the reader want to see more ("I have two OpenClaw agents running around."). "luibot runs my errands. luibuilder builds my ideas." was rejected because "the reader has to work hard to infer that oh i have agents". Write a subject and a verb; a list of nouns introduces nothing.
-  - **Invite**: the few words on the way in, and it can name what is inside ("Meet luibot and luibuilder").
-  - **Hook** (the first line of the open pane): a short, natural opener that leaves the telling to the blocks under it ("Meet my AI agents.", "In the future, I want to…"): "this kind of wording feels more natural and doesnt repeat so much of the content of the pane". One short sentence, or two when one cannot hold it (pane 1's). A hook that ends in "…" is finished by each heading under it ("Live in New York with my girlfriend.").
-  - **`###`**: the heading over each block; the rules are under "Two heading levels" above.
-- **Super simple language, and say what a thing does for a reader who has never heard of it**: "we should prefer to use like super, super simple language because i speak like that." "My budget sorts itself into a Google Sheet" was rejected: "ppl dont know what it is, so we just need to describe it in plain terms". It became "I track my budget and have spending reports made for me automatically". The same goes for work words (infra, scaling). Explain a name only when the point needs it: "(a game like Pokémon)" after Palworld was cut as "not really important", because the point is the automating, not the game. His rule for every sentence on the site: the reader should not have to think to understand it.
-- **Simple, straightforward, complete sentences**, even when it costs a few words: "I also rather have a tiny bit more verbosity in exchange for more fluid language". A fragment such as "Dialing in espresso, custom keyboards, or ..." was rejected for that. Join sentences that belong together with a small word such as "but" or "so": "the But continues the last sentence and makes it flow better."
-- **Plain first, then the fun one.** "we should state the plain version, then elaborate with the fun one." A plain word that leaves the reader asking "what?" needs one or two more words: "I build simulations where AI agents practice" got "Practice what? ... 1-2 words that indicate what they're practicing would be good."
-- **Never claim more than he said.** Every sentence traces to his words or to `src/content.js`. Add no feeling, habit, cause, number or link between two facts: "a report I actually read" claimed a habit he never mentioned and went back to "a report at the end". When his dictation is unclear, write the wording that does not assert the unclear part. When a removed fact leaves a gap, ask him for a real one. Show him every new sentence word for word, with guesses marked, before it counts as done.
-- **Read each line for who it leaves out.** "These are the people I love, and my dog Truffle." got: "i also love truffle, this kind of implies i dont love truffle". It became "These are the people I love the most." Setting one name apart says something about that name.
-- Check `src/content.js` before writing about anyone. Truffle is "She", and his girlfriend has no name on the site.
-- Keep money details light: say what luibot does, with no amounts and no account or institution names.
+- **Each piece of text a skimmer sees has one job**, in this order of rank:
+  - **Title**: what the section is, in plain words ("when i am skimming it, i don't need to think about what it means").
+  - **Card line** (`trailer`, on the card in the right column): a fun, specific sentence in his voice that makes a stranger want to open the pane, mostly one "I" sentence with a verb ("I have two OpenClaw agents running around."). A list of nouns introduces nothing; pane 2's list of his people is the exception.
+  - **Invite**: the few words on the way in; it can name what is inside ("Meet luibot and luibuilder").
+  - **Hook** (the first line of the open pane): a short, natural opener that leaves the telling to the blocks ("Meet my AI agents."): "this kind of wording feels more natural and doesnt repeat so much of the content of the pane". One short sentence, or two. A hook ending in "…" is finished by each heading under it.
+  - **`###`**: see "Two heading levels" above.
+- **Super simple language, for a reader who has never heard of the thing**: "we should prefer to use like super, super simple language because i speak like that." Say what a thing does instead of naming its tool ("I track my budget and have spending reports made for me automatically", not "my budget sorts itself into a Google Sheet"), use no work jargon, and explain a name only when the point needs it. The reader should not have to think.
+- **Simple, complete sentences**, even at the cost of a few words ("a tiny bit more verbosity in exchange for more fluid language"), joined by "but" or "so" where they belong together.
+- **Plain first, then the fun one.** A plain word that leaves the reader asking "what?" gets one or two more words ("Practice what?").
+- **Never claim more than he said.** Every sentence traces to his words or to `src/content.js`; add no feeling, habit, cause, number or link between two facts. Where his words are unclear, write what does not assert the unclear part, and ask him for a real fact to fill a gap. Show him every new sentence word for word, guesses marked, before it counts as done.
+- **Read each line for who it leaves out**: "These are the people I love, and my dog Truffle." implied he does not love Truffle; it became "These are the people I love the most."
+- Truffle is "She", and his girlfriend has no name on the site. Keep money details light: what luibot does, with no amounts and no account or institution names.
 
 ## Editing content
 
-All content lives as named exports in `src/content.js`; `panes` imports them and maps over them, so routine edits never touch markup. Reshape an export only after Justin has accepted the layout, and tell whoever builds the design before you commit the new shape, so its reader changes in the same commit. Read `docs/writing-a-pane.md` before you write, rework or add to a pane: it holds which pane a new fact belongs in, the order of work, a checklist, and worked examples.
+All content lives as named exports in `src/content.js`, and the comment above each export gives its shape and its quirks; `panes` maps over them, so routine edits never touch markup. Reshape an export only after Justin has accepted the layout, and tell whoever builds the design before you commit the new shape, so its reader changes in the same commit. Read `docs/writing-a-pane.md` before you write, rework or add to a pane: it holds which pane a new fact belongs in, the order of work, a checklist and worked examples.
 
-- `sections`: per section, the skim strings `title`, `trailer`, `invite`, `hook` and an optional `more` (the job of each is under Voice).
-- `intro` (pane 1): blocks of `{ heading, body }`, where `body` is strings and `{ text, href }` link parts, and `heading` is left out where the hook already covers the block.
-- `people` (pane 2): `{ name, heading, body }`; `girlfriend: true` marks the one highlighted card.
-- `agents`, `agentStory`, `agentRoadmap` (pane 3): each agent's `name`, `tag`, `heading`, `body` and `does` list (the pathway scene where he hands luibuilder an idea highlights the `does` line containing "idea", so keep that word in one line); the story blocks under them; and the "Future side quests" list (`{ heading, note, items: [{ agent, task }] }`) he keeps up to date.
-- `someday` (pane 4): `{ tag, heading, body }`. Each heading finishes the hook "In the future, I want to…". Where the `tag` appears word for word in its heading, the place's picture sits inside the sentence; otherwise beside it.
-- `lately` (pane 5): `{ updated, status, blocks, week }`: the sign's lines (`{ label, value }`, dated by `updated`, see "Live details"), the story blocks, and a normal week (`{ heading, days: [{ label, items }] }`).
-- `projects` (pane 6): `{ title, href, tag, kicker, story }`, in the order he sets; `tag` is a short stamp, `kicker` one line, `story` a short paragraph with a person or a reason in it.
-
-- **New person**: `heading` is one warm, complete sentence with the person as its subject; `body` says what they are like first, then what they mean to him.
-- **New section**: ask him where it goes in the order. It needs a `sections.<key>` entry, an entry in `PANES` in `src/designs/panes/index.jsx` with its detail body, and a step on the pathway with a sprite scene (the design side's part). Pane numbers follow the order, so they shift.
+- **New section**: ask him where it goes in the order. It needs a `sections.<key>` entry, an entry in `PANES` in `src/designs/panes/index.jsx` with its detail body, and a step on the pathway with a sprite scene. Pane numbers follow the order, so they shift.
 - **New photo**: strip EXIF before committing. The build copies `public/` into the deploy verbatim, so a straight-from-iPhone photo publishes its GPS coordinates at meter precision. Drop the APP1 and APP13 JPEG segments and keep APP0/APP2, which removes the metadata without recompressing the image or losing the color profile. If something private does ship, fixing it in git is not enough: every past Pages deployment keeps serving its own copy at a permanent `<hash>.justinlui.pages.dev` URL, so the old deployments have to be deleted as well.
 
 ## How design work goes well here
