@@ -10,13 +10,13 @@ import "./scenes.css";
 // ever visible: the place he is at shows him, the other shows an empty box of
 // his size (so it can be measured), and while he is between the two an
 // overlay draws the beam at the exact pixels of the place he leaves or
-// arrives at.
+// arrives at. Leaving a pane, that place is gone by the time the beam-out
+// plays (the pane unmounts in the render that sends him down), so the beam is
+// drawn where he last stood, over whatever the next pane puts there.
 //
 // `target` is where he should be ("pathway" | "pane"); `rects` measures each
 // place's box on screen; `delay` staggers the start so two robots never beam
-// as one block. A target that changes mid-trip is picked up at the next
-// phase: a beam-out under way is not restarted, and he beams in at the newer
-// target. Under reduced motion he is simply at the target.
+// as one block. Under reduced motion he is simply at the target.
 const GONE = 150;
 // The longest the beam-in waits for `canLand`: Justin walks clear of the
 // robots' spots in well under a second as he leaves step 3.
@@ -43,8 +43,18 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
   const targetRef = useRef(target);
   const hooks = useRef({});
   const run = useRef(0);
+  const lastPaneRect = useRef(null); // where he last stood in the pane, for the beam-out after the pane has unmounted
   targetRef.current = target;
   hooks.current = { outAction, canLeave, onOut, skipIn, onSkipIn, canLand };
+
+  useEffect(() => {
+    if (shown !== "pane") return undefined;
+    let id = requestAnimationFrame(function measure() {
+      lastPaneRect.current = rects.pane() ?? lastPaneRect.current;
+      id = requestAnimationFrame(measure);
+    });
+    return () => cancelAnimationFrame(id);
+  }, [shown, rects]);
 
   useEffect(() => {
     if (shownRef.current === target) return undefined;
@@ -82,7 +92,7 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
       for (;;) {
         // out, where he stands (skipped when he is already mid-beam or gone)
         if (from === "pathway" || from === "pane") {
-          const rect = rects[from]();
+          const rect = rects[from]() ?? (from === "pane" ? lastPaneRect.current : null);
           if (rect) {
             if (!(await until(hooks.current.canLeave && (() => hooks.current.canLeave(from))))) return;
             const action = hooks.current.outAction?.(from) ?? "beam-out";
