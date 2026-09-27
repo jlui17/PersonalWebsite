@@ -1,0 +1,56 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Section head</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0 3rem; }
+  .note { margin: 0 0 1rem; }
+
+  /* Two-digit ordinal in copper mono, a Fraunces h2, the strong rule under both.
+     Numbers are ordinal and append-only: never renumber. */
+  .evo__section { padding: var(--ss-space-section) 0 0; }
+  .evo__section:first-of-type { padding-top: 0; }
+  .evo__section-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ss-space-grid);
+    margin-bottom: var(--ss-space-section-head);
+    padding-bottom: 0.75rem;
+    border-bottom: var(--ss-hairline) solid var(--ss-line-strong);
+  }
+  .evo__section-head h2 {
+    margin: 0;
+    font-family: var(--ss-serif);
+    font-size: var(--ss-text-h2);
+    font-weight: var(--ss-weight-h2);
+    letter-spacing: 0;
+  }
+  .evo__section-head .evo__label { color: var(--ss-accent); }
+  .evo__section p { margin: 0; }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <section class="evo__section">
+    <div class="evo__section-head"><span class="evo__label">01</span><h2>What I&rsquo;m up to</h2></div>
+    <p class="evo__body">Section content starts 2.25rem under the rule.</p>
+  </section>
+  <section class="evo__section">
+    <div class="evo__section-head"><span class="evo__label">02</span><h2>The best people in my life</h2></div>
+    <p class="evo__body">Each section opens 4.5rem below the last.</p>
+  </section>
+  <section class="evo__section">
+    <div class="evo__section-head"><span class="evo__label">03</span><h2>Things I&rsquo;ve built</h2></div>
+    <p class="evo__body">A new section takes the next number; nothing is renumbered.</p>
+  </section>
+</main>
+</body>
+</html>

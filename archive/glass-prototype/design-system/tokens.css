@@ -1,0 +1,187 @@
+/* justinlui.dev design tokens.
+   Source of truth: src/designs/spec-sheet-evolved/evo.css. Variable names that
+   exist there keep their names here, so the site code and the design system
+   share one vocabulary. One palette, no dark mode: the latte background is
+   already pulled down from white so a night visitor is not flashbanged. */
+
+:root {
+  /* ---- Colour ---- */
+  --ss-bg: #f3e8d8;                          /* latte page background */
+  --ss-ink: #33291f;                         /* espresso text; never pure black */
+  --ss-muted: #6f6357;                       /* secondary text: labels, body under headings */
+  --ss-accent: #a5642f;                      /* copper: section numbers, tags, link hover */
+  --ss-line: rgba(51, 41, 31, 0.18);         /* hairline: row dividers, card borders */
+  --ss-line-strong: rgba(51, 41, 31, 0.45);  /* strong hairline: masthead, section heads, photo, status box */
+  --ss-tint: #ecdec7;                        /* card fill, one step deeper than the page */
+  --ss-tint-deep: #e7d5b8;                   /* two steps deeper; the girlfriend card only */
+  --ss-glow: rgba(196, 132, 72, 0.14);       /* the faint warm radial glow top-left of the page */
+  --ss-sprite-ink: #1e1711;                  /* outline ink of every pixel sprite */
+
+  /* ---- Type: three faces, three jobs ---- */
+  --ss-sans: "DM Sans", sans-serif;          /* body and UI */
+  --ss-serif: "Fraunces", serif;             /* display only: h1, h2, people headings */
+  --ss-mono: "IBM Plex Mono", monospace;     /* the label voice only */
+
+  /* Sizes */
+  --ss-text-h1: clamp(2.6rem, 7vw, 4.5rem);  /* the one h1 */
+  --ss-text-h2: 1.45rem;                     /* section headings */
+  --ss-text-h3: 1.2rem;                      /* people-card statements */
+  --ss-text-title: clamp(1.4rem, 3vw, 1.8rem); /* project titles (DM Sans) */
+  --ss-text-body: 1rem;                      /* paragraphs */
+  --ss-text-ui: 0.95rem;                     /* now-list rows, status values, kickers, masthead name */
+  --ss-text-story: 0.92rem;                  /* project stories */
+  --ss-text-detail: 0.88rem;                 /* people and aside body copy */
+  --ss-text-fact: 0.82rem;                   /* fact values, status details */
+  --ss-text-nav: 0.72rem;                    /* mono nav links and the clock */
+  --ss-text-label: 0.68rem;                  /* the label */
+
+  /* Weights (all three faces are variable fonts, so odd values are real) */
+  --ss-weight-body: 400;
+  --ss-weight-h1: 480;
+  --ss-weight-h3: 500;
+  --ss-weight-label: 500;
+  --ss-weight-h2: 520;
+  --ss-weight-medium: 550;                   /* prose links, kickers, fact values */
+  --ss-weight-semibold: 600;                 /* status values */
+  --ss-weight-title: 620;                    /* project titles */
+  --ss-weight-name: 650;                     /* the masthead name */
+
+  /* Tracking */
+  --ss-tracking-label: 0.14em;
+  --ss-tracking-nav: 0.08em;
+  --ss-tracking-h1: -0.01em;
+  --ss-tracking-title: -0.02em;
+
+  /* Leading */
+  --ss-leading-h1: 1.05;
+  --ss-leading-title: 1.15;
+  --ss-leading-h3: 1.4;
+  --ss-leading-detail: 1.65;
+  --ss-leading-body: 1.75;
+
+  /* ---- Layout and spacing ---- */
+  --ss-measure: 880px;                       /* page width; body copy lands near 70ch */
+  --ss-gutter: 2.5rem;                       /* page side gutter (both sides together) */
+  --ss-gutter-narrow: 1.5rem;                /* the same under 720px */
+  --ss-space-page: 3rem;                     /* page top and bottom padding */
+  --ss-space-section: 4.5rem;                /* gap above each numbered section, and above the hero */
+  --ss-space-section-head: 2.25rem;          /* section head to its content */
+  --ss-space-card-x: 1.25rem;                /* status, aside and bubble-row horizontal padding */
+  --ss-space-card-y: 1.1rem;                 /* status and aside top padding */
+  --ss-space-grid: 1rem;                     /* people grid gap, masthead gap */
+
+  /* ---- Rules, radii ---- */
+  --ss-hairline: 1px;                        /* every rule and border */
+  --ss-underline: 1px;                       /* prose and nav underlines */
+  --ss-underline-title: 2px;                 /* project-title underline */
+  --ss-radius: 6px;                          /* cards; enough to soften, not a pill */
+  --ss-radius-bubble: 3px;                   /* the robots' speech bubble */
+
+  /* ---- Motion: quiet ---- */
+  --ss-motion-fade: 120ms;                   /* bubble fade in */
+  --ss-motion: 180ms;                        /* colour changes, the 1px card lift */
+  --ss-motion-draw: 200ms;                   /* nav underline draw */
+  --ss-motion-draw-title: 220ms;             /* project-title underline draw */
+  --ss-motion-roll: 3s;                      /* the ball's one roll */
+  --ss-ease: ease;
+  --ss-ease-out: ease-out;
+  --ss-ease-roll: cubic-bezier(0.33, 0.67, 0.67, 1); /* constant deceleration */
+}
+
+/* ---- Base ---- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 18% 0%, var(--ss-glow), transparent 34rem),
+    var(--ss-bg);
+  color: var(--ss-ink);
+  font-family: var(--ss-sans);
+  font-weight: var(--ss-weight-body);
+}
+
+p {
+  font-size: var(--ss-text-body);
+  line-height: var(--ss-leading-body);
+}
+
+/* The page: one centred column. 880px keeps body copy near 70ch. */
+.evo__page {
+  width: min(100% - var(--ss-gutter), var(--ss-measure));
+  margin: 0 auto;
+  padding: var(--ss-space-page) 0;
+}
+
+@media (max-width: 720px) {
+  .evo__page {
+    width: min(100% - var(--ss-gutter-narrow), var(--ss-measure));
+  }
+}
+
+/* Display: Fraunces. Only headings and the people-card statements. */
+.evo__display {
+  font-family: var(--ss-serif);
+  font-weight: var(--ss-weight-h2);
+  letter-spacing: 0;
+}
+
+/* Body: DM Sans, muted, the reading measure. */
+.evo__body {
+  max-width: 34rem;
+  color: var(--ss-muted);
+  font-size: var(--ss-text-body);
+  line-height: var(--ss-leading-body);
+}
+
+/* Label: the mono voice. Section numbers, field names, captions, tags. */
+.evo__label {
+  font-family: var(--ss-mono);
+  font-size: var(--ss-text-label);
+  font-weight: var(--ss-weight-label);
+  letter-spacing: var(--ss-tracking-label);
+  text-transform: uppercase;
+  color: var(--ss-muted);
+}
+
+/* Prose link: always underlined 1px, warms to copper on hover. */
+.evo__prose-link {
+  color: var(--ss-ink);
+  font-weight: var(--ss-weight-medium);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% var(--ss-underline);
+  transition: color var(--ss-motion) var(--ss-ease);
+}
+
+.evo__prose-link:hover,
+.evo__prose-link:focus-visible {
+  color: var(--ss-accent);
+}
+
+/* Hairline rule, as an element. */
+.evo__rule {
+  border: 0;
+  border-top: var(--ss-hairline) solid var(--ss-line);
+  margin: 0;
+}
+
+.evo__rule--strong {
+  border-top-color: var(--ss-line-strong);
+}
+
+/* Pixel sprite: 1 CSS px per sprite px, edges crisp. Give the img the sprite's
+   own pixel width and height. */
+.evo__sprite {
+  display: block;
+  line-height: 0;
+  image-rendering: pixelated;
+}

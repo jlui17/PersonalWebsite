@@ -1,0 +1,94 @@
+<!-- @dsCard group="Motion" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+  .intro { margin: 0 0 2rem; }
+  .row { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 0.5rem 1.5rem; align-items: center; padding: 1.25rem 0; border-top: var(--ss-hairline) solid var(--ss-line); }
+  .row .evo__label { line-height: 1.6; }
+  .row .evo__label small { display: block; color: var(--ss-muted); }
+  @media (max-width: 720px) { .row { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+  /* Nav link: underline draws in from the left. */
+  .evo__masthead-nav a {
+    color: var(--ss-ink);
+    font-family: var(--ss-mono);
+    font-size: var(--ss-text-nav);
+    font-weight: var(--ss-weight-label);
+    letter-spacing: var(--ss-tracking-nav);
+    text-transform: uppercase;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% var(--ss-underline);
+    transition: background-size var(--ss-motion-draw) var(--ss-ease), color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__masthead-nav a:hover, .evo__masthead-nav a:focus-visible { background-size: 100% var(--ss-underline); color: var(--ss-accent); }
+
+  /* Project title: same draw, 2px. */
+  .evo__project h3 { margin: 0; font-size: var(--ss-text-title); font-weight: var(--ss-weight-title); letter-spacing: var(--ss-tracking-title); line-height: var(--ss-leading-title); }
+  .evo__project h3 a {
+    color: var(--ss-ink); font: inherit; text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat; background-position: 0 100%;
+    background-size: 0% var(--ss-underline-title);
+    transition: background-size var(--ss-motion-draw-title) var(--ss-ease), color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__project h3 a:hover, .evo__project h3 a:focus-visible { background-size: 100% var(--ss-underline-title); color: var(--ss-accent); }
+
+  /* Card lift: 1px, and the border steps up to the strong line. */
+  .evo__people article {
+    max-width: 24rem; margin: 0; padding: 1.35rem 1.4rem 1.5rem;
+    border: var(--ss-hairline) solid var(--ss-line); border-radius: var(--ss-radius); background: var(--ss-tint);
+    transition: transform var(--ss-motion) var(--ss-ease), border-color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__people article:hover { transform: translateY(-1px); border-color: var(--ss-line-strong); }
+  .evo__people h3 { margin: 0.9rem 0 0; font-family: var(--ss-serif); font-size: var(--ss-text-h3); font-weight: var(--ss-weight-h3); line-height: var(--ss-leading-h3); letter-spacing: 0; }
+
+  /* Bubble: a 120ms fade, nothing else moves. */
+  .bubble-stage { position: relative; height: 5.5rem; border-bottom: var(--ss-hairline) solid var(--ss-line); }
+  .bubble-stage .evo__sprite { position: absolute; right: 0; bottom: 0; cursor: pointer; }
+  .evo__bubble {
+    display: none; position: absolute; right: 0; bottom: calc(100% + 7px);
+    padding: 0.35rem 0.55rem; border: var(--ss-hairline) solid var(--ss-line-strong); border-radius: var(--ss-radius-bubble);
+    background: var(--ss-bg); color: var(--ss-ink); line-height: 1.3; white-space: nowrap; text-transform: none;
+    animation: evo-bubble var(--ss-motion-fade) var(--ss-ease-out);
+  }
+  .bubble-stage .evo__sprite:hover .evo__bubble { display: block; }
+  .evo__bubble::before, .evo__bubble::after { content: ""; position: absolute; right: 5px; border: 5px solid transparent; border-bottom: 0; }
+  .evo__bubble::before { top: 100%; border-top-color: var(--ss-line-strong); }
+  .evo__bubble::after { top: calc(100% - 1px); border-top-color: var(--ss-bg); }
+  @keyframes evo-bubble { from { opacity: 0; } }
+
+  /* The ball rolls once along a rule, constant deceleration, and stops short of Truffle. */
+  .roll-stage { position: relative; height: 2.5rem; border-bottom: var(--ss-hairline) solid var(--ss-line); }
+  .roll-stage .truffle { position: absolute; right: 0; bottom: 0; transform: scaleX(-1); }
+  .evo__ball { position: absolute; left: 0; bottom: 0; animation: evo-roll var(--ss-motion-roll) var(--ss-ease-roll) forwards; }
+  .roll-stage:hover .evo__ball { animation: none; left: 0; }
+  @keyframes evo-roll { to { left: calc(100% - 36px - 10px - 8px); } }
+  @media (prefers-reduced-motion: reduce) { .evo__ball { left: calc(100% - 36px - 10px - 8px); animation: none; } }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <p class="intro evo__body">The interaction budget is small and quiet. Underlines draw in, cards lift one pixel, a bubble fades in. Nothing bounces, nothing moves until it is touched, and the two live details (the SF clock, the status readout) are the whole of the "live" budget. Hover the examples.</p>
+
+  <div class="row"><span class="evo__label">Nav underline<small>200ms ease, 1px, draws from the left</small></span><nav class="evo__masthead-nav" style="display:flex; gap:1.5rem"><a href="https://github.com/jlui17">GitHub</a><a href="https://www.linkedin.com/in/jlui17">LinkedIn</a></nav></div>
+  <div class="row"><span class="evo__label">Prose link<small>always underlined; colour warms in 180ms</small></span><p style="margin:0">For work, I&rsquo;m at <a class="evo__prose-link" href="https://www.scorecard.io/">Scorecard</a>.</p></div>
+  <div class="row"><span class="evo__label">Project title<small>220ms ease, 2px underline</small></span><div class="evo__project"><h3><a href="https://github.com/jlui17/puzzlewithme">puzzlewithme</a></h3></div></div>
+  <div class="row"><span class="evo__label">Card lift<small>translateY(-1px), border to strong, 180ms</small></span><div class="evo__people"><article><span class="evo__label">My dad</span><h3>The most dependable and honest person I know.</h3></article></div></div>
+  <div class="row"><span class="evo__label">Bubble<small>120ms ease-out fade, absolute, nothing shifts</small></span><div class="bubble-stage"><span class="evo__sprite"><img src="../sprites/luibot-idle-0.svg" width="28" height="32" alt=""><span class="evo__label evo__bubble">Hi, I&rsquo;m luibot</span></span></div></div>
+  <div class="row"><span class="evo__label">Ball roll<small>3s cubic-bezier(.33,.67,.67,1), once; hover to reset</small></span><div class="roll-stage"><span class="evo__sprite evo__ball"><img src="../sprites/ball-roll-0.svg" width="10" height="10" alt=""></span><img class="truffle" src="../sprites/truffle-sleep-0.svg" width="36" height="20" alt=""></div></div>
+</main>
+</body>
+</html>

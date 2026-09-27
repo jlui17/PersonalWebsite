@@ -1,0 +1,85 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+
+  /* Intro on the left, the one photo on the right treated like a product shot:
+     hairline frame, mono caption, then the fact rows. */
+  .evo__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 15.5rem;
+    gap: 3.5rem;
+    padding: var(--ss-space-section) 0 4rem;
+  }
+  .evo__hero h1 {
+    margin: 0 0 2rem;
+    font-family: var(--ss-serif);
+    font-size: var(--ss-text-h1);
+    font-weight: var(--ss-weight-h1);
+    line-height: var(--ss-leading-h1);
+    letter-spacing: var(--ss-tracking-h1);
+  }
+  .evo__hero-intro p { max-width: 34rem; margin: 0 0 1rem; color: var(--ss-muted); }
+  .evo__hero-intro p:last-child { margin-bottom: 0; }
+
+  .evo__figure { margin: 0; }
+  .evo__figure img, .evo__figure .photo-slot {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: var(--ss-hairline) solid var(--ss-line-strong);
+  }
+  /* Stand-in for the one hero photo (public/images/justin-girlfriend-dog.jpeg):
+     the design system carries no photos. */
+  .evo__figure .photo-slot { display: grid; place-items: center; background: var(--ss-tint); }
+  .evo__figure figcaption { margin-top: 0.6rem; }
+
+  .evo__facts { margin: 1.5rem 0 0; }
+  .evo__facts > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--ss-space-grid);
+    padding: 0.55rem 0;
+    border-top: var(--ss-hairline) solid var(--ss-line);
+  }
+  .evo__facts dd { margin: 0; font-size: var(--ss-text-fact); font-weight: var(--ss-weight-medium); text-align: right; }
+
+  @media (max-width: 720px) {
+    .evo__hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 0; }
+    .evo__figure { width: min(100%, 20rem); }
+  }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <section class="evo__hero">
+    <div class="evo__hero-intro">
+      <h1>Hi, I&rsquo;m Lui.</h1>
+      <p>If there&rsquo;s something you should know about me, it&rsquo;s that I can nerd out over niche details for hours. Steph Curry&rsquo;s footwork, dialing in espresso, programming, or the right way to peek a specific angle in Valorant. Once I&rsquo;m interested, I&rsquo;ll obsess over the details and talk about them way longer than I meant to.</p>
+      <p>For work, I&rsquo;m at <a class="evo__prose-link" href="https://www.scorecard.io/">Scorecard</a>, where I work across product and engineering and try a bunch of ideas to see what lands.</p>
+    </div>
+    <figure class="evo__figure">
+      <div class="photo-slot" role="img" aria-label="Justin and his girlfriend taking a selfie with a sleepy dog"><span class="evo__label">photo · 4:5</span></div>
+      <figcaption class="evo__label">fig. 01 — the three of us</figcaption>
+      <dl class="evo__facts">
+        <div><dt class="evo__label">Currently in</dt><dd>San Francisco</dd></div>
+        <div><dt class="evo__label">Working at</dt><dd>Scorecard</dd></div>
+        <div><dt class="evo__label">Originally from</dt><dd>Vancouver</dd></div>
+      </dl>
+    </figure>
+  </section>
+</main>
+</body>
+</html>

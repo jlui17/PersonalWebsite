@@ -1,0 +1,1449 @@
+/* glass: a board of Liquid Glass widgets over the San Francisco sky.
+
+   Two materials. The sky is a slow scene that follows the hour (sky.js):
+   gradient, drifting clouds, a low sun, the city on the horizon, stars. The
+   glass is mostly clear and layered: a 14px lens rim (.gl-ring, a displacement
+   filter that bends the sky inward and brightens it) under a frosted interior
+   (.gw::before, blur + saturate + a thin warm tint), a 1px edge, a directional
+   specular that runs bright top-left to shaded bottom-right plus a sheen that
+   follows the pointer (--px/--py), an inner shadow along the bottom, and a
+   soft outer shadow that deepens when a widget lifts. The glass takes its mode
+   from the sky: dark ink over the bright hours, light ink over the dim ones,
+   and every text keeps at least 4.5:1 against the sky behind it.
+
+   Type: Bricolage Grotesque for the display voice (the hello, headings, names,
+   the clock) and Instrument Sans for everything else. Radii are concentric:
+   an inner element's radius is the widget's radius less its inset. */
+
+.glass {
+  --r: 28px;
+  --pad: 22px;
+  --band: 14px;
+  --r-inner: calc(var(--r) - var(--pad));
+  --floor-h: 72px;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --text: "Instrument Sans", system-ui, sans-serif;
+  position: relative;
+  min-height: 100dvh;
+  font-family: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+.glass--light {
+  --ink: #161a2c;
+  --ink-2: #262c48;
+  --ink-3: #2f3656;
+  --fill: linear-gradient(160deg, rgba(255, 250, 242, 0.3), rgba(255, 247, 238, 0.18));
+  --fill-flat: #eef2f8;
+  --band-fill: linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.14) 55%, rgba(20, 30, 70, 0.06));
+  --edge: rgba(255, 255, 255, 0.9);
+  --edge-2: rgba(255, 255, 255, 0.5);
+  --edge-shade: rgba(20, 30, 70, 0.22);
+  --sheen: rgba(255, 255, 255, 0.4);
+  --inner-shade: rgba(20, 30, 70, 0.16);
+  --shadow: 0 14px 34px -16px rgba(20, 30, 70, 0.5), 0 1px 2px rgba(20, 30, 70, 0.1);
+  --shadow-lift: 0 26px 48px -20px rgba(20, 30, 70, 0.6), 0 2px 4px rgba(20, 30, 70, 0.1);
+  --tint-deep: rgba(255, 252, 246, 0.3);
+  --tint-deeper: rgba(255, 252, 246, 0.5);
+  --pill: rgba(255, 255, 255, 0.4);
+  --fill-solid: #d9e6f4;
+  --sheet-fill: linear-gradient(160deg, rgba(246, 248, 254, 0.86), rgba(238, 243, 252, 0.8));
+  --focus: #1c55d0;
+  --brighten: 1.14;
+}
+
+/* Dawn and dusk: the horizon glow is warm and bright, so the dark glass over
+   the lower rows is deeper there, and the glow smaller. */
+.glass--dawn,
+.glass--dusk {
+  --fill: linear-gradient(160deg, rgba(22, 24, 58, 0.7), rgba(10, 12, 34, 0.78));
+}
+
+.glass--golden {
+  --fill: linear-gradient(160deg, rgba(255, 240, 214, 0.3), rgba(255, 236, 206, 0.2));
+  --tint-deep: rgba(255, 244, 224, 0.3);
+  --tint-deeper: rgba(255, 244, 224, 0.5);
+}
+
+.glass--dark {
+  --ink: #f8f7fe;
+  --ink-2: #f3f3fc;
+  --ink-3: #f8f7fe;
+  --fill: linear-gradient(160deg, rgba(26, 30, 64, 0.58), rgba(10, 13, 34, 0.66));
+  --fill-solid: #26305c;
+  --sheet-fill: linear-gradient(160deg, rgba(30, 35, 74, 0.86), rgba(16, 20, 48, 0.9));
+  --fill-flat: #232a4d;
+  --band-fill: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05) 55%, rgba(0, 0, 20, 0.12));
+  --edge: rgba(255, 255, 255, 0.42);
+  --edge-2: rgba(255, 255, 255, 0.18);
+  --edge-shade: rgba(0, 0, 20, 0.35);
+  --sheen: rgba(255, 255, 255, 0.16);
+  --inner-shade: rgba(0, 0, 20, 0.3);
+  --shadow: 0 14px 34px -16px rgba(0, 0, 14, 0.75), 0 1px 2px rgba(0, 0, 14, 0.3);
+  --shadow-lift: 0 26px 48px -20px rgba(0, 0, 14, 0.85), 0 2px 4px rgba(0, 0, 14, 0.3);
+  --tint-deep: rgba(255, 255, 255, 0.07);
+  --tint-deeper: rgba(255, 255, 255, 0.13);
+  --pill: rgba(255, 255, 255, 0.1);
+  --focus: #ffd06a;
+  /* The sprites' outer outline: their ink would vanish against the night glass. */
+  --sprite-outline: #4e4660;
+  --brighten: 1.3;
+}
+
+.glass *,
+.glass *::before,
+.glass *::after {
+  box-sizing: border-box;
+}
+
+/* src/index.css gives headings, paragraphs, links and buttons the other
+   designs' type and brown ink from a Tailwind base layer; zero specificity
+   here still beats a layer, and leaves the classes below in charge. */
+:where(.glass) :where(h1, h2, h3, h4, p, li, a, button, dl, dd, dt, ul, figure) {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.glass ul {
+  padding: 0;
+  list-style: none;
+}
+
+/* Links are ink with an underline, the way text on glass stays legible. */
+.glass a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--ink-3);
+  transition: text-decoration-color 0.2s ease;
+}
+
+.glass a:hover {
+  text-decoration-color: var(--ink);
+}
+
+.glass :is(button, a):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---- Sky ---- */
+
+.gl-sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--mid, #8dbbe6);
+}
+
+.gl-sky-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--top) 0%, var(--mid) 52%, var(--low) 100%);
+  animation: gl-fade 2.4s ease both;
+}
+
+.gl-orb {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: -32px;
+  border-radius: 50%;
+}
+
+.gl-orb--sun {
+  background: radial-gradient(circle, rgba(255, 250, 232, 0.98) 0 44%, rgba(255, 240, 200, 0.55) 54%, transparent 72%);
+  box-shadow:
+    0 0 90px 40px rgba(255, 238, 190, 0.45),
+    0 0 260px 150px rgba(255, 224, 160, 0.22);
+}
+
+.glass--golden .gl-orb--sun {
+  box-shadow:
+    0 0 120px 60px rgba(255, 210, 140, 0.6),
+    0 0 360px 220px rgba(255, 190, 110, 0.3);
+}
+
+.gl-orb--moon {
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  margin: -25px;
+  background: radial-gradient(circle at 40% 38%, #f1eef9 0 48%, #d9d6e6 62%, #c9c7d8 100%);
+  box-shadow: 0 0 60px 22px rgba(214, 216, 255, 0.14);
+}
+
+/* The dark side of the moon: a sky-coloured disc slid across it by the phase. */
+.gl-orb--moon i {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: var(--mid, #1f2a52);
+  opacity: 0.94;
+}
+
+/* Dawn and dusk: the sun just under the horizon. */
+.gl-orb--glow {
+  width: 70vw;
+  height: 30vh;
+  margin: -15vh -35vw;
+  background: radial-gradient(ellipse at center, rgba(255, 200, 150, 0.5) 0%, rgba(255, 176, 130, 0.2) 34%, transparent 70%);
+  box-shadow: none;
+}
+
+.gl-stars {
+  position: absolute;
+  inset: 0;
+}
+
+.gl-stars i {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: #f2f2fb;
+  opacity: 0.55;
+  animation: gl-twinkle 7s ease-in-out infinite alternate;
+}
+
+/* Clouds: soft white ellipses in two sizes, each drifting on its own clock. */
+.gl-clouds {
+  position: absolute;
+  inset: 0;
+  opacity: var(--cloud, 0.8);
+}
+
+.gl-cloud,
+.gl-cloud::before {
+  position: absolute;
+  display: block;
+  content: "";
+  border-radius: 50%;
+  background: #fff;
+}
+
+.gl-cloud {
+  filter: blur(14px);
+  will-change: transform;
+  animation: gl-drift 160s ease-in-out infinite alternate;
+}
+
+.gl-cloud::before {
+  left: 22%;
+  top: -46%;
+  width: 56%;
+  height: 100%;
+}
+
+.gl-cloud--1 {
+  top: 8%;
+  left: 4%;
+  width: 34vw;
+  height: 11vh;
+}
+
+.gl-cloud--2 {
+  top: 20%;
+  left: 58%;
+  width: 26vw;
+  height: 8vh;
+  animation-duration: 210s;
+  animation-direction: alternate-reverse;
+}
+
+.gl-cloud--3 {
+  top: 36%;
+  left: 24%;
+  width: 40vw;
+  height: 12vh;
+  animation-duration: 240s;
+}
+
+.gl-cloud--4 {
+  top: 50%;
+  left: 70%;
+  width: 22vw;
+  height: 7vh;
+  animation-duration: 180s;
+  animation-direction: alternate-reverse;
+}
+
+.gl-cloud--5 {
+  top: 60%;
+  left: -6%;
+  width: 30vw;
+  height: 9vh;
+  animation-duration: 200s;
+}
+
+.gl-cloud--6 {
+  top: 12%;
+  left: 82%;
+  width: 18vw;
+  height: 6vh;
+  animation-duration: 150s;
+}
+
+/* The city on the horizon and the fog at its feet. */
+.gl-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 26vh;
+}
+
+.gl-horizon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gl-hill {
+  fill: var(--horizon, #7d9dbf);
+}
+
+.gl-hill--far {
+  opacity: 0.5;
+}
+
+.gl-hill--near {
+  opacity: 0.78;
+}
+
+.gl-bridge path {
+  fill: none;
+  stroke: var(--horizon, #7d9dbf);
+  stroke-width: 2.2;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.75;
+}
+
+.gl-fog {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 6vh;
+  height: 12vh;
+  background: #fff;
+  filter: blur(22px);
+  opacity: calc(var(--cloud, 0.8) * 0.45);
+}
+
+.glass--still .gl-cloud,
+.glass--still .gl-stars i {
+  animation-play-state: paused;
+}
+
+@keyframes gl-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* The same fades under other names: a CSS animation only restarts when its
+   name changes, and the sheet's face copy and content fade one way on open
+   and the other way on close. */
+@keyframes gl-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gl-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes gl-twinkle {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.95;
+  }
+}
+
+@keyframes gl-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(14vw);
+  }
+}
+
+/* The period's horizon and cloud values ride on the root so the sky can read them. */
+.glass--night {
+  --horizon: #141a35;
+  --cloud: 0.12;
+  --mid: #1f2a52;
+}
+.glass--dawn {
+  --horizon: #3a2f52;
+  --cloud: 0.2;
+  --mid: #7a6796;
+}
+.glass--morning {
+  --horizon: #8ca6c4;
+  --cloud: 0.8;
+  --mid: #a9cbea;
+}
+.glass--day {
+  --horizon: #7d9dbf;
+  --cloud: 0.85;
+  --mid: #8dbbe6;
+}
+.glass--golden {
+  --horizon: #b98a63;
+  --cloud: 0.7;
+  --mid: #e6b27d;
+}
+.glass--dusk {
+  --horizon: #3b2a4d;
+  --cloud: 0.18;
+  --mid: #84567f;
+}
+.glass--evening {
+  --horizon: #181c3f;
+  --cloud: 0.12;
+  --mid: #2e3872;
+}
+
+/* ---- Board ---- */
+
+.gl-board {
+  position: relative;
+  z-index: 1;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 76px 24px 48px;
+}
+
+.gl-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(248px, auto);
+  gap: 16px;
+  grid-template-areas:
+    "hello hello now now"
+    "hello hello agents agents"
+    "people people home home"
+    "someday someday built built";
+}
+
+.gw--hello {
+  grid-area: hello;
+}
+.gw--now {
+  grid-area: now;
+}
+.gw--agents {
+  grid-area: agents;
+}
+.gw--people {
+  grid-area: people;
+}
+.gw--home {
+  grid-area: home;
+}
+.gw--someday {
+  grid-area: someday;
+}
+.gw--built {
+  grid-area: built;
+}
+
+/* ---- Glass ---- */
+
+.gw {
+  --px: 20%;
+  --py: -20%;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--pad);
+  border-radius: var(--r);
+  border: 1px solid var(--edge-2);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.2s ease,
+    box-shadow 0.4s ease;
+}
+
+/* The lens: the sky, sharp, bent inward and brightened, under the frosted
+   interior so only the outer band of it shows. */
+.gl-ring {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: inherit;
+  background: var(--band-fill);
+  -webkit-backdrop-filter: url(#gl-refract) blur(0.8px) saturate(1.15);
+  backdrop-filter: url(#gl-refract) blur(0.8px) saturate(1.15);
+  pointer-events: none;
+}
+
+/* The frosted interior, concentric with the rim. */
+.gw::before {
+  content: "";
+  position: absolute;
+  inset: var(--band);
+  z-index: -1;
+  border-radius: calc(var(--r) - var(--band));
+  background: var(--fill);
+  -webkit-backdrop-filter: blur(14px) saturate(1.35);
+  backdrop-filter: blur(14px) saturate(1.35);
+  box-shadow:
+    inset 0 0 12px 1px var(--sheen),
+    inset 0 -16px 28px -16px var(--inner-shade);
+  pointer-events: none;
+}
+
+/* Specular: a 1.5px rim lit top-left and shaded bottom-right, with a spot
+   that follows the pointer, and a soft sheen inside near the pointer. */
+.gw::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background:
+    radial-gradient(360px circle at var(--px) var(--py), var(--edge) 0%, transparent 70%) border-box,
+    linear-gradient(135deg, var(--edge) 0%, var(--edge-2) 28%, transparent 55%, var(--edge-shade) 100%) border-box,
+    radial-gradient(320px circle at var(--px) var(--py), var(--sheen) 0%, transparent 65%) padding-box;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.gw--opens {
+  cursor: pointer;
+}
+
+/* Hover deepens the shadow (the widget does not move: Justin may be standing on it). */
+.gw--opens:hover {
+  box-shadow: var(--shadow-lift);
+}
+
+.gw--opens:active {
+  box-shadow: var(--shadow);
+}
+
+.gw--opens:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.gw.is-lifted {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gw-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.gw-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* The bottom of the text zone: the links (hero) and the invite. */
+.gw-foot {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Widgets Justin visits keep a strip at the bottom clear for him; the hairline
+   is the shelf he stands on. */
+.gw--floor .gw-body {
+  padding-bottom: var(--floor-h);
+}
+
+.gw-floor {
+  position: absolute;
+  left: var(--band);
+  right: var(--band);
+  bottom: var(--pad);
+  height: 1px;
+  background: var(--edge-2);
+}
+
+.gl-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+
+.gl-meta {
+  font-size: 12px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The invite: the few words on the way in, with the expand mark. */
+.gl-invite {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 13px;
+  border: 1px solid var(--edge-2);
+  border-radius: 999px;
+  background: var(--pill);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.gl-invite svg {
+  stroke: currentColor;
+  opacity: 0.8;
+}
+
+.gw--opens:hover .gl-invite,
+.gl-invite:focus-visible {
+  background: var(--tint-deeper);
+  border-color: var(--edge);
+}
+
+.gl-invite:focus-visible {
+  outline: none; /* the widget carries the ring (see .gw--opens:focus-within) */
+}
+
+/* ---- Faces ---- */
+
+.gl-h1 {
+  font-family: var(--display);
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin: 4px 0 16px;
+}
+
+/* Rank two: the one sentence that introduces the section. */
+.gl-hook {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+}
+
+.gl-hook--hero {
+  font-size: 25px;
+  max-width: 18em;
+}
+
+/* Rank three: one quieter line, there if you want it. */
+.gl-more {
+  margin-top: 8px;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+  opacity: 0.86;
+}
+
+.glass--dark .gl-more {
+  opacity: 0.8;
+}
+
+/* The hero's photo takes the height the text leaves it. */
+/* The photo and the clock share the rest of the hero: the photo keeps 3:2 so
+   all three of them fit the crop, the clock stands in a column beside it. */
+.gl-hero-media {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  flex: 1 1 120px;
+  min-height: 96px;
+  margin-top: 14px;
+}
+
+.gl-figure--face {
+  flex: none;
+  align-self: stretch;
+  height: auto;
+  width: auto;
+  aspect-ratio: 3 / 2;
+}
+
+.gl-hero-media .gl-clockline {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0 0 6px;
+}
+
+.gl-figure--face .gl-photo {
+  border-radius: var(--r-inner);
+}
+
+/* The hero's live line: the San Francisco hour, quiet. */
+.gl-clockline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.gl-clockline .gl-arc {
+  width: 40px;
+  height: 14px;
+}
+
+.gl-clockline .gl-clock {
+  margin: 0;
+  gap: 3px;
+}
+
+.gl-clockline .gl-clock-hm {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ink-2);
+}
+
+.gl-clockline .gl-clock-s {
+  font-size: 11px;
+}
+
+.gl-prose {
+  font-size: 15px;
+}
+
+.gl-prose + .gl-prose,
+.gl-prose + .gl-card,
+.gl-figure + .gl-prose {
+  margin-top: 12px;
+}
+
+.gl-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin: 14px 0;
+}
+
+.gl-facts dt {
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+.gl-facts dd {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.gl-prose {
+  font-size: 15px;
+}
+
+.gl-prose + .gl-prose,
+.gl-prose + .gl-card,
+.gl-figure + .gl-prose {
+  margin-top: 12px;
+}
+
+.gl-pills {
+  display: flex;
+  gap: 8px;
+}
+
+.gl-pill {
+  padding: 6px 13px;
+  border: 1px solid var(--edge-2);
+  border-radius: 999px;
+  background: var(--pill);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s ease;
+}
+
+.gl-pill:hover {
+  background: var(--tint-deeper);
+}
+
+.gl-h2 {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.gl-h3 {
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.gl-body {
+  color: var(--ink-2);
+}
+
+.gl-h3 + .gl-body,
+.gl-body + .gl-list {
+  margin-top: 8px;
+}
+
+.gl-clock {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--display);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.gl-clock-hm {
+  font-size: 42px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.gl-clock-s {
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
+.gl-arc {
+  width: 64px;
+  height: 22px;
+  flex: none;
+  overflow: visible;
+}
+
+.gl-arc path {
+  stroke: var(--ink-3);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+}
+
+.gl-arc circle {
+  fill: var(--ink);
+}
+
+.gl-figure {
+  position: relative;
+  height: 220px;
+}
+
+.gl-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  border-radius: var(--r-inner);
+}
+
+.gl-figure figcaption {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(16, 18, 36, 0.74);
+  color: #f8f7fe;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.gl-status {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+.gl-status dt {
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+.gl-status dd {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.gl-status dd small {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--text);
+  font-size: 13.5px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+.gl-list {
+  display: grid;
+  gap: 5px;
+}
+
+.gl-list li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--ink-2);
+}
+
+.gl-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink-3);
+}
+
+.gl-h3 + .gl-list {
+  margin-top: 10px;
+}
+
+.gl-live {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.gl-live + .gl-list {
+  margin-top: 18px;
+}
+
+.gl-list--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+.gl-name {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.gl-tag {
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+.gl-row-head,
+.gl-card-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gl-card.is-highlight {
+  background: var(--tint-deeper);
+  box-shadow: inset 0 0 0 1px var(--edge-2);
+}
+
+/* ---- Sheet ---- */
+
+.gl-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(10, 12, 30, 0.34);
+  animation: gl-fade 0.3s ease both;
+  transition: opacity 0.25s ease;
+}
+
+/* Its own fade-out (a filled animation ignores a transition on the same property). */
+.gl-scrim.is-closing {
+  animation: gl-fade-out 0.25s ease both;
+}
+
+/* The morph layer covers the viewport; opening and closing are one clip-path
+   animation on it (index.jsx). Only the panel takes the pointer. */
+.gl-morph {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.gl-sheet {
+  position: absolute;
+  padding: 0;
+  pointer-events: auto;
+  transition: none;
+}
+
+.gl-sheet-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+/* The sheet is the one surface with long text over other glass (and, on a
+   phone, over the hero photo): its coat is nearly solid, so its text sits on
+   the same colour whatever is behind. Its rim band is frosted too, so no
+   sharp board text shows through the lens under the floor line. */
+.gl-sheet::before {
+  background: var(--sheet-fill);
+}
+
+.gl-sheet.is-open > .gl-ring {
+  -webkit-backdrop-filter: blur(14px) saturate(1.35);
+  backdrop-filter: blur(14px) saturate(1.35);
+}
+
+/* While it moves, the glass is a plain tinted slab under the whole layer (the
+   clip gives it the shape): no blur and no lens re-run per frame. Landed, the
+   slab is removed and the real glass shows. */
+.gl-sheet-plain {
+  position: absolute;
+  inset: 0;
+  background: var(--fill-solid);
+}
+
+/* Gone in the frame the clip is cleared: it must never show outside the shape. */
+.gl-morph.is-open .gl-sheet-plain {
+  display: none;
+}
+
+/* The widget's face, copied to the widget's place: what the growing shape
+   shows first, and what it shrinks back to. It hands over to the content by
+   opacity only, so the shape is never empty. */
+.gl-sheet-face {
+  position: absolute;
+  pointer-events: none;
+  transition: none;
+  animation: gl-fade 0.16s ease reverse both;
+}
+
+.gl-morph.is-open .gl-sheet-face {
+  visibility: hidden;
+}
+
+.gl-morph.is-closing .gl-sheet-face {
+  animation: gl-fade-in 0.16s 0.16s ease both;
+}
+
+.gl-morph.is-opening .gw::before,
+.gl-morph.is-closing .gw::before,
+.gl-morph.is-opening .gl-ring,
+.gl-morph.is-closing .gl-ring {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* While it moves the panel has no chrome of its own (its coat, rim, border
+   and shadow would draw a second edge across the face); the shape is the
+   slab in the clip. It all comes on together when the panel lands. */
+.gl-morph.is-opening .gl-sheet,
+.gl-morph.is-closing .gl-sheet {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.gl-morph.is-opening .gl-sheet::before,
+.gl-morph.is-closing .gl-sheet::before,
+.gl-morph.is-opening .gl-sheet::after,
+.gl-morph.is-closing .gl-sheet::after,
+.gl-morph.is-opening .gl-sheet > .gl-ring,
+.gl-morph.is-closing .gl-sheet > .gl-ring {
+  visibility: hidden;
+}
+
+.gl-sheet-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+  padding: 18px var(--pad) 10px;
+}
+
+.gl-sheet-head .gl-meta {
+  margin-left: 2px;
+}
+
+.gl-close {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid var(--edge-2);
+  border-radius: 50%;
+  background: var(--pill);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.gl-close svg {
+  stroke: currentColor;
+}
+
+.gl-sheet-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 2px var(--pad) 20px;
+  overscroll-behavior: contain;
+}
+
+.gl-sheet.has-more .gl-sheet-body {
+  -webkit-mask: linear-gradient(#000 calc(100% - 36px), transparent);
+  mask: linear-gradient(#000 calc(100% - 36px), transparent);
+}
+
+/* The content is laid out at its final place from the first frame, so the
+   growing clip reveals it: it fades in over the first 160ms as the face copy
+   fades out, and the shape is never blank. On close the content stays until
+   the shape is back on the widget and the face fades in over the last 160ms.
+   Opacity only. */
+.gl-sheet.is-opening .gl-sheet-inner {
+  animation: gl-fade 0.16s ease both;
+}
+
+.gl-sheet.is-closing .gl-sheet-inner {
+  animation: gl-fade-out 0.16s 0.16s ease both;
+}
+
+.gl-cards {
+  display: grid;
+  gap: 12px;
+}
+
+.gl-card {
+  padding: 16px 18px;
+  border-radius: var(--r-inner);
+  background: var(--tint-deep);
+}
+
+.gl-card .gl-card-head,
+.gl-card > .gl-tag {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+/* The people: two to a row, the one highlight full width in her own row. */
+.gl-cards--people {
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.gl-cards--people .gl-card.is-highlight {
+  grid-column: 1 / -1;
+}
+
+.gl-cards--people .gl-h3 {
+  font-size: 17px;
+}
+
+.gl-cards--people .gl-body {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.gl-cards--people .gl-h3 + .gl-body {
+  margin-top: 4px;
+}
+
+@media (max-width: 639px) {
+  .gl-cards--people {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The shelf the sprites walk in on: a strip with its ground line at the bottom. */
+.gl-floor {
+  position: relative;
+  flex: none;
+  height: 70px;
+  margin: 0 var(--band) 14px;
+  border-bottom: 1px solid var(--edge);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gl-floor.is-ready {
+  opacity: 1;
+}
+
+/* ---- Sprites ---- */
+
+/* Clipped at the board's padding edge: a sprite walking off the board is offstage. */
+.gl-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.gl-stage.is-ready {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Under an open sheet the board's sprites step back, so a pose is never on
+   screen twice (the sheet's floor has its own scene). */
+.glass--sheet .gl-stage {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gl-actor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  line-height: 0;
+  pointer-events: auto;
+  transition: none;
+}
+
+.gl-actor svg {
+  display: block;
+}
+
+.gl-actor[hidden] {
+  display: none;
+}
+
+.gl-reacts {
+  cursor: pointer;
+}
+
+/* Whoever stands still on a sheet's floor stands on its ground line (after
+   .gl-actor: same specificity, later wins). */
+.gl-floor .gl-floor-prop {
+  top: auto;
+  bottom: 0;
+}
+
+.gl-ball {
+  padding: 9px;
+  margin: -9px 0 0 -9px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.gl-ball:focus-visible {
+  outline-offset: -2px;
+  border-radius: 50%;
+}
+
+.gl-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---- Fallbacks ---- */
+
+/* Touch devices keep the plain rim: twelve displacement layers are not worth
+   their GPU time on a phone. */
+@media (pointer: coarse) {
+  .gl-ring {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* No backdrop-filter, reduced transparency, or ?flat: solid tinted surfaces. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass .gl-ring {
+    display: none;
+  }
+  .glass .gw::before {
+    inset: 0;
+    border-radius: inherit;
+    background: var(--fill-flat);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass .gl-ring {
+    display: none;
+  }
+  .glass .gw::before {
+    inset: 0;
+    border-radius: inherit;
+    background: var(--fill-flat);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+.glass--flat .gl-ring {
+  display: none;
+}
+
+.glass--flat .gw::before {
+  inset: 0;
+  border-radius: inherit;
+  background: var(--fill-flat);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass *,
+  .glass *::before,
+  .glass *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .glass .gl-sheet-body,
+  .glass .gl-sheet-head,
+  .glass .gl-floor {
+    opacity: 1;
+  }
+}
+
+/* ---- Widths ---- */
+
+@media (max-width: 899px) {
+  .gl-board {
+    padding-top: 84px;
+  }
+  .gl-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(200px, auto);
+    grid-template-areas:
+      "hello hello"
+      "now now"
+      "agents agents"
+      "people people"
+      "home home"
+      "someday someday"
+      "built built";
+  }
+  .gl-h1 {
+    font-size: 48px;
+  }
+  /* The hero is as tall as its content here: the media row takes its own height. */
+  .gl-hero-media {
+    flex: none;
+  }
+  .gl-figure--face {
+    height: 200px;
+  }
+}
+
+/* The phone: the hero, then the sections one to a row. */
+@media (max-width: 639px) {
+  .glass {
+    --r: 24px;
+    --pad: 18px;
+    --floor-h: 72px;
+  }
+  .gl-board {
+    padding: 80px 14px 40px;
+  }
+  .gl-grid {
+    gap: 12px;
+    grid-auto-rows: minmax(150px, auto);
+  }
+  .gl-h1 {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  .gl-hook {
+    font-size: 19px;
+  }
+  .gl-hook--hero {
+    font-size: 21px;
+  }
+  /* The photo takes the row, the clock line under it. */
+  .gl-hero-media {
+    display: block;
+    flex: none;
+  }
+  .gl-figure--face {
+    width: 100%;
+    height: 170px;
+    aspect-ratio: auto;
+  }
+  .gl-hero-media .gl-clockline {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 0;
+  }
+  .gl-figure {
+    height: 180px;
+  }
+  .gl-live,
+  .gl-list--two {
+    grid-template-columns: 1fr;
+  }
+  .gl-sheet-head {
+    padding-top: 14px;
+  }
+  .gl-floor {
+    margin-bottom: 10px;
+  }
+  .gl-horizon {
+    height: 20vh;
+  }
+}
