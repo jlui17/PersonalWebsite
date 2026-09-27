@@ -1,5 +1,18 @@
 # panes/scenes: what happens inside the open panes
 
+What happens at each step, from `stretches()` and `sceneFor` in `index.jsx`, `stage.js` and the scenes here. The pathway column is the engine's (`stage.js`), and the pane column is this folder's.
+
+| Step (its `short` in `PANES`) | On the pathway | In the pane |
+|---|---|---|
+| 1 hello | The shoe rack stands at the start. He waves, then takes the top two boxes off the rack and holds them (`carry`). When he leaves he sets them down, and luibot carries them back to the rack. | `HelloScene`: he stands beside "Hi, I'm Justin." in the hoodie and tips his hat now and then. |
+| 2 people | Truffle's home. He rests asleep beside her. When he arrives she wakes, walks over, sits and paws his shin twice; he nods, kneels and pets her, and she lies down where she is. | The people's cards. Truffle's card says what she is doing right now. |
+| 3 agents | The robots' home, luibot left of the middle and luibuilder right of it. He tips his hat to them once and stands. | The robots beam up into the pane and stand beside their names (`AgentRobot`, `useRobotHandoff`), and beam back down when it closes. Pointing at one, tabbing to him or tapping him makes him wave and say his line. His "idea" beat points at the line of luibuilder's list that says "idea". |
+| 4 future | The cow. He stands at her head and pats her (`pat`). A stretch too narrow for both gets the sheep instead, and he stands beside her. | New York and Japan drawn inside their headings (`PlanTitle`, `NewYorkScene`, `JapanScene`). `FarmScene`: the hen and the sheep; luibot pours feed at the feed spot, the hen walks over and eats, and the pile halves and then is gone. |
+| 5 now | The coffee corner, then the yard. He makes an espresso (`press`, `grab`, `sip`, the cup back), then plays fetch with Truffle and the ball: a throw, she brings it back, a pet, three rounds, and then both rest until the next espresso is due. | `UpTo`: the status sign. luibot lands left of the switch, his hand comes down on the knob, and the sign lights on that frame. The visitor can flip the switch too. |
+| 6 projects | The desk, with its chair tucked in. He pulls the chair out (`pull` with the desk's `tuck`), sits and types (`type`). When he leaves, luibot pushes the chair back in. | `BuilderScene`: luibuilder stands on a project's rule right after its title, hammers his stones (`build`, the stones' `strike`), and beams to another project. |
+
+On a phone the pathway shows one step at a time, he is placed at a step and does not walk to it, and the boxes and the chair go back at once; luibot's two pane errands still play (below). There is one ball and one Truffle on a page, so a new game with a prop at another step collides with step 5's.
+
 Interface for the pathway (luibot's chores):
 - `UpTo` (pane 5: the status sign at the top of the pane. Its first line holds the word "status", the updated date and the switch, which is `SignSwitch`. Under it is one line per entry of `lately.status`) puts `data-anchor="sign-switch"` on the switch's track (24x12). He hovers LEFT of it with his hand on the knob: the 28px left of the track, from 11px above its middle to 27px below, are kept free of words (his arm reaches over the track's left end; the status line keeps 18px under it so the first entry starts below him).
 - `FarmScene` (pane 4) puts `data-anchor="feed-spot"` on the feed spot's box (the feed prop's size, its bottom on the ground rule). His canvas starts at the box's left edge (the feed prop itself is painted one column left of it, so its grain column is under his sack); the ground under his 28px stays bare (hen left of the feed, sheep right of his width).

@@ -38,7 +38,7 @@ His taste is learned from what he rejected, so this list is the most useful part
 - The title "Someday": "what do you mean someday?"; "we need words like future"; "when i am skimming it, i don't need to think about what it means."
 - "we should prefer to use like super, super simple language because i speak like that."
 - The people hook read "These are the people I love, and my dog Truffle.": "i also love truffle, this kind of implies i dont love truffle". It became "These are the people I love the most."
-- A short label for the projects section: "step 7 should be called 'projects' instead of 'built'".
+- A short label for the projects section: "step 7 should be called 'projects' instead of 'built'" (step 6 today).
 
 **Space**
 - "you don't fill up the space until it looks awkward" (a widget with a label, a title, one sentence, and then a large hole above its links).
@@ -150,11 +150,11 @@ The routes, the hour override, the widths and the traps (frozen background tabs)
    - What could a stranger say about him after five seconds?
    - Read only the large text aloud. Does a stranger know what each section is without thinking?
    - Count the words visible at first paint.
-   - Measure the largest blank band between two blocks in every section, pane, widget and opened sheet, in px. Reviewers treated about 60px as safe and 100px and up as a band he will see; those numbers are theirs, not his.
+   - Measure the largest blank band between two blocks in every pane, in px. Reviewers treated about 60px as safe and 100px and up as a band he will see; those numbers are theirs, not his.
    - Count the facts and the sprite poses that appear more than once.
    - Count the rule lines and name the job of each.
    - Trace every sentence to his words or to `src/content.js`. List each one that claims more.
-3. **Measure motion and interaction.** Sample positions 100 to 300ms apart. Do fast in-and-out hovers, a second click mid-sequence, the keyboard, touch emulation and `prefers-reduced-motion`. Check that feet sit on their lines to the pixel at both widths and at several hours.
+3. **Measure motion and interaction.** Sample positions 100 to 300ms apart for travel (a walk, a trot, a roll). A contact frame or a one-frame effect falls between such samples, so poll the DOM for it as `src/sprites/README.md` says (every 12 to 40ms) and as `src/designs/panes/scenes/README.md` says for the pane scenes (every 5 to 10ms: the stones' `strike` is on screen for 120ms). Do fast in-and-out hovers, a second click mid-sequence, the keyboard, touch emulation and `prefers-reduced-motion`. Check that feet sit on their lines to the pixel at the widths in `docs/design-process.md` and at several hours.
 4. **Give evidence for every finding**: a screenshot path, a measurement, or a file and line. Treat "verified" in a code comment or a builder's note as unproven until you have seen it yourself.
 
 ## List A and list B

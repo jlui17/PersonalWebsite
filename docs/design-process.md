@@ -15,7 +15,7 @@ How to run design work on justinlui.dev so that it lands with Justin: how to sho
 
 ## Keeping his words
 
-- **Keep his words verbatim in one file that every worker and reviewer reads**, grouped by topic, with your reading on its own line under each quote. Append a message there first, then route it to workers, and quote him in the message to the worker.
+- **Keep his words verbatim in one file that every worker and reviewer reads**: a file per task under `.luidocs/` (gitignored on his machines), grouped by topic, with your reading on its own line under each quote. Append a message there first, then route it to workers, and quote him in the message to the worker.
 - **His instruction names an intent, not a layout.** Quote him to the builder, write "I read that as ..." under the quote, and show him a mock of any mechanism you add before anyone builds it. His "use the space" was built as stretching and his "one sentence" as clever taglines, each exactly as briefed, and he rejected both. His own fix ideas for art are usually right, so pass them on word for word.
 - He dictates, so typos need one agreed decoding ("louisbot" is luibot, "ghostie" is Ghostty), and a paraphrase drops the part that mattered. The paraphrase of "use the space" lost "you don't fill up the space until it looks awkward". With the quote beside the reading, a worker can catch a bad reading. With only the reading, nobody can.
 - Save the path of his screenshot and give it to the worker, so the worker sees what he saw.
@@ -36,9 +36,9 @@ How to run design work on justinlui.dev so that it lands with Justin: how to sho
 
 ## Shipping to main
 
-Pushing `main` deploys. Exactly one session owns a push; settle which one before anyone moves `main`.
+Pushing `main` deploys, so it waits for Justin's word for that change. "Ship it" means: push `main` by these steps; there is no PR. Exactly one session owns a push; settle which one before anyone moves `main`. The first ship of `panes` squashed a long private history into one commit (step 9). Since then work branches from `main`, and shipping a change means pushing its small commits on top, by every step except the squash.
 
-1. **Audit what becomes public, read-only, before the first push of any branch**: personal details in docs, comments and commit messages; secrets; EXIF in every image; what the remote already shows (`git ls-remote`, every remote branch and its Cloudflare preview); whether `origin/main` moved; first paint, fonts and `theme-color`.
+1. **Audit what becomes public, read-only, before the first push of any branch**: anything from "What stays out of the repo" below, in docs, comments, strings and commit messages; secrets; EXIF in every image; what the remote already shows (`git ls-remote`, every remote branch and its Cloudflare preview); whether `origin/main` moved; first paint, fonts and `theme-color`.
 2. Every pushed branch is public twice: on GitHub, and as `<branch>.justinlui-site.pages.dev`. A deployment stays reachable at `<hash>.<project>.pages.dev` for as long as a project of that name exists, also after its branch is deleted. That is why the project is never renamed back to `justinlui`: the old name is abandoned so that some earlier deployments stay unreachable. If something private does ship, fixing it in git is not enough: the old deployments have to be deleted as well.
 3. **New photo**: strip EXIF before committing. The build copies `public/` into the deploy verbatim, so a straight-from-iPhone photo publishes its GPS coordinates at meter precision. Drop the APP1 and APP13 JPEG segments and keep APP0/APP2, which removes the metadata without recompressing the image or losing the color profile.
 4. **Review a frozen copy of the commit that will ship**: `git archive <commit>` into its own folder, `npm run build`, `vite preview` on a port of your own. Never run a dev server in a copy whose `node_modules` is a symlink, because it rewrites the shared Vite cache under his dev server. Both pair reviews before the ship ran while the tree was being edited, which is where the false 151px jump came from.
@@ -46,10 +46,22 @@ Pushing `main` deploys. Exactly one session owns a push; settle which one before
 6. **Count runs and report "seen N of M"**, plain and with CPU throttling x4: a defect that needs a stall is what a slow phone shows.
 7. **A fresh verifier re-checks every fix round to `stage.js`**, or to anything else every scene shares, with a tour of all steps in both directions and every way in ("Checking a design by hand"). Of four fix rounds before the ship, one brought a confirmed regression (a clearance rule that froze luibot in a scrolled pane), and two earlier fixes had each caused the next defect Justin saw. Fix the class in the engine, not the instance: a beam drawn over him was fixed in one place and lived in three more.
 8. Dead code goes only with proof: screenshots before and after with 0 differing pixels, and a computed-style dump where a reset changes.
-9. **Squash onto `origin/main` as one commit**, so that no earlier commit reaches `main`, and grep that commit for private terms. Never push `redesign-options` or the two prototype tags.
+9. Squash only when a branch's history must stay out of `main`, as at the first ship: one commit onto `origin/main`, so that no earlier commit reaches `main`, and then step 1 again on that commit and its message. Never push `redesign-options` or the two prototype tags.
 10. Push a preview branch first (Cloudflare builds it in under a minute), check it, push `main`, then delete the preview branch. Check the remote after every push.
 11. **Chain of custody**: the sha256 of the bundle the verifier passed equals the preview's and the live site's. Then smoke-test the live site.
-12. Afterwards, new work branches from `main`, and follow-ups go to `main` as small commits on top.
+12. Write whatever was seen and left unfixed into "Known and accepted at the ship" below.
+
+### What stays out of the repo
+
+These classes are the definition. A grep finds only the mechanical ones, so also read every sentence about him and the people around him, his quotes included.
+
+- A statement about his body or health. Write the rule it led to, never the reason.
+- Amounts of money, and the names of banks and other institutions.
+- Addresses, and places that locate his home.
+- His girlfriend's name, and other people's full names.
+- Machine names, home paths, and tokens or keys.
+
+A starting point: `git grep -nIiE "/Users/|/home/|\.ts\.net|api[_-]?key|_TOKEN|secret|password|Bearer |[$€£][0-9]|health|medical|diagnos|allerg"` for the tree, and `git log --format=%B origin/main..` for the commit messages.
 
 ### Known and accepted at the ship
 
