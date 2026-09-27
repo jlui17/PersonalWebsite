@@ -1,0 +1,77 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status sign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* A card shows parts, not the window, so the window's grid is switched off here. */
+  .panes { display: block; height: auto; overflow: visible; padding: 24px; }
+  /* This card's own note. Everything with a pn__ class is the site's. */
+  .note { max-width: 62ch; margin-bottom: 20px; color: var(--pn-muted); font-size: 14px; }
+  /* Its body is a size container, so the pane needs a height. */
+  .pn__pane { max-width: 826px; height: 470px; }
+  .state { display: block; margin: 28px 0 10px; }
+</style>
+</head>
+<body>
+<main class="panes">
+  <p class="note">The status sign is the one live readout: what he is learning, building and saving up for, with the date it was last updated. Bump the date whenever a line changes. The sign is off when the pane opens, with every word dim but readable and every dot hollow. It lights when luibot reaches the switch or the visitor flips it. On and off never rest on colour: the knob changes side, the dots fill, and the word says which.</p>
+  <article class="pn__pane pn__pane--open" aria-labelledby="pn-title-now">
+    <div class="pn__pane-head">
+      <button type="button" id="pn-title-now" class="pn__pane-title" aria-expanded="true">
+        <span class="pn__dot" aria-hidden="true"></span>
+        <span class="pn__pane-index" aria-hidden="true">5</span>
+        What I’m up to
+        <svg class="pn__chevron pn__chevron--open" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg>
+      </button>
+      <button type="button" class="pn__expand" aria-label="Expand this section"><svg class="pn__expand-icon" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5h3.5V5M10.5 1.5 7 5M5 10.5H1.5V7M1.5 10.5 5 7"/></svg>Expand</button>
+    </div>
+    <div class="pn__pane-body">
+      <p class="pn__lead">Since moving to San Francisco, I’ve been a lot more ambitious.</p>
+      <div class="pn-upto" data-lit>
+        <div class="pn-upto__sign">
+          <div class="pn-upto__status">
+            <span class="pn__label" data-led>status</span>
+            <span class="pn__label">updated 2026-09-26</span>
+            <button type="button" role="switch" aria-checked="true" aria-label="Status sign" class="pn-sign__switch">
+              <span class="pn-sign__track"><span class="pn-sign__knob"></span></span>
+              <span class="pn__label pn-sign__state">on</span>
+            </button>
+          </div>
+          <dl class="pn-upto__lines">
+            <div class="pn-upto__line"><dt class="pn__label" data-led>learning</dt><dd>Japanese, with workbooks</dd></div>
+            <div class="pn-upto__line"><dt class="pn__label" data-led>building</dt><dd>mdnote, puzzlewithme, and slk</dd></div>
+            <div class="pn-upto__line"><dt class="pn__label" data-led>saving up for</dt><dd>A Varia VS6 espresso grinder</dd></div>
+          </dl>
+        </div>
+      </div>
+      <span class="pn__label state">The same sign, off:</span>
+      <div class="pn-upto">
+        <div class="pn-upto__sign">
+          <div class="pn-upto__status">
+            <span class="pn__label" data-led>status</span>
+            <span class="pn__label">updated 2026-09-26</span>
+            <button type="button" role="switch" aria-checked="false" aria-label="Status sign" class="pn-sign__switch">
+              <span class="pn-sign__track"><span class="pn-sign__knob"></span></span>
+              <span class="pn__label pn-sign__state">off</span>
+            </button>
+          </div>
+          <dl class="pn-upto__lines">
+            <div class="pn-upto__line"><dt class="pn__label" data-led>learning</dt><dd>Japanese, with workbooks</dd></div>
+            <div class="pn-upto__line"><dt class="pn__label" data-led>building</dt><dd>mdnote, puzzlewithme, and slk</dd></div>
+            <div class="pn-upto__line"><dt class="pn__label" data-led>saving up for</dt><dd>A Varia VS6 espresso grinder</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* A card shows parts, not the window, so the window's grid is switched off here. */
+  .panes { display: block; height: auto; overflow: visible; padding: 24px; }
+  /* This card's own note. Everything with a pn__ class is the site's. */
+  .note { max-width: 62ch; margin-bottom: 20px; color: var(--pn-muted); font-size: 14px; }
+  /* On the site the backdrop covers the window. Here it is a block in the card. */
+  .pn__palette-backdrop { position: relative; inset: auto; z-index: auto; padding: 32px 16px; border-radius: var(--pn-radius); }
+</style>
+</head>
+<body>
+<main class="panes">
+  <p class="note">The search box opens from the title bar's button or the / key. It lists every step, every link, and the small things a visitor can ask the sprites to do. The selected row has the dim amber fill and an amber bar at its left, and each row names its kind on the right. This is the one floating layer of the site, and the one place with a shadow.</p>
+  <div class="pn__palette-backdrop">
+    <div class="pn__palette" role="dialog" aria-label="Search this site">
+      <input class="pn__palette-input" type="text" role="combobox" aria-expanded="true" aria-controls="pn-palette-list" autocomplete="off" spellcheck="false" placeholder="Go somewhere, open something, or bother the dog">
+      <ul id="pn-palette-list" class="pn__palette-list" role="listbox">
+          <li class="pn__option" role="option" aria-selected="true"><span>Go to My people</span><span class="pn__option-kind">section</span></li>
+          <li class="pn__option" role="option" aria-selected="false"><span>Go to My agents</span><span class="pn__option-kind">section</span></li>
+          <li class="pn__option" role="option" aria-selected="false"><span>Expand this section</span><span class="pn__option-kind">view</span></li>
+          <li class="pn__option" role="option" aria-selected="false"><span>Open puzzlewithme on GitHub</span><span class="pn__option-kind">link</span></li>
+          <li class="pn__option" role="option" aria-selected="false"><span>Pet Truffle</span><span class="pn__option-kind">play</span></li>
+          <li class="pn__option" role="option" aria-selected="false"><span>Espresso break</span><span class="pn__option-kind">play</span></li>
+          <li class="pn__option" role="option" aria-selected="false"><span>Episode 1070</span><span class="pn__option-kind">play</span></li>
+      </ul>
+      <div class="pn__palette-foot"><span>Arrow keys move</span><span>Enter choose</span><span>Esc close</span></div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

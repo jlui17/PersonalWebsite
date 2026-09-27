@@ -1,0 +1,94 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* A card shows parts, not the window, so the window's grid is switched off here. */
+  .panes { display: block; height: auto; overflow: visible; padding: 24px; }
+  /* This card's own note. Everything with a pn__ class is the site's. */
+  .note { max-width: 62ch; margin-bottom: 20px; color: var(--pn-muted); font-size: 14px; }
+  /* The pane's size in a 1280x800 window. Its body is a size container, so it needs a height. */
+  .pn__pane { max-width: 826px; height: 642px; }
+</style>
+</head>
+<body>
+<main class="panes">
+  <p class="note">This pane has the optional quieter line under its hook. A project is a blue title that links out, with a drawn arrow, a small tag beside it, a one-line summary and a short story with a person or a reason in it. The rule under each title is there for luibuilder: on the site he stands on one of them and builds.</p>
+  <article class="pn__pane pn__pane--open" aria-labelledby="pn-title-built">
+    <div class="pn__pane-head">
+      <button type="button" id="pn-title-built" class="pn__pane-title" aria-expanded="true">
+        <span class="pn__dot" aria-hidden="true"></span>
+        <span class="pn__pane-index" aria-hidden="true">6</span>
+        Things I’ve built
+        <svg class="pn__chevron pn__chevron--open" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg>
+      </button>
+      <button type="button" class="pn__expand" aria-label="Expand this section"><svg class="pn__expand-icon" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5h3.5V5M10.5 1.5 7 5M5 10.5H1.5V7M1.5 10.5 5 7"/></svg>Expand</button>
+    </div>
+    <div class="pn__pane-body" data-more>
+      <p class="pn__lead">I like building small tools for people I know.</p>
+      <p class="pn__more">A puzzle app for my girlfriend and me, and tools for my friends and my old job.</p>
+      <div class="pn-built">
+        <ul class="pn__projects">
+          <li class="pn__project">
+            <div class="pn__project-head">
+              <a class="pn__project-title" href="https://github.com/jlui17/puzzlewithme" target="_blank" rel="noreferrer">puzzlewithme <svg class="pn__arrow pn__arrow--out" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+              <span class="pn__label">Made for us</span>
+            </div>
+            <p class="pn__project-kicker">A jigsaw puzzle app for my girlfriend, my friends, and me.</p>
+            <p class="pn__project-story">My girlfriend and I are long distance now, and online jigsaw puzzles became one of the things we do together. We wanted to make puzzles from personal photos, but we didn’t want to upload them somewhere without knowing how they were stored or used. So I built my own version where I know exactly what happens to them.</p>
+          </li>
+          <li class="pn__project">
+            <div class="pn__project-head">
+              <a class="pn__project-title" href="https://github.com/jlui17/mdnote" target="_blank" rel="noreferrer">mdnote <svg class="pn__arrow pn__arrow--out" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+              <span class="pn__label">Notes for my agents</span>
+            </div>
+            <p class="pn__project-kicker">I highlight what I want changed, and my coding agent changes it.</p>
+            <p class="pn__project-story">When I work on a document with a coding agent, I used to type directions like “in the third paragraph, change this.” With mdnote, I highlight the exact words in the document and leave a note. The agent reads my notes and makes the edits.</p>
+          </li>
+          <li class="pn__project">
+            <div class="pn__project-head">
+              <a class="pn__project-title" href="https://github.com/jlui17/slk" target="_blank" rel="noreferrer">slk <svg class="pn__arrow pn__arrow--out" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+              <span class="pn__label">My own Slack</span>
+            </div>
+            <p class="pn__project-kicker">I took a Slack app that runs in the terminal and made it my own.</p>
+            <p class="pn__project-story">slk started as someone else’s open-source project. I made it a lot faster, customized it to the way I work, and connected it to the tools I use to run my AI coding agents.</p>
+          </li>
+          <li class="pn__project">
+            <div class="pn__project-head">
+              <a class="pn__project-title" href="https://github.com/jlui17/VLMPrototype" target="_blank" rel="noreferrer">VLMPrototype <svg class="pn__arrow pn__arrow--out" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+              <span class="pn__label">Video + AI</span>
+            </div>
+            <p class="pn__project-kicker">I left a system design interview wanting to try the idea myself.</p>
+            <p class="pn__project-story">The idea was to upload a video, ask questions about it in plain English, and get answers back. It was mostly a way to learn how video querying with AI could work by building it myself.</p>
+          </li>
+          <li class="pn__project">
+            <div class="pn__project-head">
+              <a class="pn__project-title" href="https://github.com/jlui17/w2fhr" target="_blank" rel="noreferrer">w2fhr <svg class="pn__arrow pn__arrow--out" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+              <span class="pn__label">Richmond Night Market</span>
+            </div>
+            <p class="pn__project-kicker">I built the software I wished we had at the night market.</p>
+            <p class="pn__project-story">When I became an assistant manager at the Richmond Night Market, scheduling, payroll, and onboarding were spread across Excel, Google Sheets, and a few HR apps. I asked my boss if I could build one place for all of it. It still runs every season and saves the team a couple grand a month.</p>
+          </li>
+          <li class="pn__project">
+            <div class="pn__project-head">
+              <a class="pn__project-title" href="https://github.com/jlui17/LetMeInUBC-2.0" target="_blank" rel="noreferrer">LetMeInUBC-2.0 <svg class="pn__arrow pn__arrow--out" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+              <span class="pn__label">Special delivery: a seat</span>
+            </div>
+            <p class="pn__project-kicker">A small project that helped my friends get into the classes they wanted.</p>
+            <p class="pn__project-story">My friend Kelvin had a script that registered him when a UBC course opened up. We hosted it so other people could use it, then changed it to email alerts because nobody wants to give a random app their school password. I learned how to keep something running in the cloud, and a few friends got into classes they needed.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</main>
+</body>
+</html>

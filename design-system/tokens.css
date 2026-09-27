@@ -1,0 +1,119 @@
+/* justinlui.dev design tokens, for the panes design.
+   The source is src/designs/panes/panes.css, and this file mirrors it: the custom properties of
+   its `.panes` rule (on :root here, so any page can use them), the ones its media queries
+   override, and the vertical rhythm on `.pn__pane-body`. The names and the values are the same.
+   Change a token in panes.css first, copy it here, then run `node design-system/check.mjs`. */
+
+:root {
+  /* ---- colour: a deep warm ground (never black) and two accents that are blue against amber,
+     never red against green. Amber is for focus and attention, blue is for links. Amber is always
+     backed by a shape (a filled dot, a bar under the step), so colour alone never carries it. ---- */
+  --pn-ground: #28221b; /* a dark roast coffee brown: clearly brown, never a near-black */
+  /* The sprites' ink is nearly the ground's value, so their outer outline is painted in this
+     instead: a soft brown just lighter than the ground. Lighter than this merges with the
+     darkest fills. */
+  --sprite-outline: #463d33;
+  /* The surfaces and hairlines are the ground mixed towards cream (#fbf4e6):
+     bar 1.4%, surface 3.3%, raised 7%, line 10.8%, strong line 17.8%. */
+  --pn-surface: #2f2922;
+  --pn-bar: #2b251e;
+  --pn-raised: #373129;
+  --pn-line: #3f3931;
+  --pn-line-strong: #4e473f;
+  --pn-ink: #ece5d8;
+  --pn-ink-2: #c3b9a9;
+  --pn-muted: #afa494;
+  --pn-dim: #9d9080; /* the quietest text colour: 4.6:1 on the surface */
+  --pn-faint: #746e64; /* decorative only: bars, hollow dots; never text */
+  --pn-amber: #e8ab55;
+  --pn-amber-dim: rgba(232, 171, 85, 0.12);
+  --pn-blue: #93c2ee;
+  --pn-photo-dim: 0.87; /* the photo's brightness: nothing in it outshines the heading's ink */
+
+  /* ---- the type system: two families ----
+     --pn-font-head: every heading, hook and section title, and all the chrome:
+       buttons, labels, tabs, the step bar, hints, the search box and its rows,
+       captions, the clock.
+     --pn-font-body: the sentences: paragraphs, details, list items, card
+       bodies, the quieter line under a hook.
+     Each role below is a whole `font` (weight size/line-height family) with
+     its tracking. The head face is a mono: wide and heavy, so the heads are
+     small for headings, medium in weight, and tracked in where they are large. */
+  --pn-font-head: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --pn-font-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --pn-label: 500 11.5px/1 var(--pn-font-head); /* small chrome text */
+  --pn-label-track: 0;
+  --pn-label-phone: 10.5px; /* the step bar on a phone; 0.5px less under 360px */
+  /* The label voice on the drawn boards of the future plans: their panel is 59px wide and
+     13px tall, and "New York" is 55px at this size. */
+  --pn-sign: 500 11.5px/1 var(--pn-font-head);
+  --pn-sign-track: 0;
+  --pn-ui: 500 13px/1.3 var(--pn-font-head); /* names, search box rows */
+  --pn-ui-large: 500 14.5px/1.3 var(--pn-font-head); /* project and agent names */
+  --pn-ui-track: -0.01em;
+  --pn-h1: 500 34px/1.1 var(--pn-font-head);
+  --pn-h1-track: -0.04em;
+  --pn-lead: 400 19px/1.4 var(--pn-font-head); /* the open section's hook */
+  --pn-lead-track: -0.02em;
+  --pn-lead-measure: 46ch;
+  --pn-h3: 500 15px/1.4 var(--pn-font-head); /* a pane's "###", card headings */
+  --pn-h3-large: 500 16.5px/1.35 var(--pn-font-head); /* future plans */
+  --pn-h3-track: -0.015em;
+  --pn-h3-measure: 48ch;
+
+  /* ---- the window: the right column (its width, and its cards' padding, inner gap and type),
+     the three bars, the radius ---- */
+  --pn-stack-w: 424px;
+  --pn-fold-pad: 10px 12px 12px;
+  --pn-fold-gap: 7px;
+  --pn-fold-hook: 500 14px/1.3 var(--pn-font-head);
+  --pn-fold-hook-track: -0.01em;
+  --pn-bar-h: 30px;
+  --pn-title-h: 40px;
+  --pn-pathway-h: 68px; /* the tallest pose (62px) plus a little air */
+  --pn-radius: 6px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --pn-lead: 400 17.5px/1.4 var(--pn-font-head);
+  }
+}
+
+/* Phone: the list of cards is the home screen and scrolls, so the cards are roomier. */
+@media (max-width: 639px) {
+  :root {
+    --pn-fold-pad: 11px 12px 12px;
+    --pn-fold-gap: 7px;
+    --pn-h1: 500 30px/1.1 var(--pn-font-head);
+  }
+}
+
+/* ---- the vertical rhythm: one system for all six panes ----
+   The steps between things grow with the pane, together and by one rule, so a large pane's
+   content reaches further down it. Nothing is stretched, spread or pinned: every step has a
+   floor (the first number below) and a cap, and room left at the end of a pane stays empty.
+   --pn-rise is how much taller this pane is than the pane of a 1280x800 window (558px inside
+     its padding), from 0 to 200px, which a 1440x1000 window reaches; 0 in a pane narrower than
+     700px (a phone, a small window), where the text is long and scrolls anyway. It is measured
+     in container units, so `.pn__pane-body` has to be a size container
+     (`container: pane / size`, in components.css) with a height of its own.
+   --pn-fit (1, or less: the site lowers it from script) holds the growth back as far as it
+     takes for a pane that fits without scrolling to go on fitting.
+   The ranks keep their order: part to part grows the most (+16px at the cap), a heading to its
+   text a little (+4px), a list's lines the least (+2px on each side). No step between two
+   things passes 48px. */
+.pn__pane-body {
+  --pn-fit: 1;
+  --pn-rise: calc(min(clamp(0px, 100cqh - 558px, 200px), clamp(0px, (100cqw - 700px) * 100, 200px)) * var(--pn-fit));
+  --pn-more-part: calc(var(--pn-rise) * 0.08);
+  --pn-more-row: calc(var(--pn-rise) * 0.11); /* the project rows, the step that has the most room to give */
+  --pn-more-text: calc(var(--pn-rise) * 0.02);
+  --pn-more-line: calc(var(--pn-rise) * 0.01);
+  --pn-gap-hook: calc(18px + var(--pn-more-part)); /* the hook (or the quieter line under it) to the first part */
+  --pn-gap-above-rule: calc(26px + var(--pn-more-part)); /* a part's end to the hairline that opens the next */
+  --pn-gap-below-rule: calc(22px + var(--pn-more-part)); /* that hairline to the part's first line */
+  --pn-gap-block: calc(18px + var(--pn-more-part)); /* block to block, in every column */
+  --pn-gap-heading: calc(4px + var(--pn-more-text)); /* a "###" to its text */
+  --pn-line-pad: calc(5px + var(--pn-more-line)); /* over and under a list's line */
+}

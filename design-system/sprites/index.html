@@ -1,0 +1,1007 @@
+<!-- @dsCard group="Sprites" -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sprites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../tokens.css">
+  <style>
+    /* This card's own layout, on the panes tokens. */
+    body {
+      margin: 0;
+      padding: 40px 16px 64px;
+      background: var(--pn-ground);
+      color: var(--pn-ink);
+      font: 400 15px/1.6 var(--pn-font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+    main { max-width: 1080px; margin: 0 auto; }
+    h1, h2 { margin: 0; color: var(--pn-ink); }
+    h1 { font: var(--pn-lead); letter-spacing: var(--pn-lead-track); }
+    h2 { font: var(--pn-h3); letter-spacing: var(--pn-h3-track); margin-top: 8px; }
+    p { margin: 6px 0 0; max-width: 62ch; font-size: 14px; color: var(--pn-muted); }
+    .intro { margin-bottom: 40px; }
+    .pn__label { font: var(--pn-label); letter-spacing: var(--pn-label-track); color: var(--pn-muted); }
+    code { font: var(--pn-label); color: var(--pn-ink-2); }
+    .character { padding: 32px 0; border-top: 1px solid var(--pn-line-strong); }
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .action {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 16px;
+      background: var(--pn-surface);
+      border: 1px solid var(--pn-line);
+      border-radius: var(--pn-radius);
+    }
+    .stage {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 24px;
+      min-height: 260px;
+      margin-bottom: 10px;
+    }
+    /* Feet on a hairline rule, as on the site. */
+    .stand {
+      display: inline-block;
+      line-height: 0;
+      border-bottom: 1px solid var(--pn-line-strong);
+      padding: 0 4px;
+    }
+    img { display: block; }
+    .use { margin: 0; font-size: 13.5px; }
+    .frames {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 16px;
+      margin-top: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--pn-line);
+    }
+    .frame { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+    .frame code { color: var(--pn-dim); }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <span class="pn__label">Sprites</span>
+      <h1>The people, the dog, the robots and the props of justinlui.dev</h1>
+      <p>Pixel sprites exported from the site's sheets as plain SVG, with the outer outline already in the soft brown that the dark ground needs. Each action is shown at true size and at 4×. Animated files switch frames with a CSS animation inside the SVG, so an <code>&lt;img&gt;</code> plays them. Place them at true size, feet on a line the layout already has. See README.md for the rules.</p>
+    </header>
+    <section class="character" id="justin-overshirt">
+      <header>
+        <span class="pn__label">justin-overshirt</span>
+        <h2>Justin, over-shirt</h2>
+        <p>Justin in his straw hat, a rust over-shirt open over a plain oat tee, and loose textured trousers. He wears this on the pathway.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-idle.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-idle.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-idle.svg</code>
+        <span class="pn__label">36 × 62 px · 1300 / 160 / 1300 ms, loops</span>
+        <p class="use">standing, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-idle-0.svg" width="36" height="62" alt=""></span><code>justin-overshirt-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-idle-1.svg" width="36" height="62" alt=""></span><code>justin-overshirt-idle-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-idle-2.svg" width="36" height="62" alt=""></span><code>justin-overshirt-idle-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-walk.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-walk.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-walk.svg</code>
+        <span class="pn__label">36 × 62 px · 200 ms per frame, loops</span>
+        <p class="use">side view, facing right; stride 7 px per frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-walk-0.svg" width="36" height="62" alt=""></span><code>justin-overshirt-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-walk-1.svg" width="36" height="62" alt=""></span><code>justin-overshirt-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-walk-2.svg" width="36" height="62" alt=""></span><code>justin-overshirt-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-walk-3.svg" width="36" height="62" alt=""></span><code>justin-overshirt-walk-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-sit.svg" width="52" height="52" alt=""></span><span class="stand"><img src="justin-overshirt-sit.svg" width="208" height="208" alt=""></span></div>
+        <code class="file">justin-overshirt-sit.svg</code>
+        <span class="pn__label">52 × 52 px · 3200 / 160 ms, loops</span>
+        <p class="use">sitting on the ground, side view, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-sit-0.svg" width="52" height="52" alt=""></span><code>justin-overshirt-sit-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-sit-1.svg" width="52" height="52" alt=""></span><code>justin-overshirt-sit-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-sleep-0.svg" width="64" height="28" alt=""></span><span class="stand"><img src="justin-overshirt-sleep-0.svg" width="256" height="112" alt=""></span></div>
+        <code class="file">justin-overshirt-sleep-0.svg</code>
+        <span class="pn__label">64 × 28 px · 1 frame, static</span>
+        <p class="use">flat on his back, the hat resting on his face</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-sleep-0.svg" width="64" height="28" alt=""></span><code>justin-overshirt-sleep-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-sip.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-sip.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-sip.svg</code>
+        <span class="pn__label">36 × 62 px · 2600 / 1000 ms, loops</span>
+        <p class="use">an espresso cup held at the chest, then raised</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-sip-0.svg" width="36" height="62" alt=""></span><code>justin-overshirt-sip-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-sip-1.svg" width="36" height="62" alt=""></span><code>justin-overshirt-sip-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-hat.svg" width="42" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-hat.svg" width="168" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-hat.svg</code>
+        <span class="pn__label">42 × 62 px · 250 / 300 / 200 / 800 ms, loops</span>
+        <p class="use">the hat tip with a nod; a one-shot the design steps frame by frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-hat-0.svg" width="42" height="62" alt=""></span><code>justin-overshirt-hat-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-hat-1.svg" width="42" height="62" alt=""></span><code>justin-overshirt-hat-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-hat-2.svg" width="42" height="62" alt=""></span><code>justin-overshirt-hat-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-hat-3.svg" width="42" height="62" alt=""></span><code>justin-overshirt-hat-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-arms-up.svg" width="56" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-arms-up.svg" width="224" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-arms-up.svg</code>
+        <span class="pn__label">56 × 62 px · 350 / 250 ms, loops</span>
+        <p class="use">the cheer for the search command "Episode 1070"</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-arms-up-0.svg" width="56" height="62" alt=""></span><code>justin-overshirt-arms-up-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-arms-up-1.svg" width="56" height="62" alt=""></span><code>justin-overshirt-arms-up-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-carry.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-carry.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-carry.svg</code>
+        <span class="pn__label">36 × 62 px · 1400 / 600 ms, loops</span>
+        <p class="use">holding the top two shoeboxes from the rack, at step 1</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-carry-0.svg" width="36" height="62" alt=""></span><code>justin-overshirt-carry-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-carry-1.svg" width="36" height="62" alt=""></span><code>justin-overshirt-carry-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-type.svg" width="64" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-type.svg" width="256" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-type.svg</code>
+        <span class="pn__label">64 × 62 px · 400 ms per frame, loops</span>
+        <p class="use">at his desk, side view, hands on the keys</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-type-0.svg" width="64" height="62" alt=""></span><code>justin-overshirt-type-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-type-1.svg" width="64" height="62" alt=""></span><code>justin-overshirt-type-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-type-2.svg" width="64" height="62" alt=""></span><code>justin-overshirt-type-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-pet.svg" width="51" height="56" alt=""></span><span class="stand"><img src="justin-overshirt-pet.svg" width="204" height="224" alt=""></span></div>
+        <code class="file">justin-overshirt-pet.svg</code>
+        <span class="pn__label">51 × 56 px · 900 / 400 / 500 ms, loops</span>
+        <p class="use">kneeling to pet Truffle while she sits up</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-pet-0.svg" width="51" height="56" alt=""></span><code>justin-overshirt-pet-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pet-1.svg" width="51" height="56" alt=""></span><code>justin-overshirt-pet-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pet-2.svg" width="51" height="56" alt=""></span><code>justin-overshirt-pet-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-pet-low.svg" width="51" height="56" alt=""></span><span class="stand"><img src="justin-overshirt-pet-low.svg" width="204" height="224" alt=""></span></div>
+        <code class="file">justin-overshirt-pet-low.svg</code>
+        <span class="pn__label">51 × 56 px · 900 / 400 / 500 ms, loops</span>
+        <p class="use">the same kneel while she lies down</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-pet-low-0.svg" width="51" height="56" alt=""></span><code>justin-overshirt-pet-low-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pet-low-1.svg" width="51" height="56" alt=""></span><code>justin-overshirt-pet-low-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pet-low-2.svg" width="51" height="56" alt=""></span><code>justin-overshirt-pet-low-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-wave.svg" width="46" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-wave.svg" width="184" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-wave.svg</code>
+        <span class="pn__label">46 × 62 px · 500 / 200 / 400 / 200 ms, loops</span>
+        <p class="use">the hello wave</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-wave-0.svg" width="46" height="62" alt=""></span><code>justin-overshirt-wave-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-wave-1.svg" width="46" height="62" alt=""></span><code>justin-overshirt-wave-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-wave-2.svg" width="46" height="62" alt=""></span><code>justin-overshirt-wave-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-wave-3.svg" width="46" height="62" alt=""></span><code>justin-overshirt-wave-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-press.svg" width="47" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-press.svg" width="188" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-press.svg</code>
+        <span class="pn__label">47 × 62 px · 250 / 600 ms, loops</span>
+        <p class="use">pressing the espresso machine's button; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-press-0.svg" width="47" height="62" alt=""></span><code>justin-overshirt-press-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-press-1.svg" width="47" height="62" alt=""></span><code>justin-overshirt-press-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-grab.svg" width="47" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-grab.svg" width="188" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-grab.svg</code>
+        <span class="pn__label">47 × 62 px · 400 / 500 / 300 / 500 / 700 ms, loops</span>
+        <p class="use">taking the cup from the tray; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-grab-0.svg" width="47" height="62" alt=""></span><code>justin-overshirt-grab-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-grab-1.svg" width="47" height="62" alt=""></span><code>justin-overshirt-grab-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-grab-2.svg" width="47" height="62" alt=""></span><code>justin-overshirt-grab-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-grab-3.svg" width="47" height="62" alt=""></span><code>justin-overshirt-grab-3.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-grab-4.svg" width="47" height="62" alt=""></span><code>justin-overshirt-grab-4.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-pat.svg" width="48" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-pat.svg" width="192" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-pat.svg</code>
+        <span class="pn__label">48 × 62 px · 900 / 400 / 500 ms, loops</span>
+        <p class="use">patting the cow</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-pat-0.svg" width="48" height="62" alt=""></span><code>justin-overshirt-pat-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pat-1.svg" width="48" height="62" alt=""></span><code>justin-overshirt-pat-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pat-2.svg" width="48" height="62" alt=""></span><code>justin-overshirt-pat-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-nod.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-nod.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-nod.svg</code>
+        <span class="pn__label">36 × 62 px · 200 / 500 ms, loops</span>
+        <p class="use">his answer when Truffle paws for a pet; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-nod-0.svg" width="36" height="62" alt=""></span><code>justin-overshirt-nod-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-nod-1.svg" width="36" height="62" alt=""></span><code>justin-overshirt-nod-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-pickup.svg" width="51" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-pickup.svg" width="204" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-pickup.svg</code>
+        <span class="pn__label">51 × 62 px · 350 / 250 / 300 ms, loops</span>
+        <p class="use">picking the tennis ball up; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-pickup-0.svg" width="51" height="62" alt=""></span><code>justin-overshirt-pickup-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pickup-1.svg" width="51" height="62" alt=""></span><code>justin-overshirt-pickup-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pickup-2.svg" width="51" height="62" alt=""></span><code>justin-overshirt-pickup-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-throw.svg" width="44" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-throw.svg" width="176" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-throw.svg</code>
+        <span class="pn__label">44 × 62 px · 300 / 300 / 150 / 250 / 200 ms, loops</span>
+        <p class="use">an underhand toss of the ball to the right; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-throw-0.svg" width="44" height="62" alt=""></span><code>justin-overshirt-throw-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-throw-1.svg" width="44" height="62" alt=""></span><code>justin-overshirt-throw-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-throw-2.svg" width="44" height="62" alt=""></span><code>justin-overshirt-throw-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-throw-3.svg" width="44" height="62" alt=""></span><code>justin-overshirt-throw-3.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-throw-4.svg" width="44" height="62" alt=""></span><code>justin-overshirt-throw-4.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-overshirt-pull.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-overshirt-pull.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-overshirt-pull.svg</code>
+        <span class="pn__label">36 × 62 px · 75 / 75 / 75 / 75 / 75 / 75 / 75 / 75 ms, loops</span>
+        <p class="use">pulling the chair out, in step with the desk's `tuck` played backwards</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-overshirt-pull-0.svg" width="36" height="62" alt=""></span><code>justin-overshirt-pull-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pull-1.svg" width="36" height="62" alt=""></span><code>justin-overshirt-pull-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pull-2.svg" width="36" height="62" alt=""></span><code>justin-overshirt-pull-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pull-3.svg" width="36" height="62" alt=""></span><code>justin-overshirt-pull-3.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pull-4.svg" width="36" height="62" alt=""></span><code>justin-overshirt-pull-4.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pull-5.svg" width="36" height="62" alt=""></span><code>justin-overshirt-pull-5.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pull-6.svg" width="36" height="62" alt=""></span><code>justin-overshirt-pull-6.svg</code></span><span class="frame"><span class="stand"><img src="justin-overshirt-pull-7.svg" width="36" height="62" alt=""></span><code>justin-overshirt-pull-7.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="justin-hoodie">
+      <header>
+        <span class="pn__label">justin-hoodie</span>
+        <h2>Justin, hoodie</h2>
+        <p>The same frames with the over-shirt swapped for a slate hoodie, hood down on the shoulders. He wears this beside his title in the first pane, so the two of him on one screen are told apart.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-idle.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-idle.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-idle.svg</code>
+        <span class="pn__label">36 × 62 px · 1300 / 160 / 1300 ms, loops</span>
+        <p class="use">standing, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-idle-0.svg" width="36" height="62" alt=""></span><code>justin-hoodie-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-idle-1.svg" width="36" height="62" alt=""></span><code>justin-hoodie-idle-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-idle-2.svg" width="36" height="62" alt=""></span><code>justin-hoodie-idle-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-walk.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-walk.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-walk.svg</code>
+        <span class="pn__label">36 × 62 px · 200 ms per frame, loops</span>
+        <p class="use">side view, facing right; stride 7 px per frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-walk-0.svg" width="36" height="62" alt=""></span><code>justin-hoodie-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-walk-1.svg" width="36" height="62" alt=""></span><code>justin-hoodie-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-walk-2.svg" width="36" height="62" alt=""></span><code>justin-hoodie-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-walk-3.svg" width="36" height="62" alt=""></span><code>justin-hoodie-walk-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-sit.svg" width="52" height="52" alt=""></span><span class="stand"><img src="justin-hoodie-sit.svg" width="208" height="208" alt=""></span></div>
+        <code class="file">justin-hoodie-sit.svg</code>
+        <span class="pn__label">52 × 52 px · 3200 / 160 ms, loops</span>
+        <p class="use">sitting on the ground, side view, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-sit-0.svg" width="52" height="52" alt=""></span><code>justin-hoodie-sit-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-sit-1.svg" width="52" height="52" alt=""></span><code>justin-hoodie-sit-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-sleep-0.svg" width="64" height="28" alt=""></span><span class="stand"><img src="justin-hoodie-sleep-0.svg" width="256" height="112" alt=""></span></div>
+        <code class="file">justin-hoodie-sleep-0.svg</code>
+        <span class="pn__label">64 × 28 px · 1 frame, static</span>
+        <p class="use">flat on his back, the hat resting on his face</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-sleep-0.svg" width="64" height="28" alt=""></span><code>justin-hoodie-sleep-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-sip.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-sip.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-sip.svg</code>
+        <span class="pn__label">36 × 62 px · 2600 / 1000 ms, loops</span>
+        <p class="use">an espresso cup held at the chest, then raised</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-sip-0.svg" width="36" height="62" alt=""></span><code>justin-hoodie-sip-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-sip-1.svg" width="36" height="62" alt=""></span><code>justin-hoodie-sip-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-hat.svg" width="42" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-hat.svg" width="168" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-hat.svg</code>
+        <span class="pn__label">42 × 62 px · 250 / 300 / 200 / 800 ms, loops</span>
+        <p class="use">the hat tip with a nod; a one-shot the design steps frame by frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-hat-0.svg" width="42" height="62" alt=""></span><code>justin-hoodie-hat-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-hat-1.svg" width="42" height="62" alt=""></span><code>justin-hoodie-hat-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-hat-2.svg" width="42" height="62" alt=""></span><code>justin-hoodie-hat-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-hat-3.svg" width="42" height="62" alt=""></span><code>justin-hoodie-hat-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-arms-up.svg" width="56" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-arms-up.svg" width="224" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-arms-up.svg</code>
+        <span class="pn__label">56 × 62 px · 350 / 250 ms, loops</span>
+        <p class="use">the cheer for the search command "Episode 1070"</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-arms-up-0.svg" width="56" height="62" alt=""></span><code>justin-hoodie-arms-up-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-arms-up-1.svg" width="56" height="62" alt=""></span><code>justin-hoodie-arms-up-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-carry.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-carry.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-carry.svg</code>
+        <span class="pn__label">36 × 62 px · 1400 / 600 ms, loops</span>
+        <p class="use">holding the top two shoeboxes from the rack, at step 1</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-carry-0.svg" width="36" height="62" alt=""></span><code>justin-hoodie-carry-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-carry-1.svg" width="36" height="62" alt=""></span><code>justin-hoodie-carry-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-type.svg" width="64" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-type.svg" width="256" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-type.svg</code>
+        <span class="pn__label">64 × 62 px · 400 ms per frame, loops</span>
+        <p class="use">at his desk, side view, hands on the keys</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-type-0.svg" width="64" height="62" alt=""></span><code>justin-hoodie-type-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-type-1.svg" width="64" height="62" alt=""></span><code>justin-hoodie-type-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-type-2.svg" width="64" height="62" alt=""></span><code>justin-hoodie-type-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-pet.svg" width="51" height="56" alt=""></span><span class="stand"><img src="justin-hoodie-pet.svg" width="204" height="224" alt=""></span></div>
+        <code class="file">justin-hoodie-pet.svg</code>
+        <span class="pn__label">51 × 56 px · 900 / 400 / 500 ms, loops</span>
+        <p class="use">kneeling to pet Truffle while she sits up</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-pet-0.svg" width="51" height="56" alt=""></span><code>justin-hoodie-pet-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pet-1.svg" width="51" height="56" alt=""></span><code>justin-hoodie-pet-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pet-2.svg" width="51" height="56" alt=""></span><code>justin-hoodie-pet-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-pet-low.svg" width="51" height="56" alt=""></span><span class="stand"><img src="justin-hoodie-pet-low.svg" width="204" height="224" alt=""></span></div>
+        <code class="file">justin-hoodie-pet-low.svg</code>
+        <span class="pn__label">51 × 56 px · 900 / 400 / 500 ms, loops</span>
+        <p class="use">the same kneel while she lies down</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-pet-low-0.svg" width="51" height="56" alt=""></span><code>justin-hoodie-pet-low-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pet-low-1.svg" width="51" height="56" alt=""></span><code>justin-hoodie-pet-low-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pet-low-2.svg" width="51" height="56" alt=""></span><code>justin-hoodie-pet-low-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-wave.svg" width="46" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-wave.svg" width="184" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-wave.svg</code>
+        <span class="pn__label">46 × 62 px · 500 / 200 / 400 / 200 ms, loops</span>
+        <p class="use">the hello wave</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-wave-0.svg" width="46" height="62" alt=""></span><code>justin-hoodie-wave-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-wave-1.svg" width="46" height="62" alt=""></span><code>justin-hoodie-wave-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-wave-2.svg" width="46" height="62" alt=""></span><code>justin-hoodie-wave-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-wave-3.svg" width="46" height="62" alt=""></span><code>justin-hoodie-wave-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-press.svg" width="47" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-press.svg" width="188" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-press.svg</code>
+        <span class="pn__label">47 × 62 px · 250 / 600 ms, loops</span>
+        <p class="use">pressing the espresso machine's button; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-press-0.svg" width="47" height="62" alt=""></span><code>justin-hoodie-press-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-press-1.svg" width="47" height="62" alt=""></span><code>justin-hoodie-press-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-grab.svg" width="47" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-grab.svg" width="188" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-grab.svg</code>
+        <span class="pn__label">47 × 62 px · 400 / 500 / 300 / 500 / 700 ms, loops</span>
+        <p class="use">taking the cup from the tray; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-grab-0.svg" width="47" height="62" alt=""></span><code>justin-hoodie-grab-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-grab-1.svg" width="47" height="62" alt=""></span><code>justin-hoodie-grab-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-grab-2.svg" width="47" height="62" alt=""></span><code>justin-hoodie-grab-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-grab-3.svg" width="47" height="62" alt=""></span><code>justin-hoodie-grab-3.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-grab-4.svg" width="47" height="62" alt=""></span><code>justin-hoodie-grab-4.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-pat.svg" width="48" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-pat.svg" width="192" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-pat.svg</code>
+        <span class="pn__label">48 × 62 px · 900 / 400 / 500 ms, loops</span>
+        <p class="use">patting the cow</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-pat-0.svg" width="48" height="62" alt=""></span><code>justin-hoodie-pat-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pat-1.svg" width="48" height="62" alt=""></span><code>justin-hoodie-pat-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pat-2.svg" width="48" height="62" alt=""></span><code>justin-hoodie-pat-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-nod.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-nod.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-nod.svg</code>
+        <span class="pn__label">36 × 62 px · 200 / 500 ms, loops</span>
+        <p class="use">his answer when Truffle paws for a pet; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-nod-0.svg" width="36" height="62" alt=""></span><code>justin-hoodie-nod-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-nod-1.svg" width="36" height="62" alt=""></span><code>justin-hoodie-nod-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-pickup.svg" width="51" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-pickup.svg" width="204" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-pickup.svg</code>
+        <span class="pn__label">51 × 62 px · 350 / 250 / 300 ms, loops</span>
+        <p class="use">picking the tennis ball up; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-pickup-0.svg" width="51" height="62" alt=""></span><code>justin-hoodie-pickup-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pickup-1.svg" width="51" height="62" alt=""></span><code>justin-hoodie-pickup-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pickup-2.svg" width="51" height="62" alt=""></span><code>justin-hoodie-pickup-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-throw.svg" width="44" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-throw.svg" width="176" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-throw.svg</code>
+        <span class="pn__label">44 × 62 px · 300 / 300 / 150 / 250 / 200 ms, loops</span>
+        <p class="use">an underhand toss of the ball to the right; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-throw-0.svg" width="44" height="62" alt=""></span><code>justin-hoodie-throw-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-throw-1.svg" width="44" height="62" alt=""></span><code>justin-hoodie-throw-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-throw-2.svg" width="44" height="62" alt=""></span><code>justin-hoodie-throw-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-throw-3.svg" width="44" height="62" alt=""></span><code>justin-hoodie-throw-3.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-throw-4.svg" width="44" height="62" alt=""></span><code>justin-hoodie-throw-4.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="justin-hoodie-pull.svg" width="36" height="62" alt=""></span><span class="stand"><img src="justin-hoodie-pull.svg" width="144" height="248" alt=""></span></div>
+        <code class="file">justin-hoodie-pull.svg</code>
+        <span class="pn__label">36 × 62 px · 75 / 75 / 75 / 75 / 75 / 75 / 75 / 75 ms, loops</span>
+        <p class="use">pulling the chair out, in step with the desk's `tuck` played backwards</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="justin-hoodie-pull-0.svg" width="36" height="62" alt=""></span><code>justin-hoodie-pull-0.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pull-1.svg" width="36" height="62" alt=""></span><code>justin-hoodie-pull-1.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pull-2.svg" width="36" height="62" alt=""></span><code>justin-hoodie-pull-2.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pull-3.svg" width="36" height="62" alt=""></span><code>justin-hoodie-pull-3.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pull-4.svg" width="36" height="62" alt=""></span><code>justin-hoodie-pull-4.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pull-5.svg" width="36" height="62" alt=""></span><code>justin-hoodie-pull-5.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pull-6.svg" width="36" height="62" alt=""></span><code>justin-hoodie-pull-6.svg</code></span><span class="frame"><span class="stand"><img src="justin-hoodie-pull-7.svg" width="36" height="62" alt=""></span><code>justin-hoodie-pull-7.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="truffle">
+      <header>
+        <span class="pn__label">truffle</span>
+        <h2>Truffle</h2>
+        <p>Justin's French Bulldog. She sleeps at step 2 of the pathway until he comes over to pet her.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-sleep.svg" width="36" height="20" alt=""></span><span class="stand"><img src="truffle-sleep.svg" width="144" height="80" alt=""></span></div>
+        <code class="file">truffle-sleep.svg</code>
+        <span class="pn__label">36 × 20 px · 2300 / 700 ms, loops</span>
+        <p class="use">lying down, head on her paws, breathing</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-sleep-0.svg" width="36" height="20" alt=""></span><code>truffle-sleep-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-sleep-1.svg" width="36" height="20" alt=""></span><code>truffle-sleep-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-ear.svg" width="36" height="20" alt=""></span><span class="stand"><img src="truffle-ear.svg" width="144" height="80" alt=""></span></div>
+        <code class="file">truffle-ear.svg</code>
+        <span class="pn__label">36 × 20 px · 1100 / 300 ms, then holds frame 2</span>
+        <p class="use">one ear pricks up and an eye opens a slit; plays once and holds</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-ear-0.svg" width="36" height="20" alt=""></span><code>truffle-ear-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-ear-1.svg" width="36" height="20" alt=""></span><code>truffle-ear-1.svg</code></span><span class="frame"><span class="stand"><img src="truffle-ear-2.svg" width="36" height="20" alt=""></span><code>truffle-ear-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-sit-0.svg" width="24" height="24" alt=""></span><span class="stand"><img src="truffle-sit-0.svg" width="96" height="96" alt=""></span></div>
+        <code class="file">truffle-sit-0.svg</code>
+        <span class="pn__label">24 × 24 px · 1 frame, static</span>
+        <p class="use">sitting up, awake, from the front</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-sit-0.svg" width="24" height="24" alt=""></span><code>truffle-sit-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-walk.svg" width="34" height="26" alt=""></span><span class="stand"><img src="truffle-walk.svg" width="136" height="104" alt=""></span></div>
+        <code class="file">truffle-walk.svg</code>
+        <span class="pn__label">34 × 26 px · 110 ms per frame, loops</span>
+        <p class="use">a stroll, facing right; stride 2 px per frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-walk-0.svg" width="34" height="26" alt=""></span><code>truffle-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-1.svg" width="34" height="26" alt=""></span><code>truffle-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-2.svg" width="34" height="26" alt=""></span><code>truffle-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-3.svg" width="34" height="26" alt=""></span><code>truffle-walk-3.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-4.svg" width="34" height="26" alt=""></span><code>truffle-walk-4.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-5.svg" width="34" height="26" alt=""></span><code>truffle-walk-5.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-6.svg" width="34" height="26" alt=""></span><code>truffle-walk-6.svg</code></span><span class="frame"><span class="stand"><img src="truffle-walk-7.svg" width="34" height="26" alt=""></span><code>truffle-walk-7.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-trot.svg" width="34" height="26" alt=""></span><span class="stand"><img src="truffle-trot.svg" width="136" height="104" alt=""></span></div>
+        <code class="file">truffle-trot.svg</code>
+        <span class="pn__label">34 × 26 px · 90 ms per frame, loops</span>
+        <p class="use">a trot, facing right; stride 6 px per frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-trot-0.svg" width="34" height="26" alt=""></span><code>truffle-trot-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-trot-1.svg" width="34" height="26" alt=""></span><code>truffle-trot-1.svg</code></span><span class="frame"><span class="stand"><img src="truffle-trot-2.svg" width="34" height="26" alt=""></span><code>truffle-trot-2.svg</code></span><span class="frame"><span class="stand"><img src="truffle-trot-3.svg" width="34" height="26" alt=""></span><code>truffle-trot-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-paw.svg" width="30" height="24" alt=""></span><span class="stand"><img src="truffle-paw.svg" width="120" height="96" alt=""></span></div>
+        <code class="file">truffle-paw.svg</code>
+        <span class="pn__label">30 × 24 px · 400 / 350 / 250 / 300 ms, loops</span>
+        <p class="use">asking for a pet with one front paw</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-paw-0.svg" width="30" height="24" alt=""></span><code>truffle-paw-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-paw-1.svg" width="30" height="24" alt=""></span><code>truffle-paw-1.svg</code></span><span class="frame"><span class="stand"><img src="truffle-paw-2.svg" width="30" height="24" alt=""></span><code>truffle-paw-2.svg</code></span><span class="frame"><span class="stand"><img src="truffle-paw-3.svg" width="30" height="24" alt=""></span><code>truffle-paw-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="truffle-wake.svg" width="36" height="26" alt=""></span><span class="stand"><img src="truffle-wake.svg" width="144" height="104" alt=""></span></div>
+        <code class="file">truffle-wake.svg</code>
+        <span class="pn__label">36 × 26 px · 400 / 350 / 350 / 300 ms, loops</span>
+        <p class="use">waking up: from lying down to on her feet</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="truffle-wake-0.svg" width="36" height="26" alt=""></span><code>truffle-wake-0.svg</code></span><span class="frame"><span class="stand"><img src="truffle-wake-1.svg" width="36" height="26" alt=""></span><code>truffle-wake-1.svg</code></span><span class="frame"><span class="stand"><img src="truffle-wake-2.svg" width="36" height="26" alt=""></span><code>truffle-wake-2.svg</code></span><span class="frame"><span class="stand"><img src="truffle-wake-3.svg" width="36" height="26" alt=""></span><code>truffle-wake-3.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="luibot">
+      <header>
+        <span class="pn__label">luibot</span>
+        <h2>luibot</h2>
+        <p>One of Justin's two agents: a blue robot in the same straw hat and the slate hoodie. He flies between the pathway and the open pane to do small jobs.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-idle.svg" width="28" height="32" alt=""></span><span class="stand"><img src="luibot-idle.svg" width="112" height="128" alt=""></span></div>
+        <code class="file">luibot-idle.svg</code>
+        <span class="pn__label">28 × 32 px · 2800 / 160 ms, loops</span>
+        <p class="use">standing, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-idle-0.svg" width="28" height="32" alt=""></span><code>luibot-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-idle-1.svg" width="28" height="32" alt=""></span><code>luibot-idle-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-wave.svg" width="28" height="32" alt=""></span><span class="stand"><img src="luibot-wave.svg" width="112" height="128" alt=""></span></div>
+        <code class="file">luibot-wave.svg</code>
+        <span class="pn__label">28 × 32 px · 220 ms per frame, loops</span>
+        <p class="use">waving</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-wave-0.svg" width="28" height="32" alt=""></span><code>luibot-wave-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-wave-1.svg" width="28" height="32" alt=""></span><code>luibot-wave-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-fly.svg" width="28" height="37" alt=""></span><span class="stand"><img src="luibot-fly.svg" width="112" height="148" alt=""></span></div>
+        <code class="file">luibot-fly.svg</code>
+        <span class="pn__label">28 × 37 px · 260 ms per frame, loops</span>
+        <p class="use">hovering on two thruster flames</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-fly-0.svg" width="28" height="37" alt=""></span><code>luibot-fly-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-fly-1.svg" width="28" height="37" alt=""></span><code>luibot-fly-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-fly-wave.svg" width="28" height="37" alt=""></span><span class="stand"><img src="luibot-fly-wave.svg" width="112" height="148" alt=""></span></div>
+        <code class="file">luibot-fly-wave.svg</code>
+        <span class="pn__label">28 × 37 px · 260 ms per frame, loops</span>
+        <p class="use">hovering with the waving arm, for flipping a switch or pushing a chair in</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-fly-wave-0.svg" width="28" height="37" alt=""></span><code>luibot-fly-wave-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-fly-wave-1.svg" width="28" height="37" alt=""></span><code>luibot-fly-wave-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-feed.svg" width="28" height="37" alt=""></span><span class="stand"><img src="luibot-feed.svg" width="112" height="148" alt=""></span></div>
+        <code class="file">luibot-feed.svg</code>
+        <span class="pn__label">28 × 37 px · 260 ms per frame, loops</span>
+        <p class="use">hovering and pouring grain from a small sack</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-feed-0.svg" width="28" height="37" alt=""></span><code>luibot-feed-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-feed-1.svg" width="28" height="37" alt=""></span><code>luibot-feed-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-fly-carry.svg" width="28" height="41" alt=""></span><span class="stand"><img src="luibot-fly-carry.svg" width="112" height="164" alt=""></span></div>
+        <code class="file">luibot-fly-carry.svg</code>
+        <span class="pn__label">28 × 41 px · 260 ms per frame, loops</span>
+        <p class="use">hovering with the two shoeboxes hugged in front</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-fly-carry-0.svg" width="28" height="41" alt=""></span><code>luibot-fly-carry-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-fly-carry-1.svg" width="28" height="41" alt=""></span><code>luibot-fly-carry-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-beam-out.svg" width="28" height="32" alt=""></span><span class="stand"><img src="luibot-beam-out.svg" width="112" height="128" alt=""></span></div>
+        <code class="file">luibot-beam-out.svg</code>
+        <span class="pn__label">28 × 32 px · 70 / 70 / 70 / 70 / 70 / 70 ms, loops</span>
+        <p class="use">the teleport, leaving; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-beam-out-0.svg" width="28" height="32" alt=""></span><code>luibot-beam-out-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-1.svg" width="28" height="32" alt=""></span><code>luibot-beam-out-1.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-2.svg" width="28" height="32" alt=""></span><code>luibot-beam-out-2.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-3.svg" width="28" height="32" alt=""></span><code>luibot-beam-out-3.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-4.svg" width="28" height="32" alt=""></span><code>luibot-beam-out-4.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-5.svg" width="28" height="32" alt=""></span><code>luibot-beam-out-5.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-beam-in.svg" width="28" height="32" alt=""></span><span class="stand"><img src="luibot-beam-in.svg" width="112" height="128" alt=""></span></div>
+        <code class="file">luibot-beam-in.svg</code>
+        <span class="pn__label">28 × 32 px · 70 / 70 / 70 / 70 / 70 / 70 ms, loops</span>
+        <p class="use">the teleport, arriving; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-beam-in-0.svg" width="28" height="32" alt=""></span><code>luibot-beam-in-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-1.svg" width="28" height="32" alt=""></span><code>luibot-beam-in-1.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-2.svg" width="28" height="32" alt=""></span><code>luibot-beam-in-2.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-3.svg" width="28" height="32" alt=""></span><code>luibot-beam-in-3.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-4.svg" width="28" height="32" alt=""></span><code>luibot-beam-in-4.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-5.svg" width="28" height="32" alt=""></span><code>luibot-beam-in-5.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-beam-out-fly.svg" width="28" height="37" alt=""></span><span class="stand"><img src="luibot-beam-out-fly.svg" width="112" height="148" alt=""></span></div>
+        <code class="file">luibot-beam-out-fly.svg</code>
+        <span class="pn__label">28 × 37 px · 70 / 70 / 70 / 70 / 70 / 70 ms, loops</span>
+        <p class="use">the teleport, leaving, while he hovers</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-beam-out-fly-0.svg" width="28" height="37" alt=""></span><code>luibot-beam-out-fly-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-fly-1.svg" width="28" height="37" alt=""></span><code>luibot-beam-out-fly-1.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-fly-2.svg" width="28" height="37" alt=""></span><code>luibot-beam-out-fly-2.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-fly-3.svg" width="28" height="37" alt=""></span><code>luibot-beam-out-fly-3.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-fly-4.svg" width="28" height="37" alt=""></span><code>luibot-beam-out-fly-4.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-out-fly-5.svg" width="28" height="37" alt=""></span><code>luibot-beam-out-fly-5.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibot-beam-in-fly.svg" width="28" height="37" alt=""></span><span class="stand"><img src="luibot-beam-in-fly.svg" width="112" height="148" alt=""></span></div>
+        <code class="file">luibot-beam-in-fly.svg</code>
+        <span class="pn__label">28 × 37 px · 70 / 70 / 70 / 70 / 70 / 70 ms, loops</span>
+        <p class="use">the teleport, arriving, while he hovers</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibot-beam-in-fly-0.svg" width="28" height="37" alt=""></span><code>luibot-beam-in-fly-0.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-fly-1.svg" width="28" height="37" alt=""></span><code>luibot-beam-in-fly-1.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-fly-2.svg" width="28" height="37" alt=""></span><code>luibot-beam-in-fly-2.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-fly-3.svg" width="28" height="37" alt=""></span><code>luibot-beam-in-fly-3.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-fly-4.svg" width="28" height="37" alt=""></span><code>luibot-beam-in-fly-4.svg</code></span><span class="frame"><span class="stand"><img src="luibot-beam-in-fly-5.svg" width="28" height="37" alt=""></span><code>luibot-beam-in-fly-5.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="luibuilder">
+      <header>
+        <span class="pn__label">luibuilder</span>
+        <h2>luibuilder</h2>
+        <p>Justin's other agent: an orange, boxy robot in the straw hat and the rust over-shirt, one hand resting on a stone block.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-idle.svg" width="30" height="34" alt=""></span><span class="stand"><img src="luibuilder-idle.svg" width="120" height="136" alt=""></span></div>
+        <code class="file">luibuilder-idle.svg</code>
+        <span class="pn__label">30 × 34 px · 3400 / 160 ms, loops</span>
+        <p class="use">standing with a hand on the stone block, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-idle-0.svg" width="30" height="34" alt=""></span><code>luibuilder-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-idle-1.svg" width="30" height="34" alt=""></span><code>luibuilder-idle-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-wave.svg" width="30" height="34" alt=""></span><span class="stand"><img src="luibuilder-wave.svg" width="120" height="136" alt=""></span></div>
+        <code class="file">luibuilder-wave.svg</code>
+        <span class="pn__label">30 × 34 px · 240 ms, then holds frame 1</span>
+        <p class="use">tips his hat; plays once and holds</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-wave-0.svg" width="30" height="34" alt=""></span><code>luibuilder-wave-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-wave-1.svg" width="30" height="34" alt=""></span><code>luibuilder-wave-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-stand.svg" width="30" height="34" alt=""></span><span class="stand"><img src="luibuilder-stand.svg" width="120" height="136" alt=""></span></div>
+        <code class="file">luibuilder-stand.svg</code>
+        <span class="pn__label">30 × 34 px · 3400 / 160 ms, loops</span>
+        <p class="use">standing without the block, for the projects pane</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-stand-0.svg" width="30" height="34" alt=""></span><code>luibuilder-stand-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-stand-1.svg" width="30" height="34" alt=""></span><code>luibuilder-stand-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-build.svg" width="30" height="34" alt=""></span><span class="stand"><img src="luibuilder-build.svg" width="120" height="136" alt=""></span></div>
+        <code class="file">luibuilder-build.svg</code>
+        <span class="pn__label">30 × 34 px · 300 / 120 / 180 ms, loops</span>
+        <p class="use">one hammer strike; a one-shot the design repeats a few times</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-build-0.svg" width="30" height="34" alt=""></span><code>luibuilder-build-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-build-1.svg" width="30" height="34" alt=""></span><code>luibuilder-build-1.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-build-2.svg" width="30" height="34" alt=""></span><code>luibuilder-build-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-hop.svg" width="34" height="34" alt=""></span><span class="stand"><img src="luibuilder-hop.svg" width="136" height="136" alt=""></span></div>
+        <code class="file">luibuilder-hop.svg</code>
+        <span class="pn__label">34 × 34 px · 140 / 420 / 140 ms, loops</span>
+        <p class="use">crouch, airborne, land</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-hop-0.svg" width="34" height="34" alt=""></span><code>luibuilder-hop-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-hop-1.svg" width="34" height="34" alt=""></span><code>luibuilder-hop-1.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-hop-2.svg" width="34" height="34" alt=""></span><code>luibuilder-hop-2.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-beam-out.svg" width="30" height="34" alt=""></span><span class="stand"><img src="luibuilder-beam-out.svg" width="120" height="136" alt=""></span></div>
+        <code class="file">luibuilder-beam-out.svg</code>
+        <span class="pn__label">30 × 34 px · 70 / 70 / 70 / 70 / 70 / 70 ms, loops</span>
+        <p class="use">the teleport, leaving; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-beam-out-0.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-out-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-out-1.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-out-1.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-out-2.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-out-2.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-out-3.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-out-3.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-out-4.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-out-4.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-out-5.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-out-5.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="luibuilder-beam-in.svg" width="30" height="34" alt=""></span><span class="stand"><img src="luibuilder-beam-in.svg" width="120" height="136" alt=""></span></div>
+        <code class="file">luibuilder-beam-in.svg</code>
+        <span class="pn__label">30 × 34 px · 70 / 70 / 70 / 70 / 70 / 70 ms, loops</span>
+        <p class="use">the teleport, arriving; a one-shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="luibuilder-beam-in-0.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-in-0.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-in-1.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-in-1.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-in-2.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-in-2.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-in-3.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-in-3.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-in-4.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-in-4.svg</code></span><span class="frame"><span class="stand"><img src="luibuilder-beam-in-5.svg" width="30" height="34" alt=""></span><code>luibuilder-beam-in-5.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="desk">
+      <header>
+        <span class="pn__label">desk</span>
+        <h2>Desk</h2>
+        <p>The desk and chair at the last step, with nobody in the chair. It has the same canvas as Justin's `type`, so the two swap at one position.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="desk-idle-0.svg" width="64" height="62" alt=""></span><span class="stand"><img src="desk-idle-0.svg" width="256" height="248" alt=""></span></div>
+        <code class="file">desk-idle-0.svg</code>
+        <span class="pn__label">64 × 62 px · 1 frame, static</span>
+        <p class="use">the chair pulled out</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="desk-idle-0.svg" width="64" height="62" alt=""></span><code>desk-idle-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="desk-tuck.svg" width="64" height="62" alt=""></span><span class="stand"><img src="desk-tuck.svg" width="256" height="248" alt=""></span></div>
+        <code class="file">desk-tuck.svg</code>
+        <span class="pn__label">64 × 62 px · 75 / 75 / 75 / 75 / 75 / 75 / 75 / 75 ms, loops</span>
+        <p class="use">the chair slides under the desk; a one-shot the design steps frame by frame</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="desk-tuck-0.svg" width="64" height="62" alt=""></span><code>desk-tuck-0.svg</code></span><span class="frame"><span class="stand"><img src="desk-tuck-1.svg" width="64" height="62" alt=""></span><code>desk-tuck-1.svg</code></span><span class="frame"><span class="stand"><img src="desk-tuck-2.svg" width="64" height="62" alt=""></span><code>desk-tuck-2.svg</code></span><span class="frame"><span class="stand"><img src="desk-tuck-3.svg" width="64" height="62" alt=""></span><code>desk-tuck-3.svg</code></span><span class="frame"><span class="stand"><img src="desk-tuck-4.svg" width="64" height="62" alt=""></span><code>desk-tuck-4.svg</code></span><span class="frame"><span class="stand"><img src="desk-tuck-5.svg" width="64" height="62" alt=""></span><code>desk-tuck-5.svg</code></span><span class="frame"><span class="stand"><img src="desk-tuck-6.svg" width="64" height="62" alt=""></span><code>desk-tuck-6.svg</code></span><span class="frame"><span class="stand"><img src="desk-tuck-7.svg" width="64" height="62" alt=""></span><code>desk-tuck-7.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="ball">
+      <header>
+        <span class="pn__label">ball</span>
+        <h2>Tennis ball</h2>
+        <p>Truffle's ball. Its frame follows how far it has travelled (a quarter turn per frame, one turn per circumference), not a clock.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="ball-roll.svg" width="10" height="10" alt=""></span><span class="stand"><img src="ball-roll.svg" width="40" height="40" alt=""></span></div>
+        <code class="file">ball-roll.svg</code>
+        <span class="pn__label">10 × 10 px · 1200 ms per frame, loops</span>
+        <p class="use">a quarter turn per frame, rolling to the right; frame 0 is at rest</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="ball-roll-0.svg" width="10" height="10" alt=""></span><code>ball-roll-0.svg</code></span><span class="frame"><span class="stand"><img src="ball-roll-1.svg" width="10" height="10" alt=""></span><code>ball-roll-1.svg</code></span><span class="frame"><span class="stand"><img src="ball-roll-2.svg" width="10" height="10" alt=""></span><code>ball-roll-2.svg</code></span><span class="frame"><span class="stand"><img src="ball-roll-3.svg" width="10" height="10" alt=""></span><code>ball-roll-3.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="coffee">
+      <header>
+        <span class="pn__label">coffee</span>
+        <h2>Coffee corner</h2>
+        <p>The espresso machine and the grinder on their own cabinet, at step 5.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="coffee-idle-0.svg" width="43" height="50" alt=""></span><span class="stand"><img src="coffee-idle-0.svg" width="172" height="200" alt=""></span></div>
+        <code class="file">coffee-idle-0.svg</code>
+        <span class="pn__label">43 × 50 px · 1 frame, static</span>
+        <p class="use">at rest</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="coffee-idle-0.svg" width="43" height="50" alt=""></span><code>coffee-idle-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="coffee-empty-0.svg" width="43" height="50" alt=""></span><span class="stand"><img src="coffee-empty-0.svg" width="172" height="200" alt=""></span></div>
+        <code class="file">coffee-empty-0.svg</code>
+        <span class="pn__label">43 × 50 px · 1 frame, static</span>
+        <p class="use">the cup is gone, because it is in his hand</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="coffee-empty-0.svg" width="43" height="50" alt=""></span><code>coffee-empty-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="coffee-brew.svg" width="43" height="50" alt=""></span><span class="stand"><img src="coffee-brew.svg" width="172" height="200" alt=""></span></div>
+        <code class="file">coffee-brew.svg</code>
+        <span class="pn__label">43 × 50 px · 600 / 900 / 900 / 700 ms, loops</span>
+        <p class="use">pulling a shot</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="coffee-brew-0.svg" width="43" height="50" alt=""></span><code>coffee-brew-0.svg</code></span><span class="frame"><span class="stand"><img src="coffee-brew-1.svg" width="43" height="50" alt=""></span><code>coffee-brew-1.svg</code></span><span class="frame"><span class="stand"><img src="coffee-brew-2.svg" width="43" height="50" alt=""></span><code>coffee-brew-2.svg</code></span><span class="frame"><span class="stand"><img src="coffee-brew-3.svg" width="43" height="50" alt=""></span><code>coffee-brew-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="coffee-ready.svg" width="43" height="50" alt=""></span><span class="stand"><img src="coffee-ready.svg" width="172" height="200" alt=""></span></div>
+        <code class="file">coffee-ready.svg</code>
+        <span class="pn__label">43 × 50 px · 450 / 450 ms, loops</span>
+        <p class="use">the cup on the tray, steaming</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="coffee-ready-0.svg" width="43" height="50" alt=""></span><code>coffee-ready-0.svg</code></span><span class="frame"><span class="stand"><img src="coffee-ready-1.svg" width="43" height="50" alt=""></span><code>coffee-ready-1.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="shoe-rack">
+      <header>
+        <span class="pn__label">shoe-rack</span>
+        <h2>Shoe rack</h2>
+        <p>The rack of shoes and shoeboxes at step 1.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="shoe-rack-idle-0.svg" width="53" height="36" alt=""></span><span class="stand"><img src="shoe-rack-idle-0.svg" width="212" height="144" alt=""></span></div>
+        <code class="file">shoe-rack-idle-0.svg</code>
+        <span class="pn__label">53 × 36 px · 1 frame, static</span>
+        <p class="use">every box on the rack</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="shoe-rack-idle-0.svg" width="53" height="36" alt=""></span><code>shoe-rack-idle-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="shoe-rack-boxes-out-0.svg" width="53" height="36" alt=""></span><span class="stand"><img src="shoe-rack-boxes-out-0.svg" width="212" height="144" alt=""></span></div>
+        <code class="file">shoe-rack-boxes-out-0.svg</code>
+        <span class="pn__label">53 × 36 px · 1 frame, static</span>
+        <p class="use">the top two boxes taken</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="shoe-rack-boxes-out-0.svg" width="53" height="36" alt=""></span><code>shoe-rack-boxes-out-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="shoeboxes">
+      <header>
+        <span class="pn__label">shoeboxes</span>
+        <h2>Shoeboxes</h2>
+        <p>The two boxes he takes from the rack, cell for cell the ones in his `carry`.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="shoeboxes-idle-0.svg" width="16" height="23" alt=""></span><span class="stand"><img src="shoeboxes-idle-0.svg" width="64" height="92" alt=""></span></div>
+        <code class="file">shoeboxes-idle-0.svg</code>
+        <span class="pn__label">16 × 23 px · 1 frame, static</span>
+        <p class="use">set down on the floor</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="shoeboxes-idle-0.svg" width="16" height="23" alt=""></span><code>shoeboxes-idle-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="grass">
+      <header>
+        <span class="pn__label">grass</span>
+        <h2>Grass</h2>
+        <p>Loose tufts for the farm, drawn with no outline.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="grass-tuft-a.svg" width="7" height="5" alt=""></span><span class="stand"><img src="grass-tuft-a.svg" width="28" height="20" alt=""></span></div>
+        <code class="file">grass-tuft-a.svg</code>
+        <span class="pn__label">7 × 5 px · 4000 / 700 ms, loops</span>
+        <p class="use">a tuft that sways now and then</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="grass-tuft-a-0.svg" width="7" height="5" alt=""></span><code>grass-tuft-a-0.svg</code></span><span class="frame"><span class="stand"><img src="grass-tuft-a-1.svg" width="7" height="5" alt=""></span><code>grass-tuft-a-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="grass-tuft-b-0.svg" width="5" height="3" alt=""></span><span class="stand"><img src="grass-tuft-b-0.svg" width="20" height="12" alt=""></span></div>
+        <code class="file">grass-tuft-b-0.svg</code>
+        <span class="pn__label">5 × 3 px · 1 frame, static</span>
+        <p class="use">a small tuft</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="grass-tuft-b-0.svg" width="5" height="3" alt=""></span><code>grass-tuft-b-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="grass-tuft-c-0.svg" width="9" height="4" alt=""></span><span class="stand"><img src="grass-tuft-c-0.svg" width="36" height="16" alt=""></span></div>
+        <code class="file">grass-tuft-c-0.svg</code>
+        <span class="pn__label">9 × 4 px · 1 frame, static</span>
+        <p class="use">a wide tuft</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="grass-tuft-c-0.svg" width="9" height="4" alt=""></span><code>grass-tuft-c-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="grass-tuft-d-0.svg" width="6" height="6" alt=""></span><span class="stand"><img src="grass-tuft-d-0.svg" width="24" height="24" alt=""></span></div>
+        <code class="file">grass-tuft-d-0.svg</code>
+        <span class="pn__label">6 × 6 px · 1 frame, static</span>
+        <p class="use">a tall tuft</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="grass-tuft-d-0.svg" width="6" height="6" alt=""></span><code>grass-tuft-d-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="fence">
+      <header>
+        <span class="pn__label">fence</span>
+        <h2>Fence</h2>
+        <p>The farm's fence, built from repeated segments.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="fence-segment-0.svg" width="16" height="12" alt=""></span><span class="stand"><img src="fence-segment-0.svg" width="64" height="48" alt=""></span></div>
+        <code class="file">fence-segment-0.svg</code>
+        <span class="pn__label">16 × 12 px · 1 frame, static</span>
+        <p class="use">one repeatable length</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="fence-segment-0.svg" width="16" height="12" alt=""></span><code>fence-segment-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="fence-end-0.svg" width="4" height="12" alt=""></span><span class="stand"><img src="fence-end-0.svg" width="16" height="48" alt=""></span></div>
+        <code class="file">fence-end-0.svg</code>
+        <span class="pn__label">4 × 12 px · 1 frame, static</span>
+        <p class="use">the closing post</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="fence-end-0.svg" width="4" height="12" alt=""></span><code>fence-end-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="skyline">
+      <header>
+        <span class="pn__label">skyline</span>
+        <h2>Skyline</h2>
+        <p>New York, inside the first future plan's heading.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="skyline-idle.svg" width="96" height="42" alt=""></span><span class="stand"><img src="skyline-idle.svg" width="384" height="168" alt=""></span></div>
+        <code class="file">skyline-idle.svg</code>
+        <span class="pn__label">96 × 42 px · 4200 / 2600 / 5400 / 3100 / 4700 / 2200 ms, loops</span>
+        <p class="use">a few lit windows change, slowly</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="skyline-idle-0.svg" width="96" height="42" alt=""></span><code>skyline-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="skyline-idle-1.svg" width="96" height="42" alt=""></span><code>skyline-idle-1.svg</code></span><span class="frame"><span class="stand"><img src="skyline-idle-2.svg" width="96" height="42" alt=""></span><code>skyline-idle-2.svg</code></span><span class="frame"><span class="stand"><img src="skyline-idle-3.svg" width="96" height="42" alt=""></span><code>skyline-idle-3.svg</code></span><span class="frame"><span class="stand"><img src="skyline-idle-4.svg" width="96" height="42" alt=""></span><code>skyline-idle-4.svg</code></span><span class="frame"><span class="stand"><img src="skyline-idle-5.svg" width="96" height="42" alt=""></span><code>skyline-idle-5.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="steam">
+      <header>
+        <span class="pn__label">steam</span>
+        <h2>Steam</h2>
+        <p>A wisp from a roof vent on the skyline.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="steam-rise.svg" width="5" height="6" alt=""></span><span class="stand"><img src="steam-rise.svg" width="20" height="24" alt=""></span></div>
+        <code class="file">steam-rise.svg</code>
+        <span class="pn__label">5 × 6 px · 450 / 450 / 450 ms, loops</span>
+        <p class="use">rising</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="steam-rise-0.svg" width="5" height="6" alt=""></span><code>steam-rise-0.svg</code></span><span class="frame"><span class="stand"><img src="steam-rise-1.svg" width="5" height="6" alt=""></span><code>steam-rise-1.svg</code></span><span class="frame"><span class="stand"><img src="steam-rise-2.svg" width="5" height="6" alt=""></span><code>steam-rise-2.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="billboard">
+      <header>
+        <span class="pn__label">billboard</span>
+        <h2>Billboard</h2>
+        <p>The board on the skyline's roofs. The words on it are real text laid over its panel.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="billboard-idle.svg" width="61" height="22" alt=""></span><span class="stand"><img src="billboard-idle.svg" width="244" height="88" alt=""></span></div>
+        <code class="file">billboard-idle.svg</code>
+        <span class="pn__label">61 × 22 px · 600 ms, then holds frame 1</span>
+        <p class="use">frame 0 lamps off, frame 1 lamps lit; holds</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="billboard-idle-0.svg" width="61" height="22" alt=""></span><code>billboard-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="billboard-idle-1.svg" width="61" height="22" alt=""></span><code>billboard-idle-1.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="cherry-tree">
+      <header>
+        <span class="pn__label">cherry-tree</span>
+        <h2>Cherry tree</h2>
+        <p>Japan, inside the second future plan's heading.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="cherry-tree-idle-0.svg" width="40" height="40" alt=""></span><span class="stand"><img src="cherry-tree-idle-0.svg" width="160" height="160" alt=""></span></div>
+        <code class="file">cherry-tree-idle-0.svg</code>
+        <span class="pn__label">40 × 40 px · 1 frame, static</span>
+        <p class="use">in blossom</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="cherry-tree-idle-0.svg" width="40" height="40" alt=""></span><code>cherry-tree-idle-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="petal">
+      <header>
+        <span class="pn__label">petal</span>
+        <h2>Petal</h2>
+        <p>One petal from the cherry tree.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="petal-fall.svg" width="5" height="10" alt=""></span><span class="stand"><img src="petal-fall.svg" width="20" height="40" alt=""></span></div>
+        <code class="file">petal-fall.svg</code>
+        <span class="pn__label">5 × 10 px · 220 / 220 / 220 ms, then holds frame 3</span>
+        <p class="use">falling; plays once and holds</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="petal-fall-0.svg" width="5" height="10" alt=""></span><code>petal-fall-0.svg</code></span><span class="frame"><span class="stand"><img src="petal-fall-1.svg" width="5" height="10" alt=""></span><code>petal-fall-1.svg</code></span><span class="frame"><span class="stand"><img src="petal-fall-2.svg" width="5" height="10" alt=""></span><code>petal-fall-2.svg</code></span><span class="frame"><span class="stand"><img src="petal-fall-3.svg" width="5" height="10" alt=""></span><code>petal-fall-3.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="stones">
+      <header>
+        <span class="pn__label">stones</span>
+        <h2>Stones</h2>
+        <p>The stones luibuilder works on among the projects.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="stones-idle-0.svg" width="7" height="14" alt=""></span><span class="stand"><img src="stones-idle-0.svg" width="28" height="56" alt=""></span></div>
+        <code class="file">stones-idle-0.svg</code>
+        <span class="pn__label">7 × 14 px · 1 frame, static</span>
+        <p class="use">at rest</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="stones-idle-0.svg" width="7" height="14" alt=""></span><code>stones-idle-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="stones-strike-0.svg" width="7" height="14" alt=""></span><span class="stand"><img src="stones-strike-0.svg" width="28" height="56" alt=""></span></div>
+        <code class="file">stones-strike-0.svg</code>
+        <span class="pn__label">7 × 14 px · 1 frame, static</span>
+        <p class="use">a chip flies off as the hammer lands</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="stones-strike-0.svg" width="7" height="14" alt=""></span><code>stones-strike-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="farm-sign">
+      <header>
+        <span class="pn__label">farm-sign</span>
+        <h2>Farm sign</h2>
+        <p>The hanging board of the farm. The words on it are real text laid over its panel.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="farm-sign-idle-0.svg" width="61" height="22" alt=""></span><span class="stand"><img src="farm-sign-idle-0.svg" width="244" height="88" alt=""></span></div>
+        <code class="file">farm-sign-idle-0.svg</code>
+        <span class="pn__label">61 × 22 px · 1 frame, static</span>
+        <p class="use">at rest</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="farm-sign-idle-0.svg" width="61" height="22" alt=""></span><code>farm-sign-idle-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="torii">
+      <header>
+        <span class="pn__label">torii</span>
+        <h2>Torii</h2>
+        <p>The gate beside the cherry tree. The words on its board are real text laid over its panel.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="torii-idle-0.svg" width="46" height="34" alt=""></span><span class="stand"><img src="torii-idle-0.svg" width="184" height="136" alt=""></span></div>
+        <code class="file">torii-idle-0.svg</code>
+        <span class="pn__label">46 × 34 px · 1 frame, static</span>
+        <p class="use">at rest</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="torii-idle-0.svg" width="46" height="34" alt=""></span><code>torii-idle-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="torii-rested-0.svg" width="46" height="34" alt=""></span><span class="stand"><img src="torii-rested-0.svg" width="184" height="136" alt=""></span></div>
+        <code class="file">torii-rested-0.svg</code>
+        <span class="pn__label">46 × 34 px · 1 frame, static</span>
+        <p class="use">a petal has landed on the top beam</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="torii-rested-0.svg" width="46" height="34" alt=""></span><code>torii-rested-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="feed">
+      <header>
+        <span class="pn__label">feed</span>
+        <h2>Feed</h2>
+        <p>The grain luibot pours for the hen.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="feed-fall.svg" width="9" height="16" alt=""></span><span class="stand"><img src="feed-fall.svg" width="36" height="64" alt=""></span></div>
+        <code class="file">feed-fall.svg</code>
+        <span class="pn__label">9 × 16 px · 140 / 140 / 140 ms, then holds frame 3</span>
+        <p class="use">falling; plays once and holds</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="feed-fall-0.svg" width="9" height="16" alt=""></span><code>feed-fall-0.svg</code></span><span class="frame"><span class="stand"><img src="feed-fall-1.svg" width="9" height="16" alt=""></span><code>feed-fall-1.svg</code></span><span class="frame"><span class="stand"><img src="feed-fall-2.svg" width="9" height="16" alt=""></span><code>feed-fall-2.svg</code></span><span class="frame"><span class="stand"><img src="feed-fall-3.svg" width="9" height="16" alt=""></span><code>feed-fall-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="feed-pile-0.svg" width="9" height="16" alt=""></span><span class="stand"><img src="feed-pile-0.svg" width="36" height="64" alt=""></span></div>
+        <code class="file">feed-pile-0.svg</code>
+        <span class="pn__label">9 × 16 px · 1 frame, static</span>
+        <p class="use">a full pile</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="feed-pile-0.svg" width="9" height="16" alt=""></span><code>feed-pile-0.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="feed-pile-half-0.svg" width="9" height="16" alt=""></span><span class="stand"><img src="feed-pile-half-0.svg" width="36" height="64" alt=""></span></div>
+        <code class="file">feed-pile-half-0.svg</code>
+        <span class="pn__label">9 × 16 px · 1 frame, static</span>
+        <p class="use">half eaten</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="feed-pile-half-0.svg" width="9" height="16" alt=""></span><code>feed-pile-half-0.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="chicken">
+      <header>
+        <span class="pn__label">chicken</span>
+        <h2>Hen</h2>
+        <p>The hen of the farm.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="chicken-idle.svg" width="23" height="19" alt=""></span><span class="stand"><img src="chicken-idle.svg" width="92" height="76" alt=""></span></div>
+        <code class="file">chicken-idle.svg</code>
+        <span class="pn__label">23 × 19 px · 3200 / 150 ms, loops</span>
+        <p class="use">standing, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="chicken-idle-0.svg" width="23" height="19" alt=""></span><code>chicken-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="chicken-idle-1.svg" width="23" height="19" alt=""></span><code>chicken-idle-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="chicken-peck.svg" width="23" height="19" alt=""></span><span class="stand"><img src="chicken-peck.svg" width="92" height="76" alt=""></span></div>
+        <code class="file">chicken-peck.svg</code>
+        <span class="pn__label">23 × 19 px · 1800 / 130 / 260 / 130 ms, loops</span>
+        <p class="use">pecking at the feed</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="chicken-peck-0.svg" width="23" height="19" alt=""></span><code>chicken-peck-0.svg</code></span><span class="frame"><span class="stand"><img src="chicken-peck-1.svg" width="23" height="19" alt=""></span><code>chicken-peck-1.svg</code></span><span class="frame"><span class="stand"><img src="chicken-peck-2.svg" width="23" height="19" alt=""></span><code>chicken-peck-2.svg</code></span><span class="frame"><span class="stand"><img src="chicken-peck-3.svg" width="23" height="19" alt=""></span><code>chicken-peck-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="chicken-walk.svg" width="23" height="19" alt=""></span><span class="stand"><img src="chicken-walk.svg" width="92" height="76" alt=""></span></div>
+        <code class="file">chicken-walk.svg</code>
+        <span class="pn__label">23 × 19 px · 180 ms per frame, loops</span>
+        <p class="use">walking, facing right</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="chicken-walk-0.svg" width="23" height="19" alt=""></span><code>chicken-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="chicken-walk-1.svg" width="23" height="19" alt=""></span><code>chicken-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="chicken-walk-2.svg" width="23" height="19" alt=""></span><code>chicken-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="chicken-walk-3.svg" width="23" height="19" alt=""></span><code>chicken-walk-3.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="cow">
+      <header>
+        <span class="pn__label">cow</span>
+        <h2>Cow</h2>
+        <p>The cow at step 4 of the pathway.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="cow-idle.svg" width="64" height="42" alt=""></span><span class="stand"><img src="cow-idle.svg" width="256" height="168" alt=""></span></div>
+        <code class="file">cow-idle.svg</code>
+        <span class="pn__label">64 × 42 px · 3400 / 150 ms, loops</span>
+        <p class="use">standing, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="cow-idle-0.svg" width="64" height="42" alt=""></span><code>cow-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="cow-idle-1.svg" width="64" height="42" alt=""></span><code>cow-idle-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="cow-graze.svg" width="64" height="42" alt=""></span><span class="stand"><img src="cow-graze.svg" width="256" height="168" alt=""></span></div>
+        <code class="file">cow-graze.svg</code>
+        <span class="pn__label">64 × 42 px · 2600 / 180 / 700 / 350 / 500 / 350 / 180 ms, loops</span>
+        <p class="use">grazing</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="cow-graze-0.svg" width="64" height="42" alt=""></span><code>cow-graze-0.svg</code></span><span class="frame"><span class="stand"><img src="cow-graze-1.svg" width="64" height="42" alt=""></span><code>cow-graze-1.svg</code></span><span class="frame"><span class="stand"><img src="cow-graze-2.svg" width="64" height="42" alt=""></span><code>cow-graze-2.svg</code></span><span class="frame"><span class="stand"><img src="cow-graze-3.svg" width="64" height="42" alt=""></span><code>cow-graze-3.svg</code></span><span class="frame"><span class="stand"><img src="cow-graze-4.svg" width="64" height="42" alt=""></span><code>cow-graze-4.svg</code></span><span class="frame"><span class="stand"><img src="cow-graze-5.svg" width="64" height="42" alt=""></span><code>cow-graze-5.svg</code></span><span class="frame"><span class="stand"><img src="cow-graze-6.svg" width="64" height="42" alt=""></span><code>cow-graze-6.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="cow-walk.svg" width="64" height="42" alt=""></span><span class="stand"><img src="cow-walk.svg" width="256" height="168" alt=""></span></div>
+        <code class="file">cow-walk.svg</code>
+        <span class="pn__label">64 × 42 px · 260 ms per frame, loops</span>
+        <p class="use">walking, facing right</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="cow-walk-0.svg" width="64" height="42" alt=""></span><code>cow-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="cow-walk-1.svg" width="64" height="42" alt=""></span><code>cow-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="cow-walk-2.svg" width="64" height="42" alt=""></span><code>cow-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="cow-walk-3.svg" width="64" height="42" alt=""></span><code>cow-walk-3.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="cow-tail.svg" width="64" height="42" alt=""></span><span class="stand"><img src="cow-tail.svg" width="256" height="168" alt=""></span></div>
+        <code class="file">cow-tail.svg</code>
+        <span class="pn__label">64 × 42 px · 2400 / 400 / 400 ms, loops</span>
+        <p class="use">a swish of the tail</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="cow-tail-0.svg" width="64" height="42" alt=""></span><code>cow-tail-0.svg</code></span><span class="frame"><span class="stand"><img src="cow-tail-1.svg" width="64" height="42" alt=""></span><code>cow-tail-1.svg</code></span><span class="frame"><span class="stand"><img src="cow-tail-2.svg" width="64" height="42" alt=""></span><code>cow-tail-2.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+    <section class="character" id="sheep">
+      <header>
+        <span class="pn__label">sheep</span>
+        <h2>Sheep</h2>
+        <p>The sheep grazing beside the farm's heading.</p>
+      </header>
+      <div class="actions">
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="sheep-idle.svg" width="38" height="28" alt=""></span><span class="stand"><img src="sheep-idle.svg" width="152" height="112" alt=""></span></div>
+        <code class="file">sheep-idle.svg</code>
+        <span class="pn__label">38 × 28 px · 3000 / 400 ms, loops</span>
+        <p class="use">standing, blinking</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="sheep-idle-0.svg" width="38" height="28" alt=""></span><code>sheep-idle-0.svg</code></span><span class="frame"><span class="stand"><img src="sheep-idle-1.svg" width="38" height="28" alt=""></span><code>sheep-idle-1.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="sheep-graze.svg" width="38" height="28" alt=""></span><span class="stand"><img src="sheep-graze.svg" width="152" height="112" alt=""></span></div>
+        <code class="file">sheep-graze.svg</code>
+        <span class="pn__label">38 × 28 px · 2600 / 180 / 700 / 350 / 180 ms, loops</span>
+        <p class="use">grazing</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="sheep-graze-0.svg" width="38" height="28" alt=""></span><code>sheep-graze-0.svg</code></span><span class="frame"><span class="stand"><img src="sheep-graze-1.svg" width="38" height="28" alt=""></span><code>sheep-graze-1.svg</code></span><span class="frame"><span class="stand"><img src="sheep-graze-2.svg" width="38" height="28" alt=""></span><code>sheep-graze-2.svg</code></span><span class="frame"><span class="stand"><img src="sheep-graze-3.svg" width="38" height="28" alt=""></span><code>sheep-graze-3.svg</code></span><span class="frame"><span class="stand"><img src="sheep-graze-4.svg" width="38" height="28" alt=""></span><code>sheep-graze-4.svg</code></span></div>
+      </article>
+      <article class="action">
+        <div class="stage"><span class="stand"><img src="sheep-walk.svg" width="38" height="28" alt=""></span><span class="stand"><img src="sheep-walk.svg" width="152" height="112" alt=""></span></div>
+        <code class="file">sheep-walk.svg</code>
+        <span class="pn__label">38 × 28 px · 240 ms per frame, loops</span>
+        <p class="use">walking, facing right</p>
+        <div class="frames"><span class="frame"><span class="stand"><img src="sheep-walk-0.svg" width="38" height="28" alt=""></span><code>sheep-walk-0.svg</code></span><span class="frame"><span class="stand"><img src="sheep-walk-1.svg" width="38" height="28" alt=""></span><code>sheep-walk-1.svg</code></span><span class="frame"><span class="stand"><img src="sheep-walk-2.svg" width="38" height="28" alt=""></span><code>sheep-walk-2.svg</code></span><span class="frame"><span class="stand"><img src="sheep-walk-3.svg" width="38" height="28" alt=""></span><code>sheep-walk-3.svg</code></span></div>
+      </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

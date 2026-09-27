@@ -1,0 +1,61 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pathway</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* A card shows parts, not the window, so the window's grid is switched off here. */
+  .panes { display: block; height: auto; overflow: visible; padding: 24px; }
+  /* This card's own note. Everything with a pn__ class is the site's. */
+  .note { max-width: 62ch; margin-bottom: 20px; color: var(--pn-muted); font-size: 14px; }
+  /* The two bars run the full width of the window. */
+  .panes { padding: 24px 0 0; }
+  .note { margin-left: 24px; margin-right: 24px; }
+  /* The site places the stretches, the actors and luibot from script. These rules stand in for
+    it: --step is the step's number from 0, --from-centre is the offset from the step's centre. */
+  .pn__stretch { left: calc(100% / 6 * var(--step)); width: calc(100% / 6); }
+  .pn__actor, .pn__bot { left: calc(100% / 12 * (2 * var(--step) + 1) + var(--from-centre)); }
+  /* On a phone the site shows the selected step's stretch alone, and the open pane without the cards. */
+  @media (max-width: 639px) {
+    .pn__stretch { left: 0; width: 100%; }
+    .pn__actor { left: calc(50% + var(--from-centre)); }
+    .pn__stretch:not([data-selected]), .pn__actor:not([data-selected]), .pn__bot, .pn__stack, .pn__expand { display: none; }
+    .pn__work { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<main class="panes">
+  <p class="note">The pathway is the strip along the bottom where his sprite walks. It has one step per section, in the order of the cards, and under it the step bar names each step. Selecting a step, by a key, a click or the search, opens its section in the pane and sends him walking to it. The selected step is amber with a bar under it. Each step has its residents at home all the time: the shoe rack, Truffle asleep, the two robots, the cow, the coffee corner with the ball beside it, and the desk. Here step 1 is selected and he holds two shoeboxes from the rack. The floor is the step bar's top rule, and every sprite stands on it at true size. On a phone the pathway shows the selected step alone.</p>
+  <div class="pn__stage" aria-hidden="true">
+    <span class="pn__stretch" data-selected style="--step: 0"><span class="pn__prop" style="left: 4px"><img src="../sprites/shoe-rack-boxes-out-0.svg" width="53" height="36" alt=""></span></span>
+    <span class="pn__stretch" style="--step: 1"></span>
+    <span class="pn__stretch" style="--step: 2"><span class="pn__prop" style="left: calc(50% + 37px)"><img src="../sprites/luibuilder-idle.svg" width="30" height="34" alt=""></span></span>
+    <span class="pn__stretch" style="--step: 3"><span class="pn__prop" style="left: 4px"><img src="../sprites/cow-idle.svg" width="64" height="42" alt=""></span></span>
+    <span class="pn__stretch" style="--step: 4"><span class="pn__prop" style="left: 8px"><img src="../sprites/coffee-idle-0.svg" width="43" height="50" alt=""></span></span>
+    <span class="pn__stretch" style="--step: 5"><span class="pn__prop" style="left: calc(50% - 18px)"><img src="../sprites/desk-tuck-7.svg" width="64" height="62" alt=""></span></span>
+    <span class="pn__actor" data-actor="justin" data-selected style="--step: 0; --from-centre: -18px"><img src="../sprites/justin-overshirt-carry.svg" width="36" height="62" alt=""></span>
+    <span class="pn__actor" data-actor="ball" style="--step: 4; --from-centre: 7px"><img src="../sprites/ball-roll-0.svg" width="10" height="10" alt=""></span>
+    <span class="pn__actor" data-actor="truffle" style="--step: 1; --from-centre: 22px"><img src="../sprites/truffle-sleep.svg" width="36" height="20" alt="" style="transform: scaleX(-1)"></span>
+  </div>
+  <span class="pn__bot" aria-hidden="true" style="--step: 2; --from-centre: -66px"><img src="../sprites/luibot-idle.svg" width="28" height="32" alt=""></span>
+  <footer class="pn__statusbar">
+    <nav class="pn__segments" aria-label="Sections">
+      <button type="button" class="pn__segment" aria-current="true"><span class="pn__segment-n" aria-hidden="true">1</span>hello</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">2</span>people</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">3</span>agents</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">4</span>future</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">5</span>now</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">6</span>projects</button>
+    </nav>
+  </footer>
+</main>
+</body>
+</html>

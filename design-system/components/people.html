@@ -1,0 +1,69 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>People cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* A card shows parts, not the window, so the window's grid is switched off here. */
+  .panes { display: block; height: auto; overflow: visible; padding: 24px; }
+  /* This card's own note. Everything with a pn__ class is the site's. */
+  .note { max-width: 62ch; margin-bottom: 20px; color: var(--pn-muted); font-size: 14px; }
+  /* The pane's size in a 1280x800 window. Its body is a size container, so it needs a height. */
+  .pn__pane { max-width: 826px; height: 642px; }
+</style>
+</head>
+<body>
+<main class="panes">
+  <p class="note">A person's card is a name, one warm sentence with the person as its subject, and a quieter paragraph. Hairlines separate the rows. His girlfriend's card comes first, as wide as its sentences and centred, on the dim amber tint: it is the one highlight. Truffle's card ends with a live label that follows her sprite on the pathway. Its dot is faint while she sleeps and amber while she is awake, and the words say which.</p>
+  <article class="pn__pane pn__pane--open" aria-labelledby="pn-title-people">
+    <div class="pn__pane-head">
+      <button type="button" id="pn-title-people" class="pn__pane-title" aria-expanded="true">
+        <span class="pn__dot" aria-hidden="true"></span>
+        <span class="pn__pane-index" aria-hidden="true">2</span>
+        My people
+        <svg class="pn__chevron pn__chevron--open" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg>
+      </button>
+      <button type="button" class="pn__expand" aria-label="Expand this section"><svg class="pn__expand-icon" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5h3.5V5M10.5 1.5 7 5M5 10.5H1.5V7M1.5 10.5 5 7"/></svg>Expand</button>
+    </div>
+    <div class="pn__pane-body">
+      <p class="pn__lead">These are the people I love the most.</p>
+      <div class="pn__people">
+        <article class="pn__card pn__card--tinted pn__people-wide">
+          <div class="pn__card-head"><span class="pn__card-name">My girlfriend</span></div>
+          <h3>She’s my best friend and the most thoughtful person I know.</h3>
+          <p>She’s so kind, sweet, and beautiful. She communicates well, and she’s super responsible. Being with her makes me kinder, healthier, and more emotionally aware. We support each other through work and everything else, and I’m a better person because of her.</p>
+        </article>
+        <article class="pn__card">
+          <div class="pn__card-head"><span class="pn__card-name">My mom</span></div>
+          <h3>She’s my role model for hard work and perseverance.</h3>
+          <p>She’s an accountant and runs her own business, which she built from the ground up. She’s detailed, incredibly resilient, and always willing to do the thankless work.</p>
+        </article>
+        <article class="pn__card">
+          <div class="pn__card-head"><span class="pn__card-name">My dad</span></div>
+          <h3>He’s the most dependable and honest person I know.</h3>
+          <p>He’s sometimes a little too honest. I try to be as real as he is with the people I care about, but maybe a bit gentler.</p>
+        </article>
+        <article class="pn__card">
+          <div class="pn__card-head"><span class="pn__card-name">Andrea</span></div>
+          <h3>My little sister was made for New York.</h3>
+          <p>I look up to her because she moved to New York, chased what she wanted, and made it happen. She’s a huge part of why I finally chased my own dream of working at a startup in San Francisco. She also helped me get my job at Scorecard.</p>
+        </article>
+        <article class="pn__card">
+          <div class="pn__card-head"><span class="pn__card-name">Truffle</span></div>
+          <h3>She’s been my best friend since 2017.</h3>
+          <p>She’s my spoiled, squishy, and very sweet French Bulldog.</p>
+          <span class="pn__label pn__card-live">right now: asleep</span>
+        </article>
+      </div>
+    </div>
+  </article>
+</main>
+</body>
+</html>

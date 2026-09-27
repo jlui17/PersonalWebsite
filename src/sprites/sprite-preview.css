@@ -1,0 +1,395 @@
+/* This page has its own two swatches. The dark set is the panes design's, so a
+   sprite is judged on the ground it lives on, and the latte set shows it on a
+   light ground. The two type families are the site's: JetBrains Mono for the
+   headings and labels, Instrument Sans for the text. */
+.sp {
+  --sp-bg: #f3e8d8;
+  --sp-ink: #33291f;
+  --sp-muted: #6f6357;
+  --sp-accent: #a5642f;
+  --sp-line: rgba(51, 41, 31, 0.18);
+  --sp-line-strong: rgba(51, 41, 31, 0.45);
+  --sp-font-head: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --sp-font-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  /* Height of the phone layout's sticky bar, plus a little air. The observer's
+     band in SpritePreview.jsx starts just under it. */
+  --sp-bar: 6.5rem;
+
+  display: grid;
+  grid-template-columns: 15.5rem minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--sp-bg);
+  color: var(--sp-ink);
+  font-family: var(--sp-font-body);
+  font-size: 0.875rem;
+}
+
+.sp[data-bg="dark"] {
+  --sprite-outline: #463d33;
+  --sp-bg: #2b251e;
+  --sp-ink: #ece5d8;
+  --sp-muted: #afa494;
+  --sp-accent: #e8ab55;
+  --sp-line: rgba(236, 229, 216, 0.16);
+  --sp-line-strong: rgba(236, 229, 216, 0.42);
+}
+
+/* panes.css makes the page under the site dark. On the latte swatch this page
+   is a light one, scrollbars and the select's menu included. */
+html:has(.sp[data-bg="latte"]),
+html:has(.sp[data-bg="latte"]) body {
+  background: #f3e8d8; /* --sp-bg */
+  color-scheme: light;
+}
+
+.sp h1,
+.sp h2,
+.sp h3 {
+  font-family: var(--sp-font-head);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.sp-label {
+  font-family: var(--sp-font-head);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sp-muted);
+}
+
+.sp svg {
+  display: block;
+}
+
+.sp button,
+.sp select {
+  cursor: pointer;
+}
+
+.sp :focus-visible {
+  outline: 2px solid var(--sp-ink);
+  outline-offset: 2px;
+}
+
+/* ---- Side: title, controls, table of contents ---- */
+
+.sp-side {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1.5rem 1.25rem 0;
+  border-right: 1px solid var(--sp-line);
+}
+
+.sp-side h1 {
+  margin-top: 0.3rem;
+  font-size: 1.6rem;
+}
+
+.sp-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.9rem 0;
+  border-block: 1px solid var(--sp-line);
+}
+
+.sp-choice {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sp-choice .sp-label {
+  width: 100%;
+  margin-bottom: 0.3rem;
+}
+
+.sp-choice button,
+.sp-play {
+  padding: 0.15rem 0.7rem;
+  border: 1px solid var(--sp-line-strong);
+  background: none;
+}
+
+.sp-choice button:first-of-type {
+  border-radius: 6px 0 0 6px;
+}
+
+.sp-choice button + button {
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+}
+
+/* The chosen option is the filled one: a shape, not only a colour. */
+.sp-choice button[aria-pressed="true"] {
+  background: var(--sp-ink);
+  border-color: var(--sp-ink);
+  color: var(--sp-bg);
+  font-weight: 600;
+}
+
+.sp-jump {
+  display: none;
+}
+
+/* Only the list scrolls, so the controls above it never leave the window. */
+.sp-toc {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-right: -1.25rem;
+  padding: 0 1.25rem 2rem 0;
+}
+
+.sp-toc__sheet {
+  font-family: var(--sp-font-head);
+  font-size: 1.05rem;
+  text-transform: capitalize;
+}
+
+.sp-toc ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 0.1rem;
+  list-style: none;
+}
+
+.sp-toc li a {
+  display: block;
+  padding: 0.12rem 0 0.12rem 0.85rem;
+  position: relative;
+}
+
+.sp-toc a:hover {
+  color: var(--sp-ink);
+}
+
+/* In view: accent colour, heavier weight and a square in the margin. */
+.sp-toc a[aria-current],
+.sp-toc__group:has([aria-current]) .sp-toc__sheet {
+  color: var(--sp-accent);
+  font-weight: 600;
+}
+
+.sp-toc li a[aria-current]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  background: currentColor;
+}
+
+/* ---- Main ---- */
+
+/* The tall bottom padding lets the last block scroll up to the top, so a click
+   on the last entry lands like every other. */
+.sp-main {
+  padding: 1.5rem 2rem 80vh;
+}
+
+.sp-lineup {
+  scroll-margin-top: var(--sp-bar);
+}
+
+.sp-lineup__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.25rem;
+  margin-top: 0.9rem;
+}
+
+.sp-lineup__row a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sp-lineup__row a:hover .sp-label {
+  color: var(--sp-accent);
+}
+
+.sp-sheet {
+  margin-top: 2.5rem;
+  scroll-margin-top: 1rem;
+}
+
+.sp-sheet__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.8rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--sp-line-strong);
+}
+
+.sp-sheet__head .sp-label:first-child {
+  color: var(--sp-accent);
+}
+
+.sp-sheet__head h2 {
+  font-size: 1.9rem;
+  text-transform: capitalize;
+}
+
+.sp-action {
+  padding: 1rem 0 1.4rem;
+  border-bottom: 1px solid var(--sp-line);
+  scroll-margin-top: 1rem;
+}
+
+.sp-action__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.sp-action__head h3 {
+  font-size: 1.3rem;
+}
+
+.sp-play {
+  min-width: 4.2rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.sp-play:hover,
+.sp-choice button:not([aria-pressed="true"]):hover {
+  border-color: var(--sp-ink);
+}
+
+/* The stage and the frame row share a line when they fit (most sheets), and
+   the frame row drops under the stage when they don't. */
+.sp-action__body,
+.sp-stage,
+.sp-frames {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+.sp-action__body {
+  gap: 0.6rem 1.75rem;
+}
+
+.sp-frames {
+  list-style: none;
+}
+
+/* A tile has no fill of its own: the sprite sits on the chosen background. */
+.sp-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.7rem;
+  border: 1px solid var(--sp-line);
+  border-radius: 6px;
+  background: none;
+}
+
+.sp-stage .sp-tile:first-child {
+  border-color: var(--sp-line-strong);
+}
+
+.sp-stage .sp-tile:first-child .sp-label {
+  color: var(--sp-ink);
+}
+
+button.sp-tile:hover {
+  border-color: var(--sp-line-strong);
+}
+
+/* The still that is showing: accent ring, accent label and a mark before the
+   number. The mark is a square while it plays and pause bars while it is held. */
+.sp-frames [aria-current] {
+  border-color: var(--sp-accent);
+  outline: 1px solid var(--sp-accent);
+  outline-offset: -2px;
+}
+
+.sp-frames [aria-current] .sp-label {
+  color: var(--sp-accent);
+  font-weight: 600;
+}
+
+.sp-frames [aria-current] .sp-label::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 0.45em;
+  background: currentColor;
+}
+
+.sp-frames[data-playing="false"] [aria-current] .sp-label::before {
+  width: 3px;
+  background: none;
+  border-inline: 2px solid currentColor;
+}
+
+/* ---- Phone: the side becomes a sticky bar, the table of contents a select ---- */
+
+@media (max-width: 760px) {
+  .sp {
+    display: block;
+  }
+
+  .sp-side {
+    z-index: 1;
+    height: auto;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--sp-line-strong);
+    background: var(--sp-bg);
+  }
+
+  .sp-side__title,
+  .sp-toc,
+  .sp-choice .sp-label {
+    display: none;
+  }
+
+  .sp-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .sp-jump {
+    display: block;
+    width: 100%;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--sp-line-strong);
+    border-radius: 6px;
+    background: var(--sp-bg);
+  }
+
+  .sp-main {
+    padding-inline: 1rem;
+  }
+
+  .sp-sheet,
+  .sp-action {
+    scroll-margin-top: var(--sp-bar);
+  }
+}

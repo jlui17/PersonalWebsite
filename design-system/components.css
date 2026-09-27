@@ -1,0 +1,1726 @@
+/* The rules of the panes parts, for the previews in this folder.
+   Every rule is copied from the site with its selector and its values unchanged: the base from
+   src/index.css, the rest from src/designs/panes/panes.css and src/designs/panes/scenes/scenes.css.
+   The custom properties are not here: they are in tokens.css, and a page needs both files.
+   Left out: the scenes of the future plans, luibuilder's spot among the projects, and the robots'
+   beam, which have no preview. When a rule changes in the source, copy it here and run
+   `node design-system/check.mjs`. */
+
+/* ======== from src/index.css: the part of the site's reset that these rules start from ========
+   It is in a layer, as it is on the site, so every rule below beats it. */
+@layer base {
+  *,
+  ::after,
+  ::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  }
+
+  html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  img,
+  svg {
+    display: block;
+    vertical-align: middle;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button,
+  input {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    border-radius: 0;
+    background-color: transparent;
+  }
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+/* ======== from src/designs/panes/panes.css ======== */
+/* panes: the site as one calm tool window. A deep warm ground (never black),
+   two accents that are blue against amber, never red against green: amber for
+   focus and attention, blue for links. Amber is always backed by a shape (a
+   filled dot, a bar under the segment), so colour alone never carries it.
+   Two type families, loaded by each page's font link: one for every
+   heading and every piece of chrome, one for the sentences (see "the type
+   system" in tokens.css).
+
+   Two reading levels. A folded pane shows its title and one sentence; the
+   open pane, in the wide column, shows that sentence large and then the
+   details, smaller and quieter. There is always exactly one open pane. */
+.panes {
+  position: relative; /* luibot's layer is placed against the window */
+
+  /* One window: title bar, the workspace, the sprites' pathway, the status bar.
+     The workspace never scrolls as a whole; the open pane's body does. */
+  display: grid;
+  grid-template-rows: var(--pn-title-h) minmax(0, 1fr) var(--pn-pathway-h) var(--pn-bar-h);
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--pn-ground);
+  color: var(--pn-ink);
+  font: 400 15px/1.6 var(--pn-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* :where() keeps this at class specificity, so every pn__ rule below wins by
+   order. */
+.panes :where(button) {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* The focus ring. Around a link it stands 2px off the words. On a button it
+   is drawn on the button's own edge, inwards, with the button's own corners:
+   a ring that stands off a control pokes out of whatever holds it (the
+   section's border, the folded column's clip, the bars). */
+.panes :where(a, button, [tabindex]) {
+  border-radius: 3px;
+}
+
+.panes a:focus-visible,
+.panes button:focus-visible,
+.panes [tabindex]:focus-visible {
+  outline: 2px solid var(--pn-amber);
+  outline-offset: 2px;
+}
+
+.panes button:focus-visible {
+  outline-offset: -2px;
+}
+
+/* The page under the window. */
+html,
+body {
+  background: #28221b; /* --pn-ground */
+  color-scheme: dark;
+}
+
+/* Who speaks in which role. Everything not named here is body. */
+.pn__label,
+.pn__title-right,
+.pn__clock,
+.pn__kbd,
+.pn__pane-title,
+.pn__back,
+.pn__expand,
+.pn__fold-head,
+.pn__statusbar,
+.pn__option-kind,
+.pn__palette-foot {
+  font: var(--pn-label);
+  letter-spacing: var(--pn-label-track);
+}
+
+.pn__title-name,
+.pn__palette-button,
+.pn__card-name,
+.pn__hello-foot,
+.pn__option,
+.pn__palette-empty {
+  font: var(--pn-ui);
+  letter-spacing: var(--pn-ui-track);
+}
+
+.pn__agent-head .pn__card-name,
+.pn__project-title,
+.pn__palette-input {
+  font: var(--pn-ui-large);
+  letter-spacing: var(--pn-ui-track);
+}
+
+.pn__label {
+  color: var(--pn-muted);
+}
+
+/* ---- title bar ---- */
+
+.pn__titlebar {
+  height: var(--pn-title-h);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  background: var(--pn-bar);
+  border-bottom: 1px solid var(--pn-line);
+}
+
+.pn__title-name {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.pn__title-right {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--pn-muted);
+  white-space: nowrap;
+}
+
+.pn__arrow {
+  display: inline-block; /* the page's base styles make every svg a block */
+  width: 0.9em;
+  height: 0.9em;
+  vertical-align: -0.08em;
+}
+
+.pn__arrow + .pn__arrow {
+  margin-left: 3px;
+}
+
+.pn__project-title .pn__arrow {
+  color: var(--pn-muted);
+}
+
+.pn__arrow--left {
+  transform: rotate(180deg);
+}
+
+.pn__arrow--out {
+  transform: rotate(-45deg);
+}
+
+.pn__hint b {
+  font-weight: inherit;
+  color: var(--pn-ink-2);
+}
+
+/* keyboard hints are no use on a touch screen */
+@media (hover: none), (pointer: coarse) {
+  .pn__hint {
+    display: none;
+  }
+}
+
+.pn__clock {
+  color: var(--pn-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.pn__clock-seconds {
+  color: var(--pn-muted);
+}
+
+.pn__digit {
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+}
+
+/* The palette button: a quiet pill in the centre of the title bar, the one
+   piece of chrome that reads "search". */
+.pn__palette-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 340px;
+  height: 26px;
+  padding: 0 8px 0 10px;
+  border: 1px solid var(--pn-line-strong);
+  border-radius: 6px;
+  background: var(--pn-surface);
+  color: var(--pn-muted);
+}
+
+.pn__palette-button:hover {
+  border-color: var(--pn-muted);
+  color: var(--pn-ink-2);
+}
+
+.pn__palette-button svg {
+  flex: none;
+  width: 13px;
+  height: 13px;
+}
+
+.pn__palette-button-text {
+  flex: 1;
+}
+
+.pn__kbd {
+  color: var(--pn-muted);
+  border: 1px solid var(--pn-line-strong);
+  border-radius: 4px;
+  padding: 3px 5px;
+}
+
+/* ---- workspace: the open pane and the stack of folded ones ---- */
+
+/* The open section on the left, the cards of all six on the right. The
+   right column is as wide as the longest hook that should stay on one line
+   ("I like building small tools for people I know.") plus a few px, so the
+   short hooks fill most of their card and the long ones, like every quieter
+   line, wrap to two balanced lines. The rest of the window goes to the open
+   section. */
+.pn__work {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(var(--pn-stack-w), 50%);
+  gap: 10px;
+  padding: 10px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pn__work.pn__work--solo,
+.pn__work.pn__work--list {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.pn__work--solo .pn__pane {
+  max-width: 820px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.pn__pane {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--pn-surface);
+  border: 1px solid var(--pn-amber);
+  border-radius: var(--pn-radius);
+}
+
+.pn__pane-head {
+  display: flex;
+  align-items: center;
+  flex: none;
+  height: 34px;
+  padding: 0 5px;
+  border-bottom: 1px solid var(--pn-line);
+}
+
+/* 24px tall and 5px in from the section's border on every side, like the
+   Expand button at the other end, so its focus ring nests in the corner. */
+.pn__pane-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 4px;
+  color: var(--pn-amber);
+}
+
+.pn__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pn-faint);
+  box-sizing: border-box;
+  flex: none;
+}
+
+.pn__pane-title .pn__dot {
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+}
+
+.pn__pane-index {
+  color: var(--pn-dim);
+  font-weight: 400;
+}
+
+.pn__chevron {
+  width: 10px;
+  height: 10px;
+  color: var(--pn-dim);
+  flex: none;
+}
+
+.pn__chevron--open {
+  transform: rotate(90deg);
+  color: var(--pn-amber);
+}
+
+.pn__back {
+  height: 34px;
+  padding: 0 10px 0 8px;
+  color: var(--pn-muted);
+  border-right: 1px solid var(--pn-line);
+  margin-right: 4px;
+}
+
+/* Expand: the open section alone, filling the workspace. A bordered button
+   with an icon and a word, always visible; the icon and the word both change
+   when it is on. */
+.pn__expand {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 24px;
+  padding: 0 9px 0 8px;
+  border: 1px solid var(--pn-line-strong);
+  border-radius: 4px;
+  color: var(--pn-muted);
+}
+
+.pn__expand:hover {
+  border-color: var(--pn-muted);
+  color: var(--pn-ink);
+}
+
+.pn__expand-icon {
+  width: 11px;
+  height: 11px;
+  flex: none;
+}
+
+.pn__pane-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 24px 26px 24px;
+  scrollbar-color: var(--pn-line-strong) transparent;
+  animation: pn-open 220ms ease-out;
+
+  /* The vertical rhythm (tokens.css) is measured against this box, so it is a size
+     container and needs a height of its own: on the site the window gives it one. */
+  container: pane / size;
+}
+
+/* more below the cut: the last lines fade instead of stopping mid-thought */
+.pn__pane-body[data-more],
+.pn__stack[data-more] {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent);
+}
+
+@keyframes pn-open {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The sentence a pane leads with (its hook, the same one its fold shows),
+   then the quieter line one rank down. */
+.pn__lead {
+  font: var(--pn-lead);
+  letter-spacing: var(--pn-lead-track);
+  color: var(--pn-ink);
+  max-width: var(--pn-lead-measure);
+  margin-bottom: calc(10px + var(--pn-more-text));
+  text-wrap: pretty;
+}
+
+.pn__more {
+  font-size: 14px;
+  color: var(--pn-muted);
+  max-width: 60ch;
+  margin-bottom: var(--pn-gap-hook);
+  text-wrap: pretty;
+}
+
+/* a pane with no quieter line steps from its hook to the details by the same 18px */
+.pn__lead:not(:has(+ .pn__more)) {
+  margin-bottom: var(--pn-gap-hook);
+}
+
+/* in pane 1 the lead ends its block, and the column's own gap follows */
+.pn__flow .pn__lead:last-child {
+  margin-bottom: 0;
+}
+
+/* The second heading rank (a pane's "###"): over a block of details, saying
+   what the block is about. Head family, one clear step under the lead and
+   over the body by size, weight and colour. */
+.pn__h3 {
+  font: var(--pn-h3);
+  letter-spacing: var(--pn-h3-track);
+  color: var(--pn-ink);
+  text-wrap: balance;
+}
+
+/* ---- the stack of folded panes ---- */
+
+.pn__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-color: var(--pn-line-strong) transparent;
+}
+
+/* Three ranks: the hook, the quieter line under it, and the title and invite
+   in the chrome voice on the top row. A card is as tall as its words, all
+   six are always whole, and the column's spare room sits at its end. */
+.pn__fold {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  padding: var(--pn-fold-pad);
+  background: var(--pn-surface);
+  border: 1px solid var(--pn-line);
+  border-radius: var(--pn-radius);
+  color: var(--pn-ink);
+}
+
+.pn__fold:hover {
+  border-color: var(--pn-line-strong);
+}
+
+/* the open section's card: the open section's border, and a filled dot */
+.pn__fold[aria-current="true"] {
+  border-color: var(--pn-amber);
+}
+
+.pn__fold-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: var(--pn-fold-gap);
+  color: var(--pn-dim);
+}
+
+.pn__fold-title {
+  color: var(--pn-muted);
+}
+
+.pn__fold[aria-current="true"] .pn__dot {
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+}
+
+.pn__fold[aria-current="true"] .pn__fold-title {
+  color: var(--pn-amber);
+}
+
+.pn__fold-hook {
+  font: var(--pn-fold-hook);
+  letter-spacing: var(--pn-fold-hook-track);
+  color: var(--pn-ink);
+  text-wrap: balance;
+}
+
+.pn__fold-invite {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--pn-dim);
+  white-space: nowrap;
+}
+
+.pn__fold:hover .pn__fold-invite,
+.pn__fold:focus-visible .pn__fold-invite {
+  color: var(--pn-amber);
+}
+
+.pn__fold-invite .pn__chevron {
+  width: 9px;
+  height: 9px;
+  color: inherit;
+}
+
+/* ---- the open pane's detail level ---- */
+
+.pn__h1 {
+  font: var(--pn-h1);
+  letter-spacing: var(--pn-h1-track);
+  color: var(--pn-ink);
+  margin-bottom: 14px;
+}
+
+.pn__link {
+  color: var(--pn-blue);
+  text-decoration: underline;
+  text-decoration-color: rgba(147, 194, 238, 0.4);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.pn__link:hover {
+  text-decoration-color: var(--pn-blue);
+}
+
+/* cards: people, home, someday share one shape */
+.pn__card {
+  padding: 16px 0 18px;
+  border-top: 1px solid var(--pn-line);
+}
+
+.pn__card:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.pn__card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: calc(6px + var(--pn-more-text));
+}
+
+.pn__card-name {
+  color: var(--pn-ink-2);
+}
+
+.pn__card h3 {
+  font: var(--pn-h3);
+  letter-spacing: var(--pn-h3-track);
+  color: var(--pn-ink);
+  margin-bottom: calc(6px + var(--pn-more-text));
+  text-wrap: pretty;
+}
+
+.pn__card p {
+  color: var(--pn-muted);
+  font-size: 14px;
+  max-width: 62ch; /* a wider section's room goes to the grid, not to longer lines */
+  text-wrap: pretty;
+}
+
+.pn__card--tinted {
+  margin: 0 -12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-top: 0;
+  border-radius: var(--pn-radius);
+  background: var(--pn-amber-dim);
+}
+
+.pn__card--tinted .pn__card-name {
+  color: var(--pn-ink);
+}
+
+.pn__card--tinted p {
+  color: var(--pn-ink-2);
+}
+
+.pn__card--tinted + .pn__card {
+  border-top: 0;
+}
+
+.pn__card-live {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: calc(10px + var(--pn-more-text));
+}
+
+.pn__card-live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pn-faint);
+}
+
+.pn__card-live--awake::before {
+  background: var(--pn-amber);
+}
+
+/* agents: two columns, each robot standing on the rule under its name */
+.pn__agents {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+}
+
+.pn__agent {
+  min-width: 0;
+}
+
+.pn__agent-head {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 44px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--pn-line-strong);
+  margin-bottom: calc(14px + var(--pn-more-text));
+}
+
+.pn__agent-head .pn__card-name {
+  color: var(--pn-ink);
+}
+
+.pn__agent h3 {
+  font: var(--pn-h3);
+  letter-spacing: var(--pn-h3-track);
+  margin-bottom: calc(8px + var(--pn-more-text));
+  text-wrap: pretty;
+}
+
+.pn__agent > p {
+  color: var(--pn-muted);
+  font-size: 14px;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.pn__does {
+  margin-top: calc(16px + 2 * var(--pn-more-text));
+}
+
+.pn__does .pn__label {
+  display: block;
+  margin-bottom: calc(8px + var(--pn-more-text));
+}
+
+.pn__does li {
+  position: relative;
+  padding: var(--pn-line-pad) 0 var(--pn-line-pad) 14px;
+  font-size: 13.5px;
+  color: var(--pn-muted);
+}
+
+/* a list ends on its last line's text, so the step under it is the same as under a paragraph */
+.pn__does li:last-child,
+.pn__roadmap li:last-child {
+  padding-bottom: 0;
+}
+
+.pn__does li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(var(--pn-line-pad) + 3px);
+  width: 2px;
+  height: 14px;
+  border-radius: 1px;
+  background: var(--pn-line-strong);
+}
+
+.pn__does li[aria-current="true"] {
+  color: var(--pn-ink);
+}
+
+.pn__does li[aria-current="true"]::before {
+  background: var(--pn-amber);
+}
+
+/* Under the two agents, the pane's second part: a hairline, then the roadmap
+   (top left) and after it the story in blocks like pane 1's, in the same two
+   columns as the agents. Pane 5's blocks use it too. The blocks keep their
+   order, down the first column and then the second; the site's script
+   splits them where the taller column comes out shortest, so any number of
+   blocks keeps one even rhythm with no holes. (CSS columns balance too, but
+   their box can come out up to half a gap taller than its content, and then
+   the step under it is not the step everywhere else.) */
+.pn__story,
+.pn__week {
+  margin-top: var(--pn-gap-above-rule);
+  padding-top: var(--pn-gap-below-rule);
+  border-top: 1px solid var(--pn-line);
+}
+
+.pn__story {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--pn-gap-block) 32px;
+  font-size: 14px; /* the paragraphs' size, so the 62ch is theirs */
+}
+
+.pn__story > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pn-gap-block);
+  min-width: 0;
+}
+
+.pn__story > div:empty {
+  display: none;
+}
+
+.pn__story > div > * {
+  max-width: 62ch;
+}
+
+/* The roadmap: a plain to-do list, a relative of the "what I hand him" lists.
+   Each line starts with its agent's name in a column as wide as the longer
+   name (--name-ch, from the content; the label face is a mono, so ch is
+   exact). The line's marker is a small square, blue for luibot and amber for
+   luibuilder: the name carries the meaning, the colour only helps the eye
+   scan a mixed list. */
+/* the heading with its note beside it, as a tag sits beside an agent's name:
+   one row on a shared baseline; where the row is too narrow for both, the
+   note goes under the heading as a quieter line */
+.pn__roadmap-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-bottom: calc(var(--pn-gap-heading) - 4px); /* the list's first line brings its own 5px */
+}
+
+.pn__roadmap li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: var(--pn-line-pad) 0;
+  font-size: 13.5px;
+  color: var(--pn-muted);
+}
+
+.pn__roadmap-agent {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: calc(var(--name-ch) * 1ch + 14px); /* the square, its gap and the name */
+}
+
+.pn__roadmap-agent::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--pn-faint);
+}
+
+.pn__roadmap-agent[data-agent="luibot"]::before {
+  background: var(--pn-blue);
+}
+
+.pn__roadmap-agent[data-agent="luibuilder"]::before {
+  background: var(--pn-amber);
+}
+
+/* Pane 5's week, a part of its own under a hairline: the heading, then a day
+   to a column on the same two columns, each day a "what I hand him" list
+   (.pn__does). The items read in order through the day, so a day is never
+   split or balanced across columns. */
+.pn__week .pn__h3 {
+  margin-bottom: calc(10px + var(--pn-more-text));
+}
+
+.pn__week-days {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pn-gap-block) 32px;
+}
+
+.pn__week .pn__does {
+  margin-top: 0;
+}
+
+/* projects: two by two */
+.pn__projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(22px + var(--pn-more-row)) 32px;
+}
+
+.pn__project {
+  min-width: 0;
+}
+
+.pn__project-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.pn__project-title {
+  color: var(--pn-blue);
+  text-decoration: none;
+}
+
+.pn__project-title:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pn__project-kicker {
+  color: var(--pn-ink-2);
+  font-size: 14.5px;
+  padding-top: var(--pn-more-text); /* on top of the head's own 9px (scenes.css); a margin would collapse into it */
+  margin-bottom: var(--pn-gap-heading);
+  text-wrap: pretty;
+}
+
+.pn__project-story {
+  color: var(--pn-muted);
+  font-size: 13.5px;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+/* ---- composing an open pane top to bottom ---- */
+
+/* A column of blocks with one even rhythm, top to bottom. Nothing stretches
+   to fill the pane: room left at the end is fine, a blank band between two
+   blocks is not. */
+.pn__pane-body > .pn__flow {
+  display: flex;
+  flex-direction: column;
+  gap: calc(20px + var(--pn-more-part));
+}
+
+/* hello's detail level: a block per trait (a "###" and its paragraph) in a
+   column of a readable measure; right beside it from the first block down,
+   the photo and under it one quiet last line. A wider pane gives the photo more
+   room, never the lines. */
+.pn__hello-body {
+  display: grid;
+  grid-template-columns: minmax(0, 62ch) clamp(200px, 30%, 360px);
+  justify-content: start;
+  align-items: start;
+  gap: 24px 40px;
+  font-size: 14px; /* the paragraphs' size, so the column's 62ch is theirs */
+}
+
+.pn__blocks,
+.pn__hello-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pn-gap-block);
+}
+
+.pn__block .pn__h3 {
+  margin-bottom: var(--pn-gap-heading);
+}
+
+.pn__block p {
+  color: var(--pn-muted);
+  text-wrap: pretty;
+}
+
+.pn__hello-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--pn-muted);
+}
+
+.pn__hello-foot .pn__link {
+  text-decoration: none;
+}
+
+.pn__hello-foot .pn__link:hover {
+  text-decoration: underline;
+}
+
+.pn__photo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* The one photo, framed and dimmed for the dark page: a mat one step lighter
+   than the pane with a hairline round it, and the whole picture a little
+   darker (a plain brightness factor: every colour by the same amount, so no
+   cast), so its whites stop short of the heading's ink. Under a mouse it
+   comes most of the way back up. */
+.pn__photo-frame {
+  display: block;
+  padding: 5px;
+  background: var(--pn-raised);
+  border: 1px solid var(--pn-line-strong);
+  border-radius: var(--pn-radius);
+}
+
+.pn__photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1489 / 1600;
+  object-fit: cover;
+  border-radius: 3px;
+  filter: brightness(var(--pn-photo-dim));
+  transition: filter 200ms ease-out;
+}
+
+@media (hover: hover) {
+  .pn__photo-frame:hover img {
+    filter: brightness(0.96);
+  }
+}
+
+/* people: the girlfriend's row first, then two to a row */
+.pn__people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 32px;
+}
+
+.pn__people .pn__card {
+  padding: calc(12px + var(--pn-more-part)) 0 calc(14px + var(--pn-more-part)); /* a row of cards to the next, around its hairline */
+  border-top: 1px solid var(--pn-line);
+}
+
+.pn__people .pn__card:nth-child(2),
+.pn__people .pn__card:nth-child(3) {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* nothing follows the last row, so it keeps no room under itself */
+.pn__people .pn__card:nth-last-child(-n + 2) {
+  padding-bottom: 0;
+}
+
+/* Her card keeps the first row but not its whole width: it is as wide as its
+   sentences (the 62ch measure) and sits centred over the two columns, so it
+   is a card and not a banner. On a phone the sentences fill the row anyway. */
+.pn__people .pn__people-wide {
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin: 0 -12px calc(6px + var(--pn-more-part));
+  padding: calc(14px + var(--pn-more-text)) 12px calc(16px + var(--pn-more-text));
+  border-top: 0;
+}
+
+/* ---- status bar: six segments spread between the pathway's props ---- */
+
+.pn__statusbar {
+  height: var(--pn-bar-h);
+  display: flex;
+  align-items: stretch;
+  background: var(--pn-bar);
+  border-top: 1px solid var(--pn-line);
+}
+
+.pn__segments {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.pn__segment {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 6px;
+  min-width: 0;
+  color: var(--pn-muted);
+  white-space: nowrap;
+}
+
+.pn__segment:hover {
+  color: var(--pn-ink);
+}
+
+.pn__segment-n {
+  color: var(--pn-dim);
+  font-weight: 400;
+}
+
+.pn__segment[aria-current="true"] {
+  color: var(--pn-amber);
+}
+
+.pn__segment[aria-current="true"] .pn__segment-n {
+  color: var(--pn-muted);
+}
+
+.pn__segment[aria-current="true"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 44px;
+  margin-left: -22px;
+  height: 2px;
+  background: var(--pn-amber);
+}
+
+.pn__segment:focus-visible {
+  outline-offset: -3px;
+}
+
+/* ---- the pathway: the sprites' own strip of chrome above the status bar. Its
+   bottom edge (the bar's top rule) is their floor; the workspace ends at its
+   top rule, so they never stand on anything but the pathway. ---- */
+
+/* luibot's layer: over the workspace and the pathway, feet on the pathway's ground
+   line (the status bar's top) when he stands */
+.pn__bot {
+  position: absolute;
+  left: 0;
+  bottom: var(--pn-bar-h);
+  z-index: 5;
+  line-height: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pn__bot svg {
+  display: block;
+}
+
+.pn__stage {
+  position: relative;
+  height: var(--pn-pathway-h);
+  background: var(--pn-bar);
+  border-top: 1px solid var(--pn-line);
+  overflow: hidden;
+}
+
+.pn__stretch {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.pn__prop,
+.pn__actor {
+  position: absolute;
+  bottom: 0;
+  line-height: 0;
+}
+
+.pn__prop svg,
+.pn__actor svg {
+  display: block;
+}
+
+.pn__actor {
+  left: 0;
+  will-change: transform;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Back to front: props, Justin, the ball, Truffle (she runs past in front of
+   him). Petting her lying down he is painted on top; petting her sitting up
+   she stays on top, so her ear sits in front of his forearm. */
+.pn__stretch {
+  z-index: 0;
+}
+.pn__actor[data-actor="justin"] {
+  z-index: 1;
+}
+.pn__actor[data-actor="ball"] {
+  z-index: 2;
+}
+.pn__actor[data-actor="truffle"] {
+  z-index: 3;
+}
+.pn__actor[data-actor="justin"][data-on-top="true"] {
+  z-index: 4;
+}
+
+/* ---- command palette ---- */
+
+.pn__palette-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12vh 16px 0;
+  background: rgba(20, 17, 13, 0.55);
+}
+
+.pn__palette {
+  width: 560px;
+  max-width: 100%;
+  background: var(--pn-raised);
+  border: 1px solid var(--pn-line-strong);
+  border-radius: 10px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.pn__palette:focus-within {
+  border-color: var(--pn-amber);
+}
+
+.pn__palette-input {
+  display: block;
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--pn-line);
+  color: var(--pn-ink);
+  outline: none;
+}
+
+.pn__palette-input::placeholder {
+  color: var(--pn-muted);
+}
+
+.pn__palette-list {
+  max-height: min(52vh, 420px);
+  overflow-y: auto;
+  padding: 6px;
+}
+
+.pn__palette-empty {
+  padding: 14px 12px;
+  color: var(--pn-muted);
+}
+
+.pn__option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 36px;
+  padding: 0 10px 0 14px;
+  border-radius: 6px;
+  color: var(--pn-ink-2);
+  cursor: pointer;
+}
+
+.pn__option::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  border-radius: 1px;
+  background: transparent;
+}
+
+.pn__option[aria-selected="true"] {
+  background: var(--pn-amber-dim);
+  color: var(--pn-ink);
+}
+
+.pn__option[aria-selected="true"]::before {
+  background: var(--pn-amber);
+}
+
+.pn__option mark {
+  background: none;
+  color: var(--pn-amber);
+}
+
+.pn__option-kind {
+  margin-left: auto;
+  color: var(--pn-muted);
+}
+
+.pn__option[aria-selected="true"] .pn__option-kind {
+  color: var(--pn-ink-2);
+}
+
+.pn__palette-foot {
+  display: flex;
+  gap: 16px;
+  padding: 9px 16px;
+  border-top: 1px solid var(--pn-line);
+  color: var(--pn-muted);
+}
+
+/* a touch device has no arrow keys, Enter or Esc to be told about */
+@media (hover: none) and (pointer: coarse) {
+  .pn__palette-foot {
+    display: none;
+  }
+}
+
+/* ---- narrower windows ---- */
+
+@media (max-width: 1100px) {
+  .pn__projects,
+  .pn__agents {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pn__story {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pn__week-days {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pn__hello-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pn__photo {
+    max-width: 240px;
+  }
+
+  .pn__agent + .pn__agent {
+    margin-top: 28px;
+  }
+
+  .pn__palette-button {
+    width: 260px;
+  }
+}
+
+@media (max-width: 900px) {
+  .pn__hint {
+    display: none;
+  }
+
+  .pn__pane-body {
+    padding: 20px 20px 24px;
+  }
+}
+
+/* Phone: the list of folded panes is the home screen; tapping one opens it
+   alone, with "all" in its head to come back. The status bar's segments are
+   the tab strip, a swipe moves between open panes, the clock sits in the
+   title bar and the palette shrinks to its icon. */
+/* The people pane in a narrow pane (a phone, a small or a tall window): the family goes
+   one to a row. Two columns need about 24 heading characters a line each, so
+   that today's longest heading (50 characters) takes three lines at most; that
+   is 460px of pane inside its padding, a window about 965px wide. */
+@container pane (max-width: 459px) {
+  .pn__people {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pn__people .pn__card:nth-child(3) {
+    border-top: 1px solid var(--pn-line);
+    padding-top: 12px;
+  }
+
+  /* one to a row here: only the very last card ends the pane */
+  .pn__people .pn__card:nth-last-child(2) {
+    padding-bottom: 14px;
+  }
+}
+
+@media (max-width: 639px) {
+  .pn__titlebar {
+    grid-template-columns: 1fr auto auto;
+    gap: 8px;
+    padding: 0 10px 0 14px;
+  }
+
+  .pn__title-name {
+    gap: 8px;
+  }
+
+  .pn__palette-button {
+    width: 34px;
+    height: 30px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .pn__palette-button-text,
+  .pn__palette-button .pn__kbd {
+    display: none;
+  }
+
+  .pn__palette-button svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .pn__work {
+    padding: 8px;
+  }
+
+  .pn__pane-body {
+    padding: 18px 16px 24px;
+  }
+
+  .pn__segment {
+    padding: 0 3px;
+    font-size: var(--pn-label-phone);
+    gap: 4px;
+  }
+
+  .pn__segment-n {
+    display: none;
+  }
+
+  .pn__segment[aria-current="true"]::after {
+    width: 28px;
+    margin-left: -14px;
+  }
+
+  .pn__palette-backdrop {
+    padding-top: 8vh;
+  }
+
+  /* Tap targets: every control a thumb uses is at least 40px tall (the search
+     button 40px wide too). The controls keep their looks and the bars their
+     heights; an invisible box around each one takes the taps. The steps' boxes
+     reach 11px up into the pathway, under the sprites there, which keep their
+     own taps (they are stacked above). */
+  .pn__palette-button,
+  .pn__back,
+  .pn__pane-title {
+    position: relative;
+  }
+
+  .pn__back::before,
+  .pn__pane-title::before {
+    z-index: 1; /* these two reach over the body's top padding, and the body is stacked after the head */
+  }
+
+  .pn__palette-button::before,
+  .pn__back::before,
+  .pn__pane-title::before,
+  .pn__segment::before {
+    content: "";
+    position: absolute;
+  }
+
+  .pn__palette-button::before {
+    inset: -7px -4px; /* 34x30 to 40x40, measured from inside its 1px border; the bar's own rule takes a pixel */
+  }
+
+  /* the section clips what reaches over its top edge, so these two grow
+     downwards, into the body's empty top padding */
+  .pn__back::before {
+    inset: 0 0 -6px; /* 34 to 40 tall */
+  }
+
+  .pn__pane-title::before {
+    inset: -5px 0 -11px; /* 24 to 40 tall */
+  }
+
+  .pn__segment::before {
+    inset: -11px 0 0; /* 29 to 40 tall */
+  }
+
+  .pn__card--tinted {
+    margin: 0 -8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+@media (max-width: 359px) {
+  .pn__segment {
+    padding: 0 2px;
+    font-size: calc(var(--pn-label-phone) - 0.5px);
+  }
+
+  .pn__clock-seconds,
+  .pn__title-name .pn__label {
+    display: none; /* the title bar is 24px too wide for a 320px phone */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panes *,
+  .panes *::before,
+  .panes *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ======== from src/designs/panes/scenes/scenes.css ======== */
+
+/* The scenes inside the open panes. Sprites stand on rules the layout
+   already has; every box is reserved for the sprite's largest pose (sizes
+   come from the sheets as custom properties), so no text moves when a pose
+   changes. */
+
+/* ---- pane 6: luibuilder among the projects ---- */
+
+/* Each project's head gets a rule: it carries his feet and his stones. His
+   box comes right after the title and the tag, with the head's own gap, on
+   every project, so no word moves when he comes or goes. A long tag drops
+   under its title instead of squeezing it. */
+.pn-built .pn__project-head {
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--pn-line-strong);
+  margin-bottom: 9px;
+}
+
+/* ---- pane 1: he stands beside the title ---- */
+
+/* The title row: "Hi, I'm Justin.", him right after the words, and under both
+   a rule that is his ground. His box is his widest pose (the hat tip), so
+   nothing moves when he tips. In a pane too narrow for both he takes his own
+   line under the title, on the same rule. */
+.panes .pn__hello-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 6px 18px;
+  border-bottom: 1px solid var(--pn-line-strong);
+  margin-bottom: 14px;
+}
+
+.panes .pn__hello-title .pn__h1 {
+  margin-bottom: 0;
+  padding-bottom: 9px;
+}
+
+.pn-hello {
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  width: var(--hello-w);
+  height: var(--hello-h);
+  line-height: 0;
+}
+
+.pn-hello svg {
+  display: block;
+}
+
+/* ---- pane 3: each robot beside his name ---- */
+
+/* He comes right after the name and the tag ("luibot  The main one  [him]"),
+   and reaches down through the head's padding so his feet meet the rule. */
+.panes .pn__agent-head {
+  padding-bottom: 8px;
+}
+
+.panes .pn-robot {
+  position: relative;
+  flex: none;
+  margin-bottom: -8px; /* the head's padding, set just above */
+  line-height: 0;
+}
+
+.pn-robot svg {
+  display: block;
+  pointer-events: none;
+}
+
+/* What he says, on one line to his right at the height of his face. */
+.pn-robot__bubble {
+  position: absolute;
+  left: calc(100% + 8px);
+  bottom: 12px;
+  padding: 5px 8px;
+  border: 1px solid var(--pn-line-strong);
+  border-radius: 8px 8px 8px 2px;
+  background: var(--pn-raised);
+  color: var(--pn-ink-2);
+  font: 400 12.5px/1 var(--pn-font-body);
+  white-space: nowrap;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* the tail: a small corner pointing at him, so the words are his */
+.pn-robot__bubble::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  bottom: 7px;
+  width: 6px;
+  height: 6px;
+  border-left: 1px solid var(--pn-line-strong);
+  border-bottom: 1px solid var(--pn-line-strong);
+  background: var(--pn-raised);
+  transform: rotate(45deg);
+}
+
+.pn-robot__bubble[data-shown] {
+  visibility: visible;
+}
+
+/* ---- pane 5: the status sign ---- */
+
+/* Off, the sign's words are the quietest text colour (4.6:1 on the pane);
+   lit, each goes to its own strength. Only colours, the glow and the knob
+   change, over 200ms, so no word moves. (Reduced motion still wins.) */
+.panes .pn-upto,
+.panes .pn-upto * {
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+/* A compact unit at the top of the pane, as wide as its longest line and no
+   wider than the pane: the status line (its LED, the date, the switch at the
+   far end), then one line per thing, label and value in two columns. */
+.pn-upto {
+  container-type: inline-size;
+}
+
+.pn-upto__sign {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px 14px 12px;
+  border: 1px solid var(--pn-line);
+  border-radius: var(--pn-radius);
+}
+
+/* luibot hovers left of the switch with his hand on the knob: the switch's
+   left padding keeps that room free of words on this line, and the 18px
+   under the line keep the first entry clear of his flames (his canvas ends
+   26px below the track's middle). */
+.pn-upto__status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 20px;
+  margin-bottom: 18px;
+}
+
+.panes .pn-sign__switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 4px 0 4px 40px;
+}
+
+.pn-sign__track {
+  position: relative;
+  width: 24px;
+  height: 12px;
+  border: 1px solid var(--pn-faint);
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+
+.pn-sign__knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid var(--pn-dim);
+}
+
+.pn-sign__state {
+  min-width: calc(3ch + 1px); /* "off" and "on" take the same room; "off" alone measures a hair over 3ch */
+}
+
+.pn-upto__lines {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 18px;
+  align-items: baseline;
+}
+
+.pn-upto__line {
+  display: contents;
+}
+
+/* In a narrow pane (a phone, a small window) the date takes its own row under
+   the status line, so the switch keeps luibot's room beside it, and each
+   value goes under its label. */
+@container (max-width: 420px) {
+  .pn-upto__status {
+    flex-wrap: wrap;
+    row-gap: 6px;
+    height: auto;
+  }
+
+  .pn-upto__status > :nth-child(2) {
+    order: 1;
+    flex-basis: 100%;
+  }
+
+  .pn-upto__lines {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .pn-upto__line dt {
+    margin: 3px 0 5px; /* the first line: 11px under the status line, as in a wide pane */
+  }
+
+  .pn-upto__line + .pn-upto__line dt {
+    margin-top: 11px;
+  }
+}
+
+.pn-upto .pn__label[data-led] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pn-upto__line dd {
+  font: var(--pn-ui);
+  letter-spacing: var(--pn-ui-track);
+  color: var(--pn-ink);
+  text-wrap: pretty;
+}
+
+/* the LED: a hollow ring off, filled and glowing lit; the status line's own
+   and the lines' share one column and light together */
+.pn-upto .pn__label[data-led]::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid var(--pn-faint);
+}
+
+.pn-upto[data-lit] .pn__label[data-led]::before {
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+  box-shadow: 0 0 7px rgba(232, 171, 85, 0.7);
+}
+
+.panes .pn-upto:not([data-lit]) :is(.pn__label, dd) {
+  color: var(--pn-dim);
+}
+
+.pn-upto[data-lit] .pn-sign__track {
+  border-color: var(--pn-amber);
+}
+
+.pn-upto[data-lit] .pn-sign__knob {
+  transform: translateX(12px);
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+}
+
+.panes .pn-upto[data-lit] .pn-sign__state {
+  color: var(--pn-amber);
+}

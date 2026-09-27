@@ -1,0 +1,94 @@
+<!-- @dsCard group="Type" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Type</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* A card shows parts, not the window, so the window's grid is switched off here. */
+  .panes { display: block; height: auto; overflow: visible; padding: 24px; }
+
+  /* This card's own layout. Everything with a pn__ class is the site's. */
+  .intro { max-width: 62ch; margin-bottom: 8px; color: var(--pn-muted); font-size: 14px; }
+  .family { margin: 28px 0 4px; font: var(--pn-h3); letter-spacing: var(--pn-h3-track); color: var(--pn-ink); }
+  .family + p { max-width: 62ch; color: var(--pn-muted); font-size: 14px; }
+  .role { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 8px 32px; align-items: baseline; padding: 16px 0; border-top: 1px solid var(--pn-line); }
+  .role:first-of-type { margin-top: 14px; }
+  .role__spec { display: flex; flex-direction: column; gap: 6px; }
+  .role__spec .pn__label { line-height: 1.4; }
+  .role__spec .pn__label:first-child { color: var(--pn-ink-2); }
+  @media (max-width: 720px) { .role { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<main class="panes">
+  <p class="intro">Two families, split by reading level. JetBrains Mono is everything a visitor sees when they skim: titles, hooks, headings, labels, buttons, the cards, the step bar. Instrument Sans is the details: the sentences under a heading. There is no third family, not even for an arrow or a key: those are drawn. The ranks step down by size, weight and colour.</p>
+
+  <h2 class="family">JetBrains Mono, the skim level</h2>
+  <p>Weights 400 and 500. The face is wide and heavy, so the heads are small for headings, medium in weight, and tracked in where they are large.</p>
+
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">--pn-h1</span><span class="pn__label">500 34px/1.1, -0.04em. 30px on a phone</span><span class="pn__label">The first pane's title. Used once.</span></div>
+    <h1 class="pn__h1" style="margin: 0">Hi, I’m Justin.</h1>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">--pn-lead</span><span class="pn__label">400 19px/1.4, -0.02em, 46ch. 17.5px under 900px</span><span class="pn__label">The open pane's hook, in ink.</span></div>
+    <p class="pn__lead" style="margin: 0">I’m a founding engineer in San Francisco. At Scorecard, I build simulations where AI agents practice real-world tasks.</p>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">--pn-h3-large</span><span class="pn__label">500 16.5px/1.35, -0.015em, 48ch</span><span class="pn__label">The headings of the future plans, each with its picture.</span></div>
+    <h3 style="font: var(--pn-h3-large); letter-spacing: var(--pn-h3-track); color: var(--pn-ink)">Start a family farm with all kinds of animals.</h3>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">--pn-h3</span><span class="pn__label">500 15px/1.4, -0.015em</span><span class="pn__label">A pane's "###" over a block of details, and card headings.</span></div>
+    <h3 class="pn__h3">I automate things that don’t need it</h3>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">--pn-ui-large</span><span class="pn__label">500 14.5px/1.3, -0.01em</span><span class="pn__label">Project and agent names, the search box's input.</span></div>
+    <span style="font: var(--pn-ui-large); letter-spacing: var(--pn-ui-track); color: var(--pn-ink)">luibuilder</span>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">--pn-fold-hook</span><span class="pn__label">500 14px/1.3, -0.01em</span><span class="pn__label">The one line on a card.</span></div>
+    <span class="pn__fold-hook">I have two OpenClaw agents running around.</span>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">--pn-ui</span><span class="pn__label">500 13px/1.3, -0.01em</span><span class="pn__label">Names on cards, the title bar's name, search rows, the status sign's values.</span></div>
+    <span class="pn__card-name">My mom</span>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">--pn-label</span><span class="pn__label">500 11.5px/1, no tracking. 10.5px in a phone's step bar</span><span class="pn__label">All small chrome: tags, captions, buttons, hints, the clock, the step bar. Set in lower case or sentence case.</span></div>
+    <span class="pn__label">pronounced loo-wee</span>
+  </div>
+
+  <h2 class="family">Instrument Sans, the detail level</h2>
+  <p>Weight 400. The window's base is 15px/1.6. Details are set a little smaller and in the muted colour, on a 62ch measure.</p>
+
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">paragraph</span><span class="pn__label">400 14px/1.6, muted, 62ch</span><span class="pn__label">The text under a "###".</span></div>
+    <p style="max-width: 62ch; font-size: 14px; color: var(--pn-muted)">Once I’m interested in something, I can talk about it for hours, way longer than I meant to. Some of those things are espresso, custom keyboards, and finding the right pair of shoes. I can also tell you why episode 1070 of the anime One Piece is my favourite.</p>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">the quieter line under a hook</span><span class="pn__label">400 14px/1.6, muted, 60ch</span><span class="pn__label">Optional, one rank under the hook.</span></div>
+    <p class="pn__more" style="margin: 0">A puzzle app for my girlfriend and me, and tools for my friends and my old job.</p>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">a project's one-line summary</span><span class="pn__label">400 14.5px/1.6, ink-2</span></div>
+    <p style="font-size: 14.5px; color: var(--pn-ink-2)">I built the software I wished we had at the night market.</p>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">list line, project story</span><span class="pn__label">400 13.5px/1.6, muted</span></div>
+    <p style="font-size: 13.5px; color: var(--pn-muted)">Pick up groceries from the Trader Joe’s nearby</p>
+  </div>
+  <div class="role">
+    <div class="role__spec"><span class="pn__label">link</span><span class="pn__label">blue, 1px underline at 40%, 3px offset</span></div>
+    <p style="font-size: 14px; color: var(--pn-muted)">We’re running an AI agent that gets better at competitive Pokémon on its own, and you can <a class="pn__link" href="https://pokemon-viewer-production.up.railway.app/stats">follow along here</a>.</p>
+  </div>
+</main>
+</body>
+</html>

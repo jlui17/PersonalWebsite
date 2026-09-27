@@ -1,0 +1,67 @@
+<!-- @dsCard group="Spacing" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spacing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* A card shows parts, not the window, so the window's grid is switched off here. */
+  .panes { display: block; height: auto; overflow: visible; padding: 24px; }
+
+  /* This card's own layout. Everything with a pn__ class is the site's. */
+  .intro { max-width: 62ch; margin-bottom: 8px; color: var(--pn-muted); font-size: 14px; }
+  .group { margin: 28px 0 12px; font: var(--pn-h3); letter-spacing: var(--pn-h3-track); color: var(--pn-ink); }
+
+  /* The window, drawn small: the same four rows and two columns, from the same tokens. */
+  .window { display: grid; grid-template-rows: var(--pn-title-h) 220px var(--pn-pathway-h) var(--pn-bar-h); max-width: 760px; border: 1px solid var(--pn-line-strong); border-radius: var(--pn-radius); overflow: hidden; }
+  .window > div { display: flex; align-items: center; padding: 0 12px; }
+  .window__bar { background: var(--pn-bar); border-bottom: 1px solid var(--pn-line); }
+  .window__bar--low { border-bottom: 0; border-top: 1px solid var(--pn-line); }
+  .window .window__work { display: grid; grid-template-columns: minmax(0, 1fr) min(var(--pn-stack-w), 50%); gap: 10px; padding: 10px; align-items: stretch; }
+  .window__pane, .window__stack > span { display: flex; padding: 10px 12px; border: 1px solid var(--pn-line); border-radius: var(--pn-radius); background: var(--pn-surface); }
+  .window__pane { border-color: var(--pn-amber); }
+  .window__stack { display: flex; flex-direction: column; gap: 4px; }
+  .window .pn__label { line-height: 1.4; }
+
+  /* The rhythm, as bars of the real heights. */
+  .steps { display: grid; grid-template-columns: 170px 64px minmax(0, 1fr); gap: 12px 20px; align-items: center; max-width: 760px; }
+  .steps__bar { width: 64px; background: var(--pn-amber-dim); border-top: 1px solid var(--pn-amber); border-bottom: 1px solid var(--pn-amber); }
+  .steps p { color: var(--pn-muted); font-size: 13.5px; }
+
+</style>
+</head>
+<body>
+<main class="panes">
+  <p class="intro">The site is one window that never scrolls as a whole. The open pane's body scrolls, and so does the column of cards when it has to. Content flows from the top with one even rhythm. Nothing is stretched, spread or pinned to the bottom: room left at the end of a pane stays empty.</p>
+
+  <h2 class="group">The window</h2>
+  <div class="window" aria-hidden="true">
+    <div class="window__bar"><span class="pn__label">title bar, --pn-title-h 40px</span></div>
+    <div class="window__work">
+      <span class="window__pane"><span class="pn__label">the pane: the rest of the width. 10px from the window's edge and from the cards. Body padding 24px 26px.</span></span>
+      <span class="window__stack"><span><span class="pn__label">cards, --pn-stack-w 424px, at most half</span></span><span><span class="pn__label">4px apart, padding --pn-fold-pad</span></span></span>
+    </div>
+    <div class="window__bar window__bar--low"><span class="pn__label">pathway, --pn-pathway-h 68px: the tallest pose (62px) plus a little air</span></div>
+    <div class="window__bar window__bar--low"><span class="pn__label">step bar, --pn-bar-h 30px</span></div>
+  </div>
+  <p class="intro" style="margin-top: 12px">Corners are --pn-radius, 6px, on the pane, the cards and the sign. Buttons inside them take 4px. Every border and rule is 1px. There are no drop shadows on the page. The search box, which floats over it, is the one exception.</p>
+
+  <h2 class="group">The vertical rhythm inside a pane</h2>
+  <div class="steps">
+    <span class="pn__label">--pn-gap-above-rule</span><span class="steps__bar" style="height: 26px"></span><p>26px, up to 42px. From the end of a part to the hairline that opens the next part.</p>
+    <span class="pn__label">--pn-gap-below-rule</span><span class="steps__bar" style="height: 22px"></span><p>22px, up to 38px. From that hairline to the part's first line.</p>
+    <span class="pn__label">--pn-gap-hook</span><span class="steps__bar" style="height: 18px"></span><p>18px, up to 34px. From the hook, or the quieter line under it, to the first part.</p>
+    <span class="pn__label">--pn-gap-block</span><span class="steps__bar" style="height: 18px"></span><p>18px, up to 34px. From block to block, in every column.</p>
+    <span class="pn__label">--pn-line-pad</span><span class="steps__bar" style="height: 5px"></span><p>5px, up to 7px. Over and under each line of a list.</p>
+    <span class="pn__label">--pn-gap-heading</span><span class="steps__bar" style="height: 4px"></span><p>4px, up to 8px. From a "###" to its text.</p>
+  </div>
+  <p class="intro" style="margin-top: 16px">The first number is the step in a 1280x800 window. In a taller pane all the steps grow together, by one rule (--pn-rise in tokens.css), up to the second number. The ranks keep their order, and no step between two things passes 48px. The card for the pane shows the rhythm in use. Columns inside a pane are 32px apart. Paragraphs keep a 62ch measure, so a wider pane gives its room to the columns and the pictures, never to longer lines.</p>
+</main>
+</body>
+</html>

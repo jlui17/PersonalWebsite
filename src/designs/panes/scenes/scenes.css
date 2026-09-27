@@ -1,0 +1,492 @@
+/* The scenes inside the open panes. Sprites stand on rules the layout
+   already has; every box is reserved for the sprite's largest pose (sizes
+   come from the sheets as custom properties), so no text moves when a pose
+   changes. */
+
+/* ---- pane 6: luibuilder among the projects ---- */
+
+/* Each project's head gets a rule: it carries his feet and his stones. His
+   box comes right after the title and the tag, with the head's own gap, on
+   every project, so no word moves when he comes or goes. A long tag drops
+   under its title instead of squeezing it. */
+.pn-built .pn__project-head {
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--pn-line-strong);
+  margin-bottom: 9px;
+}
+
+/* His box: the stones, then the widest canvas (`hop`). It has no height of
+   its own beside the words (he stands up from the rule into the room above
+   the head) and reaches down through the head's padding to the rule. */
+.pn-builder-spot {
+  position: relative;
+  flex: none;
+  align-self: flex-end;
+  width: calc(var(--builder-w) + var(--builder-work-w));
+  height: 0;
+  margin-bottom: -7px; /* the head's padding, set just above */
+  pointer-events: none;
+}
+
+/* On a line of its own (where he would otherwise stand over words) the box
+   is as tall as he is with his hop, on the same rule. */
+.pn-builder-spot[data-own-line] {
+  flex-basis: 100%;
+  height: var(--builder-h);
+}
+
+/* The stones stand where `build` wants its work: their edge one column left
+   of his canvas. */
+.pn-builder-stones {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  line-height: 0;
+}
+
+.pn-builder {
+  position: absolute;
+  left: var(--builder-work-w);
+  bottom: 0;
+  line-height: 0;
+}
+
+.pn-builder svg,
+.pn-builder-stones svg {
+  display: block;
+}
+
+/* ---- pane 1: he stands beside the title ---- */
+
+/* The title row: "Hi, I'm Justin.", him right after the words, and under both
+   a rule that is his ground. His box is his widest pose (the hat tip), so
+   nothing moves when he tips. In a pane too narrow for both he takes his own
+   line under the title, on the same rule. */
+.panes .pn__hello-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 6px 18px;
+  border-bottom: 1px solid var(--pn-line-strong);
+  margin-bottom: 14px;
+}
+
+.panes .pn__hello-title .pn__h1 {
+  margin-bottom: 0;
+  padding-bottom: 9px;
+}
+
+.pn-hello {
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  width: var(--hello-w);
+  height: var(--hello-h);
+  line-height: 0;
+}
+
+.pn-hello svg {
+  display: block;
+}
+
+/* ---- pane 4: a small scene beside each plan's heading ---- */
+
+/* A plan's title row: the heading, its scene right beside it, and under both
+   a rule that is the scene's ground. In a narrow pane the scene takes its own
+   line under the heading. */
+.panes .pn__chapter-title {
+  flex-wrap: wrap;
+  gap: 6px 32px;
+  border-bottom: 1px solid var(--pn-line-strong);
+  margin-bottom: calc(12px + var(--pn-more-text)); /* the rhythm tokens are in panes.css */
+}
+
+.panes .pn__chapter-title {
+  --title-lift: 9px; /* how far the heading's words sit above their line's foot */
+  min-height: var(--row-h);
+  row-gap: calc(6px + var(--hover-room)); /* only a wrapped row has a row gap */
+}
+
+/* No measure here: a heading that does not fit beside its scene keeps its one
+   line and the scene goes under it, instead of the heading wrapping and the
+   scene standing far off beside its last line. */
+.panes .pn__chapter-title h3 {
+  max-width: 100%;
+  padding-bottom: var(--title-lift);
+}
+
+/* A heading with its place drawn inside the sentence. The line's foot is on
+   the rule, so the picture (aligned to the line's foot) stands on the rule,
+   and the words are lifted to where a plain heading's words sit. Wrapped in a
+   narrow pane, the picture may land on an upper line: it brings its own
+   ground, a rule of the same colour that falls exactly on the title's rule
+   when the picture is on the last line.
+   Everything that holds the sentence's text is inline-level on purpose: a
+   block, a flex item or an absolutely placed box inside the sentence would
+   put a line break into a copy of it. */
+.panes .pn__chapter-title h3.pn-inline {
+  padding-bottom: 0;
+  text-wrap: balance; /* wrapped, no lone word is left behind the picture at the first line's end */
+}
+
+/* A plain heading starts as far under the row's top as the words of a picture
+   heading do, also when it runs to two lines with its scene under it. */
+.panes .pn__chapter-title h3:not(.pn-inline) {
+  padding-top: calc(var(--row-h) - 1px - var(--title-lift) - 1lh); /* the row's height less its rule */
+}
+
+.pn-inline__words {
+  vertical-align: var(--title-lift);
+}
+
+/* A scene with its sign's text, inside the sentence or beside the heading. */
+.pn-picture {
+  flex: none;
+  display: inline-block;
+  vertical-align: bottom;
+  margin-bottom: -1px;
+  border-bottom: 1px solid var(--pn-line-strong);
+  line-height: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.pn-inline .pn-picture {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+/* The sign's text: real text in the label voice over the panel the scene has
+   for it. It takes no room: a zero-size inline box at the scene's left end on
+   the ground, moved to the panel by `left` and `top` (PlanTitle sets them
+   from the scene's `signBox`). */
+.pn-plan-sign {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  vertical-align: bottom;
+  width: 0;
+  height: 0;
+}
+
+.pn-plan-sign__text {
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  width: var(--sign-w);
+  height: var(--sign-h);
+  font: var(--pn-sign);
+  line-height: var(--sign-h);
+  letter-spacing: var(--pn-sign-track);
+  text-align: center;
+  color: var(--pn-ink-2); /* cream on the boards' dark wood */
+}
+
+/* New York and Japan: the props side by side, feet on the ground */
+.pn-place {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  line-height: 0;
+  white-space: nowrap;
+}
+
+.pn-place svg {
+  display: inline-block; /* the page's base styles make every svg a block */
+  vertical-align: bottom;
+}
+
+/* Laid over the scene (the billboard, the steam, the petal): zero-size inline
+   boxes at the scene's left end on the ground, moved into place by `left`
+   and `top`; they paint over the scene's own sprites and under the sign's
+   text. */
+.pn-place__prop {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  width: 0;
+  height: 0;
+}
+
+.pn-place .pn-place__prop svg {
+  vertical-align: top;
+}
+
+.pn-farm {
+  position: relative;
+  flex: none;
+  display: inline-block; /* inside .pn-picture */
+  vertical-align: bottom;
+  width: var(--farm-w);
+  height: var(--farm-h);
+  line-height: 0;
+}
+
+/* Nobody flies on a phone, so a scene under its heading keeps no room for him. */
+@media (max-width: 639px) {
+  .panes .pn__chapter-title {
+    row-gap: 6px;
+  }
+}
+
+.pn-farm__prop,
+.pn-farm__animal,
+.pn-farm__feed {
+  position: absolute;
+  bottom: 0;
+}
+
+.pn-farm__grain {
+  position: absolute;
+  bottom: 0;
+}
+
+.pn-farm__feed {
+  z-index: 1; /* the grain stays in view in front of her beak */
+}
+
+.pn-farm svg {
+  display: block;
+}
+
+/* ---- pane 3: each robot beside his name ---- */
+
+/* He comes right after the name and the tag ("luibot  The main one  [him]"),
+   and reaches down through the head's padding so his feet meet the rule. */
+.panes .pn__agent-head {
+  padding-bottom: 8px;
+}
+
+.panes .pn-robot {
+  position: relative;
+  flex: none;
+  margin-bottom: -8px; /* the head's padding, set just above */
+  line-height: 0;
+}
+
+.pn-robot svg {
+  display: block;
+  pointer-events: none;
+}
+
+/* What he says, on one line to his right at the height of his face. */
+.pn-robot__bubble {
+  position: absolute;
+  left: calc(100% + 8px);
+  bottom: 12px;
+  padding: 5px 8px;
+  border: 1px solid var(--pn-line-strong);
+  border-radius: 8px 8px 8px 2px;
+  background: var(--pn-raised);
+  color: var(--pn-ink-2);
+  font: 400 12.5px/1 var(--pn-font-body);
+  white-space: nowrap;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* the tail: a small corner pointing at him, so the words are his */
+.pn-robot__bubble::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  bottom: 7px;
+  width: 6px;
+  height: 6px;
+  border-left: 1px solid var(--pn-line-strong);
+  border-bottom: 1px solid var(--pn-line-strong);
+  background: var(--pn-raised);
+  transform: rotate(45deg);
+}
+
+.pn-robot__bubble[data-shown] {
+  visibility: visible;
+}
+
+/* ---- pane 5: the status sign ---- */
+
+/* Off, the sign's words are the quietest text colour (4.6:1 on the pane);
+   lit, each goes to its own strength. Only colours, the glow and the knob
+   change, over 200ms, so no word moves. (Reduced motion still wins.) */
+.panes .pn-upto,
+.panes .pn-upto * {
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+/* A compact unit at the top of the pane, as wide as its longest line and no
+   wider than the pane: the status line (its LED, the date, the switch at the
+   far end), then one line per thing, label and value in two columns. */
+.pn-upto {
+  container-type: inline-size;
+}
+
+.pn-upto__sign {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px 14px 12px;
+  border: 1px solid var(--pn-line);
+  border-radius: var(--pn-radius);
+}
+
+/* luibot hovers left of the switch with his hand on the knob: the switch's
+   left padding keeps that room free of words on this line, and the 18px
+   under the line keep the first entry clear of his flames (his canvas ends
+   26px below the track's middle). */
+.pn-upto__status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 20px;
+  margin-bottom: 18px;
+}
+
+.panes .pn-sign__switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 4px 0 4px 40px;
+}
+
+.pn-sign__track {
+  position: relative;
+  width: 24px;
+  height: 12px;
+  border: 1px solid var(--pn-faint);
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+
+.pn-sign__knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid var(--pn-dim);
+}
+
+.pn-sign__state {
+  min-width: calc(3ch + 1px); /* "off" and "on" take the same room; "off" alone measures a hair over 3ch */
+}
+
+.pn-upto__lines {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 18px;
+  align-items: baseline;
+}
+
+.pn-upto__line {
+  display: contents;
+}
+
+/* In a narrow pane (a phone, a small window) the date takes its own row under
+   the status line, so the switch keeps luibot's room beside it, and each
+   value goes under its label. */
+@container (max-width: 420px) {
+  .pn-upto__status {
+    flex-wrap: wrap;
+    row-gap: 6px;
+    height: auto;
+  }
+
+  .pn-upto__status > :nth-child(2) {
+    order: 1;
+    flex-basis: 100%;
+  }
+
+  .pn-upto__lines {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .pn-upto__line dt {
+    margin: 3px 0 5px; /* the first line: 11px under the status line, as in a wide pane */
+  }
+
+  .pn-upto__line + .pn-upto__line dt {
+    margin-top: 11px;
+  }
+}
+
+.pn-upto .pn__label[data-led] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pn-upto__line dd {
+  font: var(--pn-ui);
+  letter-spacing: var(--pn-ui-track);
+  color: var(--pn-ink);
+  text-wrap: pretty;
+}
+
+/* the LED: a hollow ring off, filled and glowing lit; the status line's own
+   and the lines' share one column and light together */
+.pn-upto .pn__label[data-led]::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid var(--pn-faint);
+}
+
+.pn-upto[data-lit] .pn__label[data-led]::before {
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+  box-shadow: 0 0 7px rgba(232, 171, 85, 0.7);
+}
+
+.panes .pn-upto:not([data-lit]) :is(.pn__label, dd) {
+  color: var(--pn-dim);
+}
+
+.pn-upto[data-lit] .pn-sign__track {
+  border-color: var(--pn-amber);
+}
+
+.pn-upto[data-lit] .pn-sign__knob {
+  transform: translateX(12px);
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+}
+
+.panes .pn-upto[data-lit] .pn-sign__state {
+  color: var(--pn-amber);
+}
+
+/* ---- a robot beaming between the pathway and a pane ---- */
+/* The beam is drawn over the workspace and the pathway at the exact box of
+   the place he leaves or arrives at; the box itself keeps its size empty. */
+.pn-beam {
+  position: fixed;
+  z-index: 6;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.pn-beam svg {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.pn-robot-box {
+  display: inline-block;
+  line-height: 0;
+}

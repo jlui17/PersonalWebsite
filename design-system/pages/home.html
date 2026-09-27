@@ -1,0 +1,200 @@
+<!-- @dsCard group="Pages" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2b251e">
+<title>Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  /* The whole window of justinlui.dev with step 1 selected, as one static page. The look comes
+    from ../tokens.css and ../components.css. Nothing is restyled here. */
+  /* The site places the stretches, the actors and luibot from script. These rules stand in for
+    it: --step is the step's number from 0, --from-centre is the offset from the step's centre. */
+  .pn__stretch { left: calc(100% / 6 * var(--step)); width: calc(100% / 6); }
+  .pn__actor, .pn__bot { left: calc(100% / 12 * (2 * var(--step) + 1) + var(--from-centre)); }
+  /* On a phone the site shows the selected step's stretch alone, and the open pane without the cards. */
+  @media (max-width: 639px) {
+    .pn__stretch { left: 0; width: 100%; }
+    .pn__actor { left: calc(50% + var(--from-centre)); }
+    .pn__stretch:not([data-selected]), .pn__actor:not([data-selected]), .pn__bot, .pn__stack, .pn__expand { display: none; }
+    .pn__work { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="panes">
+  <header class="pn__titlebar">
+    <div class="pn__title-name">
+      Justin Lui
+      <span class="pn__label">pronounced loo-wee</span>
+    </div>
+    <button type="button" class="pn__palette-button" aria-haspopup="dialog" aria-label="Search this site">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.5 10.5 14 14" stroke-linecap="round"/></svg>
+      <span class="pn__palette-button-text">Search this site</span>
+      <span class="pn__kbd" aria-hidden="true">/</span>
+    </button>
+    <div class="pn__title-right">
+      <span class="pn__hint"><b aria-label="Left and right arrow keys"><svg class="pn__arrow pn__arrow--left" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg><svg class="pn__arrow pn__arrow--right" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></b> move</span>
+      <span class="pn__hint"><b>1–6</b> jump</span>
+      <span class="pn__clock" aria-label="Current time in San Francisco">SF <span data-clock="hm">--:--</span><span class="pn__clock-seconds" data-clock="s">:--</span></span>
+    </div>
+  </header>
+
+  <main class="pn__work">
+    <article class="pn__pane pn__pane--open" aria-labelledby="pn-title-hello">
+      <div class="pn__pane-head">
+        <button type="button" id="pn-title-hello" class="pn__pane-title" aria-expanded="true">
+          <span class="pn__dot" aria-hidden="true"></span>
+          <span class="pn__pane-index" aria-hidden="true">1</span>
+          Hello
+          <svg class="pn__chevron pn__chevron--open" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg>
+        </button>
+        <button type="button" class="pn__expand" aria-label="Expand this section"><svg class="pn__expand-icon" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5h3.5V5M10.5 1.5 7 5M5 10.5H1.5V7M1.5 10.5 5 7"/></svg>Expand</button>
+      </div>
+      <div class="pn__pane-body" data-more>
+        <div class="pn__flow">
+          <div>
+            <!-- he stands beside the title in his hoodie, on the rule under it; his box is his widest pose there -->
+            <div class="pn__hello-title">
+              <h1 class="pn__h1">Hi, I’m Justin.</h1>
+              <span class="pn-hello" aria-hidden="true" style="--hello-w: 42px; --hello-h: 62px"><img src="../sprites/justin-hoodie-idle.svg" width="36" height="62" alt=""></span>
+            </div>
+            <p class="pn__lead">I’m a founding engineer in San Francisco. At Scorecard, I build simulations where AI agents practice real-world tasks.</p>
+          </div>
+          <div class="pn__hello-body">
+            <div class="pn__blocks">
+              <section class="pn__block">
+                <p>From coding to research to managing vending machines, I build worlds where AI agents go to complete tasks. The data from those tasks is used to help AI learn and get better. At <a class="pn__link" href="https://www.scorecard.io/" target="_blank" rel="noreferrer">Scorecard</a>, I work on both product and engineering. I also build the systems that run the simulations, and I make sure they keep working as they grow.</p>
+              </section>
+              <section class="pn__block">
+                <h3 class="pn__h3">I nerd out over small details</h3>
+                <p>Once I’m interested in something, I can talk about it for hours, way longer than I meant to. Some of those things are espresso, custom keyboards, and finding the right pair of shoes. I can also tell you why episode 1070 of the anime One Piece is my favourite.</p>
+              </section>
+              <section class="pn__block">
+                <h3 class="pn__h3">I automate things that don’t need it</h3>
+                <p>I track my budget and have spending reports made for me automatically, but I don’t actually read the reports. I do the same thing in video games. In Minecraft and Palworld, I spend 95% of my time building farms that collect food and resources on their own, so it pays off in the long run. But once everything runs by itself, I get bored and quit. I know it’s overkill. I don’t do it for the result. I do it because I like the challenge of figuring out how the whole system works, and that takes a lot of research into the details.</p>
+              </section>
+              <section class="pn__block">
+                <h3 class="pn__h3">Fun fact: I’m terrible at geography but weirdly good at directions</h3>
+                <p>I can navigate you anywhere, but don’t ask me what the capital of a country is or where a city is on a map.</p>
+              </section>
+              <section class="pn__block">
+                <h3 class="pn__h3">Fun fact: I own a lot of shoes</h3>
+                <p>I used to be into buying and selling shoes and streetwear. I don’t anymore, but the shoes stayed.</p>
+              </section>
+            </div>
+            <div class="pn__hello-side">
+              <figure class="pn__photo">
+                <span class="pn__photo-frame"><img src="assets/justin-girlfriend-dog.jpeg" alt="Justin and his girlfriend taking a selfie with Truffle, his sleepy French Bulldog"></span>
+                <figcaption class="pn__label">me, Truffle, and my GF</figcaption>
+              </figure>
+              <p class="pn__hello-foot">
+                <span>YVR <svg class="pn__arrow pn__arrow--right" viewBox="0 0 12 12" role="img" aria-label="to" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg> SFO</span>
+                <a class="pn__link" href="https://github.com/jlui17" target="_blank" rel="noreferrer">GitHub <svg class="pn__arrow pn__arrow--out" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+                <a class="pn__link" href="https://www.linkedin.com/in/jlui17" target="_blank" rel="noreferrer">LinkedIn <svg class="pn__arrow pn__arrow--out" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <nav class="pn__stack" aria-label="All sections">
+      <button type="button" class="pn__fold" aria-current="true">
+        <span class="pn__fold-head">
+          <span class="pn__dot" aria-hidden="true"></span>
+          <span class="pn__pane-index" aria-hidden="true">1</span>
+          <span class="pn__fold-title">Hello</span>
+        </span>
+        <span class="pn__fold-hook">I build AI simulations for work and automate way too much for fun.</span>
+      </button>
+      <button type="button" class="pn__fold">
+        <span class="pn__fold-head">
+          <span class="pn__dot" aria-hidden="true"></span>
+          <span class="pn__pane-index" aria-hidden="true">2</span>
+          <span class="pn__fold-title">My people</span>
+          <span class="pn__fold-invite">Meet them<svg class="pn__chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg></span>
+        </span>
+        <span class="pn__fold-hook">My parents, my little sister, my girlfriend, and a French Bulldog named Truffle.</span>
+      </button>
+      <button type="button" class="pn__fold">
+        <span class="pn__fold-head">
+          <span class="pn__dot" aria-hidden="true"></span>
+          <span class="pn__pane-index" aria-hidden="true">3</span>
+          <span class="pn__fold-title">My agents</span>
+          <span class="pn__fold-invite">Meet luibot and luibuilder<svg class="pn__chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg></span>
+        </span>
+        <span class="pn__fold-hook">I have two OpenClaw agents running around.</span>
+      </button>
+      <button type="button" class="pn__fold">
+        <span class="pn__fold-head">
+          <span class="pn__dot" aria-hidden="true"></span>
+          <span class="pn__pane-index" aria-hidden="true">4</span>
+          <span class="pn__fold-title">My future plans</span>
+          <span class="pn__fold-invite">See the plan<svg class="pn__chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg></span>
+        </span>
+        <span class="pn__fold-hook">I hope to see New York, Japan, and one day my own farm.</span>
+      </button>
+      <button type="button" class="pn__fold">
+        <span class="pn__fold-head">
+          <span class="pn__dot" aria-hidden="true"></span>
+          <span class="pn__pane-index" aria-hidden="true">5</span>
+          <span class="pn__fold-title">What I’m up to</span>
+          <span class="pn__fold-invite">See what I’m up to<svg class="pn__chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg></span>
+        </span>
+        <span class="pn__fold-hook">Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s.</span>
+      </button>
+      <button type="button" class="pn__fold">
+        <span class="pn__fold-head">
+          <span class="pn__dot" aria-hidden="true"></span>
+          <span class="pn__pane-index" aria-hidden="true">6</span>
+          <span class="pn__fold-title">Things I’ve built</span>
+          <span class="pn__fold-invite">See the projects<svg class="pn__chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg></span>
+        </span>
+        <span class="pn__fold-hook">I like building small tools for people I know.</span>
+      </button>
+    </nav>
+  </main>
+
+  <div class="pn__stage" aria-hidden="true">
+    <span class="pn__stretch" data-selected style="--step: 0"><span class="pn__prop" style="left: 4px"><img src="../sprites/shoe-rack-boxes-out-0.svg" width="53" height="36" alt=""></span></span>
+    <span class="pn__stretch" style="--step: 1"></span>
+    <span class="pn__stretch" style="--step: 2"><span class="pn__prop" style="left: calc(50% + 37px)"><img src="../sprites/luibuilder-idle.svg" width="30" height="34" alt=""></span></span>
+    <span class="pn__stretch" style="--step: 3"><span class="pn__prop" style="left: 4px"><img src="../sprites/cow-idle.svg" width="64" height="42" alt=""></span></span>
+    <span class="pn__stretch" style="--step: 4"><span class="pn__prop" style="left: 8px"><img src="../sprites/coffee-idle-0.svg" width="43" height="50" alt=""></span></span>
+    <span class="pn__stretch" style="--step: 5"><span class="pn__prop" style="left: calc(50% - 18px)"><img src="../sprites/desk-tuck-7.svg" width="64" height="62" alt=""></span></span>
+    <span class="pn__actor" data-actor="justin" data-selected style="--step: 0; --from-centre: -18px"><img src="../sprites/justin-overshirt-carry.svg" width="36" height="62" alt=""></span>
+    <span class="pn__actor" data-actor="ball" style="--step: 4; --from-centre: 7px"><img src="../sprites/ball-roll-0.svg" width="10" height="10" alt=""></span>
+    <span class="pn__actor" data-actor="truffle" style="--step: 1; --from-centre: 22px"><img src="../sprites/truffle-sleep.svg" width="36" height="20" alt="" style="transform: scaleX(-1)"></span>
+  </div>
+  <span class="pn__bot" aria-hidden="true" style="--step: 2; --from-centre: -66px"><img src="../sprites/luibot-idle.svg" width="28" height="32" alt=""></span>
+
+  <footer class="pn__statusbar">
+    <nav class="pn__segments" aria-label="Sections">
+      <button type="button" class="pn__segment" aria-current="true"><span class="pn__segment-n" aria-hidden="true">1</span>hello</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">2</span>people</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">3</span>agents</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">4</span>future</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">5</span>now</button>
+      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">6</span>projects</button>
+    </nav>
+  </footer>
+</div>
+<script>
+  const digits = (text) => [...text].map((ch) => (/\d/.test(ch) ? '<span class="pn__digit">' + ch + "</span>" : ch)).join("");
+  const tick = () => {
+    const time = new Date().toLocaleTimeString("en-US", { hour12: false, timeZone: "America/Los_Angeles" }).replace(/^24/, "00");
+    document.querySelector('[data-clock="hm"]').innerHTML = digits(time.slice(0, 5));
+    document.querySelector('[data-clock="s"]').innerHTML = digits(time.slice(5));
+  };
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
