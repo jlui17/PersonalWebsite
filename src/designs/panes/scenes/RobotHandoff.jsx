@@ -23,6 +23,7 @@ import "./scenes.css";
 // when he is there but not whole); `delay` staggers the start so two robots
 // never beam as one block. Under reduced motion he is simply at the target.
 const GONE = 150;
+const SLICE = 16; // ms between looks at the target while a beam-in plays
 const isPane = (place) => place !== "pathway" && place !== "overlay" && place !== "none";
 // The longest the beam-in waits for `canLand`: Justin walks clear of the
 // robots' spots in well under a second as he leaves step 3.
@@ -40,9 +41,12 @@ const LANDING_WAIT = 2500;
 //   `onSkipIn` tells the pathway so.
 // A target that changes while he is nowhere (waiting to leave, gone, waiting
 // to land) cancels that trip before anything shows and starts the new one
-// from where it left off. A beam-out, once begun, is whole; a beam-in that the
-// target changes under is dropped at its next frame (a robot never forms
-// whole over a pane that has moved on), and he beams in at the new target.
+// from where it left off. A beam-out, once begun, is whole. A beam-in that
+// the target changes under is dropped within a display frame while the robot
+// is still thin (a robot never forms whole over a pane that has moved on);
+// on the pathway one past its half is mostly formed and finishes, then he
+// beams straight out again. Every beam runs against one deadline from the
+// sheet's durations, so it lasts what the sheet says whatever the timers do.
 export function useRobotHandoff({ name, target, rects, delay = 0, outAction, canLeave, onOut, skipIn, onSkipIn, canLand }) {
   const [shown, setShown] = useState(target); // "pathway" | a pane place | "overlay" | "none"
   const [overlay, setOverlay] = useState(null); // { rect, action, frame }
@@ -96,6 +100,23 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
       }
       return alive();
     };
+    // Plays `action`'s frames at `rect` against one running deadline: a frame
+    // ends at the beam's start plus the sheet's durations so far, however late
+    // the timers wake. With `abort`, the wait is sliced and `abort(f)` is asked
+    // on every slice; true ends the beam on frame f. Returns whether it was aborted.
+    const playBeam = async (action, rect, abort) => {
+      const { durations } = sheet[action];
+      let deadline = performance.now();
+      for (let f = 0; f < durations.length; f += 1) {
+        show("overlay", { rect, action, frame: f });
+        deadline += durations[f];
+        for (let left = deadline - performance.now(); left > 0; left = deadline - performance.now()) {
+          await wait(Math.min(abort ? SLICE : left, left));
+          if (abort?.(f)) return true;
+        }
+      }
+      return false;
+    };
     (async () => {
       await wait(delay);
       if (!alive()) return;
@@ -107,11 +128,7 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
           const rect = rects[from]() ?? (isPane(from) ? lastPaneRect.current[from] : null);
           if (rect) {
             if (!(await until(hooks.current.canLeave && (() => hooks.current.canLeave(from))))) return;
-            const action = hooks.current.outAction?.(from) ?? "beam-out";
-            for (let f = 0; f < sheet[action].frames.length; f += 1) {
-              show("overlay", { rect, action, frame: f });
-              await wait(sheet[action].durations[f]);
-            }
+            await playBeam(hooks.current.outAction?.(from) ?? "beam-out", rect);
           }
         }
         show("none");
@@ -129,20 +146,16 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
         }
         if (!(await until(hooks.current.canLand && (() => hooks.current.canLand(to))))) return;
         const rect = rects[to]();
-        let dropped = false;
-        if (rect) {
-          for (let f = 0; f < sheet["beam-in"].frames.length && !dropped; f += 1) {
-            show("overlay", { rect, action: "beam-in", frame: f });
-            // the place he is forming at may move on mid-frame: then he never arrives there, within a display frame
-            for (let left = sheet["beam-in"].durations[f]; left > 0 && !dropped; left -= 16) {
-              await wait(Math.min(16, left));
-              dropped = targetRef.current !== to;
-            }
-          }
-        }
+        // the place he is forming at may move on mid-beam: in a pane that has
+        // closed he never arrives (dropped at once); on the pathway a robot
+        // past half formed finishes and then beams out again
+        const half = sheet["beam-in"].durations.length / 2;
+        const dropped = rect && (await playBeam("beam-in", rect, (f) => targetRef.current !== to && (to !== "pathway" || f < half)));
         if (!dropped) {
           show(to);
-          return;
+          if (targetRef.current === to) return;
+          from = to; // the target moved on while he formed: straight back out from here
+          continue;
         }
         show("none");
         hooks.current.onOut?.(to);
