@@ -224,13 +224,6 @@
   line-height: 0;
 }
 
-/* Nobody flies on a phone, so a scene under its heading keeps no room for him. */
-@media (max-width: 639px) {
-  .panes .pn__chapter-title {
-    row-gap: 6px;
-  }
-}
-
 .pn-farm__prop,
 .pn-farm__animal,
 .pn-farm__feed {

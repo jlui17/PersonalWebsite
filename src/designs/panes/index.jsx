@@ -41,6 +41,9 @@ const panePose = { people: "sleep", agents: "idle", built: "type" };
 // Props are staged by name and measured from their sheets, so art that is
 // still being drawn (the sheep, a redrawn cow) drops in without a code change.
 const { coffee, shoeRack, cow, sheep } = propSheets;
+// luibot's canvas heights at his two pane spots, for whether he fits in the pane's window
+const BOT_FLY_H = characters.luibot.actions.fly.frames[0].length;
+const BOT_FEED_H = characters.luibot.actions.feed.frames[0].length;
 const GAP = 4;
 const propWidth = (sheet) => sheet.actions.idle.frames[0][0].length;
 // Where the coffee machine's canvas sits in his `press`/`grab` canvas, from
@@ -804,8 +807,15 @@ export default function Panes() {
   });
 
   const [luibotDone, setLuibotDone] = useState({});
+  const luibotDoneRef = useRef(luibotDone);
+  luibotDoneRef.current = luibotDone;
+  const choresFor = useRef(focused);
   useEffect(() => {
-    setLuibotDone({});
+    // a phone-width flip keeps the pane and its chores: nothing is reset, and
+    // an errand he is on (or has done) is not asked for twice
+    const paneChanged = choresFor.current !== focused;
+    choresFor.current = focused;
+    if (paneChanged) setLuibotDone({});
     stage.cancelPaneChores(focused); // a chore for a pane that just closed is dropped
     // pane 3: luibot goes up the moment he is free (the boxes or the chair
     // first, if he is on them); read from the stage now, not from a snapshot
@@ -815,32 +825,62 @@ export default function Panes() {
     } else if (phone) setBotUp(true);
     else stage.wantBotUp(() => setBotUp(true));
     const anchor = { now: "sign-switch", someday: "feed-spot" }[focused];
-    if (!anchor || phone) return;
-    // The errand is queued now, so he goes to it straight from wherever he is;
-    // the spot is measured when he lands (mid-beam, once the pane has
-    // rendered its scene). Nothing to land on: the errand is dropped.
+    if (!anchor) return undefined;
+    if (!paneChanged && (luibotDoneRef.current[anchor] || stage.botChoreFor(focused))) return undefined;
+    // Where he hovers, or null when his canvas would not be wholly inside the
+    // pane's scroll window (nowhere to hover: the errand is dropped, or on a
+    // phone not yet begun). The spot is measured when he lands and on every
+    // tick after, so he follows the pane's scroll.
     const at = () => {
       const el = document.querySelector(`[data-anchor="${anchor}"]`);
       const ground = document.querySelector(".pn__stage")?.getBoundingClientRect().bottom;
       const body = bodyRef.current?.getBoundingClientRect();
       if (!el || !ground || !body) return null;
       const r = el.getBoundingClientRect();
-      if (r.top < body.top || r.bottom > body.bottom) return null; // scrolled out of the pane's window: nowhere to hover
       // The switch: left of it, flipped, so that the mitten of `fly-wave` f0
       // (flipped: his canvas cols 23-26, rows 9-12, from the sheet) sits on
       // the knob at its off position, the track's (6, 6): its tip at the
       // knob's centre, its middle row on the knob's. His canvas top is then
       // 5px above the track's top, feet 32 rows below that. The feed spot:
       // above it, so the grain leaves his sack at his x 2-4 and lands on it.
-      return anchor === "sign-switch"
-        ? { x: Math.round(r.left + 6 - 27), y: Math.round(ground - (r.top - 5) - 32) }
-        : { x: Math.round(r.left), y: Math.round(ground - r.bottom + 16) };
+      const top = anchor === "sign-switch" ? r.top - 5 : r.bottom - 16 - BOT_FEED_H;
+      const height = anchor === "sign-switch" ? BOT_FLY_H : BOT_FEED_H;
+      if (top < body.top || top + height > body.bottom) return null;
+      return anchor === "sign-switch" ? { x: Math.round(r.left + 6 - 27), y: Math.round(ground - top - 32) } : { x: Math.round(r.left), y: Math.round(ground - r.bottom + 16) };
     };
     const done = () => setLuibotDone((d) => ({ ...d, [anchor]: true }));
     // arm up (f1), then the hand comes down onto the knob (f0): the sign
     // lights and the knob slides out from under his hand on that frame
-    if (anchor === "sign-switch") stage.flyToSpot({ at, action: "fly-wave", reach: [{ frame: 1, ms: 300 }, { frame: 0, ms: 700, done: true }], flip: true, pane: focused, onDone: done });
-    else stage.flyToSpot({ at, action: "feed", ms: 900, pane: focused, onDone: done });
+    const start = () => {
+      if (anchor === "sign-switch") stage.flyToSpot({ at, action: "fly-wave", reach: [{ frame: 1, ms: 300 }, { frame: 0, ms: 700, done: true }], flip: true, pane: focused, onDone: done });
+      else stage.flyToSpot({ at, action: "feed", ms: 900, pane: focused, onDone: done });
+    };
+    if (!phone) {
+      // queued now, so he goes to it straight from wherever he is
+      start();
+      return undefined;
+    }
+    // A phone: he has no pathway leg (the pathway is one step wide and he is
+    // hidden off his own step), so he appears at the spot with a beam-in, once
+    // the spot is in the pane's window (pane 4's feed spot is far below the
+    // first screen: he comes when the visitor scrolls to the farm) and the
+    // pane's open animation (220 ms) has settled.
+    const body = bodyRef.current;
+    let cancel = null;
+    const tryStart = () => {
+      if (!at()) return;
+      body?.removeEventListener("scroll", tryStart);
+      cancel = stage.after(250, () => {
+        stage.botGone(); // nowhere on the pathway: the trip is the beam-in alone
+        start();
+      });
+    };
+    tryStart();
+    if (!cancel) body?.addEventListener("scroll", tryStart, { passive: true });
+    return () => {
+      body?.removeEventListener("scroll", tryStart);
+      cancel?.();
+    };
   }, [focused, phone, stage]);
 
   // The pane expands or folds back in one render, and its words move: he
@@ -1200,7 +1240,10 @@ export default function Panes() {
   );
 
   const pane = PANES.find((p) => p.id === focused);
-  const botHidden = scene.bot.hidden || luibotUp.shown !== "pathway" || (phone && focused !== "agents");
+  // On a phone he shows only with the pane open: at his own step, or up at a
+  // pane spot on an errand (the pathway is one step wide, and drawn off his
+  // own step he sat over the cow and the coffee stand).
+  const botHidden = scene.bot.hidden || luibotUp.shown !== "pathway" || (phone && !(open && (focused === "agents" || scene.bot.y > 0)));
   const truffleState = scene.truffle.pushing ? "bringing the ball back" : truffleWords[scene.truffle.pose];
 
   // The coffee corner's state follows his beats: brewing from the press, a
@@ -1333,7 +1376,7 @@ export default function Panes() {
                 [
                   <NewYorkScene key="new-york" />,
                   <JapanScene key="japan" />,
-                  <FarmScene key="farm" fed={phone ? undefined : !!luibotDone["feed-spot"]} />,
+                  <FarmScene key="farm" fed={!!luibotDone["feed-spot"]} />,
                 ][i]
               }
             />
@@ -1344,7 +1387,7 @@ export default function Panes() {
     ),
     now: (
       <>
-        <UpTo lit={phone ? undefined : !!luibotDone["sign-switch"]} />
+        <UpTo lit={!!luibotDone["sign-switch"]} />
         {/* under the sign, what he is up to in blocks like pane 1's, in pane 3's two balanced columns */}
         <Balanced className="pn__story">
           {lately.blocks.map((block) => (

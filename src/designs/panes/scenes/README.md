@@ -3,9 +3,8 @@
 Interface for the pathway (luibot's chores):
 - `UpTo` (pane 5: the status sign at the top of the pane. Its first line holds the word "status", the updated date and the switch, which is `SignSwitch`. Under it is one line per entry of `lately.status`) puts `data-anchor="sign-switch"` on the switch's track (24x12). He hovers LEFT of it with his hand on the knob: the 28px left of the track, from 11px above its middle to 27px below, are kept free of words (his arm reaches over the track's left end; the status line keeps 18px under it so the first entry starts below him).
 - `FarmScene` (pane 4) puts `data-anchor="feed-spot"` on the feed spot's box (the feed prop's size, its bottom on the ground rule). His canvas starts at the box's left edge (the feed prop itself is painted one column left of it, so its grain column is under his sack); the ground under his 28px stays bare (hen left of the feed, sheep right of his width).
-- Both take his arrival as a boolean prop: `lit` on `UpTo`, `fed` on `FarmScene`. `index.jsx` holds them (`luibotDone[anchor]`, set by `stage.flyToSpot`'s `onDone`) and passes them down.
-- Pass `undefined` instead and the scene keeps its own time (`useChore` in `script.js`): lit 1.2 s, fed 1.5 s after the pane opens. `index.jsx` does that on a phone, where nobody flies.
-- Under reduced motion both are done from the first paint, whatever the prop says: the sign is on, the grain is down and the hen is at it.
+- Both take his arrival as a boolean prop: `lit` on `UpTo`, `fed` on `FarmScene`. `index.jsx` holds them (`luibotDone[anchor]`, set by `stage.flyToSpot`'s `onDone`) and passes them down, on a phone too: there he has no pathway leg and appears at the spot with a beam-in once the spot is inside the pane's scroll window (pane 5's switch at open; pane 4's feed spot when the visitor scrolls to the farm), and leaves with a beam-out.
+- Under reduced motion both are done from the first paint, whatever the prop says (`useChore` in `script.js`): the sign is on, the grain is down and the hen is at it.
 - The scenes never render luibot. Pane 3's robots (`AgentRobot`) and pane 6's luibuilder (`BuilderScene`/`BuilderSpot`) are the panes' own: the pathway hides its robots while those panes are open.
 - The visitor can flip the sign's switch too; their hand wins over `lit` until the pane closes.
 
