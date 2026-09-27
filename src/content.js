@@ -32,6 +32,9 @@ export const intro = [
   },
 ];
 
+// Pane 2, one card per person: `heading` is one warm, complete sentence with
+// the person as its subject, `body` what they are like and then what they mean
+// to him. `girlfriend: true` marks the one highlighted card.
 export const people = [
   {
     name: "My mom",
@@ -61,6 +64,10 @@ export const people = [
   },
 ];
 
+// Pane 3, one column per agent: a short `tag` beside the name, a `heading`, a
+// `body` with one story, and the `does` list with the rest (no fact in both).
+// The pathway scene where he hands luibuilder an idea highlights the `does`
+// line containing "idea", so keep that word in one line.
 export const agents = [
   {
     name: "luibot",
@@ -79,7 +86,6 @@ export const agents = [
     tag: "Coding agent",
     heading: "I tell him I have an idea, and he goes off and builds it.",
     body: "He’s my systems thinker, with a different way of thinking and a different personality from luibot.",
-    // the pathway's idea beat points at the line that says "idea"
     does: ["Turning my ideas into side projects", "Building puzzlewithme, an online puzzle game my GF and I play together"],
   },
 ];
@@ -193,6 +199,8 @@ export const someday = [
   },
 ];
 
+// Pane 6, in the order he sets: `tag` is a short stamp, `kicker` one line,
+// `story` a short paragraph with a person or a reason in it.
 export const projects = [
   {
     title: "puzzlewithme",

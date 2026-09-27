@@ -4,7 +4,7 @@ How we work out what a pane says, in what order, and in what words. It came out 
 
 ## Where a new fact goes
 
-Each pane has one job. Put a new fact in the pane whose job it is, and give it one brief mention anywhere else it comes up.
+Each pane has one job. Put a new fact in the pane whose job it is, and give it one brief mention anywhere else it comes up. A topic that cannot hold a pane of its own folds into the pane it tells something about: "i don't think there's anything interesting about my place to have a full section on it, but maybe like it can go into section five because that's telling a bit about me" (the old "My place" became part of "What I'm up to", and later its desk and coffee corner went and the shoes moved to pane 1).
 
 | Pane | Its job | What lives there |
 |---|---|---|
@@ -19,6 +19,7 @@ Each pane has one job. Put a new fact in the pane whose job it is, and give it o
 
 When a session on the words and a session on the design run at the same time: "if it's wording changes, i want u to make the change. if it's design and other things, i want the other agent to edit it." The session on the words edits every worded string, also inside `src/designs/panes/` (hover lines, labels, aria text); the design session edits layout, type, sprites and everything else. Both share one working tree:
 
+- Exactly one session owns a push to `main`; settle which one before anyone moves it.
 - Check `git status` before you edit a file. If the other session has uncommitted edits in it, ask it to checkpoint-commit first (`git add -p` is interactive and not available). Commit at once, by path; never `git add -A`.
 - A new export that nothing reads yet is safe to commit first; then ask the design session to render it. A change to the shape of an export that a design already reads goes to the design session before you commit, so the reader changes in the same commit.
 - After every change in length (a block added, a paragraph grown), ask the design session to re-measure the fit at 1280x800 and 1920x1080. The number of blocks shapes the layout: story blocks flow in two columns balanced by height, so an odd number can leave a hole, and about five blocks is as much as 1280x800 takes before the scroll reaches half a screen.
@@ -58,7 +59,7 @@ Turn each answer into a block the same day, show it, and let the next answers ar
 ```
 card (right column)            open pane
   Title   · invite phrase ›      # Title            [sprite]
-  trailer line                   hook (plain, one short breath)
+  card line                      hook (plain, one short breath)
                                  ### I ... (fun)     [photo or scene]
                                  details (plain, a few fun words)
                                  ### I ...
@@ -82,7 +83,8 @@ Each line points to its rule in `AGENTS.md` where one exists.
 - Two short blocks about related things become one ("I think these two can be combined").
 - A skimmer who reads only the `#`, the hook and the `###`s knows what the pane holds ("Two heading levels").
 - The hook is a short, natural opener that does not sum up the blocks: "Meet my AI agents.", "In the future, I want to…" ("Each piece of text a skimmer sees has one job").
-- Every `###` over a block of sentences is an "I" sentence and the fun version (in a pane about other people, the person is the subject; under a hook ending in "…", each heading finishes it), and no skim line repeats it. A heading over a list is a plain title instead: "Future side quests" replaced "I keep a list of what I want them to do next". The first sentence under a `###` says something new ("Two heading levels").
+- The card line reads like the other card lines: one sentence in his voice, mostly "I" with a verb. A noun list or a from-to phrase was rejected as not "aligned with the other card lines".
+- Every `###` follows "Two heading levels" in `AGENTS.md`: an "I" sentence and the fun version over a block of sentences, with its three exceptions (people, a hook ending in "…", a list), no skim line repeats it, and the first sentence under it says something new.
 - Every sentence is complete, and sentences that belong together are joined by "but" or "so" ("Simple, straightforward, complete sentences"). A run of adjectives goes in one clause: "She's so kind, sweet, and beautiful." replaced "She's so kind and sweet, and she's beautiful."
 - A person's details start with what they are like, then what they mean to him: "for my gf, the details should start off with how kind and nice she is."
 - His words for feelings and character stay his: "more emotionally aware", "snarky, fun, playful", "pragmatic and straightforward".
