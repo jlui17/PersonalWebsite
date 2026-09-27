@@ -93,13 +93,13 @@ Pixel sprites of Justin in his straw hat, Truffle, the robots luibot and luibuil
 - **Plain first, then the fun one.** A plain word that leaves the reader asking "what?" gets one or two more words ("Practice what?").
 - **Never claim more than he said.** Every sentence traces to his words or to `src/content.js`; add no feeling, habit, cause, number or link between two facts. Where his words are unclear, write what does not assert the unclear part, and ask him for a real fact to fill a gap. Show him every new sentence word for word, guesses marked, before it counts as done.
 - **Read each line for who it leaves out**: "These are the people I love, and my dog Truffle." implied he does not love Truffle; it became "These are the people I love the most."
-- Truffle is "She", and his girlfriend has no name on the site. Keep money details light: what luibot does, with no amounts and no account or institution names.
+- Truffle is "She", and his girlfriend has no name on the site. Keep money details light (the coordinator's rule, which he read without objecting): what luibot does, with no amounts and no account or institution names.
 
 ## Editing content
 
 All content lives as named exports in `src/content.js`, and the comment above each export gives its shape and its quirks; `panes` maps over them, so routine edits never touch markup. Reshape an export only after Justin has accepted the layout, and tell whoever builds the design before you commit the new shape, so its reader changes in the same commit. Read `docs/writing-a-pane.md` before you write, rework or add to a pane: it holds which pane a new fact belongs in, the order of work, a checklist and worked examples.
 
-- **New section**: ask him where it goes in the order. It needs a `sections.<key>` entry, an entry in `PANES` in `src/designs/panes/index.jsx` with its detail body, and a step on the pathway with a sprite scene. Pane numbers follow the order, so they shift.
+- **New section**: ask him where it goes in the order, then change all of these together, because the design assumes six: its `sections.<key>` in `src/content.js`; in `src/designs/panes/index.jsx`, an entry in `PANES` (id, step word, search keywords), its body in the `detail` object, its station and residents in `stretches()`, the number-key test (`/^[1-6]$/`) and the title bar's "1–6 jump" hint; the card column in `panes.css`, which is built so all six cards are always whole; the cards in `design-system/`; and every "pane N" or "step N" in the docs after its place, because the numbers follow the order.
 - **New photo**: strip its EXIF before you commit it; the steps are in `docs/design-process.md` under "Shipping to main".
 
 ## How design work goes well here

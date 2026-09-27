@@ -22,7 +22,7 @@ When a session on the words and a session on the design run at the same time: "i
 - Exactly one session owns a push to `main`; settle which one before anyone moves it.
 - Check `git status` before you edit a file. If the other session has uncommitted edits in it, ask it to checkpoint-commit first (`git add -p` is interactive and not available). Commit at once, by path; never `git add -A`.
 - A new export that nothing reads yet is safe to commit first; then ask the design session to render it. A change to the shape of an export that a design already reads goes to the design session before you commit, so the reader changes in the same commit.
-- After every change in length (a block added, a paragraph grown), ask the design session to re-measure the fit at 1280x800 and 1920x1080. The number of blocks shapes the layout: story blocks flow in two columns balanced by height, so an odd number can leave a hole, and about five blocks is as much as 1280x800 takes before the scroll reaches half a screen.
+- After every change in length (a block added, a paragraph grown), ask the design session to re-measure the fit at 1280x800, 1920x1080 and his own window, about 1440x1000, where all his spacing asks came from. The number of blocks shapes the layout: story blocks flow in two columns balanced by height, so an odd number can leave a hole, and about five blocks is as much as 1280x800 takes before the scroll reaches half a screen.
 
 ## The order of work
 
@@ -91,10 +91,10 @@ Each line points to its rule in `AGENTS.md` where one exists.
 - The hook is a short, natural opener that does not sum up the blocks: "Meet my AI agents.", "In the future, I want to…" ("Each piece of text a skimmer sees has one job").
 - The card line reads like the other card lines: one sentence in his voice, mostly "I" with a verb. A noun list or a from-to phrase was rejected as not "aligned with the other card lines".
 - Every `###` follows "How a `###` is worded" above.
-- Every sentence is complete, and sentences that belong together are joined by "but" or "so" ("Simple, straightforward, complete sentences"). A run of adjectives goes in one clause: "She's so kind, sweet, and beautiful." replaced "She's so kind and sweet, and she's beautiful."
+- Every sentence is complete, and sentences that belong together are joined by "but" or "so" ("Simple, complete sentences"). A run of adjectives goes in one clause: "She's so kind, sweet, and beautiful." replaced "She's so kind and sweet, and she's beautiful."
 - A person's details start with what they are like, then what they mean to him: "for my gf, the details should start off with how kind and nice she is."
 - His words for feelings and character stay his: "more emotionally aware", "snarky, fun, playful", "pragmatic and straightforward".
-- A stranger understands every word without stopping: no work jargon (infra, scaling, VPS, triaging), no bare tool names ("into a Google Sheet"), and a code only when its full name is on screen beside it ("SFO" under "San Francisco"). Explain a name only when the point needs it: OpenClaw got one sentence because the story starts with it, Palworld got none ("Say what a thing does, in plain terms").
+- A stranger understands every word without stopping: no work jargon (infra, scaling, VPS, triaging), no bare tool names ("into a Google Sheet"), and a code only when its full name is on screen beside it ("SFO" under "San Francisco"). Explain a name only when the point needs it: OpenClaw got one sentence because the story starts with it, Palworld got none ("Super simple language, for a reader who has never heard of the thing").
 - A name is explained plainly when the section is about it: "so luibot means he's my personal bot" replaced "basically my little robot assistant".
 - Every sentence traces to his words or `src/content.js`, and guesses are marked when you show him ("Never claim more than he said").
 - Labels, numbers and chrome words do a job: pane 1's "01", "02" and pane 2's tags ("Role model" over "She's my role model ...") went because they repeated the heading; a robot's hover line says something in his character ("Already on it.", "Got an idea?"), never the name printed beside him; and a control says what it does in plain words ("only this" became "Expand": "isn't clear enough about what it means").
@@ -150,6 +150,8 @@ Each line points to its rule in `AGENTS.md` where one exists.
 | 5 | The week as one paragraph | Two lists, weekdays and weekends, in the order the day goes | "there's a better, more visual format than a block of text ... maybe a list?" |
 
 ## Still open
+
+- **Pane 5's card line** is a noun list ("Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s."), against the card-line rule. He asked for something "more fun", then "snarky", and has not picked a replacement yet. Pane 6 has no card line yet for the same reason.
 
 - **What makes a card an invitation.** His examples, as `<Card>, <Trailer line>, <Invite phrase>`: "hello, I tinker with agents, automation, and brew espresso., learn more about me" and "my agents, I have Openclaw agents running around, meet Luibot and Luibuilder". The working reading: a specific, slightly surprising detail the pane pays off, with the topic plain enough that an uninterested reader knows to skip.
 - **Capital letters for the agents.** He writes "Luibot" and "Luibuilder"; the site writes them in lowercase. Not answered yet.
