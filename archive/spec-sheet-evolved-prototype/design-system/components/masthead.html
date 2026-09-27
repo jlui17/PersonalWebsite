@@ -1,0 +1,118 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masthead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+  .variant { padding-top: 4rem; }
+  .variant > .evo__label { display: block; margin-bottom: 1.25rem; }
+
+  /* The masthead: name and pronunciation left, mono nav and the SF clock right,
+     closed by the strong rule. Justin stands on the rule's right end; the nav
+     leaves him room so the clock never runs under him. */
+  .evo__masthead {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--ss-space-grid);
+    padding-bottom: 1rem;
+    border-bottom: var(--ss-hairline) solid var(--ss-line-strong);
+  }
+  .evo__masthead-name { display: flex; align-items: baseline; gap: 0.75rem; }
+  .evo__masthead-name strong { font-size: var(--ss-text-ui); font-weight: var(--ss-weight-name); letter-spacing: -0.01em; cursor: pointer; }
+  .evo__masthead-nav { display: flex; align-items: baseline; gap: 1.5rem; padding-right: calc(36px + 1.25rem); }
+  .evo__masthead--evening .evo__masthead-nav { padding-right: calc(52px + 1.25rem); }
+  .evo__masthead--night .evo__masthead-nav { padding-right: calc(64px + 1.25rem); }
+  .evo__masthead-nav a {
+    color: var(--ss-ink);
+    font-family: var(--ss-mono);
+    font-size: var(--ss-text-nav);
+    font-weight: var(--ss-weight-label);
+    letter-spacing: var(--ss-tracking-nav);
+    text-transform: uppercase;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% var(--ss-underline);
+    transition: background-size var(--ss-motion-draw) var(--ss-ease), color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__masthead-nav a:hover, .evo__masthead-nav a:focus-visible { background-size: 100% var(--ss-underline); color: var(--ss-accent); }
+  .evo__clock {
+    font-family: var(--ss-mono);
+    font-size: var(--ss-text-nav);
+    font-weight: var(--ss-weight-label);
+    letter-spacing: var(--ss-tracking-nav);
+    color: var(--ss-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .evo__clock-seconds { color: var(--ss-line-strong); }
+  .evo__masthead-figure { position: absolute; right: 0; bottom: 0; }
+  @media (max-width: 720px) { .evo__masthead { flex-wrap: wrap; } }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <section class="variant" style="padding-top: 2rem">
+    <span class="evo__label">Day, 11:00 to 18:00 SF · overshirt, standing</span>
+    <header class="evo__masthead evo__masthead--day">
+      <div class="evo__masthead-name">
+        <strong>Justin Lui</strong>
+        <span class="evo__label">pronounced loo-wee</span>
+      </div>
+      <nav class="evo__masthead-nav" aria-label="Find Justin online">
+        <a href="https://github.com/jlui17">GitHub</a>
+        <a href="https://www.linkedin.com/in/jlui17">LinkedIn</a>
+        <span class="evo__clock" aria-label="Current time in San Francisco">SF 14:21<span class="evo__clock-seconds">:23</span></span>
+      </nav>
+      <span class="evo__sprite evo__masthead-figure" aria-hidden="true"><img src="../sprites/justin-overshirt-idle-0.svg" width="36" height="62" alt=""></span>
+    </header>
+  </section>
+
+  <section class="variant">
+    <span class="evo__label">Morning, 06:00 to 11:00 · overshirt, espresso</span>
+    <header class="evo__masthead evo__masthead--morning">
+      <div class="evo__masthead-name"><strong>Justin Lui</strong><span class="evo__label">pronounced loo-wee</span></div>
+      <nav class="evo__masthead-nav"><a href="https://github.com/jlui17">GitHub</a><a href="https://www.linkedin.com/in/jlui17">LinkedIn</a><span class="evo__clock">SF 08:05<span class="evo__clock-seconds">:41</span></span></nav>
+      <span class="evo__sprite evo__masthead-figure" aria-hidden="true"><img src="../sprites/justin-overshirt-sip-0.svg" width="36" height="62" alt=""></span>
+    </header>
+  </section>
+
+  <section class="variant">
+    <span class="evo__label">Evening, 18:00 to 23:00 · hoodie, sitting on the rule</span>
+    <header class="evo__masthead evo__masthead--evening">
+      <div class="evo__masthead-name"><strong>Justin Lui</strong><span class="evo__label">pronounced loo-wee</span></div>
+      <nav class="evo__masthead-nav"><a href="https://github.com/jlui17">GitHub</a><a href="https://www.linkedin.com/in/jlui17">LinkedIn</a><span class="evo__clock">SF 20:47<span class="evo__clock-seconds">:09</span></span></nav>
+      <span class="evo__sprite evo__masthead-figure" aria-hidden="true"><img src="../sprites/justin-hoodie-sit-0.svg" width="52" height="52" alt=""></span>
+    </header>
+  </section>
+
+  <section class="variant">
+    <span class="evo__label">Night, 23:00 to 06:00 · hoodie, asleep on the rule</span>
+    <header class="evo__masthead evo__masthead--night">
+      <div class="evo__masthead-name"><strong>Justin Lui</strong><span class="evo__label">pronounced loo-wee</span></div>
+      <nav class="evo__masthead-nav"><a href="https://github.com/jlui17">GitHub</a><a href="https://www.linkedin.com/in/jlui17">LinkedIn</a><span class="evo__clock">SF 01:12<span class="evo__clock-seconds">:58</span></span></nav>
+      <span class="evo__sprite evo__masthead-figure" aria-hidden="true"><img src="../sprites/justin-hoodie-sleep-0.svg" width="64" height="28" alt=""></span>
+    </header>
+  </section>
+
+  <section class="variant">
+    <span class="evo__label">Name hovered or tapped · hat tip (not at night)</span>
+    <header class="evo__masthead evo__masthead--day">
+      <div class="evo__masthead-name"><strong style="color: var(--ss-ink)">Justin Lui</strong><span class="evo__label">pronounced loo-wee</span></div>
+      <nav class="evo__masthead-nav"><a href="https://github.com/jlui17">GitHub</a><a href="https://www.linkedin.com/in/jlui17">LinkedIn</a><span class="evo__clock">SF 14:21<span class="evo__clock-seconds">:23</span></span></nav>
+      <span class="evo__sprite evo__masthead-figure" aria-hidden="true"><img src="../sprites/justin-overshirt-hat-0.svg" width="36" height="62" alt=""></span>
+    </header>
+  </section>
+</main>
+</body>
+</html>

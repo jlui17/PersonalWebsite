@@ -1,0 +1,44 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Footer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0 var(--ss-space-page); }
+  .evo__page > .evo__body { margin: 0; }
+
+  /* Two mono labels under a strong rule. Justin and Truffle sit on the rule at
+     the left, luibuilder stands at its right end. The rule is a pseudo-element
+     inside the padding box so the figures' bottom: 100% lands their feet on it. */
+  .evo__footer { position: relative; display: flex; justify-content: space-between; gap: var(--ss-space-grid); margin-top: 5rem; padding-top: 1rem; }
+  .evo__footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: var(--ss-hairline); background: var(--ss-line-strong); }
+  .evo__footer-figure { position: absolute; bottom: 100%; display: flex; align-items: flex-end; gap: 10px; }
+  .evo__footer-figure--left { left: 0.75rem; }
+  .evo__footer-figure--right { right: 0; cursor: pointer; }
+  @media (max-width: 720px) { .evo__footer { flex-direction: column; gap: 0.4rem; } }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <p class="evo__body">The last project's story ends here, and the footer follows 5rem below it.</p>
+  <footer class="evo__footer">
+    <span class="evo__sprite evo__footer-figure evo__footer-figure--left" aria-hidden="true">
+      <img src="../sprites/justin-overshirt-sit-0.svg" width="52" height="52" alt="">
+      <img src="../sprites/truffle-sit-0.svg" width="24" height="24" alt="">
+    </span>
+    <span class="evo__sprite evo__footer-figure evo__footer-figure--right" aria-hidden="true">
+      <img src="../sprites/luibuilder-idle-0.svg" width="30" height="34" alt="">
+    </span>
+    <span class="evo__label">That&rsquo;s all for now.</span>
+    <span class="evo__label">Thanks for stopping by.</span>
+  </footer>
+</main>
+</body>
+</html>

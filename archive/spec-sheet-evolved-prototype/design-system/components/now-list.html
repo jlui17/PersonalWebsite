@@ -1,0 +1,60 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Now list and aside</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+
+  /* Numbered rows on soft rules, with a tinted aside for one random thing. */
+  .evo__now { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 2rem 4rem; }
+  .evo__now-list { margin: 0; padding: 0; list-style: none; }
+  .evo__now-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 0.85rem 0;
+    border-bottom: var(--ss-hairline) solid var(--ss-line);
+    font-size: var(--ss-text-ui);
+    line-height: 1.6;
+  }
+  .evo__now-list li:first-child { padding-top: 0; }
+  .evo__aside {
+    align-self: start;
+    padding: var(--ss-space-card-y) var(--ss-space-card-x) 1.2rem;
+    border: var(--ss-hairline) solid var(--ss-line);
+    border-radius: var(--ss-radius);
+    background: var(--ss-tint);
+  }
+  .evo__aside p { margin: 0.5rem 0 0; color: var(--ss-muted); font-size: var(--ss-text-detail); line-height: var(--ss-leading-detail); }
+  @media (max-width: 720px) { .evo__now { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <div class="evo__now">
+    <ul class="evo__now-list">
+      <li><span class="evo__label">01</span>Trying cafés around SF</li>
+      <li><span class="evo__label">02</span>Going out to eat and checking out festivals with friends</li>
+      <li><span class="evo__label">03</span>Working out at my apartment gym</li>
+      <li><span class="evo__label">04</span>Building random side quests</li>
+      <li><span class="evo__label">05</span>Starting a Palworld server with my friends</li>
+      <li><span class="evo__label">06</span>Just started playing volleyball and tennis in SF</li>
+      <li><span class="evo__label">07</span>Running a lot of experiments with agents at work</li>
+      <li><span class="evo__label">08</span>Automating my life with my own OpenClaw agents, luibot and luibuilder</li>
+    </ul>
+    <aside class="evo__aside">
+      <span class="evo__label">One random thing</span>
+      <p>I&rsquo;m terrible at geography but weirdly good at directions. I can navigate you anywhere, but don&rsquo;t ask me what country we&rsquo;re in.</p>
+    </aside>
+  </div>
+</main>
+</body>
+</html>

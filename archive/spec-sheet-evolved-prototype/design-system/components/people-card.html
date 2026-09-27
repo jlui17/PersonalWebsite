@@ -1,0 +1,89 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>People card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=Fraunces:opsz,wght@9..144,300..650&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { background: var(--ss-bg); }
+  .evo__page { padding: 2rem 0; }
+
+  /* The spec card: name and tag in mono, one warm Fraunces statement, a muted
+     line of body. Two to a row; the girlfriend card spans both columns and
+     takes the deep tint, the one deliberate highlight. */
+  .evo__people { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ss-space-grid); }
+  .evo__people article {
+    padding: 1.35rem 1.4rem 1.5rem;
+    border: var(--ss-hairline) solid var(--ss-line);
+    border-radius: var(--ss-radius);
+    background: var(--ss-tint);
+    transition: transform var(--ss-motion) var(--ss-ease), border-color var(--ss-motion) var(--ss-ease);
+  }
+  .evo__people article:hover { transform: translateY(-1px); border-color: var(--ss-line-strong); }
+  .evo__people article > div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--ss-space-grid); margin-bottom: 0.9rem; }
+  .evo__people h3 {
+    margin: 0;
+    font-family: var(--ss-serif);
+    font-size: var(--ss-text-h3);
+    font-weight: var(--ss-weight-h3);
+    line-height: var(--ss-leading-h3);
+    letter-spacing: 0;
+  }
+  .evo__people p { margin: 0.6rem 0 0; color: var(--ss-muted); font-size: var(--ss-text-detail); line-height: var(--ss-leading-detail); }
+  .evo__people .evo__person--girlfriend { grid-column: 1 / -1; background: var(--ss-tint-deep); }
+  .evo__people .evo__person--girlfriend p { max-width: 42rem; }
+
+  /* Truffle's card: she sleeps on the card's bottom rule, captioned like the
+     photo, with the ball she ignored at her nose. The card gives up its bottom
+     padding so her feet touch the border, and it does not lift on hover (her
+     ear lifts instead). */
+  .evo__people .evo__person--truffle { display: flex; flex-direction: column; padding-bottom: 0; }
+  .evo__people .evo__person--truffle:hover { transform: none; }
+  .evo__truffle-figure { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; margin: auto 0 0; padding-top: var(--ss-space-card-y); }
+  .evo__truffle-figure img { transform: scaleX(-1); }
+  .evo__ball { position: absolute; left: calc(100% - 36px - 10px - 8px); bottom: 0; }
+  @media (max-width: 720px) { .evo__people { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="evo__page">
+  <div class="evo__people">
+    <article>
+      <div><span class="evo__label">My mom</span><span class="evo__label">Role model</span></div>
+      <h3>My role model for hard work and perseverance.</h3>
+      <p>She built everything from the ground up. She&rsquo;s detailed, incredibly resilient, and always willing to do the thankless work.</p>
+    </article>
+    <article>
+      <div><span class="evo__label">My dad</span><span class="evo__label">Most dependable</span></div>
+      <h3>The most dependable and honest person I know.</h3>
+      <p>Sometimes a little too honest. I try to be as real with the people I care about as he is, but maybe a bit gentler.</p>
+    </article>
+    <article>
+      <div><span class="evo__label">Andrea</span><span class="evo__label">Little sister · NYC</span></div>
+      <h3>My little sister was made for New York.</h3>
+      <p>I look up to her because she moved to New York, chased what she wanted, and made it happen. She&rsquo;s a huge part of why I finally chased my own dream of working at a startup in San Francisco, and she helped me land at Scorecard.</p>
+    </article>
+    <article class="evo__person--truffle">
+      <div><span class="evo__label">Truffle</span><span class="evo__label">Est. 2017</span></div>
+      <h3>My best friend since 2017.</h3>
+      <p>She&rsquo;s my spoiled, squishy, and very sweet French Bulldog.</p>
+      <figure class="evo__truffle-figure">
+        <figcaption class="evo__label">fig. 02 — asleep, as usual</figcaption>
+        <span class="evo__sprite evo__ball" aria-hidden="true"><img src="../sprites/ball-roll-0.svg" width="10" height="10" alt=""></span>
+        <span class="evo__sprite" aria-hidden="true"><img src="../sprites/truffle-sleep-0.svg" width="36" height="20" alt=""></span>
+      </figure>
+    </article>
+    <article class="evo__person--girlfriend">
+      <div><span class="evo__label">My girlfriend</span><span class="evo__label">Best friend</span></div>
+      <h3>My best friend and the most thoughtful person I know.</h3>
+      <p>She makes me kinder, healthier, and better at living on my own. We support each other through work and everything else, and I&rsquo;m a better person because of her.</p>
+    </article>
+  </div>
+</main>
+</body>
+</html>
