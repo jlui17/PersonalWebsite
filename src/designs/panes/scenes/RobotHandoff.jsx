@@ -12,12 +12,18 @@ import "./scenes.css";
 // overlay draws the beam at the exact pixels of the place he leaves or
 // arrives at. Leaving a pane, that place is gone by the time the beam-out
 // plays (the pane unmounts in the render that sends him down), so the beam is
-// drawn where he last stood, over whatever the next pane puts there.
+// drawn where he last stood whole and in view, over whatever the next pane
+// puts there; a robot the visitor could not see whole (scrolled out of the
+// pane body's box, mid a beam of his own) gets no beam-out: nobody saw him
+// leave, and he just beams in at the other place.
 //
-// `target` is where he should be ("pathway" | "pane"); `rects` measures each
-// place's box on screen; `delay` staggers the start so two robots never beam
-// as one block. Under reduced motion he is simply at the target.
+// `target` is where he should be: "pathway" or a pane place (a key of
+// `rects`, such as "pane" or "pane6"); `rects` measures each place's box on
+// screen (a pane place answers `undefined` when its element is gone, `null`
+// when he is there but not whole); `delay` staggers the start so two robots
+// never beam as one block. Under reduced motion he is simply at the target.
 const GONE = 150;
+const isPane = (place) => place !== "pathway" && place !== "overlay" && place !== "none";
 // The longest the beam-in waits for `canLand`: Justin walks clear of the
 // robots' spots in well under a second as he leaves step 3.
 const LANDING_WAIT = 2500;
@@ -34,23 +40,28 @@ const LANDING_WAIT = 2500;
 //   `onSkipIn` tells the pathway so.
 // A target that changes while he is nowhere (waiting to leave, gone, waiting
 // to land) cancels that trip before anything shows and starts the new one
-// from where it left off; a target that changes while a beam is being drawn
-// lets it finish, then he beams straight on. A beam, once begun, is whole.
+// from where it left off. A beam-out, once begun, is whole; a beam-in that the
+// target changes under is dropped at its next frame (a robot never forms
+// whole over a pane that has moved on), and he beams in at the new target.
 export function useRobotHandoff({ name, target, rects, delay = 0, outAction, canLeave, onOut, skipIn, onSkipIn, canLand }) {
-  const [shown, setShown] = useState(target); // "pathway" | "pane" | "overlay" | "none"
+  const [shown, setShown] = useState(target); // "pathway" | a pane place | "overlay" | "none"
   const [overlay, setOverlay] = useState(null); // { rect, action, frame }
   const shownRef = useRef(target);
   const targetRef = useRef(target);
   const hooks = useRef({});
   const run = useRef(0);
-  const lastPaneRect = useRef(null); // where he last stood in the pane, for the beam-out after the pane has unmounted
+  // Where he last stood, whole and in view, in each pane place: the beam-out
+  // after the pane has unmounted plays there (null: he was not to be seen
+  // when the pane went, so no beam-out).
+  const lastPaneRect = useRef({});
   targetRef.current = target;
   hooks.current = { outAction, canLeave, onOut, skipIn, onSkipIn, canLand };
 
   useEffect(() => {
-    if (shown !== "pane") return undefined;
+    if (!isPane(shown)) return undefined;
     let id = requestAnimationFrame(function measure() {
-      lastPaneRect.current = rects.pane() ?? lastPaneRect.current;
+      const rect = rects[shown]();
+      if (rect !== undefined) lastPaneRect.current[shown] = rect; // undefined: the pane is gone, keep the last frame's answer
       id = requestAnimationFrame(measure);
     });
     return () => cancelAnimationFrame(id);
@@ -90,9 +101,10 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
       if (!alive()) return;
       let from = shownRef.current;
       for (;;) {
-        // out, where he stands (skipped when he is already mid-beam or gone)
-        if (from === "pathway" || from === "pane") {
-          const rect = rects[from]() ?? (from === "pane" ? lastPaneRect.current : null);
+        // out, where he stands (skipped when he is already mid-beam or gone,
+        // or was not to be seen whole in the pane he leaves)
+        if (from === "pathway" || isPane(from)) {
+          const rect = rects[from]() ?? (isPane(from) ? lastPaneRect.current[from] : null);
           if (rect) {
             if (!(await until(hooks.current.canLeave && (() => hooks.current.canLeave(from))))) return;
             const action = hooks.current.outAction?.(from) ?? "beam-out";
@@ -117,15 +129,24 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
         }
         if (!(await until(hooks.current.canLand && (() => hooks.current.canLand(to))))) return;
         const rect = rects[to]();
+        let dropped = false;
         if (rect) {
-          for (let f = 0; f < sheet["beam-in"].frames.length; f += 1) {
+          for (let f = 0; f < sheet["beam-in"].frames.length && !dropped; f += 1) {
             show("overlay", { rect, action: "beam-in", frame: f });
-            await wait(sheet["beam-in"].durations[f]);
+            // the place he is forming at may move on mid-frame: then he never arrives there, within a display frame
+            for (let left = sheet["beam-in"].durations[f]; left > 0 && !dropped; left -= 16) {
+              await wait(Math.min(16, left));
+              dropped = targetRef.current !== to;
+            }
           }
         }
-        show(to);
-        if (targetRef.current === to) return;
-        from = to; // the target moved on while he beamed in: straight back out
+        if (!dropped) {
+          show(to);
+          return;
+        }
+        show("none");
+        hooks.current.onOut?.(to);
+        from = "none"; // gone again; the loop takes him to the newest target
       }
     })();
     return undefined;
