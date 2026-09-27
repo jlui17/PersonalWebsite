@@ -751,23 +751,38 @@ export default function Panes() {
   // its spot. Coming back down as Justin leaves step 3, each waits until he
   // has walked clear of its spot (a beam drawn over him was the defect). On a
   // phone (one step on the pathway) they are simply in place.
+  // A pane place answers in three ways: `undefined` when its element is gone
+  // (the pane has unmounted), `null` when the robot is there but the visitor
+  // cannot see him whole (scrolled out of the pane body's box, or mid one of
+  // his own beams), else his box. Nobody saw a robot who is not whole, so he
+  // gets no beam there.
+  const inBody = useCallback((el, whole = true) => {
+    if (!el) return undefined;
+    if (!whole) return null;
+    const r = el.getBoundingClientRect();
+    const body = bodyRef.current?.getBoundingClientRect();
+    return body && r.top >= body.top && r.bottom <= body.bottom ? r : null;
+  }, []);
   const robotRects = useMemo(
     () =>
       phone
-        ? { luibot: { pathway: () => null, pane: () => null }, luibuilder: { pathway: () => null, pane: () => null } }
+        ? { luibot: { pathway: () => null, pane: () => null }, luibuilder: { pathway: () => null, pane: () => null, pane6: () => null } }
         : {
             luibot: {
               // mid-beam on the pathway there is nobody to beam out
               pathway: () => (stage.bot.hidden ? null : document.querySelector(".pn__bot svg")?.getBoundingClientRect() ?? null),
-              pane: () => document.querySelector('.pn-robot[data-robot="luibot"]')?.getBoundingClientRect() ?? null,
+              pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibot"]')),
             },
             luibuilder: {
               pathway: () => document.querySelector('[data-prop="luibuilder"]')?.getBoundingClientRect() ?? null,
-              pane: () =>
-                (document.querySelector(".pn-builder") ?? document.querySelector('.pn-robot[data-robot="luibuilder"]'))?.getBoundingClientRect() ?? null,
+              pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibuilder"]')),
+              pane6: () => {
+                const el = document.querySelector(".pn-builder");
+                return inBody(el, !el?.dataset.action.startsWith("beam"));
+              },
             },
           },
-    [phone, stage],
+    [phone, stage, inBody],
   );
   // The stage's one clearance rule, asked of a pathway box (the pathway's x
   // is the page's): luibot's is where the stage has him, luibuilder's is his
@@ -799,7 +814,8 @@ export default function Panes() {
   }, [stage, luibotUp.shown]);
   const luibuilderUp = useRobotHandoff({
     name: "luibuilder",
-    target: focused === "agents" || focused === "built" ? "pane" : "pathway",
+    // two pane places, so pane 3 to pane 6 is a trip too: a beam-out beside his name, a beam-in at the first project
+    target: focused === "agents" ? "pane" : focused === "built" ? "pane6" : "pathway",
     rects: robotRects.luibuilder,
     delay: 120,
     canLeave: (from) => pathwayClear("luibuilder", from),
@@ -1422,7 +1438,7 @@ export default function Panes() {
       </>
     ),
     built: (
-      <BuilderScene present={luibuilderUp.shown === "pane"}>
+      <BuilderScene present={luibuilderUp.shown === "pane6"}>
         <ul className="pn__projects">
           {projects.map((project, i) => (
             <li className="pn__project" key={project.title}>
