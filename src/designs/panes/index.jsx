@@ -822,8 +822,14 @@ export default function Panes() {
     if (focused !== "agents") {
       stage.wantBotUp(null);
       setBotUp(false);
-    } else if (phone) setBotUp(true);
-    else stage.wantBotUp(() => setBotUp(true));
+    } else if (phone) {
+      // no pathway leg on a phone: an errand he was on is dropped (above) and
+      // he is put away for real, on the ground and idle, before the pane takes
+      // him; left at his errand's height he popped up there, fully formed,
+      // when the next pane opened
+      stage.botTaken();
+      setBotUp(true);
+    } else stage.wantBotUp(() => setBotUp(true));
     const anchor = { now: "sign-switch", someday: "feed-spot" }[focused];
     if (!anchor) return undefined;
     if (!paneChanged && (luibotDoneRef.current[anchor] || stage.botChoreFor(focused))) return undefined;
