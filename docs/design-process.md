@@ -69,7 +69,7 @@ These were seen and left on purpose, so finding one again is not a miss. Remove 
 
 - Back leaves the site, because selecting a step replaces the history entry, and there is no `hashchange` listener, so editing the hash in an open tab does not change the pane.
 - On a phone, focus drops to `body` after "‹ all", and the robots, the status switch and a few other tap targets are under 40px.
-- `/#future` scrolls by 21px at 1280x800. At 1920x1080 panes 5 and 3 show blank bands of 94px and 81px. At his window pane 2 fills 75% of its height; a larger size is the next lever, and that is his call.
+- At 1280x800 three panes scroll: hello by 104px, projects by 53px and now by 11px. On a phone the third card in pane 2 keeps a 12px top padding and the second-to-last a 14px bottom padding, where every other row has 18px and 21px. At 1920x1080 panes 5 and 3 show blank bands of 94px and 81px. At his window pane 2 fills 75% of its height; a larger size is the next lever, and that is his call.
 - luibot's hat crosses the status sign's top border.
 - At 1280x720 a scroll can bring a paragraph under luibot, and his 0.4 s beam-out plays over it. A beam was kept over a plain vanish, because every larger move is a beam and "never over text" is our default.
 - One lagging sample with words under luibot on a 60px scroll; the robots drawn nowhere for up to 6.4 s during a key mash; luibuilder beams twice on a quick 3, 1, 3; at 700px wide luibot's box overlaps Justin's at step 3.
