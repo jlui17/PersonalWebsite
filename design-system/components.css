@@ -155,10 +155,15 @@ body {
 }
 
 .pn__agent-head .pn__card-name,
-.pn__project-title,
 .pn__palette-input {
   font: var(--pn-ui-large);
   letter-spacing: var(--pn-ui-track);
+}
+
+/* a project's name is the "###" over its block */
+.pn__project-title {
+  font: var(--pn-h3);
+  letter-spacing: var(--pn-h3-track);
 }
 
 .pn__label {
@@ -611,8 +616,8 @@ body {
 }
 
 .pn__card p {
-  color: var(--pn-muted);
-  font-size: 14px;
+  color: var(--pn-dim);
+  font-size: 13px;
   max-width: 62ch; /* a wider section's room goes to the grid, not to longer lines */
   text-wrap: pretty;
 }
@@ -691,8 +696,8 @@ body {
 }
 
 .pn__agent > p {
-  color: var(--pn-muted);
-  font-size: 14px;
+  color: var(--pn-dim);
+  font-size: 13px;
   max-width: 62ch;
   text-wrap: pretty;
 }
@@ -709,8 +714,8 @@ body {
 .pn__does li {
   position: relative;
   padding: var(--pn-line-pad) 0 var(--pn-line-pad) 14px;
-  font-size: 13.5px;
-  color: var(--pn-muted);
+  font-size: 13px;
+  color: var(--pn-dim);
 }
 
 /* a list ends on its last line's text, so the step under it is the same as under a paragraph */
@@ -758,7 +763,7 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
   gap: var(--pn-gap-block) 32px;
-  font-size: 14px; /* the paragraphs' size, so the 62ch is theirs */
+  font-size: 13px; /* the paragraphs' size, so the 62ch is theirs */
 }
 
 .pn__story > div {
@@ -798,8 +803,8 @@ body {
   align-items: baseline;
   gap: 12px;
   padding: var(--pn-line-pad) 0;
-  font-size: 13.5px;
-  color: var(--pn-muted);
+  font-size: 13px;
+  color: var(--pn-dim);
 }
 
 .pn__roadmap-agent {
@@ -873,16 +878,16 @@ body {
 }
 
 .pn__project-kicker {
-  color: var(--pn-ink-2);
-  font-size: 14.5px;
+  color: var(--pn-ink);
+  font-size: 15px;
   padding-top: var(--pn-more-text); /* on top of the head's own 9px (scenes.css); a margin would collapse into it */
-  margin-bottom: var(--pn-gap-heading);
+  margin-bottom: calc(var(--pn-gap-heading) + 6px); /* a step apart from the story, so the two don't read as one paragraph */
   text-wrap: pretty;
 }
 
 .pn__project-story {
-  color: var(--pn-muted);
-  font-size: 13.5px;
+  color: var(--pn-dim);
+  font-size: 13px;
   max-width: 62ch;
   text-wrap: pretty;
 }
@@ -908,7 +913,7 @@ body {
   justify-content: start;
   align-items: start;
   gap: 24px 40px;
-  font-size: 14px; /* the paragraphs' size, so the column's 62ch is theirs */
+  font-size: 13px; /* the paragraphs' size, so the column's 62ch is theirs */
 }
 
 .pn__blocks,
@@ -923,7 +928,7 @@ body {
 }
 
 .pn__block p {
-  color: var(--pn-muted);
+  color: var(--pn-dim);
   text-wrap: pretty;
 }
 
@@ -987,7 +992,7 @@ body {
 }
 
 .pn__people .pn__card {
-  padding: calc(12px + var(--pn-more-part)) 0 calc(14px + var(--pn-more-part)); /* a row of cards to the next, around its hairline */
+  padding: calc((12px + var(--pn-more-part)) * 1.5) 0 calc((14px + var(--pn-more-part)) * 1.5); /* a row of cards to the next, around its hairline */
   border-top: 1px solid var(--pn-line);
 }
 
@@ -1008,7 +1013,7 @@ body {
 .pn__people .pn__people-wide {
   grid-column: 1 / -1;
   justify-self: center;
-  margin: 0 -12px calc(6px + var(--pn-more-part));
+  margin: 0 -12px calc((6px + var(--pn-more-part)) * 1.5);
   padding: calc(14px + var(--pn-more-text)) 12px calc(16px + var(--pn-more-text));
   border-top: 0;
 }

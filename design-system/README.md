@@ -37,9 +37,9 @@ One dark palette, and no light mode. The ground is a dark roast coffee brown, ne
 | `--pn-line` | `#3f3931` | Hairlines: card borders, the rule between a pane's parts. |
 | `--pn-line-strong` | `#4e473f` | The rules sprites stand on, button borders, the bar beside a list line. |
 | `--pn-ink` | `#ece5d8` | Titles, hooks, headings, values. |
-| `--pn-ink-2` | `#c3b9a9` | Names on cards, a project's one-line summary. |
-| `--pn-muted` | `#afa494` | Paragraphs, list lines, labels. |
-| `--pn-dim` | `#9d9080` | The quietest text: a card's invite, step numbers. 4.6:1 on the surface, so no text goes below it. |
+| `--pn-ink-2` | `#c3b9a9` | Names on cards, the sentences on his girlfriend's card. |
+| `--pn-muted` | `#afa494` | Labels, buttons, the step bar's words, a card's title, the quieter line under a hook, the hello's last line. |
+| `--pn-dim` | `#9d9080` | The quietest text: the details (paragraphs, list lines, project stories), a card's invite, step numbers. 4.6:1 on the surface, so no text goes below it. |
 | `--pn-faint` | `#746e64` | Decoration only: hollow dots, an unlit switch. Never text. |
 | `--pn-amber` | `#e8ab55` | Focus and attention: the open pane's border, the selected card and step, lit dots, the focus ring. |
 | `--pn-amber-dim` | `rgba(232, 171, 85, 0.12)` | The one tinted card (his girlfriend's) and the selected row of the search box. |
@@ -53,33 +53,33 @@ One dark palette, and no light mode. The ground is a dark roast coffee brown, ne
 
 Two families, split by reading level, and no third: not even for an arrow or a key glyph, which are drawn as small SVGs. The ranks step down by size, weight and colour.
 
-**JetBrains Mono** (`--pn-font-head`, weights 400 and 500) is everything a visitor sees when they skim: titles, hooks, headings, labels, buttons, the cards, the step bar, the clock. Each role is a whole `font` token with a tracking token beside it.
+**JetBrains Mono** (`--pn-font-head`, weights 400, 500 and 700) is everything a visitor sees when they skim: titles, hooks, headings, labels, buttons, the cards, the step bar, the clock. Each role is a whole `font` token with a tracking token beside it.
 
 | Role token | Font | Tracking | Used for |
 | --- | --- | --- | --- |
 | `--pn-h1` | 500 34px/1.1 (30px on a phone) | -0.04em | The first pane's title. Used once. |
 | `--pn-lead` | 400 19px/1.4 (17.5px under 900px), 46ch | -0.02em | The open pane's hook. |
-| `--pn-h3-large` | 500 16.5px/1.35, 48ch | -0.015em | The headings of the future plans. |
-| `--pn-h3` | 500 15px/1.4 | -0.015em | A pane's "###" over a block of details, and card headings. |
-| `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | Project and agent names, the search box's input. |
+| `--pn-h3-large` | 700 18.5px/1.35, 48ch | -0.015em | The headings of the future plans. |
+| `--pn-h3` | 700 17px/1.4 | -0.015em | A pane's "###" over a block of details, card headings, and project names. |
+| `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | Agent names, the search box's input. |
 | `--pn-fold-hook` | 500 14px/1.3 | -0.01em | The one line on a card. |
 | `--pn-ui` | 500 13px/1.3 | -0.01em | Names on cards, his name in the title bar, search rows, the status sign's values. |
 | `--pn-label`, `--pn-sign` | 500 11.5px/1 (10.5px in a phone's step bar) | 0 | All small chrome: tags, captions, buttons, hints, the clock, the step bar, the words on the drawn sign boards. |
 
-**Instrument Sans** (`--pn-font-body`, weight 400) is the details: the sentences under a heading. The window's base is 15px/1.6. Paragraphs are 14px in `--pn-muted` on a 62ch measure. The quieter line under a hook is 14px on 60ch. A project's one-line summary is 14.5px in `--pn-ink-2`. List lines and project stories are 13.5px.
+**Instrument Sans** (`--pn-font-body`, weight 400) is the details: the sentences under a heading. The window's base is 15px/1.6. Paragraphs, list lines and project stories are 13px in `--pn-dim`, and paragraphs sit on a 62ch measure. The quieter line under a hook is 14px in `--pn-muted` on 60ch. A project's one-line summary is 15px in `--pn-ink`.
 
 ## Spacing
 
 The window is a grid of four rows: the title bar (`--pn-title-h`, 40px), the workspace, the pathway (`--pn-pathway-h`, 68px: the tallest pose is 62px) and the step bar (`--pn-bar-h`, 30px). The window never scrolls as a whole. The pane's body scrolls, and its last lines fade when there is more below. The workspace has 10px of padding and a 10px gap. The cards take `--pn-stack-w` (424px, at most half the width) and sit 4px apart with `--pn-fold-pad` inside. The pane takes the rest, and its body has 24px 26px of padding. Corners are `--pn-radius` (6px), and buttons inside take 4px. Every border and rule is 1px. Columns inside a pane are 32px apart.
 
-Inside a pane, content flows from the top with one rhythm. Nothing is stretched, spread or pinned to the bottom, and room left at the end stays empty. The first number is the step in a 1280x800 window. In a taller pane all the steps grow together by one rule (`--pn-rise`), up to the second number, and no step between two things passes 48px.
+Inside a pane, content flows from the top with one rhythm. Nothing is stretched, spread or pinned to the bottom, and room left at the end stays empty. The first number is the step in a 1280x800 window. In a taller pane all the steps grow together by one rule (`--pn-rise`), up to the second number, and no step between two things passes 54px.
 
 | Token | Step | Between |
 | --- | --- | --- |
 | `--pn-gap-above-rule` | 26px to 42px | The end of a part and the hairline that opens the next. |
 | `--pn-gap-below-rule` | 22px to 38px | That hairline and the part's first line. |
 | `--pn-gap-hook` | 18px to 34px | The hook (or the quieter line under it) and the first part. |
-| `--pn-gap-block` | 18px to 34px | Block and block, in every column. |
+| `--pn-gap-block` | 27px to 51px | Block and block, in every column. |
 | `--pn-line-pad` | 5px to 7px | Over and under each line of a list. |
 | `--pn-gap-heading` | 4px to 8px | A "###" and its text. |
 
@@ -93,7 +93,7 @@ Each part has a card in `components/`. Use the class names as they are.
 - **Title bar** (`titlebar.html`): `.pn__titlebar` with `.pn__title-name` (his name and "pronounced loo-wee" as a `.pn__label`), the search button `.pn__palette-button` with its `.pn__kbd` key, and `.pn__title-right` with two `.pn__hint`s and the `.pn__clock`. The hints hide on touch screens and under 900px.
 - **Card** (`card.html`): `.pn__stack` holds six `.pn__fold` buttons. Each has a `.pn__fold-head` (a `.pn__dot`, the number `.pn__pane-index`, the `.pn__fold-title` and the `.pn__fold-invite` with a `.pn__chevron`) and one `.pn__fold-hook` line. The selected card has `aria-current="true"`: amber border, filled dot, amber title, no invite.
 - **Pane** (`pane.html`): `.pn__pane` with a `.pn__pane-head` (the `.pn__pane-title` button and the `.pn__expand` button) and a scrolling `.pn__pane-body`. The body opens with the hook `.pn__lead` and sometimes a quieter `.pn__more`. `data-more` on the body fades its last lines.
-- **Blocks** (`pane.html`, `pages/home.html`): `.pn__block` is a `.pn__h3` over a paragraph. `.pn__blocks` stacks them in one column. `.pn__story` opens a new part under a hairline and sets them in two columns that keep their reading order. `.pn__link` is a link inside a sentence.
+- **Blocks** (`pane.html`, `pages/home.html`): `.pn__block` is a `.pn__h3` over a paragraph, and a block without a heading reads as the next paragraph of the one above it. `.pn__blocks` stacks them in one column. `.pn__story` opens a new part under a hairline and sets them in two columns that keep their reading order. `.pn__link` is a link inside a sentence.
 - **Lists** (`pane.html`): `.pn__does` is a `.pn__label` over a list whose lines each take a small bar, amber on the line with `aria-current="true"`. `.pn__week` with `.pn__week-days` sets one such list per day. `.pn__roadmap` is a to-do list whose lines start with a `.pn__roadmap-agent` name and a small square, blue for luibot and amber for luibuilder.
 - **Agent** (`pane.html`): `.pn__agents` holds two `.pn__agent` columns. The `.pn__agent-head` has the name, a tag and the robot (`.pn-robot`), who stands on the head's rule and speaks in a `.pn-robot__bubble`.
 - **People cards** (`people.html`): `.pn__people` holds `.pn__card`s, each a `.pn__card-name`, a heading and a paragraph. `.pn__card--tinted` with `.pn__people-wide` is his girlfriend's card, the one highlight. `.pn__card-live` is Truffle's live label.

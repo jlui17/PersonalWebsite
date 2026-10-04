@@ -56,8 +56,8 @@
   --pn-lead: 400 19px/1.4 var(--pn-font-head); /* the open section's hook */
   --pn-lead-track: -0.02em;
   --pn-lead-measure: 46ch;
-  --pn-h3: 500 15px/1.4 var(--pn-font-head); /* a pane's "###", card headings */
-  --pn-h3-large: 500 16.5px/1.35 var(--pn-font-head); /* future plans */
+  --pn-h3: 700 17px/1.4 var(--pn-font-head); /* a pane's "###", card headings */
+  --pn-h3-large: 700 18.5px/1.35 var(--pn-font-head); /* future plans */
   --pn-h3-track: -0.015em;
   --pn-h3-measure: 48ch;
 
@@ -100,9 +100,9 @@
      (`container: pane / size`, in components.css) with a height of its own.
    --pn-fit (1, or less: the site lowers it from script) holds the growth back as far as it
      takes for a pane that fits without scrolling to go on fitting.
-   The ranks keep their order: part to part grows the most (+16px at the cap), a heading to its
-   text a little (+4px), a list's lines the least (+2px on each side). No step between two
-   things passes 48px. */
+   The ranks keep their order: block to block grows the most (+24px at the cap), part to part
+   next (+16px), a heading to its text a little (+4px), a list's lines the least (+2px on each
+   side). No step between two things passes 54px. */
 .pn__pane-body {
   --pn-fit: 1;
   --pn-rise: calc(min(clamp(0px, 100cqh - 558px, 200px), clamp(0px, (100cqw - 700px) * 100, 200px)) * var(--pn-fit));
@@ -113,7 +113,7 @@
   --pn-gap-hook: calc(18px + var(--pn-more-part)); /* the hook (or the quieter line under it) to the first part */
   --pn-gap-above-rule: calc(26px + var(--pn-more-part)); /* a part's end to the hairline that opens the next */
   --pn-gap-below-rule: calc(22px + var(--pn-more-part)); /* that hairline to the part's first line */
-  --pn-gap-block: calc(18px + var(--pn-more-part)); /* block to block, in every column */
+  --pn-gap-block: calc((18px + var(--pn-more-part)) * 1.5); /* block to block, in every column */
   --pn-gap-heading: calc(4px + var(--pn-more-text)); /* a "###" to its text */
   --pn-line-pad: calc(5px + var(--pn-more-line)); /* over and under a list's line */
 }

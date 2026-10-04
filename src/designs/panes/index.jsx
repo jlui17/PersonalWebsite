@@ -176,7 +176,7 @@ function useAmbient(sheet, actionNames, offset, { min = 6000, max = 10000 } = {}
 const PANES = [
   { id: "hello", short: "hello", keywords: ["hello", "hi", "intro", "about", "me", "start", "lui", "justin", "work", "scorecard", "one piece", "geography", "shoes", "shoe rack"], ...sections.intro },
   { id: "people", short: "people", keywords: ["people", "family", "mom", "dad", "sister", "andrea", "girlfriend", "dog", "truffle"], ...sections.people },
-  { id: "agents", short: "agents", keywords: ["agents", "agent", "luibot", "luibuilder", "robots", "bots", "openclaw", "discord", "side quests", "robotics", "3d printer"], ...sections.agents },
+  { id: "agents", short: "agents", keywords: ["agents", "agent", "luibot", "luibuilder", "robots", "bots", "openclaw", "side quests", "robotics", "3d printer"], ...sections.agents },
   { id: "someday", short: "future", keywords: ["future", "plans", "someday", "farm", "new york", "japan", "sheep", "cow", "chickens", "hen"], ...sections.someday },
   { id: "now", short: "now", keywords: ["now", "up to", "lately", "status", "learning", "japanese", "espresso", "coffee", "grinder", "pokemon", "experiments", "week", "weekend", "friends", "trader joe's", "san mateo"], ...sections.now },
   { id: "built", short: "projects", keywords: ["projects", "built", "tools", "code", "puzzle", "puzzlewithme", "mdnote", "slk", "slack", "things"], ...sections.projects },
@@ -286,7 +286,7 @@ function Block({ block }) {
   return (
     <section className="pn__block">
       {block.heading && <h3 className="pn__h3">{block.heading}</h3>}
-      <Prose paragraph={[].concat(block.body)} />
+      {[].concat(block.body).length > 0 && <Prose paragraph={[].concat(block.body)} />}
     </section>
   );
 }
@@ -1378,9 +1378,12 @@ export default function Panes() {
               ))}
             </ul>
           </section>
-          {agentStory.map((block) => (
-            <Block block={block} key={block.heading} />
-          ))}
+          {/* one child, so a block without a heading stays under the one above it */}
+          <div className="pn__blocks">
+            {agentStory.map((block, i) => (
+              <Block block={block} key={i} />
+            ))}
+          </div>
         </Balanced>
       </>
     ),

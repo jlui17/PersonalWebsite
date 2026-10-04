@@ -7,7 +7,7 @@
 <title>Type</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../components.css">
 <style>
@@ -31,7 +31,7 @@
   <p class="intro">Two families, split by reading level. JetBrains Mono is everything a visitor sees when they skim: titles, hooks, headings, labels, buttons, the cards, the step bar. Instrument Sans is the details: the sentences under a heading. There is no third family, not even for an arrow or a key: those are drawn. The ranks step down by size, weight and colour.</p>
 
   <h2 class="family">JetBrains Mono, the skim level</h2>
-  <p>Weights 400 and 500. The face is wide and heavy, so the heads are small for headings, medium in weight, and tracked in where they are large.</p>
+  <p>Weights 400, 500 and 700. The face is wide and heavy, so the heads are small for headings and tracked in where they are large. The "###" roles are set at 700, and the rest at 400 or 500.</p>
 
   <div class="role">
     <div class="role__spec"><span class="pn__label">--pn-h1</span><span class="pn__label">500 34px/1.1, -0.04em. 30px on a phone</span><span class="pn__label">The first pane's title. Used once.</span></div>
@@ -42,15 +42,15 @@
     <p class="pn__lead" style="margin: 0">I’m a founding engineer in San Francisco. At Scorecard, I build simulations where AI agents practice real-world tasks.</p>
   </div>
   <div class="role">
-    <div class="role__spec"><span class="pn__label">--pn-h3-large</span><span class="pn__label">500 16.5px/1.35, -0.015em, 48ch</span><span class="pn__label">The headings of the future plans, each with its picture.</span></div>
+    <div class="role__spec"><span class="pn__label">--pn-h3-large</span><span class="pn__label">700 18.5px/1.35, -0.015em, 48ch</span><span class="pn__label">The headings of the future plans, each with its picture.</span></div>
     <h3 style="font: var(--pn-h3-large); letter-spacing: var(--pn-h3-track); color: var(--pn-ink)">Start a family farm with all kinds of animals.</h3>
   </div>
   <div class="role">
-    <div class="role__spec"><span class="pn__label">--pn-h3</span><span class="pn__label">500 15px/1.4, -0.015em</span><span class="pn__label">A pane's "###" over a block of details, and card headings.</span></div>
+    <div class="role__spec"><span class="pn__label">--pn-h3</span><span class="pn__label">700 17px/1.4, -0.015em</span><span class="pn__label">A pane's "###" over a block of details, card headings, and project names.</span></div>
     <h3 class="pn__h3">I automate things that don’t need it</h3>
   </div>
   <div class="role">
-    <div class="role__spec"><span class="pn__label">--pn-ui-large</span><span class="pn__label">500 14.5px/1.3, -0.01em</span><span class="pn__label">Project and agent names, the search box's input.</span></div>
+    <div class="role__spec"><span class="pn__label">--pn-ui-large</span><span class="pn__label">500 14.5px/1.3, -0.01em</span><span class="pn__label">Agent names, the search box's input.</span></div>
     <span style="font: var(--pn-ui-large); letter-spacing: var(--pn-ui-track); color: var(--pn-ink)">luibuilder</span>
   </div>
   <div class="role">
@@ -67,27 +67,27 @@
   </div>
 
   <h2 class="family">Instrument Sans, the detail level</h2>
-  <p>Weight 400. The window's base is 15px/1.6. Details are set a little smaller and in the muted colour, on a 62ch measure.</p>
+  <p>Weight 400. The window's base is 15px/1.6. Details are set smaller and in the quietest colour, and paragraphs on a 62ch measure.</p>
 
   <div class="role">
-    <div class="role__spec"><span class="pn__label">paragraph</span><span class="pn__label">400 14px/1.6, muted, 62ch</span><span class="pn__label">The text under a "###".</span></div>
-    <p style="max-width: 62ch; font-size: 14px; color: var(--pn-muted)">Once I’m interested in something, I can talk about it for hours, way longer than I meant to. Some of those things are espresso, custom keyboards, and finding the right pair of shoes. I can also tell you why episode 1070 of the anime One Piece is my favourite.</p>
+    <div class="role__spec"><span class="pn__label">paragraph</span><span class="pn__label">400 13px/1.6, dim, 62ch</span><span class="pn__label">The text under a "###".</span></div>
+    <p style="max-width: 62ch; font-size: 13px; color: var(--pn-dim)">I can talk about espresso and custom keyboards for hours. I can also tell you why episode 1070 of the anime One Piece is my favourite.</p>
   </div>
   <div class="role">
     <div class="role__spec"><span class="pn__label">the quieter line under a hook</span><span class="pn__label">400 14px/1.6, muted, 60ch</span><span class="pn__label">Optional, one rank under the hook.</span></div>
     <p class="pn__more" style="margin: 0">A puzzle app for my girlfriend and me, and tools for my friends and my old job.</p>
   </div>
   <div class="role">
-    <div class="role__spec"><span class="pn__label">a project's one-line summary</span><span class="pn__label">400 14.5px/1.6, ink-2</span></div>
-    <p style="font-size: 14.5px; color: var(--pn-ink-2)">I built the software I wished we had at the night market.</p>
+    <div class="role__spec"><span class="pn__label">a project's one-line summary</span><span class="pn__label">400 15px/1.6, ink</span></div>
+    <p style="font-size: 15px; color: var(--pn-ink)">Scheduling, payroll, and onboarding in one place</p>
   </div>
   <div class="role">
-    <div class="role__spec"><span class="pn__label">list line, project story</span><span class="pn__label">400 13.5px/1.6, muted</span></div>
-    <p style="font-size: 13.5px; color: var(--pn-muted)">Pick up groceries from the Trader Joe’s nearby</p>
+    <div class="role__spec"><span class="pn__label">list line, project story</span><span class="pn__label">400 13px/1.6, dim</span></div>
+    <p style="font-size: 13px; color: var(--pn-dim)">Pick up groceries from the Trader Joe’s nearby</p>
   </div>
   <div class="role">
     <div class="role__spec"><span class="pn__label">link</span><span class="pn__label">blue, 1px underline at 40%, 3px offset</span></div>
-    <p style="font-size: 14px; color: var(--pn-muted)">We’re running an AI agent that gets better at competitive Pokémon on its own, and you can <a class="pn__link" href="https://pokemon-viewer-production.up.railway.app/stats">follow along here</a>.</p>
+    <p style="font-size: 13px; color: var(--pn-dim)">We’re running an AI agent that gets better at competitive Pokémon on its own, and you can <a class="pn__link" href="https://pokemon-viewer-production.up.railway.app/stats">follow along here</a>.</p>
   </div>
 </main>
 </body>
