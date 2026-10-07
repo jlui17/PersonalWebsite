@@ -2049,8 +2049,19 @@ body {
     padding: 0 8px;
   }
 
+  /* the row scrolls and the pathway shows one step, so no tick can stand
+     under where he is: the dot marks the open step instead */
   .panes[data-top="c"] .pn__step {
-    padding: 12px 12px 0;
+    padding: 0 12px;
+    align-items: center;
+  }
+
+  .panes[data-top="c"] .pn__step::before {
+    display: none;
+  }
+
+  .panes[data-top="c"] .pn__step .pn__dot {
+    display: inline-block;
   }
 
   .panes[data-top="c"] .pn__next {
