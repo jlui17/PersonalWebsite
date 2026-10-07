@@ -801,7 +801,7 @@ export default function Panes() {
     name: "luibot",
     target: botUp ? "pane" : "pathway",
     rects: robotRects.luibot,
-    outAction: () => (stage.bot.y > 0 ? "beam-out-fly" : "beam-out"),
+    outAction: () => (stage.bot.y !== 0 ? "beam-out-fly" : "beam-out"),
     canLeave: (from) => pathwayClear("luibot", from),
     onOut: (from) => from === "pathway" && stage.botTaken(),
     // an errand waits: from the pane he goes straight to it (no beam-in at home first)
@@ -1265,7 +1265,7 @@ export default function Panes() {
   // On a phone he shows only with the pane open: at his own step, or up at a
   // pane spot on an errand (the pathway is one step wide, and drawn off his
   // own step he sat over the cow and the coffee stand).
-  const botHidden = scene.bot.hidden || luibotUp.shown !== "pathway" || (phone && !(open && (focused === "agents" || scene.bot.y > 0)));
+  const botHidden = scene.bot.hidden || luibotUp.shown !== "pathway" || (phone && !(open && (focused === "agents" || scene.bot.y !== 0)));
   const truffleState = scene.truffle.pushing ? "bringing the ball back" : truffleWords[scene.truffle.pose];
 
   // The coffee corner's state follows his beats: brewing from the press, a
