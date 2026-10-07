@@ -1888,7 +1888,15 @@ body {
 
   .panes[data-top="b"] .pn__step {
     max-width: none;
-    height: 30px;
+    height: 40px;
+  }
+
+  .panes[data-top="b"] .pn__stage {
+    height: 116px; /* the taller signs' row */
+  }
+
+  .panes[data-top="b"] .pn__bot {
+    top: calc(var(--pn-title-h) + 116px);
   }
 
   .panes[data-top="b"] .pn__pane-body {
@@ -1897,11 +1905,12 @@ body {
   }
 
   .panes[data-top="c"] .pn__steps {
-    height: 40px;
+    height: 42px;
+    padding: 0 8px;
   }
 
   .panes[data-top="c"] .pn__step {
-    padding: 11px 12px 0;
+    padding: 12px 12px 0;
   }
 
   .panes[data-top="c"] .pn__next {
