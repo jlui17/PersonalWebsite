@@ -1682,13 +1682,12 @@ body {
   max-width: calc(100% - 12px);
   height: 26px;
   padding: 0 10px;
-  border: 1px solid var(--pn-line-strong);
+  border: 1px solid var(--pn-line);
   border-radius: 4px;
-  background: var(--pn-surface);
 }
 
 .panes[data-top="b"] .pn__step:hover {
-  border-color: var(--pn-muted);
+  border-color: var(--pn-line-strong);
 }
 
 .panes[data-top="b"] .pn__step[aria-current="true"] {

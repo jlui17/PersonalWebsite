@@ -491,12 +491,13 @@ function Steps({ focused, onSelect, refs, onPreview }) {
 // place to go. Its box keeps one height, so nothing under it moves.
 function NextLine({ focused, preview, onSelect }) {
   const pointed = preview && preview !== focused;
-  const p = PANES.find((x) => x.id === (pointed ? preview : order[order.indexOf(focused) + 1]));
+  const last = order.indexOf(focused) === order.length - 1;
+  const p = PANES.find((x) => x.id === (pointed ? preview : order[last ? 0 : order.indexOf(focused) + 1]));
   return (
     <div className="pn__next">
       {p && (
         <button type="button" className="pn__next-button" onClick={() => onSelect(p.id)} tabIndex={-1}>
-          {!pointed && <span className="pn__next-kind">Next</span>}
+          {!pointed && <span className="pn__next-kind">{last ? "Back to the start" : "Next"}</span>}
           <span className="pn__next-line">{cardLine(p)}</span>
           <span className="pn__fold-invite">
             {p.invite}
