@@ -1528,3 +1528,116 @@ body {
     animation: none !important;
   }
 }
+
+/* ---- trial: the pathway at the top (?top=a|b|c, `TOP` in index.jsx) ----
+   The pathway moves from under the workspace to over it, and its steps, each
+   named in a few plain words, take over from the column of cards: the open
+   pane gets the window's whole width. Three far-apart ways to build it, for
+   Justin to pick between on the page; this block goes when he has. In all
+   three luibot's layer stands on the pathway's floor at the top, and the
+   robots beam down into pane 3 and back up. */
+.panes[data-top] {
+  grid-template-rows: var(--pn-title-h) auto auto minmax(0, 1fr);
+}
+
+.panes[data-top] .pn__titlebar {
+  grid-row: 1;
+}
+
+.panes[data-top] .pn__stage {
+  grid-row: 2;
+  border-top: 0;
+  background: transparent; /* the walk is on the page's own ground */
+}
+
+.panes[data-top] .pn__work {
+  grid-row: 4;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* luibot's layer: a line with no height at the pathway's floor; his svg
+   stands on it, and his own transform (feet row 31 on the ground) is as before */
+.panes[data-top] .pn__bot {
+  bottom: auto;
+  height: 0;
+}
+
+.panes[data-top] .pn__bot svg {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.pn__step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+  font: var(--pn-ui);
+  letter-spacing: var(--pn-ui-track);
+  color: var(--pn-muted);
+  white-space: nowrap;
+}
+
+.pn__step:hover {
+  color: var(--pn-ink);
+}
+
+.pn__step-n {
+  font: var(--pn-label);
+  color: var(--pn-dim);
+}
+
+.pn__step-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pn__step[aria-current="true"] {
+  color: var(--pn-amber);
+}
+
+.pn__step[aria-current="true"] .pn__dot {
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+}
+
+/* a: tabs the pathway stands on. Under the walk, its floor, and hanging from
+   the floor one tab per step; the open step's tab is joined to the pane under
+   it, like the tab of a folder, so the pane needs no title of its own. */
+.panes[data-top="a"] .pn__bot {
+  top: calc(var(--pn-title-h) + var(--pn-pathway-h));
+}
+
+.panes[data-top="a"] .pn__steps {
+  grid-row: 3;
+  position: relative;
+  z-index: 1; /* the open tab covers the pane's top border */
+  display: grid;
+  grid-template-columns: repeat(var(--pn-steps), minmax(0, 1fr));
+  height: 34px;
+  padding: 0 10px;
+  border-top: 1px solid var(--pn-line-strong); /* the pathway's floor */
+}
+
+.panes[data-top="a"] .pn__step {
+  height: 35px;
+  margin-top: -1px; /* the open tab's top edge lies on the floor */
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: var(--pn-radius) var(--pn-radius) 0 0;
+}
+
+.panes[data-top="a"] .pn__step[aria-current="true"] {
+  border-color: var(--pn-amber);
+  background: var(--pn-surface);
+}
+
+.panes[data-top="a"] .pn__work {
+  padding-top: 0;
+}
+
+.panes[data-top="a"] .pn__pane {
+  margin-top: -1px; /* its top border under the tabs' foot, covered by the open one */
+}

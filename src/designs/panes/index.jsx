@@ -13,6 +13,13 @@ import { AgentRobot, BuilderScene, BuilderSpot, FarmScene, HelloScene, JapanScen
 // day can be checked by hand.
 const hourOverride = new URLSearchParams(window.location.search).get("hour");
 
+// ?top=a|b|c|old: a trial of the pathway at the top of the window, where its
+// steps, each named in a few plain words, take over from the column of cards.
+// Temporary, like &fonts= was: it goes once Justin has picked. `old` is the
+// layout before the trial; anything else is a.
+const TOP = { a: "a", b: "b", c: "c", old: "old" }[new URLSearchParams(window.location.search).get("top")] ?? "a";
+const onTop = TOP !== "old";
+
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const sfHour = () =>
@@ -182,6 +189,17 @@ const PANES = [
   { id: "built", short: "projects", keywords: ["projects", "built", "tools", "code", "puzzle", "puzzlewithme", "mdnote", "slk", "slack", "things"], ...sections.projects },
 ];
 const order = PANES.map((p) => p.id);
+// Each step's name on the pathway at the top: three or four plain words a
+// visitor who has never heard of the thing understands (provisional).
+const STEP_LABEL = {
+  hello: "A bit about me",
+  people: "The people I love",
+  agents: "My two AI agents",
+  someday: "My future plans",
+  now: "What I’m up to",
+  built: "Things I’ve built",
+};
+const stepLabel = (p) => STEP_LABEL[p.id] ?? p.title;
 // The pane's name in the chrome (its strip, its fold, the step bar). The
 // hello pane's title is its own h1, so its name is the step-bar word,
 // capitalised like the other panes' titles ("Hello", "My people").
@@ -433,6 +451,63 @@ function Fold({ pane, index, focused, onOpen, buttonRef }) {
   );
 }
 
+// The steps on top (?top=a|b|c): one button per step, each over its own
+// stretch of the pathway, with its number and its few plain words. The open
+// step's button wears the open pane's amber, a filled dot and its own shape
+// per trial (a tab joined to the pane, a lit sign, a stop on the line). The
+// left and right keys move along them, as along the old step bar.
+function Steps({ focused, onSelect, refs, onPreview }) {
+  return (
+    <nav className="pn__steps" aria-label="Sections">
+      {PANES.map((p, i) => (
+        <button
+          key={p.id}
+          ref={(el) => {
+            refs.current[p.id] = el;
+          }}
+          type="button"
+          className="pn__step"
+          data-segment={p.id}
+          aria-current={focused === p.id ? "true" : undefined}
+          onClick={() => onSelect(p.id)}
+          onPointerEnter={(event) => event.pointerType === "mouse" && onPreview?.(p.id)}
+          onPointerLeave={(event) => event.pointerType === "mouse" && onPreview?.(null)}
+          onFocus={(event) => event.target.matches(":focus-visible") && onPreview?.(p.id)}
+          onBlur={() => onPreview?.(null)}
+        >
+          <span className="pn__dot" aria-hidden="true" />
+          <span className="pn__step-n" aria-hidden="true">
+            {i + 1}
+          </span>
+          <span className="pn__step-label">{stepLabel(p)}</span>
+        </button>
+      ))}
+    </nav>
+  );
+}
+
+// ?top=c: one quiet line under the steps, in the cards' words: the step the
+// visitor points at, or else the next one, so there is always an obvious next
+// place to go. Its box keeps one height, so nothing under it moves.
+function NextLine({ focused, preview, onSelect }) {
+  const pointed = preview && preview !== focused;
+  const p = PANES.find((x) => x.id === (pointed ? preview : order[order.indexOf(focused) + 1]));
+  return (
+    <div className="pn__next">
+      {p && (
+        <button type="button" className="pn__next-button" onClick={() => onSelect(p.id)} tabIndex={-1}>
+          {!pointed && <span className="pn__next-kind">Next</span>}
+          <span className="pn__next-line">{cardLine(p)}</span>
+          <span className="pn__fold-invite">
+            {p.invite}
+            <Chevron open={false} />
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 // ---- the pathway's stretches ----
 // One stretch per pane, in order; on a phone the whole pathway is the focused
 // pane's stretch. Each stretch knows where Justin stands in it (its station)
@@ -517,13 +592,14 @@ export default function Panes() {
   const width = useWidth();
 
   const [focused, setFocused] = useState(() => paneFromHash() ?? PANES[0].id);
-  const [open, setOpen] = useState(() => !!paneFromHash()); // phone: the focused pane is open (else the list)
+  const [open, setOpen] = useState(() => onTop || !!paneFromHash()); // phone: the focused pane is open (else the list; with the steps on top there is no list)
   const [expanded, setExpanded] = useState(false); // desktop: the open pane alone
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [robotBeat, setRobotBeat] = useState(null); // 'luibot' | 'luibuilder' | null
+  const [preview, setPreview] = useState(null); // ?top=c: the step the visitor points at
   const [ideaAt, setIdeaAt] = useState(undefined);
-  const showStack = phone ? !open : !expanded;
-  const showMaster = phone ? open : true;
+  const showStack = onTop ? false : phone ? !open : !expanded;
+  const showMaster = onTop || (phone ? open : true);
 
   const titleRef = useRef(null);
   const foldRefs = useRef({});
@@ -1043,7 +1119,7 @@ export default function Panes() {
   useEffect(() => {
     if (!pendingTitleFocus.current) return;
     pendingTitleFocus.current = false;
-    (showMaster ? titleRef.current : foldRefs.current[focused])?.focus({ preventScroll: true });
+    (onTop ? segmentRefs.current[focused] : showMaster ? titleRef.current : foldRefs.current[focused])?.focus({ preventScroll: true });
   }, [focused, showMaster, open, expanded]);
 
   // A pane that scrolls says so with a soft fade at its cut, gone at the end.
@@ -1171,11 +1247,11 @@ export default function Panes() {
         // the browser would scroll nothing
         event.preventDefault();
         body.scrollTo({ top: scrollKeys[event.key](body) });
-      } else if (event.key === "z" && !phone) {
+      } else if (event.key === "z" && !phone && !onTop) {
         event.preventDefault();
         toggleExpanded();
       } else if (event.key === "Escape") {
-        if (phone && open) setOpen(false);
+        if (phone && open && !onTop) setOpen(false);
         else if (expanded) setExpanded(false);
       } else if (event.key === "/") {
         event.preventDefault();
@@ -1218,7 +1294,7 @@ export default function Panes() {
         kind: "section",
         run: () => focusPane(p.id, { focusTitle: true }),
       })),
-      ...(phone
+      ...(phone || onTop
         ? []
         : [
             {
@@ -1467,7 +1543,7 @@ export default function Panes() {
   const botHeight = characters.luibot.actions[scene.bot.pose].frames[0].length;
 
   return (
-    <div className="panes">
+    <div className="panes" data-top={onTop ? TOP : undefined} style={onTop ? { "--pn-steps": PANES.length } : undefined}>
       <header className="pn__titlebar">
         <div className="pn__title-name">
           Justin Lui
@@ -1505,13 +1581,29 @@ export default function Panes() {
         </div>
       </header>
 
+      {onTop && (
+        <Steps
+          focused={focused}
+          refs={segmentRefs}
+          onSelect={(id) => focusPane(id)}
+          onPreview={TOP === "c" ? setPreview : undefined}
+        />
+      )}
+      {TOP === "c" && <NextLine focused={focused} preview={preview} onSelect={(id) => focusPane(id)} />}
+
       <main
-        className={`pn__work${showStack ? "" : " pn__work--solo"}${showMaster ? "" : " pn__work--list"}`}
+        className={`pn__work${onTop ? " pn__work--top" : showStack ? "" : " pn__work--solo"}${showMaster ? "" : " pn__work--list"}`}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
         {showMaster && (
-          <article className="pn__pane pn__pane--open" data-pane={pane.id} aria-labelledby={`pn-title-${pane.id}`} key={pane.id}>
+          <article
+            className="pn__pane pn__pane--open"
+            data-pane={pane.id}
+            {...(onTop ? { "aria-label": stepLabel(pane) } : { "aria-labelledby": `pn-title-${pane.id}` })}
+            key={pane.id}
+          >
+            {!onTop && (
             <div className="pn__pane-head">
               {phone && (
                 <button type="button" className="pn__back" onClick={() => setOpen(false)}>
@@ -1546,6 +1638,7 @@ export default function Panes() {
                 </button>
               )}
             </div>
+            )}
             <div className="pn__pane-body" ref={bodyRef} data-more={moreBelow || undefined} onScroll={measureMore}>
               {pane.id !== "hello" && (
                 <>
@@ -1705,6 +1798,7 @@ export default function Panes() {
       <RobotBeam name="luibot" overlay={luibotUp.overlay} />
       <RobotBeam name="luibuilder" overlay={luibuilderUp.overlay} />
 
+      {!onTop && (
       <footer className="pn__statusbar">
         <nav className="pn__segments" aria-label="Sections">
           {PANES.map((p, i) => (
@@ -1727,6 +1821,7 @@ export default function Panes() {
           ))}
         </nav>
       </footer>
+      )}
 
       {paletteOpen && (
         <Palette
