@@ -1468,8 +1468,10 @@ body {
     max-width: 240px;
   }
 
-  .pn__agent + .pn__agent {
-    margin-top: 28px;
+  /* the agents stacked: the gap is the grid's, so it holds when one of them
+     shares his cell with the side quests */
+  .pn__agents {
+    row-gap: 28px;
   }
 
   .pn__palette-button {
