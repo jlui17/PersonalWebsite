@@ -190,7 +190,7 @@ function useAmbient(sheet, actionNames, offset, { min = 6000, max = 10000 } = {}
 // the pane (its step-bar word first).
 const PANES = [
   { id: "hello", short: "hello", keywords: ["hello", "hi", "intro", "about", "me", "start", "lui", "justin", "work", "scorecard", "one piece", "geography", "shoes", "shoe rack"], ...sections.intro },
-  { id: "agents", short: "agents", keywords: ["agents", "agent", "luibot", "luibuilder", "robots", "bots", "openclaw", "side quests", "robotics", "3d printer", "projects", "built", "tools", "code", "puzzle", "puzzlewithme", "mdnote", "slk", "slack", "things"], ...sections.agents },
+  { id: "agents", short: "agents", keywords: ["agents", "agent", "luibot", "luibuilder", "robots", "bots", "openclaw", "side quests", "robotics", "3d printer", "projects", "built", "tools", "code", "puzzle", "puzzlewithme", "mdnote", "slk", "slack", "things", "things i've built", "things i’ve built"], ...sections.agents },
   { id: "people", short: "people", keywords: ["people", "family", "mom", "dad", "sister", "andrea", "girlfriend", "dog", "truffle"], ...sections.people },
   { id: "now", short: "now", keywords: ["now", "up to", "lately", "status", "learning", "japanese", "espresso", "coffee", "grinder", "pokemon", "experiments", "week", "weekend", "friends", "trader joe's", "san mateo"], ...sections.now },
   { id: "someday", short: "future", keywords: ["future", "plans", "someday", "farm", "new york", "japan", "sheep", "cow", "chickens", "hen"], ...sections.someday },
@@ -203,7 +203,7 @@ const order = PANES.map((p) => p.id);
 const STEP_LABEL = {
   hello: "A bit about me",
   agents: "My agents and projects",
-  people: "The people I love",
+  people: "My favourite people",
   now: "What I’m up to",
   someday: "My future plans",
 };
