@@ -1643,7 +1643,7 @@ body {
    pane gets the window's whole width. Three far-apart ways to build it, for
    Justin to pick between on the page; this block goes when he has. In all
    three luibot's layer stands on the pathway's floor at the top, and the
-   robots beam down into pane 3 and back up. */
+   robots beam down into pane 2 and back up. */
 .panes[data-top] {
   grid-template-rows: var(--pn-title-h) auto auto minmax(0, 1fr);
 }
@@ -2076,9 +2076,15 @@ body {
 
 }
 
-/* things I've built: three to a row, each column as wide as its story's
-   lines, where a column still holds the longest name and its tag on one row */
-@container pane (min-width: 1250px) {
+/* things I've built (the last part of pane 2): three to a row where each
+   column still holds the longest head on one row, the name, its tag and
+   luibuilder's spot (391px for LetMeInUBC-2.0), so 3 x 391 + 2 x 40. It asks
+   the projects' own width, which in ?agents=b is the rail's right column. */
+.panes[data-top] .pn-built {
+  container: built / inline-size;
+}
+
+@container built (min-width: 1253px) {
   .panes[data-top] .pn__projects {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: 40px;
