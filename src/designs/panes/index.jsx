@@ -1057,9 +1057,15 @@ export default function Panes() {
   }, [expanded, phone, stage]);
 
   // A phone with the steps on top: the row of steps scrolls sideways, and the
-  // open one comes into view.
+  // open one comes into view, centred. Only the row scrolls: scrollIntoView
+  // also scrolled the window's own grid sideways, and the page slid.
   useEffect(() => {
-    if (onTop && phone) segmentRefs.current[focused]?.scrollIntoView({ block: "nearest", inline: "center", behavior: reducedMotion() ? "auto" : "smooth" });
+    const step = segmentRefs.current[focused];
+    const row = step?.parentElement;
+    if (!onTop || !phone || !row) return;
+    const s = step.getBoundingClientRect();
+    const r = row.getBoundingClientRect();
+    row.scrollTo({ left: row.scrollLeft + s.left - r.left - (r.width - s.width) / 2, behavior: reducedMotion() ? "auto" : "smooth" });
   }, [focused, phone]);
 
   // The open step in the URL, so a reload or a shared link lands on it.
