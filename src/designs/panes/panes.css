@@ -763,6 +763,115 @@ body {
   background: var(--pn-amber);
 }
 
+/* ---- pane 2's two options: TEMPORARY, until Justin picks one ----
+   ?agents=a and ?agents=b (index.jsx). In both, each robot's name is the
+   largest thing in the pane (the h1 role) with his sprite beside it on the
+   rule, and the parts' headings rank a step above the project names under
+   them. */
+[data-agents] .pn__agent-head {
+  height: auto;
+}
+
+[data-agents] .pn__agent-head .pn__card-name {
+  font: var(--pn-h1);
+  letter-spacing: var(--pn-h1-track);
+}
+
+[data-agents] .pn__roadmap-head .pn__h3 {
+  font: var(--pn-h3-large);
+  letter-spacing: var(--pn-h3-track);
+}
+
+/* a: the hook, quiet, as the line the two agents hang from */
+.pn__agents-hook {
+  font: var(--pn-ui);
+  letter-spacing: var(--pn-ui-track);
+  color: var(--pn-muted);
+  margin-bottom: calc(6px + var(--pn-more-text));
+}
+
+/* b: one grid for the whole pane. The left column is the skim level (each
+   robot's name on the rule he stands on, his tag under it; each part's
+   heading with its note under it), as wide as the widest of them; the
+   details read on the right. A hairline opens each row after the first. */
+.pn__rail {
+  display: grid;
+  grid-template-columns: fit-content(250px) minmax(0, 1fr);
+  column-gap: 40px;
+}
+
+.pn__rail > .pn__rail-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: start;
+}
+
+.pn__rail > .pn__rail-row + .pn__rail-row {
+  margin-top: var(--pn-gap-above-rule);
+  padding-top: var(--pn-gap-below-rule);
+  border-top: 1px solid var(--pn-line);
+}
+
+.pn__rail-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.pn__rail-head .pn__agent-head {
+  align-self: stretch;
+  margin-bottom: 0;
+}
+
+.pn__rail-head .pn__roadmap-head {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+
+/* a note long enough to wrap keeps its lines apart */
+.pn__rail-head .pn__label {
+  line-height: 1.4;
+}
+
+/* the details start level with the top of the name, and the lists keep
+   their own first line's step */
+.pn__rail-body {
+  container: rail-body / inline-size;
+  min-width: 0;
+}
+
+.pn__rail-body > p {
+  color: var(--pn-dim);
+  font-size: 13px;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.pn__rail .pn__roadmap ul {
+  margin-top: calc(-1 * var(--pn-line-pad));
+}
+
+@container rail-body (max-width: 560px) {
+  .pn__rail-body .pn__projects {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* a narrow pane: the left column goes over the details */
+@container pane (max-width: 699px) {
+  .pn__rail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pn__rail-head {
+    margin-bottom: calc(14px + var(--pn-more-text));
+  }
+}
+
 /* A part of a pane after its first: a hairline, then the part. In pane 2,
    under the two agents, the roadmap and then the projects; in pane 4, under
    the sign, its story in blocks like pane 1's, in two columns, and the week.

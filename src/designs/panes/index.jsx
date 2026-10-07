@@ -15,6 +15,14 @@ const hourOverride = new URLSearchParams(window.location.search).get("hour");
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// TEMPORARY, until Justin picks: ?agents=a (the default) or ?agents=b, two
+// ways for pane 2 to rank the robots' names above everything else in it.
+// a: the agents side by side, each name the largest thing in its column, and
+//    the hook as a quiet line over them. b: one grid for the whole pane, the
+//    skim level (each robot's name and sprite, each part's heading) in a
+//    column on the left and the details on the right, with no hook.
+const agentsOption = new URLSearchParams(window.location.search).get("agents") === "b" ? "b" : "a";
+
 const sfHour = () =>
   hourOverride !== null
     ? Number(hourOverride)
@@ -321,14 +329,18 @@ function Balanced({ className, children }) {
   );
 }
 
-function Agent({ agent, waving, present }) {
-  return (
-    <section className="pn__agent" aria-label={agent.name}>
-      <div className="pn__agent-head">
-        <span className="pn__card-name">{agent.name}</span>
-        <Label>{agent.tag}</Label>
-        <AgentRobot name={agent.name} waving={waving} present={present} />
-      </div>
+// `rail` (option b): the name and the robot on the rule, the tag under it,
+// all in the left column; the rest on the right.
+function Agent({ agent, waving, present, rail = false }) {
+  const head = (
+    <div className="pn__agent-head">
+      <span className="pn__card-name">{agent.name}</span>
+      {!rail && <Label>{agent.tag}</Label>}
+      <AgentRobot name={agent.name} waving={waving} present={present} />
+    </div>
+  );
+  const details = (
+    <>
       <h3>{agent.heading}</h3>
       {agent.body && <p>{agent.body}</p>}
       <div className="pn__does">
@@ -339,6 +351,22 @@ function Agent({ agent, waving, present }) {
           ))}
         </ul>
       </div>
+    </>
+  );
+  if (rail)
+    return (
+      <section className="pn__agent pn__rail-row" aria-label={agent.name}>
+        <div className="pn__rail-head">
+          {head}
+          <Label>{agent.tag}</Label>
+        </div>
+        <div className="pn__rail-body">{details}</div>
+      </section>
+    );
+  return (
+    <section className="pn__agent" aria-label={agent.name}>
+      {head}
+      {details}
     </section>
   );
 }
@@ -1294,6 +1322,89 @@ export default function Panes() {
   const cowAction = useAmbient(cow, ["tail"], 1500, { min: 7000, max: 12000 });
   const sheepAction = useAmbient(sheep, sheep ? Object.keys(sheep.actions).filter((a) => a !== "idle" && a !== "walk") : [], 2500);
 
+  // Pane 2: the agents, then their side quests, then the things he has built.
+  // Each part after the first opens with a heading and the few words beside it.
+  const agentsDetail = () => {
+    const partHead = (part) => (
+      <div className="pn__roadmap-head">
+        <h3 className="pn__h3">{part.heading}</h3>
+        {part.note && <Label>{part.note}</Label>}
+      </div>
+    );
+    const agentList = agents.map((agent) => (
+      <Agent
+        key={agent.name}
+        agent={agent}
+        rail={agentsOption === "b"}
+        waving={robotBeat === agent.name}
+        present={(agent.name === "luibot" ? luibotUp : luibuilderUp).shown === "pane"}
+      />
+    ));
+    // what he wants them to do next, a plain list he keeps up to date (each
+    // line names its agent first, in a column as wide as the longer name)
+    const nameColumn = { "--name-ch": Math.max(...agents.map((agent) => agent.name.length)) };
+    const roadmap = (
+      <ul>
+        {agentRoadmap.items.map((item) => (
+          <li key={item.task}>
+            <span className="pn__label pn__roadmap-agent" data-agent={item.agent}>
+              {item.agent}
+            </span>
+            <span>{item.task}</span>
+          </li>
+        ))}
+      </ul>
+    );
+    // the things he has built, two by two
+    const built = (
+      <BuilderScene present={luibuilderUp.shown === "pane6"} startAt={builderAt}>
+        <ul className="pn__projects">
+          {projects.map((project, i) => (
+            <li className="pn__project" key={project.title}>
+              <div className="pn__project-head">
+                <a className="pn__project-title" href={project.href} target="_blank" rel="noreferrer">
+                  {project.title} <Arrow to="out" />
+                </a>
+                <Label>{project.tag}</Label>
+                <BuilderSpot index={i} />
+              </div>
+              <p className="pn__project-kicker">{project.kicker}</p>
+              <p className="pn__project-story">{project.story}</p>
+            </li>
+          ))}
+        </ul>
+      </BuilderScene>
+    );
+    if (agentsOption === "b")
+      return (
+        <div className="pn__rail" data-agents="b">
+          {agentList}
+          <section className="pn__rail-row pn__roadmap" style={nameColumn}>
+            <div className="pn__rail-head">{partHead(agentRoadmap)}</div>
+            <div className="pn__rail-body">{roadmap}</div>
+          </section>
+          <section className="pn__rail-row">
+            <div className="pn__rail-head">{partHead(projectsHead)}</div>
+            <div className="pn__rail-body">{built}</div>
+          </section>
+        </div>
+      );
+    return (
+      <div data-agents="a">
+        <p className="pn__agents-hook">{sections.agents.hook}</p>
+        <div className="pn__agents">{agentList}</div>
+        <section className="pn__roadmap pn__part" style={nameColumn}>
+          {partHead(agentRoadmap)}
+          {roadmap}
+        </section>
+        <section className="pn__part">
+          {partHead(projectsHead)}
+          {built}
+        </section>
+      </div>
+    );
+  };
+
   // The open pane's detail level. It leads with the same hook its fold shows,
   // set large, then the quieter line, then everything else smaller.
   const detail = {
@@ -1359,62 +1470,7 @@ export default function Panes() {
         ))}
       </div>
     ),
-    agents: (
-      <>
-        <div className="pn__agents">
-          {agents.map((agent) => (
-            <Agent
-              key={agent.name}
-              agent={agent}
-              waving={robotBeat === agent.name}
-              present={(agent.name === "luibot" ? luibotUp : luibuilderUp).shown === "pane"}
-            />
-          ))}
-        </div>
-        {/* the second part: what he wants them to do next, a plain list he keeps up to date
-            (each line names its agent first, in a column as wide as the longer name) */}
-        <section className="pn__roadmap pn__part" style={{ "--name-ch": Math.max(...agents.map((agent) => agent.name.length)) }}>
-          <div className="pn__roadmap-head">
-            <h3 className="pn__h3">{agentRoadmap.heading}</h3>
-            {agentRoadmap.note && <Label>{agentRoadmap.note}</Label>}
-          </div>
-          <ul>
-            {agentRoadmap.items.map((item) => (
-              <li key={item.task}>
-                <span className="pn__label pn__roadmap-agent" data-agent={item.agent}>
-                  {item.agent}
-                </span>
-                <span>{item.task}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-        {/* the last part: the things he has built, two by two, under a head like the roadmap's */}
-        <section className="pn__part">
-          <div className="pn__roadmap-head">
-            <h3 className="pn__h3">{projectsHead.heading}</h3>
-            {projectsHead.note && <Label>{projectsHead.note}</Label>}
-          </div>
-          <BuilderScene present={luibuilderUp.shown === "pane6"} startAt={builderAt}>
-            <ul className="pn__projects">
-              {projects.map((project, i) => (
-                <li className="pn__project" key={project.title}>
-                  <div className="pn__project-head">
-                    <a className="pn__project-title" href={project.href} target="_blank" rel="noreferrer">
-                      {project.title} <Arrow to="out" />
-                    </a>
-                    <Label>{project.tag}</Label>
-                    <BuilderSpot index={i} />
-                  </div>
-                  <p className="pn__project-kicker">{project.kicker}</p>
-                  <p className="pn__project-story">{project.story}</p>
-                </li>
-              ))}
-            </ul>
-          </BuilderScene>
-        </section>
-      </>
-    ),
+    agents: agentsDetail(),
     someday: (
       <div className="pn__flow pn__chapters">
         {someday.map((entry, i) => (
@@ -1556,7 +1612,8 @@ export default function Panes() {
               )}
             </div>
             <div className="pn__pane-body" ref={bodyRef} data-more={moreBelow || undefined} onScroll={measureMore}>
-              {pane.id !== "hello" && (
+              {/* hello's lead is under its h1; pane 2 places (or drops) its own */}
+              {pane.id !== "hello" && pane.id !== "agents" && (
                 <>
                   <p className="pn__lead">{pane.hook}</p>
                   {pane.more && <p className="pn__more">{pane.more}</p>}
