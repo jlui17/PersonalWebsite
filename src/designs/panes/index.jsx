@@ -1599,7 +1599,7 @@ export default function Panes() {
       {TOP === "c" && <NextLine focused={focused} preview={preview} onSelect={(id) => focusPane(id)} />}
 
       <main
-        className={`pn__work${onTop ? " pn__work--top" : showStack ? "" : " pn__work--solo"}${showMaster ? "" : " pn__work--list"}`}
+        className={`pn__work${showStack || onTop ? "" : " pn__work--solo"}${showMaster ? "" : " pn__work--list"}`}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
@@ -1611,40 +1611,40 @@ export default function Panes() {
             key={pane.id}
           >
             {!onTop && (
-            <div className="pn__pane-head">
-              {phone && (
-                <button type="button" className="pn__back" onClick={() => setOpen(false)}>
-                  ‹ all
-                </button>
-              )}
-              <button
-                ref={titleRef}
-                id={`pn-title-${pane.id}`}
-                type="button"
-                className="pn__pane-title"
-                aria-expanded="true"
-                onClick={() => (phone ? setOpen(false) : toggleExpanded())}
-              >
-                <span className="pn__dot" aria-hidden="true" />
-                <span className="pn__pane-index" aria-hidden="true">
-                  {focusedIndex + 1}
-                </span>
-                {paneName(pane)}
-                <Chevron open />
-              </button>
-              {!phone && (
+              <div className="pn__pane-head">
+                {phone && (
+                  <button type="button" className="pn__back" onClick={() => setOpen(false)}>
+                    ‹ all
+                  </button>
+                )}
                 <button
+                  ref={titleRef}
+                  id={`pn-title-${pane.id}`}
                   type="button"
-                  className="pn__expand"
-                  aria-label={expanded ? "Show all sections" : "Expand this section"}
-                  title={expanded ? "Show all sections (Esc)" : "Expand this section"}
-                  onClick={toggleExpanded}
+                  className="pn__pane-title"
+                  aria-expanded="true"
+                  onClick={() => (phone ? setOpen(false) : toggleExpanded())}
                 >
-                  <ExpandIcon expanded={expanded} />
-                  {expanded ? "Show all sections" : "Expand"}
+                  <span className="pn__dot" aria-hidden="true" />
+                  <span className="pn__pane-index" aria-hidden="true">
+                    {focusedIndex + 1}
+                  </span>
+                  {paneName(pane)}
+                  <Chevron open />
                 </button>
-              )}
-            </div>
+                {!phone && (
+                  <button
+                    type="button"
+                    className="pn__expand"
+                    aria-label={expanded ? "Show all sections" : "Expand this section"}
+                    title={expanded ? "Show all sections (Esc)" : "Expand this section"}
+                    onClick={toggleExpanded}
+                  >
+                    <ExpandIcon expanded={expanded} />
+                    {expanded ? "Show all sections" : "Expand"}
+                  </button>
+                )}
+              </div>
             )}
             <div className="pn__pane-body" ref={bodyRef} data-more={moreBelow || undefined} onScroll={measureMore}>
               {pane.id !== "hello" && (
@@ -1806,28 +1806,28 @@ export default function Panes() {
       <RobotBeam name="luibuilder" overlay={luibuilderUp.overlay} />
 
       {!onTop && (
-      <footer className="pn__statusbar">
-        <nav className="pn__segments" aria-label="Sections">
-          {PANES.map((p, i) => (
-            <button
-              key={p.id}
-              ref={(el) => {
-                segmentRefs.current[p.id] = el;
-              }}
-              type="button"
-              className="pn__segment"
-              data-segment={p.id}
-              aria-current={focused === p.id ? "true" : undefined}
-              onClick={() => focusPane(p.id)}
-            >
-              <span className="pn__segment-n" aria-hidden="true">
-                {i + 1}
-              </span>
-              {p.short}
-            </button>
-          ))}
-        </nav>
-      </footer>
+        <footer className="pn__statusbar">
+          <nav className="pn__segments" aria-label="Sections">
+            {PANES.map((p, i) => (
+              <button
+                key={p.id}
+                ref={(el) => {
+                  segmentRefs.current[p.id] = el;
+                }}
+                type="button"
+                className="pn__segment"
+                data-segment={p.id}
+                aria-current={focused === p.id ? "true" : undefined}
+                onClick={() => focusPane(p.id)}
+              >
+                <span className="pn__segment-n" aria-hidden="true">
+                  {i + 1}
+                </span>
+                {p.short}
+              </button>
+            ))}
+          </nav>
+        </footer>
       )}
 
       {paletteOpen && (

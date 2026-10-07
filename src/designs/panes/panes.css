@@ -1696,11 +1696,11 @@ body {
 }
 
 .panes[data-top="b"] .pn__stage {
-  height: 104px; /* the signs' row, then the tallest pose (62px) and a little air */
+  height: 112px; /* the signs' row, then the ball's highest arc (it peaks 67px over the floor) and air */
 }
 
 .panes[data-top="b"] .pn__bot {
-  top: calc(var(--pn-title-h) + 104px);
+  top: calc(var(--pn-title-h) + 112px);
 }
 
 .panes[data-top="b"] .pn__work {
@@ -1838,10 +1838,10 @@ body {
    two, and the dot goes (the number and the amber still mark the open one). */
 @media (min-width: 640px) and (max-width: 1050px) {
   .panes[data-top] .pn__step {
+    font: var(--pn-label);
+    line-height: 1.15;
     white-space: normal;
     text-align: center;
-    line-height: 1.15;
-    font-size: 12px;
   }
 
   .panes[data-top] .pn__step .pn__dot {
@@ -1892,11 +1892,11 @@ body {
   }
 
   .panes[data-top="b"] .pn__stage {
-    height: 116px; /* the taller signs' row */
+    height: 124px; /* the taller signs' row */
   }
 
   .panes[data-top="b"] .pn__bot {
-    top: calc(var(--pn-title-h) + 116px);
+    top: calc(var(--pn-title-h) + 124px);
   }
 
   .panes[data-top="b"] .pn__pane-body {
