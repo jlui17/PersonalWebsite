@@ -602,11 +602,15 @@ function stretches(width, phone, focusedIndex) {
       // standing spot the coffee actions are drawn for (his canvas starts
       // COFFEE_PROP_X left of the machine's, his feet at the press pose's
       // anchor into it); `station` is where he plays with Truffle, left of
-      // the yard's middle so the ball flies right, the yard's long side.
+      // the yard's middle so the ball flies right, the yard's long side, and
+      // far enough left that the ball at his shoe lies clear of the stretch's
+      // middle (with ?top=c the open step's amber tick is under it).
       s.residents.coffee = left + GAP + 4;
       s.coffeeStation = s.residents.coffee - COFFEE_PROP_X + poseBox("justin", "press")[1];
       s.yardLeft = s.residents.coffee + propWidth(coffee) + GAP;
-      s.station = Math.max(centre - 16, s.coffeeStation + 40);
+      s.station = Math.max(centre - 32, s.coffeeStation + 40);
+      // where the coffee corner holds him nearer the middle, he steps on past it
+      if (Math.abs(s.station + BALL_AT_SHOE - centre) < 16) s.station = centre - BALL_AT_SHOE + 16;
       s.residents.ball = s.station + BALL_AT_SHOE;
     }
     return s;
