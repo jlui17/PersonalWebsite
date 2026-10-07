@@ -776,9 +776,13 @@ body {
 }
 
 /* a: the side quests in their one agent's column, a list in the grammar of
-   "what I hand him" above them */
+   "what I hand him" above them, under a heading no larger than his line */
 .pn__quests .pn__does {
   margin-top: 0;
+}
+
+[data-agents] .pn__quests .pn__roadmap-head .pn__h3 {
+  font: var(--pn-h3);
 }
 
 /* a: the hook, quiet, as the line the two agents hang from */
