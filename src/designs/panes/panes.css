@@ -1641,3 +1641,55 @@ body {
 .panes[data-top="a"] .pn__pane {
   margin-top: -1px; /* its top border under the tabs' foot, covered by the open one */
 }
+
+/* The open pane at the window's whole width (all three trials). Where it is
+   wide enough, each pane takes the shape its content has room for, from what
+   the items are: never wider lines, never stretched gaps. */
+@container pane (min-width: 1100px) {
+  /* hello: the blocks read down two columns, the photo and the last line beside them */
+  .panes[data-top] .pn__hello-body {
+    grid-template-columns: minmax(0, 1fr) clamp(260px, 26%, 360px);
+    gap: 24px 48px;
+  }
+
+  .panes[data-top] .pn__hello-body .pn__blocks {
+    display: block;
+    columns: 2;
+    column-gap: 40px;
+  }
+
+  .panes[data-top] .pn__hello-body .pn__block {
+    break-inside: avoid;
+    padding-bottom: var(--pn-gap-block); /* the column's own gap, as a column has no flex gap */
+  }
+
+  /* people: her card over the four others, side by side in one row */
+  .panes[data-top] .pn__people {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .panes[data-top] .pn__people .pn__card:not(.pn__people-wide) {
+    border-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* future plans: the two places to live side by side (both "Live in ... with
+     my girlfriend."), the farm, the bigger plan, across the whole pane under them */
+  .panes[data-top] .pn__pane-body > .pn__chapters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+  }
+
+  .panes[data-top] .pn__chapter:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  /* things I've built: three to a row, each column as wide as its story's lines */
+  .panes[data-top] .pn__projects {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 40px;
+  }
+}
+
