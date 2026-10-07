@@ -2091,3 +2091,26 @@ body {
   }
 }
 
+/* pane 2 in ?agents=b at the whole width: each robot's details take two
+   columns, his line and its paragraph, and beside them what he is handed, so
+   the list fills the room his short lines leave. The first column holds the
+   longer line (luibuilder's, 565px) on one row. */
+@container pane (min-width: 1340px) {
+  .panes[data-top] .pn__agent .pn__rail-body {
+    display: grid;
+    grid-template-columns: minmax(0, 580px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr; /* a list taller than the line keeps the paragraph right under it */
+    column-gap: 40px;
+  }
+
+  .panes[data-top] .pn__agent .pn__rail-body > :not(.pn__does) {
+    grid-column: 1;
+  }
+
+  .panes[data-top] .pn__agent .pn__rail-body > .pn__does {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin-top: 0;
+  }
+}
+
