@@ -6,11 +6,11 @@ This is the design system for Justin Lui's personal site, in its `panes` design.
 
 ## The concept
 
-The site is one calm tool window. A **pane** at the upper left shows one section. A column of **cards** on the right lists all six sections, each with a plain title and one line. The **pathway** runs along the bottom: his pixel sprite walks along it between **steps**, one step per section. Selecting a step, by a key, a click or the search, opens its section in the pane and sends him walking to it. A title bar on top holds his name, the search and a live clock in San Francisco time.
+The site is one calm tool window. A **pane** at the upper left shows one section. A column of **cards** on the right lists all five sections, each with a plain title and one line. The **pathway** runs along the bottom: his pixel sprite walks along it between **steps**, one step per section. Selecting a step, by a key, a click or the search, opens its section in the pane and sends him walking to it. A title bar on top holds his name, the search and a live clock in San Francisco time.
 
 Calm is the layout, the type and the rest state: nothing in the layout moves until the visitor acts. Fun is the sprites. The site is about who Justin is, never a portfolio or a resume.
 
-Justin is a founding engineer at Scorecard in San Francisco, originally from Vancouver. The six sections are hello, his people (his mom, his dad, his sister Andrea, his girlfriend, and Truffle, his French Bulldog), his two AI agents luibot and luibuilder, his future plans, what he is up to, and things he has built. Every fact about him comes from `src/content.js`, and the previews here carry the real strings. Never use lorem ipsum, and never invent a fact about him.
+Justin is a founding engineer at Scorecard in San Francisco, originally from Vancouver. The five sections, in order, are hello, his two AI agents luibot and luibuilder with the things he has built, his people (his mom, his dad, his sister Andrea, his girlfriend, and Truffle, his French Bulldog), what he is up to, and his future plans. Every fact about him comes from `src/content.js`, and the previews here carry the real strings. Never use lorem ipsum, and never invent a fact about him.
 
 ## Files
 
@@ -57,11 +57,11 @@ Two families, split by reading level, and no third: not even for an arrow or a k
 
 | Role token | Font | Tracking | Used for |
 | --- | --- | --- | --- |
-| `--pn-h1` | 500 34px/1.1 (30px on a phone) | -0.04em | The first pane's title. Used once. |
+| `--pn-h1` | 500 34px/1.1 (30px on a phone) | -0.04em | The first pane's title, and in pane 2 each robot's name (provisional: the site shows two options for pane 2 until Justin picks). |
 | `--pn-lead` | 400 19px/1.4 (17.5px under 900px), 46ch | -0.02em | The open pane's hook. |
-| `--pn-h3-large` | 700 18.5px/1.35, 48ch | -0.015em | The headings of the future plans. |
+| `--pn-h3-large` | 700 18.5px/1.35, 48ch | -0.015em | The headings of the future plans, and of pane 2's parts ("Future side quests", "Things I’ve built"). |
 | `--pn-h3` | 700 17px/1.4 | -0.015em | A pane's "###" over a block of details, card headings, and project names. |
-| `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | Agent names, the search box's input. |
+| `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | The search box's input. |
 | `--pn-fold-hook` | 500 14px/1.3 | -0.01em | The one line on a card. |
 | `--pn-ui` | 500 13px/1.3 | -0.01em | Names on cards, his name in the title bar, search rows, the status sign's values. |
 | `--pn-label`, `--pn-sign` | 500 11.5px/1 (10.5px in a phone's step bar) | 0 | All small chrome: tags, captions, buttons, hints, the clock, the step bar, the words on the drawn sign boards. |
@@ -91,13 +91,13 @@ Each part has a card in `components/`. Use the class names as they are.
 
 - **Window** (`pages/home.html`): `.panes` is the root. It sets the ground, the ink and the base font, and lays out the four rows. `html` and `body` take the ground colour too, and `theme-color` is the bar's `#2b251e`.
 - **Title bar** (`titlebar.html`): `.pn__titlebar` with `.pn__title-name` (his name and "pronounced loo-wee" as a `.pn__label`), the search button `.pn__palette-button` with its `.pn__kbd` key, and `.pn__title-right` with two `.pn__hint`s and the `.pn__clock`. The hints hide on touch screens and under 900px.
-- **Card** (`card.html`): `.pn__stack` holds six `.pn__fold` buttons. Each has a `.pn__fold-head` (a `.pn__dot`, the number `.pn__pane-index`, the `.pn__fold-title` and the `.pn__fold-invite` with a `.pn__chevron`) and one `.pn__fold-hook` line. The selected card has `aria-current="true"`: amber border, filled dot, amber title, no invite.
+- **Card** (`card.html`): `.pn__stack` holds one `.pn__fold` button per section. Each has a `.pn__fold-head` (a `.pn__dot`, the number `.pn__pane-index`, the `.pn__fold-title` and the `.pn__fold-invite` with a `.pn__chevron`) and one `.pn__fold-hook` line. The selected card has `aria-current="true"`: amber border, filled dot, amber title, no invite.
 - **Pane** (`pane.html`): `.pn__pane` with a `.pn__pane-head` (the `.pn__pane-title` button and the `.pn__expand` button) and a scrolling `.pn__pane-body`. The body opens with the hook `.pn__lead` and sometimes a quieter `.pn__more`. `data-more` on the body fades its last lines.
-- **Blocks** (`pane.html`, `pages/home.html`): `.pn__block` is a `.pn__h3` over a paragraph, and a block without a heading reads as the next paragraph of the one above it. `.pn__blocks` stacks them in one column. `.pn__story` opens a new part under a hairline and sets them in two columns that keep their reading order. `.pn__link` is a link inside a sentence.
-- **Lists** (`pane.html`): `.pn__does` is a `.pn__label` over a list whose lines each take a small bar, amber on the line with `aria-current="true"`. `.pn__week` with `.pn__week-days` sets one such list per day. `.pn__roadmap` is a to-do list whose lines start with a `.pn__roadmap-agent` name and a small square, blue for luibot and amber for luibuilder.
-- **Agent** (`pane.html`): `.pn__agents` holds two `.pn__agent` columns. The `.pn__agent-head` has the name, a tag and the robot (`.pn-robot`), who stands on the head's rule and speaks in a `.pn-robot__bubble`.
+- **Blocks** (`pane.html`, `pages/home.html`): `.pn__block` is a `.pn__h3` over a paragraph, and a block without a heading reads as the next paragraph of the one above it. `.pn__blocks` stacks them in one column. `.pn__part` opens a new part under a hairline, and `.pn__story` does the same and sets its blocks in two columns that keep their reading order. `.pn__link` is a link inside a sentence.
+- **Lists** (`pane.html`): `.pn__does` is a `.pn__label` over a list whose lines each take a small bar. `.pn__week` with `.pn__week-days` sets one such list per day. `.pn__roadmap` is a to-do list whose lines start with a `.pn__roadmap-agent` name and a small square, blue for luibot and amber for luibuilder.
+- **Agent** (`pane.html`): `.pn__agents` holds two `.pn__agent` columns under the quiet `.pn__agents-hook`. The `.pn__agent-head` has the name (in the h1 role inside `[data-agents]`), a tag and the robot (`.pn-robot`), who stands on the head's rule and speaks in a `.pn-robot__bubble`. A later part (`.pn__part`) opens with a `.pn__roadmap-head`: a heading and the quiet note beside it.
 - **People cards** (`people.html`): `.pn__people` holds `.pn__card`s, each a `.pn__card-name`, a heading and a paragraph. `.pn__card--tinted` with `.pn__people-wide` is his girlfriend's card, the one highlight. `.pn__card-live` is Truffle's live label.
-- **Projects** (`projects.html`): `.pn__projects` holds `.pn__project`s. Each has a `.pn__project-head` with the blue `.pn__project-title` link, a drawn `.pn__arrow--out` and a tag, then a `.pn__project-kicker` and a `.pn__project-story`.
+- **Projects** (`projects.html`): the last part of pane 2. `.pn__projects` holds `.pn__project`s. Each has a `.pn__project-head` with the blue `.pn__project-title` link, a drawn `.pn__arrow--out` and a tag, then a `.pn__project-kicker` and a `.pn__project-story`.
 - **Status sign** (`status-sign.html`): `.pn-upto` holds the `.pn-upto__sign`: a status line with the date and the switch (`.pn-sign__switch`), then one `.pn-upto__line` per thing. `data-lit` lights it. It is the one live readout, so bump its date whenever a line changes.
 - **Pathway and step bar** (`pathway.html`): `.pn__stage` is the strip, with one `.pn__stretch` per step, `.pn__prop` for the things that live there and `.pn__actor` for Justin, Truffle and the ball. luibot is on his own layer, `.pn__bot`. The site places all of these from script, and the static pages place them in CSS from each step's number. Under it, `.pn__statusbar` holds the `.pn__segment` buttons, and the selected one has `aria-current="true"`.
 - **Search** (`search.html`): `.pn__palette` with its input, a list of `.pn__option` rows that each name their kind, and a foot with the keys. It is the one floating layer and the one shadow.

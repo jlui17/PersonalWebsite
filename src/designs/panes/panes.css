@@ -755,14 +755,6 @@ body {
   background: var(--pn-line-strong);
 }
 
-.pn__does li[aria-current="true"] {
-  color: var(--pn-ink);
-}
-
-.pn__does li[aria-current="true"]::before {
-  background: var(--pn-amber);
-}
-
 /* ---- pane 2's two options: TEMPORARY, until Justin picks one ----
    ?agents=a and ?agents=b (index.jsx). In both, each robot's name is the
    largest thing in the pane (the h1 role) with his sprite beside it on the

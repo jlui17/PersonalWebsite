@@ -735,22 +735,43 @@ body {
   background: var(--pn-line-strong);
 }
 
-.pn__does li[aria-current="true"] {
-  color: var(--pn-ink);
+/* ---- pane 2's two options: TEMPORARY, until Justin picks one ----
+   ?agents=a and ?agents=b (index.jsx). In both, each robot's name is the
+   largest thing in the pane (the h1 role) with his sprite beside it on the
+   rule, and the parts' headings rank a step above the project names under
+   them. */
+[data-agents] .pn__agent-head {
+  height: auto;
 }
 
-.pn__does li[aria-current="true"]::before {
-  background: var(--pn-amber);
+[data-agents] .pn__agent-head .pn__card-name {
+  font: var(--pn-h1);
+  letter-spacing: var(--pn-h1-track);
 }
 
-/* Under the two agents, the pane's second part: a hairline, then the roadmap
-   (top left) and after it the story in blocks like pane 1's, in the same two
-   columns as the agents. Pane 5's blocks use it too. The blocks keep their
-   order, down the first column and then the second; the site's script
-   splits them where the taller column comes out shortest, so any number of
-   blocks keeps one even rhythm with no holes. (CSS columns balance too, but
-   their box can come out up to half a gap taller than its content, and then
-   the step under it is not the step everywhere else.) */
+[data-agents] .pn__roadmap-head .pn__h3 {
+  font: var(--pn-h3-large);
+  letter-spacing: var(--pn-h3-track);
+}
+
+/* a: the hook, quiet, as the line the two agents hang from */
+.pn__agents-hook {
+  font: var(--pn-ui);
+  letter-spacing: var(--pn-ui-track);
+  color: var(--pn-muted);
+  margin-bottom: calc(6px + var(--pn-more-text));
+}
+
+/* A part of a pane after its first: a hairline, then the part. In pane 2,
+   under the two agents, the roadmap and then the projects; in pane 4, under
+   the sign, its story in blocks like pane 1's, in two columns, and the week.
+   The story's blocks keep their order, down the first column and then the
+   second; the site's script splits them where the taller column comes
+   out shortest, so any number of blocks keeps one even rhythm with no holes.
+   (CSS columns balance too, but their box can come out up to half a gap
+   taller than its content, and then the step under it is not the step
+   everywhere else.) */
+.pn__part,
 .pn__story,
 .pn__week {
   margin-top: var(--pn-gap-above-rule);
@@ -849,7 +870,12 @@ body {
   margin-top: 0;
 }
 
-/* projects: two by two */
+/* projects: two by two, a step under their part's head (the head's own
+   margin is set for a list line, which brings its own 5px) */
+.pn__part > .pn-built {
+  margin-top: calc(var(--pn-gap-heading) + 10px);
+}
+
 .pn__projects {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
