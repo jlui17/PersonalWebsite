@@ -87,7 +87,7 @@ Pixel sprites of Justin in his straw hat, Truffle, the robots luibot and luibuil
 - Personal details (relationships, quirks, the dog) are first-class content, not filler.
 - **Each piece of text a skimmer sees has one job**, in this order of rank:
   - **Title**: what the section is, in plain words ("when i am skimming it, i don't need to think about what it means").
-  - **Card line** (`trailer`, on the card in the right column): a fun, specific sentence in his voice that makes a stranger want to open the pane, mostly one "I" sentence with a verb ("I have two OpenClaw agents running around."). A list of nouns introduces nothing; pane 2's list of his people is the exception.
+  - **Card line** (`trailer`, on the card in the right column): a fun, specific sentence in his voice that makes a stranger want to open the pane, mostly one "I" sentence with a verb ("I have two OpenClaw agents running around."). A list of nouns introduces nothing; pane 3's list of his people is the exception.
   - **Invite**: the few words on the way in; it can name what is inside ("Meet luibot and luibuilder").
   - **Hook** (the first line of the open pane): a short, natural opener that leaves the telling to the blocks ("Meet my AI agents."): "this kind of wording feels more natural and doesnt repeat so much of the content of the pane". One short sentence, or two. A hook ending in "…" is finished by each heading under it.
   - **`###`**: see "How a `###` is worded" in `docs/writing-a-pane.md`.
