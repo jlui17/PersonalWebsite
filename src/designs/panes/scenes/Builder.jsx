@@ -53,6 +53,15 @@ const spotInView = (spot, body) => {
   return s.bottom - HEIGHT - ARC >= b.top && s.bottom <= b.bottom - fade;
 };
 
+// Any of him inside the pane's window (under the fade too): where the visitor
+// can see him, he beams out.
+const partlyInView = (spot, body) => {
+  if (!spot) return false;
+  const s = spot.getBoundingClientRect();
+  const b = body.getBoundingClientRect();
+  return s.bottom > b.top && s.bottom - HEIGHT - ARC < b.bottom;
+};
+
 // The first project under `root` whose spot is in view in the pane `body`, or -1.
 export const firstProjectInView = (root, body) => [...root.querySelectorAll("[data-builder-spot]")].findIndex((spot) => spotInView(spot, body));
 
@@ -72,6 +81,11 @@ export function BuilderScene({ children, present = true, startAt = null }) {
   useLayoutEffect(() => {
     if (!present && startAt !== null && builder.at !== startAt) setBuilder({ at: startAt, ...REST });
   }, [present, startAt, builder.at]);
+  // Taken away mid-move (the pane's own beam takes him), he comes back at
+  // rest: a beam frame left over from then showed for a paint on his return.
+  useLayoutEffect(() => {
+    setBuilder((b) => (b.action === REST.action && b.y === 0 ? b : { ...b, ...REST }));
+  }, [present]);
 
   // He works only while he is here; each arrival starts his rounds afresh.
   useEffect(() => {
@@ -101,9 +115,12 @@ export function BuilderScene({ children, present = true, startAt = null }) {
     const falling = (t) => t * t;
 
     // He keeps still while the visitor scrolls the pane, points at or tabs to
-    // a project link, or selects text.
+    // a project link, or selects text. After a scroll he waits longer than
+    // index.jsx does (600 ms) before it decides whether he stays at the
+    // projects, so that decision comes first and he never starts a move of
+    // his own just as the pane's beam takes him away.
     const busy = () =>
-      performance.now() - scrolledAt < 600 ||
+      performance.now() - scrolledAt < 900 ||
       !!el.querySelector("a:hover, a:focus-visible") ||
       !document.getSelection().isCollapsed;
     const calm = async () => {
@@ -152,8 +169,9 @@ export function BuilderScene({ children, present = true, startAt = null }) {
         }
 
         // On to a project the visitor can see; with none in view he stays.
+        // He beams out wherever any of him is in view.
         if (othersInView().length) {
-          if (seen())
+          if (partlyInView(spots()[at], body))
             for (let f = 0; f < BEAM.length; f += 1) {
               show({ action: "beam-out", frame: f });
               await wait(BEAM[f]);
