@@ -283,9 +283,10 @@ body {
 
 /* ---- workspace: the open pane and the stack of folded ones ---- */
 
-/* The open section on the left, the cards of all six on the right. The
+/* The open section on the left, the cards of every section on the right. The
    right column is as wide as the longest hook that should stay on one line
-   ("I like building small tools for people I know.") plus a few px, so the
+   (set for "I like building small tools for people I know.", the projects'
+   card before they joined pane 2) plus a few px, so the
    short hooks fill most of their card and the long ones, like every quieter
    line, wrap to two balanced lines. The rest of the window goes to the open
    section. */
@@ -1743,7 +1744,7 @@ body {
 }
 
 /* every tab is drawn as a tab, quietly, so a visitor who is not a developer
-   sees six things to open; the open one is the pane's own colour and border */
+   sees a row of things to open; the open one is the pane's own colour and border */
 .panes[data-top="a"] .pn__steps {
   column-gap: 4px;
 }

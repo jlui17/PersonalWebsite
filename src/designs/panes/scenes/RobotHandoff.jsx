@@ -4,7 +4,8 @@ import { reducedMotion } from "./script.js";
 import "./scenes.css";
 
 // A robot moves between the pathway and a pane the way Justin asked: "going up
-// into the pane and going down back down to the steps" with the beam. He
+// into the pane and going down back down to the steps" with the beam (with
+// the steps on top, ?top=, it is down into the pane and back up). He
 // beams out where he stands, is nowhere for GONE ms, and beams in at the other
 // place; `beam-in`'s last frame is his rest pose there. Only one of him is
 // ever visible: the place he is at shows him, the other shows an empty box of
