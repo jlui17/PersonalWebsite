@@ -775,6 +775,12 @@ body {
   letter-spacing: var(--pn-h3-track);
 }
 
+/* a: the side quests in their one agent's column, a list in the grammar of
+   "what I hand him" above them */
+.pn__quests .pn__does {
+  margin-top: 0;
+}
+
 /* a: the hook, quiet, as the line the two agents hang from */
 .pn__agents-hook {
   font: var(--pn-ui);

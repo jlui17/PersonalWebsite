@@ -1489,14 +1489,39 @@ export default function Panes() {
           </section>
         </div>
       );
+    // a: when every side quest is one agent's, they read in his column, right
+    // after what he is handed now, and the line needs no name: the column says
+    // whose they are (all luibuilder's today, whose column was otherwise empty
+    // under his one line). The order stays agents, side quests, projects.
+    const questsOwner = new Set(agentRoadmap.items.map((item) => item.agent)).size === 1 ? agentRoadmap.items[0].agent : null;
     return (
       <div data-agents="a">
         <p className="pn__agents-hook">{sections.agents.hook}</p>
-        <div className="pn__agents">{agentList}</div>
-        <section className="pn__roadmap pn__part" style={nameColumn}>
-          {partHead(agentRoadmap)}
-          {roadmap}
-        </section>
+        <div className="pn__agents">
+          {agentList.map((agentEl, i) =>
+            agents[i].name === questsOwner ? (
+              <div key={agents[i].name}>
+                {agentEl}
+                <section className="pn__part pn__quests">
+                  {partHead(agentRoadmap)}
+                  <ul className="pn__does">
+                    {agentRoadmap.items.map((item) => (
+                      <li key={item.task}>{item.task}</li>
+                    ))}
+                  </ul>
+                </section>
+              </div>
+            ) : (
+              agentEl
+            ),
+          )}
+        </div>
+        {!questsOwner && (
+          <section className="pn__roadmap pn__part" style={nameColumn}>
+            {partHead(agentRoadmap)}
+            {roadmap}
+          </section>
+        )}
         <section className="pn__part">
           {partHead(projectsHead)}
           {built}
