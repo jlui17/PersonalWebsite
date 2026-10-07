@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Sprite, characters } from "../../../sprites/Sprite.jsx";
+import { painted } from "./script.js";
 import "./scenes.css";
 
 // Pane 2, the projects: luibuilder works on them. He stands on a project's
@@ -97,10 +98,20 @@ export function BuilderScene({ children, present = true, startAt = null }) {
     let at = atRef.current;
     let idleRounds = 0;
     let scrolledAt = 0;
+    let pointedAt = 0;
     let onInput = null;
+    let stopped = false;
 
     const show = (next) => setBuilder({ at, ...REST, ...next });
     const wait = (ms) => new Promise((resolve) => (timer = setTimeout(resolve, ms)));
+    // a beam frame lasts its time from the sheet, and never less than one paint
+    const beamFrame = async (action, f) => {
+      show({ action, frame: f });
+      const shownAt = performance.now();
+      await painted(() => el.querySelector(`.pn-builder[data-action="${action}"][data-frame="${f}"]`));
+      if (stopped) await new Promise(() => {}); // taken away meanwhile: this run is over
+      await wait(Math.max(0, sheet.actions[action].durations[f] - (performance.now() - shownAt)));
+    };
     const glide = (from, to, ms, ease) =>
       new Promise((resolve) => {
         const start = performance.now();
@@ -114,13 +125,15 @@ export function BuilderScene({ children, present = true, startAt = null }) {
     const rising = (t) => 1 - (1 - t) * (1 - t);
     const falling = (t) => t * t;
 
-    // He keeps still while the visitor scrolls the pane, points at or tabs to
-    // a project link, or selects text. After a scroll he waits longer than
-    // index.jsx does (600 ms) before it decides whether he stays at the
-    // projects, so that decision comes first and he never starts a move of
-    // his own just as the pane's beam takes him away.
+    // He keeps still while the visitor scrolls the pane, moves the pointer
+    // over it or tabs through it, points at or tabs to a project link, or
+    // selects text. After each of those he waits longer than index.jsx does
+    // (600 ms) before it decides, from a scroll, a resting pointer or the
+    // keyboard, whether he stays at the projects, so that decision comes
+    // first and he never starts a move of his own just as the pane's beam
+    // takes him away.
     const busy = () =>
-      performance.now() - scrolledAt < 900 ||
+      performance.now() - Math.max(scrolledAt, pointedAt) < 900 ||
       !!el.querySelector("a:hover, a:focus-visible") ||
       !document.getSelection().isCollapsed;
     const calm = async () => {
@@ -142,9 +155,14 @@ export function BuilderScene({ children, present = true, startAt = null }) {
     const scrolled = () => {
       scrolledAt = performance.now();
     };
+    const pointed = () => {
+      pointedAt = performance.now();
+    };
     const inputs = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart"];
     inputs.forEach((name) => window.addEventListener(name, input, { passive: true }));
     body.addEventListener("scroll", scrolled, { passive: true });
+    body.addEventListener("pointermove", pointed, { passive: true });
+    body.addEventListener("focusin", pointed);
 
     (async () => {
       show(REST);
@@ -170,12 +188,10 @@ export function BuilderScene({ children, present = true, startAt = null }) {
 
         // On to a project the visitor can see; with none in view he stays.
         // He beams out wherever any of him is in view.
+        let justLanded = false;
         if (othersInView().length) {
           if (partlyInView(spots()[at], body))
-            for (let f = 0; f < BEAM.length; f += 1) {
-              show({ action: "beam-out", frame: f });
-              await wait(BEAM[f]);
-            }
+            for (let f = 0; f < BEAM.length; f += 1) await beamFrame("beam-out", f);
           at = -1; // nowhere
           show(REST);
           await wait(GONE);
@@ -189,12 +205,15 @@ export function BuilderScene({ children, present = true, startAt = null }) {
             if (!landing.length) await wait(400);
           }
           at = landing[Math.floor(Math.random() * landing.length)];
-          for (let f = 0; f < BEAM.length; f += 1) {
-            show({ action: "beam-in", frame: f });
-            await wait(sheet.actions["beam-in"].durations[f]);
-          }
+          for (let f = 0; f < BEAM.length; f += 1) await beamFrame("beam-in", f);
+          justLanded = true;
           show(REST);
           await wait(500);
+        }
+
+        // the hop in place, unless the visitor is busy (a reason for the pane
+        // to take him away may be coming: no hop and beam back to back)
+        if (justLanded && !busy()) {
           show({ action: "hop", frame: 0 });
           await wait(HOP[0]);
           await glide(0, ARC, HOP[1] / 2, rising);
@@ -215,10 +234,13 @@ export function BuilderScene({ children, present = true, startAt = null }) {
     })();
 
     return () => {
+      stopped = true;
       clearTimeout(timer);
       cancelAnimationFrame(raf);
       inputs.forEach((name) => window.removeEventListener(name, input));
       body.removeEventListener("scroll", scrolled);
+      body.removeEventListener("pointermove", pointed);
+      body.removeEventListener("focusin", pointed);
     };
   }, [present]);
 
