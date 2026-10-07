@@ -80,7 +80,7 @@
   display: grid;
   grid-template-rows: var(--pn-title-h) minmax(0, 1fr) var(--pn-pathway-h) var(--pn-bar-h);
   height: 100dvh;
-  overflow: hidden;
+  overflow: clip; /* the window never scrolls, not even from a script: luibot's hidden layer off a phone's edge let it slide 53px */
   background: var(--pn-ground);
   color: var(--pn-ink);
   font: 400 15px/1.6 var(--pn-font-body);

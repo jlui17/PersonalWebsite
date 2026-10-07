@@ -277,7 +277,7 @@
   font: 400 12.5px/1 var(--pn-font-body);
   white-space: nowrap;
   pointer-events: none;
-  visibility: hidden;
+  display: none; /* hidden it still took room past the pane's right edge, and the pane scrolled sideways */
 }
 
 /* the tail: a small corner pointing at him, so the words are his */
@@ -295,7 +295,7 @@
 }
 
 .pn-robot__bubble[data-shown] {
-  visibility: visible;
+  display: block;
 }
 
 /* ---- pane 4: the status sign ---- */

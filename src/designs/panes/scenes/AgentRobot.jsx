@@ -38,10 +38,15 @@ export function AgentRobot({ name, waving = false, present = true }) {
 
   // The bubble speaks only where it fits on one line between him and the end
   // of the head; where it cannot, he just waves.
+  // (It is measured shown for that moment, before the paint: hidden, it takes
+  // no room, so it cannot widen the pane.)
   useLayoutEffect(() => {
     if (!greeting) return;
     const room = el.current.parentElement.getBoundingClientRect().right - el.current.getBoundingClientRect().right;
-    setFits(room >= bubble.current.offsetWidth + 12);
+    bubble.current.style.display = "block";
+    const width = bubble.current.offsetWidth;
+    bubble.current.style.display = "";
+    setFits(room >= width + 12);
   }, [greeting]);
 
   const mouse = (event) => event.pointerType === "mouse";

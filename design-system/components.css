@@ -86,7 +86,7 @@
   display: grid;
   grid-template-rows: var(--pn-title-h) minmax(0, 1fr) var(--pn-pathway-h) var(--pn-bar-h);
   height: 100dvh;
-  overflow: hidden;
+  overflow: clip;
   background: var(--pn-ground);
   color: var(--pn-ink);
   font: 400 15px/1.6 var(--pn-font-body);
@@ -1571,7 +1571,7 @@ body {
   font: 400 12.5px/1 var(--pn-font-body);
   white-space: nowrap;
   pointer-events: none;
-  visibility: hidden;
+  display: none;
 }
 
 /* the tail: a small corner pointing at him, so the words are his */
@@ -1589,7 +1589,7 @@ body {
 }
 
 .pn-robot__bubble[data-shown] {
-  visibility: visible;
+  display: block;
 }
 
 /* ---- pane 4: the status sign ---- */
