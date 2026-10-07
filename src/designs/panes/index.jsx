@@ -500,10 +500,13 @@ function Steps({ focused, onSelect, refs, onPreview }) {
           onBlur={() => onPreview?.(null)}
         >
           <span className="pn__dot" aria-hidden="true" />
-          <span className="pn__step-n" aria-hidden="true">
-            {i + 1}
+          {/* the number inside the words, so a label that wraps keeps it beside its first word */}
+          <span className="pn__step-label">
+            <span className="pn__step-n" aria-hidden="true">
+              {i + 1}
+            </span>
+            {stepLabel(p)}
           </span>
-          <span className="pn__step-label">{stepLabel(p)}</span>
         </button>
       ))}
     </nav>

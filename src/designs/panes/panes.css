@@ -1647,6 +1647,7 @@ body {
    robots beam down into pane 2 and back up. */
 .panes[data-top] {
   grid-template-rows: var(--pn-title-h) auto auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr); /* the window's width, whatever a line in it holds */
 }
 
 .panes[data-top] .pn__titlebar {
@@ -1699,17 +1700,17 @@ body {
 }
 
 .pn__step-n {
+  margin-right: 8px; /* no space before the words, so the number never wraps away from them */
   font: var(--pn-label);
   color: var(--pn-dim);
 }
 
-.pn__step-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .pn__step[aria-current="true"] {
   color: var(--pn-amber);
+}
+
+.pn__step[aria-current="true"] .pn__step-n {
+  color: inherit; /* the dim number on a lit sign falls under 4.5:1 */
 }
 
 .pn__step[aria-current="true"] .pn__dot {
@@ -1915,11 +1916,13 @@ body {
   align-items: baseline;
   gap: 12px;
   min-width: 0;
+  max-width: 100%; /* a long line is cut with an ellipsis, never widens the window */
   color: var(--pn-ink-2);
   white-space: nowrap;
 }
 
 .pn__next-kind {
+  flex: none;
   font: var(--pn-label);
   color: var(--pn-dim);
 }
@@ -1932,6 +1935,7 @@ body {
 }
 
 .pn__next-button .pn__fold-invite {
+  flex: none;
   font: var(--pn-label);
 }
 
@@ -1961,6 +1965,33 @@ body {
     height: auto;
     min-height: 26px;
     padding: 4px 8px;
+  }
+
+  .panes[data-top="c"] .pn__steps {
+    height: auto;
+    min-height: 32px;
+  }
+
+  .panes[data-top="c"] .pn__step {
+    padding-bottom: 5px;
+  }
+}
+
+/* b's signs are narrower than a's tabs and c's stops (each sign keeps air
+   on both sides), so its longest name needs the two lines up to 1200px */
+@media (min-width: 1051px) and (max-width: 1200px) {
+  .panes[data-top="b"] .pn__step {
+    height: auto;
+    min-height: 26px;
+    padding: 4px 8px;
+    font: var(--pn-label);
+    line-height: 1.15;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .panes[data-top="b"] .pn__step .pn__dot {
+    display: none;
   }
 }
 
