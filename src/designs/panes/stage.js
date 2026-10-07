@@ -186,7 +186,8 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
   // ---- luibot, the assistant ----
   // One robot, flying in straight quiet lines over the pathway and the panes
   // (the design gives him a layer over both). `x` is his canvas's left, `y`
-  // his feet row's height above the ground line. He does one chore at a time
+  // his feet row's height above the ground line (below it, negative, for a
+  // pane under a pathway at the top). He does one chore at a time
   // from a queue of steps: fly somewhere, hold a pose, do a thing.
   // He flies in a straight line at `speed` (a pane's switch is about 480px up: 2.5 s).
   const BOT = { speed: 200, hover: 12 };
@@ -221,7 +222,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
   const expandBeam = (step) => [
     ...(bot.hidden
       ? []
-      : [{ kind: "clear", landing: step.at ? null : { x: step.x, y: step.y } }, { kind: "shot", pose: bot.y > 0 ? "beam-out-fly" : "beam-out" }, { kind: "hide", ms: 150 }]),
+      : [{ kind: "clear", landing: step.at ? null : { x: step.x, y: step.y } }, { kind: "shot", pose: bot.y !== 0 ? "beam-out-fly" : "beam-out" }, { kind: "hide", ms: 150 }]),
     { kind: "land", at: step.at ?? (() => ({ x: step.x, y: step.y })), face: step.face, then: step.then, home: step.home, ...step.landing },
   ];
   // No robot beams where Justin is or may walk while the beam plays (the
@@ -236,9 +237,12 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
   const TRIP_MS = 2 * BEAM_MS + 150; // out, gone, in: how far ahead a departure looks at its landing
   const CLEAR_MARGIN = 12;
   const CLEAR_CAP = 3000;
-  const PATHWAY_AIR = 60; // a landing this high (a pane's spot) clears him by height
+  // a landing this far above or below the ground (a pane's spot, whichever
+  // side of the pathway the panes are on) clears him by height
+  const PATHWAY_AIR = 60;
+  const offPathway = (y) => Math.abs(y) >= PATHWAY_AIR;
   function clearOf(x, y, w = 28, ms = BEAM_MS + 150) {
-    if (y >= PATHWAY_AIR) return true;
+    if (offPathway(y)) return true;
     const reach = justin.walking ? (JUSTIN.speed * ms) / 1000 : 0;
     const half = poseBox("justin", justin.walking ? "walk" : justin.pose)[0] / 2 + CLEAR_MARGIN + reach;
     return x + w <= justin.cx - half || x >= justin.cx + half;
@@ -279,7 +283,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
         tryBotUp();
         return;
       }
-      if (bot.y > 0 || bot.hidden) {
+      if (bot.y !== 0 || bot.hidden) {
         // an errand done and nothing queued: home in one trip
         bot.steps = [{ ...beam({ x: bot.home, y: 0, face: 1 }), home: true }];
       } else {
@@ -312,7 +316,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
       // spot up in a pane he leaves at once and waits hidden for his landing
       // (waiting there left him frozen over the words of a scrolled pane)
       step.since ??= now;
-      const ok = clearOf(bot.x, bot.y) && (!step.landing || bot.y >= PATHWAY_AIR || clearOf(step.landing.x, step.landing.y, 28, TRIP_MS));
+      const ok = clearOf(bot.x, bot.y) && (!step.landing || offPathway(bot.y) || clearOf(step.landing.x, step.landing.y, 28, TRIP_MS));
       if (!ok && now - step.since < CLEAR_CAP) return;
       bot.steps.shift();
       tickBot(now, dt);
@@ -336,7 +340,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
       bot.y = to.y;
       bot.hidden = false; // here he comes
       if (step.face) bot.facing = step.face;
-      const air = to.y > 0;
+      const air = to.y !== 0;
       const { follow, onGone } = step;
       bot.steps.unshift(
         { kind: "shot", pose: air ? "beam-in-fly" : "beam-in", face: step.face, follow, onGone },
