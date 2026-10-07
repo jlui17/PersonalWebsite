@@ -1634,6 +1634,21 @@ body {
   border-radius: var(--pn-radius) var(--pn-radius) 0 0;
 }
 
+/* every tab is drawn as a tab, quietly, so a visitor who is not a developer
+   sees six things to open; the open one is the pane's own colour and border */
+.panes[data-top="a"] .pn__steps {
+  column-gap: 4px;
+}
+
+.panes[data-top="a"] .pn__step {
+  border-color: var(--pn-line);
+  background: var(--pn-bar);
+}
+
+.panes[data-top="a"] .pn__step:hover {
+  border-color: var(--pn-line-strong);
+}
+
 .panes[data-top="a"] .pn__step[aria-current="true"] {
   border-color: var(--pn-amber);
   background: var(--pn-surface);
@@ -1751,9 +1766,10 @@ body {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 1px;
-  height: 5px;
-  background: var(--pn-line-strong);
+  width: 2px;
+  margin-left: -1px;
+  height: 6px;
+  background: var(--pn-faint);
 }
 
 .panes[data-top="c"] .pn__step .pn__dot {
@@ -1765,9 +1781,9 @@ body {
 }
 
 .panes[data-top="c"] .pn__step[aria-current="true"]::before {
-  width: 3px;
-  margin-left: -1px;
-  height: 7px;
+  width: 4px;
+  margin-left: -2px;
+  height: 9px;
   background: var(--pn-amber);
 }
 
@@ -1817,6 +1833,27 @@ body {
 
 .panes[data-top="c"] .pn__work {
   grid-row: 5;
+}
+
+/* Where a step's room is too narrow for its words on one line, they take
+   two, and the dot goes (the number and the amber still mark the open one). */
+@media (min-width: 640px) and (max-width: 1050px) {
+  .panes[data-top] .pn__step {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+    font-size: 12px;
+  }
+
+  .panes[data-top] .pn__step .pn__dot {
+    display: none;
+  }
+
+  .panes[data-top="b"] .pn__step {
+    height: auto;
+    min-height: 26px;
+    padding: 4px 8px;
+  }
 }
 
 /* A phone: the pathway is the open step's stretch alone, as before, and the
@@ -1921,7 +1958,11 @@ body {
     grid-column: 1 / -1;
   }
 
-  /* things I've built: three to a row, each column as wide as its story's lines */
+}
+
+/* things I've built: three to a row, each column as wide as its story's
+   lines, where a column still holds the longest name and its tag on one row */
+@container pane (min-width: 1250px) {
   .panes[data-top] .pn__projects {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: 40px;
