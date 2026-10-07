@@ -989,6 +989,12 @@ export default function Panes() {
     setScene(stage.snapshot());
   }, [expanded, phone, stage]);
 
+  // A phone with the steps on top: the row of steps scrolls sideways, and the
+  // open one comes into view.
+  useEffect(() => {
+    if (onTop && phone) segmentRefs.current[focused]?.scrollIntoView({ block: "nearest", inline: "center", behavior: reducedMotion() ? "auto" : "smooth" });
+  }, [focused, phone]);
+
   // The open step in the URL, so a reload or a shared link lands on it.
   const hashWritten = useRef(!!paneFromHash());
   useEffect(() => {
