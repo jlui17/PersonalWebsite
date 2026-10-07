@@ -288,7 +288,7 @@ body {
 
 /* ---- workspace: the open pane and the stack of folded ones ---- */
 
-/* The open section on the left, the cards of all six on the right. The
+/* The open section on the left, the cards of every section on the right. The
    right column is as wide as the longest hook that should stay on one line
    ("I like building small tools for people I know.") plus a few px, so the
    short hooks fill most of their card and the long ones, like every quieter
@@ -852,7 +852,7 @@ body {
   background: var(--pn-amber);
 }
 
-/* Pane 5's week, a part of its own under a hairline: the heading, then a day
+/* Pane 4's week, a part of its own under a hairline: the heading, then a day
    to a column on the same two columns, each day a "what I hand him" list
    (.pn__does). The items read in order through the day, so a day is never
    split or balanced across columns. */
@@ -1491,7 +1491,7 @@ body {
    come from the sheets as custom properties), so no text moves when a pose
    changes. */
 
-/* ---- pane 6: luibuilder among the projects ---- */
+/* ---- pane 2: luibuilder among the projects ---- */
 
 /* Each project's head gets a rule: it carries his feet and his stones. His
    box comes right after the title and the tag, with the head's own gap, on
@@ -1538,7 +1538,7 @@ body {
   display: block;
 }
 
-/* ---- pane 3: each robot beside his name ---- */
+/* ---- pane 2: each robot beside his name ---- */
 
 /* He comes right after the name and the tag ("luibot  The main one  [him]"),
    and reaches down through the head's padding so his feet meet the rule. */
@@ -1592,7 +1592,7 @@ body {
   visibility: visible;
 }
 
-/* ---- pane 5: the status sign ---- */
+/* ---- pane 4: the status sign ---- */
 
 /* Off, the sign's words are the quietest text colour (4.6:1 on the pane);
    lit, each goes to its own strength. Only colours, the glow and the knob

@@ -961,7 +961,7 @@ body {
   background: var(--pn-amber);
 }
 
-/* Pane 5's week, a part of its own under a hairline: the heading, then a day
+/* Pane 4's week, a part of its own under a hairline: the heading, then a day
    to a column on the same two columns, each day a "what I hand him" list
    (.pn__does). The items read in order through the day, so a day is never
    split or balanced across columns. */
@@ -1492,7 +1492,7 @@ body {
    alone, with "all" in its head to come back. The status bar's segments are
    the tab strip, a swipe moves between open panes, the clock sits in the
    title bar and the palette shrinks to its icon. */
-/* Pane 2 in a narrow pane (a phone, a small or a tall window): the family goes
+/* Pane 3 in a narrow pane (a phone, a small or a tall window): the family goes
    one to a row. Two columns need about 24 heading characters a line each, so
    that today's longest heading (50 characters) takes three lines at most; that
    is 460px of pane inside its padding, a window about 965px wide. */
@@ -1780,7 +1780,7 @@ body {
 
 /* b: signs over the walk, and the walk on the pane. Each step's name floats
    on a small sign over its stretch, the way the board floats over the
-   buildings in pane 4; the open step's sign is lit amber. There is no bar
+   buildings in pane 5; the open step's sign is lit amber. There is no bar
    under the sprites: they walk on the pane's own top edge, and the pane fills
    the window under it from side to side. */
 .panes[data-top="b"] .pn__steps {

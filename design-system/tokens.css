@@ -89,7 +89,7 @@
   }
 }
 
-/* ---- the vertical rhythm: one system for all six panes ----
+/* ---- the vertical rhythm: one system for every pane ----
    The steps between things grow with the pane, together and by one rule, so a large pane's
    content reaches further down it. Nothing is stretched, spread or pinned: every step has a
    floor (the first number below) and a cap, and room left at the end of a pane stays empty.

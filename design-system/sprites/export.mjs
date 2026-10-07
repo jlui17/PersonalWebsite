@@ -159,7 +159,7 @@ const cards = {
   },
   truffle: {
     title: "Truffle",
-    note: "Justin's French Bulldog. She sleeps at step 2 of the pathway until he comes over to pet her.",
+    note: "Justin's French Bulldog. She sleeps at step 3 of the pathway until he comes over to pet her.",
     actions: {
       sleep: "lying down, head on her paws, breathing",
       ear: "one ear pricks up and an eye opens a slit; plays once and holds",
@@ -211,7 +211,7 @@ const cards = {
   },
   coffee: {
     title: "Coffee corner",
-    note: "The espresso machine and the grinder on their own cabinet, at step 5.",
+    note: "The espresso machine and the grinder on their own cabinet, at step 4.",
     actions: { idle: "at rest", empty: "the cup is gone, because it is in his hand", brew: "pulling a shot", ready: "the cup on the tray, steaming" },
   },
   "shoe-rack": {
@@ -236,7 +236,7 @@ const cards = {
   torii: { title: "Torii", note: "The gate beside the cherry tree. The words on its board are real text laid over its panel.", actions: { idle: "at rest", rested: "a petal has landed on the top beam" } },
   feed: { title: "Feed", note: "The grain luibot pours for the hen.", actions: { fall: "falling; plays once and holds", pile: "a full pile", "pile-half": "half eaten" } },
   chicken: { title: "Hen", note: "The hen of the farm.", actions: { idle: "standing, blinking", peck: "pecking at the feed", walk: "walking, facing right" } },
-  cow: { title: "Cow", note: "The cow at step 4 of the pathway.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right", tail: "a swish of the tail" } },
+  cow: { title: "Cow", note: "The cow at step 5 of the pathway.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right", tail: "a swish of the tail" } },
   sheep: { title: "Sheep", note: "The sheep grazing beside the farm's heading.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right" } },
 };
 cards["justin-overshirt"].actions = cards["justin-hoodie"].actions = {

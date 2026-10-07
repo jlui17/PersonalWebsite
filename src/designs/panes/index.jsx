@@ -1276,7 +1276,8 @@ export default function Panes() {
       // Up and down are for reading: they scroll the open section wherever
       // focus is. With focus in the list of sections (up and down) or in the
       // step bar (left and right) the arrows move through that list and focus
-      // stays in it. h j k l and z stay for whoever reaches for them.
+      // stays in it. h j k l stay for whoever reaches for them, and so does z
+      // where there is an Expand for it to press (?top=old).
       const sideways = { ArrowLeft: -1, ArrowRight: 1 };
       const vertical = { ArrowUp: -1, ArrowDown: 1 };
       const card = event.target.closest?.("[data-fold]");
