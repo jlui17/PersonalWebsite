@@ -2,10 +2,10 @@ import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState
 import { Sprite, characters } from "../../../sprites/Sprite.jsx";
 import "./scenes.css";
 
-// Pane 6: luibuilder works on the projects. He stands on a project's rule
-// right after its title and tag (as the robots stand beside their names in
-// pane 3), his stack of stones between the words and him, so the hammer
-// swings towards the title: he is building THAT project (Justin: "it should
+// Pane 2, the projects: luibuilder works on them. He stands on a project's
+// rule right after its title and tag (as the robots stand beside their names
+// at the top of the pane), his stack of stones between the words and him, so
+// the hammer swings towards the title: he is building THAT project (Justin: "it should
 // be doing those 'building' animations beside the titles, not to the far
 // right"). Now and then he hammers (`build`, stepped here frame by frame),
 // then moves to another project.

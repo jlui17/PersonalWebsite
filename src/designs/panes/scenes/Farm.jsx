@@ -3,7 +3,7 @@ import { Sprite, characters } from "../../../sprites/Sprite.jsx";
 import { reducedMotion, script, useChore } from "./script.js";
 import "./scenes.css";
 
-// Pane 4: the hen and the sheep on one ground line beside the farm heading
+// Pane 5: the hen and the sheep on one ground line beside the farm heading
 // (the cow stays in the pathway). Each has a small life of her own, stepped here
 // frame by frame and never in sync. When the feed is poured (`fed`) the grain
 // falls once at the feed spot, the hen walks over and eats it, and the sheep

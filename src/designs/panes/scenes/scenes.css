@@ -3,7 +3,7 @@
    come from the sheets as custom properties), so no text moves when a pose
    changes. */
 
-/* ---- pane 6: luibuilder among the projects ---- */
+/* ---- pane 2: luibuilder among the projects ---- */
 
 /* Each project's head gets a rule: it carries his feet and his stones. His
    box comes right after the title and the tag, with the head's own gap, on
@@ -91,7 +91,7 @@
   display: block;
 }
 
-/* ---- pane 4: a small scene beside each plan's heading ---- */
+/* ---- pane 5: a small scene beside each plan's heading ---- */
 
 /* A plan's title row: the heading, its scene right beside it, and under both
    a rule that is the scene's ground. In a narrow pane the scene takes its own
@@ -244,7 +244,7 @@
   display: block;
 }
 
-/* ---- pane 3: each robot beside his name ---- */
+/* ---- pane 2: each robot beside his name ---- */
 
 /* He comes right after the name and the tag ("luibot  The main one  [him]"),
    and reaches down through the head's padding so his feet meet the rule. */
@@ -298,7 +298,7 @@
   visibility: visible;
 }
 
-/* ---- pane 5: the status sign ---- */
+/* ---- pane 4: the status sign ---- */
 
 /* Off, the sign's words are the quietest text colour (4.6:1 on the pane);
    lit, each goes to its own strength. Only colours, the glow and the knob

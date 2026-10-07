@@ -26,7 +26,7 @@ const GONE = 150;
 const SLICE = 16; // ms between looks at the target while a beam-in plays
 const isPane = (place) => place !== "pathway" && place !== "overlay" && place !== "none";
 // The longest the beam-in waits for `canLand`: Justin walks clear of the
-// robots' spots in well under a second as he leaves step 3.
+// robots' spots in well under a second as he leaves step 2.
 const LANDING_WAIT = 2500;
 
 // The callbacks are read when their phase comes, not when the trip starts:

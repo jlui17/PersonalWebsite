@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Sprite, characters } from "../../../sprites/Sprite.jsx";
 import "./scenes.css";
 
-// Pane 3: each robot stands right beside his own name and tag, on the rule
+// Pane 2: each robot stands right beside his own name and tag, on the rule
 // under them. Pointing at him, tabbing to him or tapping him makes him wave and
 // say his line from `greetings` (never his name: it is printed beside him);
 // `waving` lets the pane ask for the wave alone (Justin's greeting in the

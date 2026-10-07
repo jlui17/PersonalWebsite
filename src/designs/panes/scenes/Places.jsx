@@ -3,7 +3,7 @@ import { Sprite, characters } from "../../../sprites/Sprite.jsx";
 import { reducedMotion, script, useInView } from "./script.js";
 import "./scenes.css";
 
-// Pane 4: a small, nearly still scene for New York and for Japan. Each has the
+// Pane 5: a small, nearly still scene for New York and for Japan. Each has the
 // motion budget of at most one ambient loop (the skyline's windows and spire
 // light), one rare one-shot (steam from the tower's vent, a falling petal) and
 // one thing that happens once as the pane opens (the billboard's lamps come

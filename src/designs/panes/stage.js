@@ -196,7 +196,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
   // to the next chore, and beams home only when none is queued (one trip
   // between errands, never a trip home in between). `home` is the pathway
   // spot he last stood at.
-  // `away`: the design shows him up in pane 3 (the pathway's robot is hidden
+  // `away`: the design shows him up in pane 2 (the pathway's robot is hidden
   // and the stage waits); `botGone()` is the design handing him back mid-beam,
   // so his next trip needs no beam-out.
   const bot = { x: 400, y: 0, pose: "idle", frame: undefined, facing: 1, hidden: false, away: false, steps: [], pane: undefined, queue: [], chored: false, home: 400, onFree: null };
@@ -231,7 +231,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
   // walk covers in the beam's time on both sides (the visitor may turn him
   // round mid-beam); after CLEAR_CAP it goes ahead (he never stands on a
   // robot's spot, so this is a guard, not a path). The design's own beams
-  // (the hand-off to and from pane 3) ask the same question.
+  // (the hand-off to and from pane 2) ask the same question.
   const BEAM_MS = 6 * 70;
   const TRIP_MS = 2 * BEAM_MS + 150; // out, gone, in: how far ahead a departure looks at its landing
   const CLEAR_MARGIN = 12;
@@ -273,7 +273,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
     if (!bot.steps.length) {
       bot.pane = undefined;
       if (bot.onFree) {
-        // the design wants him up in pane 3 and he is free now: it beams him
+        // the design wants him up in pane 2 and he is free now: it beams him
         // out from wherever he stands (the rack, an errand's spot, home), so
         // he does not go home first
         tryBotUp();
@@ -448,7 +448,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
     return true;
   }
 
-  // The design wants luibot up in pane 3 (or not): `onFree` fires once, the
+  // The design wants luibot up in pane 2 (or not): `onFree` fires once, the
   // moment he has nothing to do (his pathway chores, the boxes or the chair,
   // finish first; a pane's chore has been dropped by then), and the stage
   // stops moving him (`away`). Read here, on the stage, not from a snapshot a
@@ -1554,7 +1554,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
     throwBall,
     pet,
     tipHat: () => strike("hat", 0, undefined, { frames: HAT_TIP }),
-    // On his feet for a while (a direct load of step 2: Truffle is about to
+    // On his feet for a while (a direct load of step 3: Truffle is about to
     // ask, and he would have stood for her had he walked in). The pet's own
     // idle takes over.
     stand: () => {

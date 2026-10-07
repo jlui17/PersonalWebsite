@@ -4,7 +4,7 @@ import { SignSwitch } from "./SignSwitch.jsx";
 import { useChore } from "./script.js";
 import "./scenes.css";
 
-// Pane 5's status sign, the pane's one live detail: a compact unit at the
+// Pane 4's status sign, the pane's one live detail: a compact unit at the
 // top. Its first line is the sign's own LED, the date and the switch; under
 // it one line per thing in `lately.status`, a label with its dot and a value.
 //

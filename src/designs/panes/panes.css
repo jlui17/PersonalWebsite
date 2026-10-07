@@ -48,7 +48,7 @@
   --pn-label: 500 11.5px/1 var(--pn-font-head); /* small chrome text */
   --pn-label-track: 0;
   --pn-label-phone: 10.5px; /* the step bar on a phone; 0.5px less under 360px */
-  /* The label voice on pane 4's drawn boards: their panel is 59px wide and
+  /* The label voice on pane 5's drawn boards: their panel is 59px wide and
      13px tall, and "New York" is 55px at this size. */
   --pn-sign: 500 11.5px/1 var(--pn-font-head);
   --pn-sign-track: 0;
@@ -414,7 +414,7 @@ body {
   scrollbar-color: var(--pn-line-strong) transparent;
   animation: pn-open 220ms ease-out;
 
-  /* ---- the vertical rhythm: one system for all six panes ----
+  /* ---- the vertical rhythm: one system for every pane ----
      The steps between things grow with the pane, together and by one rule, so
      a large pane's content reaches further down it. Nothing is stretched,
      spread or pinned: every step has today's value as its floor and a cap, and
@@ -433,7 +433,7 @@ body {
   --pn-fit: 1;
   --pn-rise: calc(min(clamp(0px, 100cqh - 558px, 200px), clamp(0px, (100cqw - 700px) * 100, 200px)) * var(--pn-fit));
   --pn-more-part: calc(var(--pn-rise) * 0.08);
-  --pn-more-row: calc(var(--pn-rise) * 0.11); /* pane 6's project rows, the step that has the most room to give */
+  --pn-more-row: calc(var(--pn-rise) * 0.11); /* pane 2's project rows, the step that has the most room to give */
   --pn-more-text: calc(var(--pn-rise) * 0.02);
   --pn-more-line: calc(var(--pn-rise) * 0.01);
   --pn-gap-hook: calc(18px + var(--pn-more-part)); /* the hook (or the quieter line under it) to the first part */
@@ -763,14 +763,16 @@ body {
   background: var(--pn-amber);
 }
 
-/* Under the two agents, the pane's second part: a hairline, then the roadmap
-   (top left) and after it the story in blocks like pane 1's, in the same two
-   columns as the agents. Pane 5's blocks use it too. The blocks keep their
-   order, down the first column and then the second; `Balanced` in index.jsx
-   splits them where the taller column comes out shortest, so any number of
-   blocks keeps one even rhythm with no holes. (CSS columns balance too, but
-   their box can come out up to half a gap taller than its content, and then
-   the step under it is not the step everywhere else.) */
+/* A part of a pane after its first: a hairline, then the part. In pane 2,
+   under the two agents, the roadmap and then the projects; in pane 4, under
+   the sign, its story in blocks like pane 1's, in two columns, and the week.
+   The story's blocks keep their order, down the first column and then the
+   second; `Balanced` in index.jsx splits them where the taller column comes
+   out shortest, so any number of blocks keeps one even rhythm with no holes.
+   (CSS columns balance too, but their box can come out up to half a gap
+   taller than its content, and then the step under it is not the step
+   everywhere else.) */
+.pn__part,
 .pn__story,
 .pn__week {
   margin-top: var(--pn-gap-above-rule);
@@ -869,7 +871,12 @@ body {
   margin-top: 0;
 }
 
-/* projects: two by two */
+/* projects: two by two, a step under their part's head (the head's own
+   margin is set for a list line, which brings its own 5px) */
+.pn__part > .pn-built {
+  margin-top: calc(var(--pn-gap-heading) + 10px);
+}
+
 .pn__projects {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

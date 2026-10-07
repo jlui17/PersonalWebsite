@@ -32,7 +32,7 @@ export const intro = [
   },
 ];
 
-// Pane 2, one card per person: `heading` is one warm, complete sentence with
+// Pane 3, one card per person: `heading` is one warm, complete sentence with
 // the person as its subject, `body` what they are like and then what they mean
 // to him. `girlfriend: true` marks the one highlighted card.
 export const people = [
@@ -64,10 +64,9 @@ export const people = [
   },
 ];
 
-// Pane 3, one column per agent: a short `tag` beside the name, a `heading`, a
-// `body` with one story, and the `does` list with the rest (no fact in both).
-// The pathway scene where he hands luibuilder an idea highlights the `does`
-// line containing "idea", so keep that word in one line.
+// Pane 2 opens with his agents, one block each: a short `tag` beside the name,
+// a `heading`, a `body` with one story, and the `does` list with the rest (no
+// fact in both).
 export const agents = [
   {
     name: "luibot",
@@ -88,22 +87,10 @@ export const agents = [
   },
 ];
 
-// The story of the two agents, told under their columns in pane 3: each block
-// has a `heading` (the ### over it) and a `body`, like the hello blocks. A block
-// without a heading reads as the next paragraph of the one above it.
-export const agentStory = [
-  {
-    heading: "Fun facts",
-    body: "I started with one agent and ended up with two. As I built more things, my projects needed their own kind of thinking, so I set up luibuilder for them.",
-  },
-  {
-    body: "I named them after my high school nickname, Lui. luibot is snarky, fun, and playful, and he likes to jump in and help without being asked. luibuilder is pragmatic and straightforward.",
-  },
-];
-
-// Pane 3's third part: the things Justin wants his agents to do next, one
-// line each, in the order he adds them. He keeps this list up to date as he
-// builds with them; a line that is done moves into that agent's `does`.
+// Pane 2's second part, after the agents: the things Justin wants his agents
+// to do next, one line each, in the order he adds them. He keeps this list up
+// to date as he builds with them; a line that is done moves into that agent's
+// `does`.
 export const agentRoadmap = {
   heading: "Future side quests",
   // the few words beside the heading that say what the list is
@@ -114,7 +101,7 @@ export const agentRoadmap = {
   ],
 };
 
-// Pane 5, what he is up to these days: a small status sign (`status`, the
+// Pane 4, what he is up to these days: a small status sign (`status`, the
 // things that change month to month, dated by `updated`: bump it whenever a
 // line changes), the story under it (`blocks`, like the hello blocks) and a
 // normal week (`week`).
@@ -163,7 +150,7 @@ export const lately = {
   },
 };
 
-// Where he hopes life goes. Each heading finishes the pane's hook, "In the
+// Pane 5, where he hopes life goes. Each heading finishes the pane's hook, "In the
 // future, I want to…", so it starts with a verb and no "I want to". `tag` is
 // the place's name on its sign: where it appears word for word in the heading,
 // the place's picture sits inside the sentence there; otherwise beside it.
@@ -185,9 +172,16 @@ export const someday = [
   },
 ];
 
-// Pane 6, in the order he sets: `tag` is a short stamp, `kicker` says what the
+// Pane 2's last part, the things he has built: `projectsHead` is its heading
+// and the few words beside it, as on `agentRoadmap`. `projects` is in the
+// order he sets: `tag` is a short stamp, `kicker` says what the
 // thing is in a few words (no period), and `story` is a short paragraph with
 // the person or the reason behind it.
+export const projectsHead = {
+  heading: "Things I’ve built",
+  note: "I like building small tools for people I know.",
+};
+
 export const projects = [
   {
     title: "puzzlewithme",
@@ -243,7 +237,7 @@ export const projects = [
 // words: `title` names it, `trailer` is its card's line, `invite` labels the
 // way in, `hook` is the short first line of the open pane, and `more` is an
 // optional quieter line under it. The job of each is in AGENTS.md under Voice.
-// `projects` has no `trailer` yet, so its card shows its hook. Keyed by section.
+// Keyed by section.
 export const sections = {
   intro: {
     title: "Hi, I’m Justin.",
@@ -263,8 +257,9 @@ export const sections = {
     hook: "These are the people I love the most.",
     invite: "Meet them",
   },
+  // his agents, their side quests and the things he has built, in one pane
   agents: {
-    title: "My agents",
+    title: "My agents and projects",
     trailer: "I have two OpenClaw agents running around.",
     hook: "Meet my AI agents.",
     invite: "Meet luibot and luibuilder",
@@ -274,11 +269,5 @@ export const sections = {
     trailer: "I hope to see New York, Japan, and one day my own farm.",
     hook: "In the future, I want to…",
     invite: "See the plan",
-  },
-  projects: {
-    title: "Things I’ve built",
-    hook: "I like building small tools for people I know.",
-    more: "A puzzle app for my girlfriend and me, and tools for my friends and my old job.",
-    invite: "See the projects",
   },
 };
