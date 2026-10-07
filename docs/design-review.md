@@ -38,7 +38,8 @@ His taste is learned from what he rejected, so this list is the most useful part
 - The title "Someday": "what do you mean someday?"; "we need words like future"; "when i am skimming it, i don't need to think about what it means."
 - "we should prefer to use like super, super simple language because i speak like that."
 - The people hook read "These are the people I love, and my dog Truffle.": "i also love truffle, this kind of implies i dont love truffle". It became "These are the people I love the most."
-- A short label for the projects section: "step 7 should be called 'projects' instead of 'built'" (step 6 today).
+- Feedback from others that he agreed with (2026-10-07): "louis bot and louis builder are the star of the show ... the meet my agents title is like more prominent than their names which seems backwards and i tend to agree". In the same message the agents and projects panes became one, "because they kind of go together", "kind of like a fun portfolio", and "Fun facts" was cut.
+- A short label for the projects section: "step 7 should be called 'projects' instead of 'built'" (the projects have been part of the agents step, step 2, since 2026-10-07).
 
 **Space**
 - "you don't fill up the space until it looks awkward" (a widget with a label, a title, one sentence, and then a large hole above its links).
@@ -47,7 +48,7 @@ His taste is learned from what he rejected, so this list is the most useful part
 - Then, after the builders had stretched blocks apart to reach the bottom: "i did not mean to like stretch things out because now there's just like gaps i meant more to like fill it in with visuals"; "we don't actually have to use the full thing"; "medium sized small medium sized gaps are like fine"; "when it's like a medium to like a big gap, it's it just doesn't look good."
 
 - Dead space beside the cards, said twice because the first fix was too small: "there's a bit of dead space to the right here. can we slighly shrink this", then "also there's still too much dead space on the right here".
-- Content sitting tight at the top of a large pane, three asks in one hour, all from his own window of about 1440x1000: "make the spacing more consistent and i think it's enough content to make use of the full pane's space"; "i think pane 2 can be spaced out a bit more to fill the pane up more. add more veritcal spacing between sections"; "same for pane 6".
+- Content sitting tight at the top of a large pane, three asks in one hour, all from his own window of about 1440x1000: "make the spacing more consistent and i think it's enough content to make use of the full pane's space"; "i think pane 2 can be spaced out a bit more to fill the pane up more. add more veritcal spacing between sections"; "same for pane 6" (his pane 2 was "My people", his pane 6 the projects).
 - A pane that was bare in content got small scenes, at his suggestion: "i think that section's a little bare, like in terms of the content, so we can add some like flair to it", with "subtle details to make it look a little fun but also not like detract from the design and the attention on the words". His own layout for one: "a floating sign above the buildings, saying new york, and then place the buildings in the middle of the sentence".
 
 **Separators, controls and chrome**
@@ -72,12 +73,12 @@ His taste is learned from what he rejected, so this list is the most useful part
 - The farm animals stood still: he asked for their animated sprites "so they aren't just starin".
 - At the hello section, "my sprite can be waving instead of sleeping".
 - At the coffee corner: "sometimes the wrong hand moves to use the coffee. like if the coffee stand is on my left, i move my right arm and vice versa."
-- The desk appeared only when he sat at it: "i feel like the desk should remain at step 7 and then i walk to it and sit down in it" (the desk is at step 6 since the place section was folded).
+- The desk appeared only when he sat at it: "i feel like the desk should remain at step 7 and then i walk to it and sit down in it" (the desk was at step 6 once the place section was folded, and is at step 2, beside the robots, since the projects joined the agents).
 - A sitting side view of him beside the h1: "id prefer if i was standing and waving occasionally".
-- Generic idles: "for step 2, when im idling (not petting truffle), i think i should sleep instead. it matches truffles energy"; in pane 3, "instead of having the agents at the bottom, put them beside their name + desc". He also wanted scenes such as "brew coffee from my coffee stand and then pickup the coffee and drink it".
+- Generic idles: "for step 2, when im idling (not petting truffle), i think i should sleep instead. it matches truffles energy" (Truffle's step is step 3 today); in the agents pane, "instead of having the agents at the bottom, put them beside their name + desc". He also wanted scenes such as "brew coffee from my coffee stand and then pickup the coffee and drink it".
 - A trip of more than one step was cut short: "my sprite teleports if the select step is > 1 away. i'd like for my sprite to just continue walking at the same pace". The reviewers had called the long walks too long.
 - The robots flying across the screen: "the agents floating around is a bit noisy. like it's a quite distracting ... they kinda like light beam themselves to their spot". His rule: "anything larger than a small shift in position should be a teleportation and shift as in like, oh, it picks up the boxes and then places it on the stack, like that's a small shift".
-- The robots popping between the pathway and pane 3 with no beam: "it would be really cool to ... use the animation during that teleportation instead. so that they're like going up into the pane and going down back down".
+- The robots popping between the pathway and the agents pane with no beam: "it would be really cool to ... use the animation during that teleportation instead. so that they're like going up into the pane and going down back down".
 - The wrong hand again, at another step, because the first fix was not swept: "if ... the justin sprite goes from right to left back to the cow, then it's like raising the wrong hand".
 - luibot's shoebox chore, which had been passed from stills: "it moves in the opposite direction and then the boxes teleport on top of the stack which does not look good".
 - Truffle jumping to the pet spot: "she kind of just like teleports there, but like there should be an interaction ... she should like wake up and then like walk to me". What he asked for instead is "a very key feature or very key trait that she does, she's very spoiled ... she will like paw your leg".
@@ -90,7 +91,7 @@ His taste is learned from what he rejected, so this list is the most useful part
 - luibot at the status switch: "his hand goes in the air above the toggle. it kind of looks like he's just waving his hand and then the toggle gets flipped". The same cause as at the chair: a position taken from the wrong rows of the sheet (18px too high), and the sign lit after the arm was down.
 - An expand animation that "looks a lil choppy": "try to make it as smooth as possible."
 
-**Flow and wording in a pane** (panes 1 to 5, 2026-09-26; the before and after is in `docs/writing-a-pane.md`)
+**Flow and wording in a pane** (the hello, people, agents, future and now panes, 2026-09-26; the before and after is in `docs/writing-a-pane.md`)
 - What he means by flow: "when i say 'flow', i mean like the visual hierarchy that captures the readers attention and helps them read the content in the order we intend. there's a concept called 'greasing' for dating/game shows where the director of a dating show doesn't script any interactions, but they make it as easy and natural as possible for something to happen, and so it usually happens because it's the most natural path. i'd like to apply that concept here to each pane."
 - "for the 1st pane, don't really see a flow. i think it's not obivous or intentional what information we want the user to know."
 - The card repeating the open pane's hook: "they should stop saying the same thing, but i think there should be some overlap in info (not wording, although some is ok). like they should compliment each other."
@@ -101,8 +102,8 @@ His taste is learned from what he rejected, so this list is the most useful part
 - "(a game like Pokémon)": "it's not really important".
 - Text in one column and the photo below it: "there's too much dead space on the right side of the pane".
 - The photo on the dark page: "it's kind of bright and hurts the eyes compared to the theme".
-- Pane 3 with two short columns and nothing under them: "the page looks quite bare".
-- A block about puzzlewithme in pane 3 when pane 6 tells it: "we also describe it in pane 6, so we can just give a really brief summary. idk if it should be in its own block".
+- The agents pane with two short columns and nothing under them: "the page looks quite bare".
+- A block about puzzlewithme in the agents pane when the projects pane told it: "we also describe it in pane 6, so we can just give a really brief summary. idk if it should be in its own block".
 - Two short blocks side by side ("I split the work between them", "I message them on Discord"): "I think these two can be combined".
 - The "Future side quests" list placed at the bottom right: "add the list to the top left instead of the botto mright".
 - A list heading written as an "I" sentence ("I keep a list of what I want them to do next"): "it should be something like future endeavors".
@@ -110,7 +111,7 @@ His taste is learned from what he rejected, so this list is the most useful part
 - Hooks that summed up the pane ("My AI agents are luibot and luibuilder, and I keep finding new things to hand them."): "Meet my AI agents" and "In the future, I want to..." instead, because "this kind of wording feels more natural and doesnt repeat so much of the content of the pane".
 - "There's also so much work for me there": "a bit much for me".
 - The farm heading "Start a family farm with lots of dogs after tech.": "it's not just dogs, it's all kinds of farm animals ... Also it's notj ust after tech."
-- Pane 5 as a status table, the desk, the shoes and an "also" list: "some of this info it out of date, or i dont want it to be on this page, and this page just doesnt feel right ... someone reading it doesnt get a good idea of what im doing these days."
+- The now pane as a status table, the desk, the shoes and an "also" list: "some of this info it out of date, or i dont want it to be on this page, and this page just doesnt feel right ... someone reading it doesnt get a good idea of what im doing these days."
 - A normal week written as a paragraph: "i feel like there's a better, more visual format than a block of text. it's describing what i do. maybe a list?"
 
 **Type**
@@ -135,10 +136,10 @@ His taste is learned from what he rejected, so this list is the most useful part
 - "the animation of me walking from left to right is very smooth".
 - Characters doing small jobs for each other: "it's these kinds of interactions that show how much thought and care is put into a website like this."
 - His picks: "ii think i like jetbrains mono." and, for the ground, "i like A, but slightly darker".
-- Pane 3 as story blocks and a list: "ok this is fine".
+- The agents pane as story blocks and a list: "ok this is fine" (the story blocks, "Fun facts", were cut on 2026-10-07 when the projects joined the pane, at his word).
 - Before the ship: "the design and the website i think r just about ready."
 - Built as he asked, with no reaction from him on record: the feed that halves as the hen eats, Truffle waking, walking over and pawing his leg, and the buildings inside the heading sentence with a floating sign.
-- Seen by him with no objection on record, which is weaker than praise: the beam itself (he asked for it in more places), the status sign and its switch apart from the hand, the six cards with the amber border on the selected one, "Expand" and "Show all sections", the arrow and number key hint, the dimmed photo in its mat, and the final ground colour.
+- Seen by him with no objection on record, which is weaker than praise: the beam itself (he asked for it in more places), the status sign and its switch apart from the hand, the cards with the amber border on the selected one (six of them then), "Expand" and "Show all sections", the arrow and number key hint, the dimmed photo in its mat, and the final ground colour.
 
 ## How to inspect
 

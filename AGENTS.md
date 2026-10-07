@@ -23,9 +23,9 @@ The site is **one calm, keyboard-friendly tool window**: one section is open at 
 
 Justin's words for the parts. Use them in code, docs and messages, and invent no others:
 
-- **Pane**: the main area at the upper left that shows one section. "Pane 3" is the agents section open there.
+- **Pane**: the main area at the upper left that shows one section. "Pane 2" is the agents and projects section open there.
 - **Pathway**: the strip along the bottom where his sprite walks ("because it's like me walking along it").
-- **Step**: one station on the pathway, one per section. "Step 1" is where he holds the shoeboxes and "step 2" is where he pets Truffle.
+- **Step**: one station on the pathway, one per section. "Step 1" is where he holds the shoeboxes and "step 3" is where he pets Truffle.
 - **Card**: a section's box in the right column, with its title, card line and invite ("the card on the right").
 - **Select a step**: navigate to it by any means (a key, a click, the search), so that its section shows in the pane and his sprite walks to it.
 
@@ -46,7 +46,7 @@ All colours are CSS variables at the top of `panes.css`; change them there and n
 ### Live details
 
 - `SFClock` in the title bar ticks in `America/Los_Angeles`.
-- The **status sign** at the top of pane 5 shows `lately.status` (learning / building / saving up for). **Bump `lately.updated` whenever a line changes**; a stale date under a "live" readout defeats it.
+- The **status sign** at the top of pane 4 shows `lately.status` (learning / building / saving up for). **Bump `lately.updated` whenever a line changes**; a stale date under a "live" readout defeats it.
 
 ## Design principles
 
@@ -73,7 +73,7 @@ Pixel sprites of Justin in his straw hat, Truffle, the robots luibot and luibuil
 - **A sprite in almost every section, doing something that belongs to that section**: "i'd like my sprite to be in almost all the sections, doing something unique to each section". Characters interacting beats a solo loop.
 - **A sprite is refined over several rounds, never shipped from its first draft.** "this detail about refining the sprites into something that's smooth and subtle yet shows that there's a lot of thought put into them, that's really key to the design principles of this website." At least two rounds: draw it, look at it on the page at true size, then add the small details that tie it to its animation and its place (the feed that shrinks as the hen eats; Truffle pawing his leg, a "very key trait" of hers).
 - **A touch is a touch.** The hand overlaps the thing it acts on, and the thing reacts on that contact frame: "my hands are not actually on the chair"; "it kind of looks like he's just waving his hand and then the toggle gets flipped". Diagnose staging, then timing, then art (`src/sprites/README.md`, Part 2).
-- **Every change of place is a visible move, and nothing appears or vanishes from nowhere.** His sprite walks the whole way at one pace, Truffle wakes and walks over, and the robots beam, because "the agents floating around is a bit noisy": "anything larger than a small shift in position should be a teleportation". One beam-out and one beam-in per move is our rule, not his. Between the pathway and pane 3 they use the beam both ways: "going up into the pane and going down back down".
+- **Every change of place is a visible move, and nothing appears or vanishes from nowhere.** His sprite walks the whole way at one pace, Truffle wakes and walks over, and the robots beam, because "the agents floating around is a bit noisy": "anything larger than a small shift in position should be a teleportation". One beam-out and one beam-in per move is our rule, not his. Between the pathway and pane 2 they use the beam both ways: "going up into the pane and going down back down".
 - **Quiet and crafted.** Single calm gestures, loops that run only while on screen, one busy loop per screenful. Vary where a scene starts: "i always walk in left to right. like maybe i can just start in in the middle". A sprite that has come to a place stays there until the visitor gives it a reason to move: "too much moving around".
 - **A sprite stands on a line the layout already has, at a whole-number scale, in a box reserved for its largest pose, and never over text** (the last is the coordinator's default, not his words).
 - **Ask before adding a person to the cast.** He asked for sprites of "just me and truffle" and added the robots later.
@@ -102,7 +102,7 @@ Pixel sprites of Justin in his straw hat, Truffle, the robots luibot and luibuil
 
 All content lives as named exports in `src/content.js`, and the comment above each export gives its shape and its quirks; `panes` maps over them, so routine edits never touch markup. Reshape an export only after Justin has accepted the layout, and tell whoever builds the design before you commit the new shape, so its reader changes in the same commit. Read `docs/writing-a-pane.md` before you write, rework or add to a pane: it holds which pane a new fact belongs in, the order of work, a checklist and worked examples.
 
-- **New section**: ask him where it goes in the order, then change all of these together, because the design assumes six: its `sections.<key>` in `src/content.js`; in `src/designs/panes/index.jsx`, an entry in `PANES` (id, step word, search keywords), its body in the `detail` object, its station and residents in `stretches()`, the number-key test (`/^[1-6]$/`) and the title bar's "1–6 jump" hint; the card column in `panes.css`, which is built so all six cards are always whole; the cards in `design-system/`; and every "pane N" or "step N" in the docs after its place, because the numbers follow the order.
+- **New section**: ask him where it goes in the order, then change all of these together: its `sections.<key>` in `src/content.js`; in `src/designs/panes/index.jsx`, an entry in `PANES` (id, step word, search keywords), its body in the `detail` object and its station and residents in `stretches()` (the number keys and the "1–N jump" hint follow `PANES` on their own, up to nine); the card column in `panes.css`, which is built so all the cards are always whole; the cards in `design-system/`; and every "pane N" or "step N" in the docs after its place, because the numbers follow the order. Removing or merging a section is the same list, plus a `HASH_ALIAS` entry so its old hash still opens something (`#projects` opens pane 2).
 - **New photo**: strip its EXIF before you commit it; the steps are in `docs/design-process.md` under "Shipping to main".
 
 ## How design work goes well here

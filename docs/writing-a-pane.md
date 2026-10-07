@@ -1,6 +1,6 @@
 # Writing a pane
 
-How we work out what a pane says, in what order, and in what words. It came out of the pass over panes 1 to 5, and the start of pane 6, on 2026-09-26. The rules themselves are in `AGENTS.md` under "Design principles" and "Voice"; this file holds where a new fact goes, the order of work, the shape a pane ends up with, a checklist that points back to those rules, and the panes as worked examples. Justin's words are quoted as he typed them.
+How we work out what a pane says, in what order, and in what words. It came out of the pass over the hello, people, agents, future and now panes, and the start of the projects pane, on 2026-09-26; the projects joined the agents pane on 2026-10-07. The rules themselves are in `AGENTS.md` under "Design principles" and "Voice"; this file holds where a new fact goes, the order of work, the shape a pane ends up with, a checklist that points back to those rules, and the panes as worked examples. Justin's words are quoted as he typed them.
 
 ## Where a new fact goes
 
@@ -9,11 +9,10 @@ Each pane has one job. Put a new fact in the pane whose job it is, and give it o
 | Pane | Its job | What lives there |
 |---|---|---|
 | 1 Hello | Who he is at a glance | His work in plain words, the traits that say the most about him (he nerds out over small details, he automates things that don't need it), fun facts, the photo, where he moved from, his links |
-| 2 My people | The people he loves | One card per person: what they are like, then what they mean to him |
-| 3 My agents | His two AI agents | What each one does for him, how they started, their names and characters, how he works with them, and "Future side quests", the list of what he wants to build with them next |
-| 4 My future plans | Where he hopes life goes | One plan per block, each finishing "In the future, I want to…", with the reason in his words |
-| 5 What I'm up to | What his life looks like these days | The status sign (learning, building, saving up for), what he is doing that he would not have done before San Francisco, the experiments with his coworkers, and a normal week |
-| 6 Things I've built | His projects | One entry per project with the story behind it, in the order he sets |
+| 2 My agents and projects | What he builds: his two AI agents, then the things he has built ("kind of like a fun portfolio") | Each agent first (what he does for him, how he works with him), then "Future side quests", the list of what he wants to build with them next, then "Things I've built", one entry per project with the story behind it, in the order he sets |
+| 3 My people | The people he loves | One card per person: what they are like, then what they mean to him |
+| 4 What I'm up to | What his life looks like these days | The status sign (learning, building, saving up for), what he is doing that he would not have done before San Francisco, the experiments with his coworkers, and a normal week |
+| 5 My future plans | Where he hopes life goes | One plan per block, each finishing "In the future, I want to…", with the reason in his words |
 
 ## Who edits what
 
@@ -35,19 +34,19 @@ When a session on the words and a session on the design run at the same time: "i
 
 ## When a pane looks bare: the interview
 
-"the page looks quite bare. lets figure out how to fill the space ab it more ... think about what would help, and interview me for info to put on the pane". What worked for pane 3: say in two lines what is missing (stories, not tasks), then ask short numbered questions he can answer in any order, "rambling is fine". The ones that produced blocks:
+"the page looks quite bare. lets figure out how to fill the space ab it more ... think about what would help, and interview me for info to put on the pane". What worked for the agents pane: say in two lines what is missing (stories, not tasks), then ask short numbered questions he can answer in any order, "rambling is fine". The ones that produced blocks:
 
-- How did it start, and why? (became "I started with one agent and ended up with two")
+- How did it start, and why? (became "I started with one agent and ended up with two", later cut with "Fun facts" when the projects joined the pane)
 - How do you use it or talk to it? (merged with how he splits the work into "I hand them jobs, mostly over Discord")
-- Why the name, and what is it like? (became "I named them after my high school nickname")
+- Why the name, and what is it like? (became "I named them after my high school nickname", cut with it)
 - What comes next? (became the "Future side quests" list)
-- What has it made? (became one brief list line, because pane 6 already tells the story)
+- What has it made? (became one brief list line, because the projects pane already told the story)
 
 Turn each answer into a block the same day, show it, and let the next answers arrive in their own time. Questions he skipped ("a recent moment", "a funny mistake") are fine to leave.
 
 ## When a pane doesn't speak to him: restart from what is true now
 
-"some of this info it out of date, or i dont want it to be on this page, and this page just doesnt feel right ... someone reading it doesnt get a good idea of what im doing these days." Rewording does not fix that; the content is wrong. What worked for pane 5:
+"some of this info it out of date, or i dont want it to be on this page, and this page just doesnt feel right ... someone reading it doesnt get a good idea of what im doing these days." Rewording does not fix that; the content is wrong. What worked for the now pane:
 
 1. Say in a few lines why the pane fails as a picture of him (it was three kinds of thing glued together).
 2. Offer three or four far-apart shapes for the pane, your pick first, each with its weak part.
@@ -68,10 +67,11 @@ card (right column)            open pane
 ```
 
 - `sections.<key>` holds `title`, `trailer` (the card line), `hook`, an optional `more`, and `invite`. A card shows `trailer ?? hook`, so a section without a `trailer` yet shows its hook on its card. The invite can name what is inside ("Meet luibot and luibuilder").
-- `more` goes when the blocks below say the same (panes 1, 2 and 3 all dropped it).
+- `more` goes when the blocks below say the same (hello, people, agents and projects all dropped it).
 - A block that the hook already covers gets no `###` (pane 1's work paragraph).
-- A block can hold a paragraph and a list, as long as they share no fact: the paragraph tells one story, the list holds the rest (each agent in pane 3).
+- A block can hold a paragraph and a list, as long as they share no fact: the paragraph tells one story, the list holds the rest (each agent in pane 2).
 - A living list he keeps up to date gets a plain title, a quiet note beside it that says what the list is, and one line per item ("Future side quests", "Ideas I plan to build with them"). A line that is done moves to where the finished things live.
+- A part after a pane's first opens under a hairline with a plain title and the quiet note beside it, the same grammar as the living list: pane 2's "Things I've built" with "I like building small tools for people I know." (the projects pane's old hook).
 
 ## How a `###` is worded
 
@@ -85,7 +85,7 @@ Each line points to its rule in `AGENTS.md` where one exists.
 
 - The card and the open pane share no wording, and they are on screen together ("A section's card and its open section complement each other").
 - No fact shows twice on one screen: count the pane plus the whole card column ("No fact twice on a screen").
-- A thing another pane tells in full gets one brief mention here, not its own block: puzzlewithme in pane 3 is one list line, because pane 6 tells its story ("we can just give a really brief summary").
+- A thing another pane tells in full gets one brief mention here, not its own block: puzzlewithme was one list line in the agents pane while the projects pane told its story ("we can just give a really brief summary").
 - Two short blocks about related things become one ("I think these two can be combined").
 - A skimmer who reads only the `#`, the hook and the `###`s knows what the pane holds ("Two heading levels").
 - The hook is a short, natural opener that does not sum up the blocks: "Meet my AI agents.", "In the future, I want to…" ("Each piece of text a skimmer sees has one job").
@@ -97,7 +97,7 @@ Each line points to its rule in `AGENTS.md` where one exists.
 - A stranger understands every word without stopping: no work jargon (infra, scaling, VPS, triaging), no bare tool names ("into a Google Sheet"), and a code only when its full name is on screen beside it ("SFO" under "San Francisco"). Explain a name only when the point needs it: OpenClaw got one sentence because the story starts with it, Palworld got none ("Super simple language, for a reader who has never heard of the thing").
 - A name is explained plainly when the section is about it: "so luibot means he's my personal bot" replaced "basically my little robot assistant".
 - Every sentence traces to his words or `src/content.js`, and guesses are marked when you show him ("Never claim more than he said").
-- Labels, numbers and chrome words do a job: pane 1's "01", "02" and pane 2's tags ("Role model" over "She's my role model ...") went because they repeated the heading; a robot's hover line says something in his character ("Already on it.", "Got an idea?"), never the name printed beside him; and a control says what it does in plain words ("only this" became "Expand": "isn't clear enough about what it means").
+- Labels, numbers and chrome words do a job: pane 1's "01", "02" and the people cards' tags ("Role model" over "She's my role model ...") went because they repeated the heading; a robot's hover line says something in his character ("Already on it.", "Got an idea?"), never the name printed beside him; and a control says what it does in plain words ("only this" became "Expand": "isn't clear enough about what it means").
 - The largest gap between two blocks is measured, and no side of the pane is left empty ("Use the space, and never by stretching").
 - A routine or a set of tasks is a list in the order they happen, not a paragraph ("it's describing what i do. maybe a list?"); a story stays a paragraph ("Structure a section from what its content is").
 - Everything on a "right now" part is still true, and its date is today's when you change it. When in doubt, ask him what is out of date ("Live details").
@@ -122,37 +122,38 @@ Each line points to its rule in `AGENTS.md` where one exists.
 | Photo below the text, right side empty | Photo on the right beside the blocks, 14% dimmer, in a thin mat | "too much dead space on the right side of the pane"; the photo "hurts the eyes compared to the theme" |
 | Caption "the three of us" | "me, Truffle, and my GF" | His wording |
 
-## Panes 2 and 3, what changed
+## My people and My agents, what changed
 
 | Pane | Before | After | Why |
 |---|---|---|---|
-| 2 | "The most dependable and honest person I know." | "He's the most dependable and honest person I know." | Complete sentences; the person is the subject (he said no to "I" headings here) |
-| 2 | A tag over each card ("Role model", "Est. 2017") | No tags | Each repeated the heading under it |
-| 2 | "She built everything from the ground up." | "She's an accountant and runs her own business, which she built from the ground up." | "built what?"; he gave the fact |
-| 2 | Her card opened with what she does for him | It opens with what she is like, then what she means to him | "the details should start off with how kind and nice she is" |
-| 2 | Her card spanned the whole pane | Centred, as wide as its text | "it doesn't have to take up the whole horizontal space" |
-| 3 | Each agent's paragraph repeated his list | The paragraph tells one story, the list the rest | No fact twice on a screen |
-| 3 | Two columns and a bare bottom half | Three story blocks from an interview, and a "Future side quests" list | "the page looks quite bare ... interview me" |
-| 3 | A block about puzzlewithme | One list line | "we also describe it in pane 6, so we can just give a really brief summary" |
-| 3 | "I split the work" and "I message them on Discord" | One block, "I hand them jobs, mostly over Discord" | "I think these two can be combined" |
-| 3 | "I keep a list of what I want them to do next" | "Future side quests" with "Ideas I plan to build with them" beside it | "something like future endeavors", then "Future side quests" |
-| 3 | Hover line "Hi, I'm luibot" | "Already on it." | It repeated his printed name; the new line is in his snarky, proactive character |
+| people | "The most dependable and honest person I know." | "He's the most dependable and honest person I know." | Complete sentences; the person is the subject (he said no to "I" headings here) |
+| people | A tag over each card ("Role model", "Est. 2017") | No tags | Each repeated the heading under it |
+| people | "She built everything from the ground up." | "She's an accountant and runs her own business, which she built from the ground up." | "built what?"; he gave the fact |
+| people | Her card opened with what she does for him | It opens with what she is like, then what she means to him | "the details should start off with how kind and nice she is" |
+| people | Her card spanned the whole pane | Centred, as wide as its text | "it doesn't have to take up the whole horizontal space" |
+| agents | Each agent's paragraph repeated his list | The paragraph tells one story, the list the rest | No fact twice on a screen |
+| agents | Two columns and a bare bottom half | Three story blocks from an interview, and a "Future side quests" list | "the page looks quite bare ... interview me" |
+| agents | A block about puzzlewithme | One list line | "we also describe it in pane 6, so we can just give a really brief summary" |
+| agents | "I split the work" and "I message them on Discord" | One block, "I hand them jobs, mostly over Discord" | "I think these two can be combined" |
+| agents | "I keep a list of what I want them to do next" | "Future side quests" with "Ideas I plan to build with them" beside it | "something like future endeavors", then "Future side quests" |
+| agents | Hover line "Hi, I'm luibot" | "Already on it." | It repeated his printed name; the new line is in his snarky, proactive character |
 
-## Panes 4 and 5, what changed
+## My future plans and What I'm up to, what changed
 
 | Pane | Before | After | Why |
 |---|---|---|---|
-| 4 | "In the future, I want to live in New York and Japan, and then have a farm." | "In the future, I want to…", with each heading finishing it ("Live in New York with my girlfriend.") | "feels more natural and doesnt repeat so much of the content of the pane" |
-| 4 | "I want us to actually live there for a while." (the whole Japan paragraph) | Why Japan, in his words, then "I don't want it to be just a trip." | It repeated its heading; he gave the reasons when asked |
-| 4 | "Start a family farm with lots of dogs after tech." | "Start a family farm with all kinds of animals.", and the paragraph says he might work remotely from the farm or in farming tech | "it's not just dogs ... it's notj ust after tech" |
-| 4 | Card "New York, Japan, and one day a farm full of dogs and robots." | "I hope to see New York, Japan, and one day my own farm." | His opening |
-| 5 | A status table (brewing, watching, cooking), the desk, the shoes, and an "also" list of eight | A status sign (learning, building, saving up for), two story blocks, and a normal week | "someone reading it doesnt get a good idea of what im doing these days" |
-| 5 | The week as one paragraph | Two lists, weekdays and weekends, in the order the day goes | "there's a better, more visual format than a block of text ... maybe a list?" |
+| future | "In the future, I want to live in New York and Japan, and then have a farm." | "In the future, I want to…", with each heading finishing it ("Live in New York with my girlfriend.") | "feels more natural and doesnt repeat so much of the content of the pane" |
+| future | "I want us to actually live there for a while." (the whole Japan paragraph) | Why Japan, in his words, then "I don't want it to be just a trip." | It repeated its heading; he gave the reasons when asked |
+| future | "Start a family farm with lots of dogs after tech." | "Start a family farm with all kinds of animals.", and the paragraph says he might work remotely from the farm or in farming tech | "it's not just dogs ... it's notj ust after tech" |
+| future | Card "New York, Japan, and one day a farm full of dogs and robots." | "I hope to see New York, Japan, and one day my own farm." | His opening |
+| now | A status table (brewing, watching, cooking), the desk, the shoes, and an "also" list of eight | A status sign (learning, building, saving up for), two story blocks, and a normal week | "someone reading it doesnt get a good idea of what im doing these days" |
+| now | The week as one paragraph | Two lists, weekdays and weekends, in the order the day goes | "there's a better, more visual format than a block of text ... maybe a list?" |
 
 ## Still open
 
-- **Pane 5's card line** is a noun list ("Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s."), against the card-line rule. He asked for something "more fun", then "snarky", and has not picked a replacement yet. Pane 6 has no card line yet for the same reason.
+- **The now pane's card line** is a noun list ("Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s."), against the card-line rule. He asked for something "more fun", then "snarky", and has not picked a replacement yet. The projects never got a card line for the same reason.
+- **Pane 2, since the projects joined it.** Its title "My agents and projects" is provisional and his call. Its card keeps the agents' line and invite, which name only the agents. luibuilder's list line "Building puzzlewithme, ..." and the puzzlewithme project now sit on one screen. `?agents=a` and `?agents=b` are two ways to rank the robots' names above everything else; he has not picked.
 
 - **What makes a card an invitation.** His examples, as `<Card>, <Trailer line>, <Invite phrase>`: "hello, I tinker with agents, automation, and brew espresso., learn more about me" and "my agents, I have Openclaw agents running around, meet Luibot and Luibuilder". The working reading: a specific, slightly surprising detail the pane pays off, with the topic plain enough that an uninterested reader knows to skip.
 - **Capital letters for the agents.** He writes "Luibot" and "Luibuilder"; the site writes them in lowercase. Not answered yet.
-- **Pane 6** still needs its full pass: a trailer, its hook, and the plain-terms check of the four older projects ("this goes for all sentences across the entire site"). mdnote and slk were added and the order set.
+- **The projects** (pane 2's last part) still need their full pass: the plain-terms check of the four older projects ("this goes for all sentences across the entire site"). mdnote and slk were added and the order set.
