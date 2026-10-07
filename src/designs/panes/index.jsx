@@ -374,7 +374,7 @@ function Agent({ agent, waving, present, rail = false }) {
   );
   if (rail)
     return (
-      <section className="pn__agent pn__rail-row" aria-label={agent.name}>
+      <section className="pn__agent pn__rail-row" aria-label={agent.name} data-reason="agents">
         <div className="pn__rail-head">
           {head}
           <Label>{agent.tag}</Label>
@@ -383,7 +383,7 @@ function Agent({ agent, waving, present, rail = false }) {
       </section>
     );
   return (
-    <section className="pn__agent" aria-label={agent.name}>
+    <section className="pn__agent" aria-label={agent.name} data-reason="agents">
       {head}
       {details}
     </section>
@@ -928,9 +928,16 @@ export default function Panes() {
   // reaching above the middle of the pane's window, or near the pane's end
   // (at the window's whole width pane 2 scrolls only a little, and the middle
   // is never reached). At the top of the pane he is by his name, whatever
-  // fits under it. `builderAt` is the project he beams to, the first whose spot he
-  // fits in whole, chosen at that moment; null keeps him by his name. Under
-  // reduced motion he stays by his name.
+  // fits under it. The visitor can also give him a reason without scrolling
+  // (pane 2 does not scroll at all in a tall enough window): the pointer
+  // resting over one block (`data-reason`: the agents or the projects) for
+  // as long as a scroll settles, or keyboard focus on a project link or a
+  // robot, sends him to that block; the latest reason wins, and a scroll
+  // hands the say back to the scroll rule. With no reason he stays put: no
+  // timer moves him (Justin: "too much moving around"). `builderAt` is the
+  // project he beams to, the first whose spot he fits in whole, chosen at
+  // that moment; null keeps him by his name. Under reduced motion he stays by
+  // his name.
   const [builderAt, setBuilderAt] = useState(null);
   useEffect(() => {
     const body = bodyRef.current;
@@ -939,13 +946,17 @@ export default function Panes() {
       return undefined;
     }
     let timer;
+    let reason = null; // "agents" | "projects": the pointer's or the keyboard's latest, until a scroll
+    let pending = null; // the block the pointer or focus is settling on
+    let pendingTimer;
     const decide = () => {
       const projectsEl = body.querySelector(".pn-built");
       const b = body.getBoundingClientRect();
       // a line or two short of the end counts, so a small nudge back up
       // from the end (where the scroll stops) does not send him back
       const atEnd = body.scrollTop >= body.scrollHeight - body.clientHeight - 24;
-      const reading = projectsEl && body.scrollTop > 0 && (projectsEl.getBoundingClientRect().top < b.top + b.height / 2 || atEnd);
+      const scrolledTo = projectsEl && body.scrollTop > 0 && (projectsEl.getBoundingClientRect().top < b.top + b.height / 2 || atEnd);
+      const reading = projectsEl && (reason ? reason === "projects" : scrolledTo);
       const first = reading ? firstProjectInView(projectsEl, body) : -1;
       // no project head in view while the projects are read (the last
       // stories): he stays where he is; and he goes back beside his name only
@@ -958,13 +969,44 @@ export default function Panes() {
       clearTimeout(timer);
       timer = setTimeout(decide, 600);
     };
+    const scrolled = () => {
+      reason = null;
+      settle();
+    };
+    // a block the pointer or focus stays on for the settle's 600 ms becomes
+    // the reason; crossing a boundary and back starts the wait again, so he
+    // never follows a passing pointer
+    const settleOn = (block) => {
+      if (block === pending) return;
+      pending = block;
+      clearTimeout(pendingTimer);
+      if (block)
+        pendingTimer = setTimeout(() => {
+          reason = block;
+          decide();
+        }, 600);
+    };
+    const blockOf = (el) => el?.closest?.("[data-reason]")?.dataset.reason ?? null;
+    const pointed = (event) => event.pointerType === "mouse" && settleOn(blockOf(event.target));
+    const left = (event) => event.pointerType === "mouse" && settleOn(null);
+    const focusedIn = (event) => {
+      const el = event.target;
+      if (el.matches(":focus-visible") && el.matches(".pn-built a, .pn-robot")) settleOn(blockOf(el));
+    };
     settle();
-    body.addEventListener("scroll", settle, { passive: true });
+    body.addEventListener("scroll", scrolled, { passive: true });
+    body.addEventListener("pointermove", pointed, { passive: true });
+    body.addEventListener("pointerleave", left);
+    body.addEventListener("focusin", focusedIn);
     const resized = new ResizeObserver(settle);
     resized.observe(body);
     return () => {
       clearTimeout(timer);
-      body.removeEventListener("scroll", settle);
+      clearTimeout(pendingTimer);
+      body.removeEventListener("scroll", scrolled);
+      body.removeEventListener("pointermove", pointed);
+      body.removeEventListener("pointerleave", left);
+      body.removeEventListener("focusin", focusedIn);
       resized.disconnect();
     };
   }, [focused, showMaster, expanded, wholeInBody]);
@@ -1500,11 +1542,11 @@ export default function Panes() {
       return (
         <div className="pn__rail" data-agents="b">
           {agentList}
-          <section className="pn__rail-row pn__roadmap" style={nameColumn}>
+          <section className="pn__rail-row pn__roadmap" style={nameColumn} data-reason="agents">
             <div className="pn__rail-head">{partHead(agentRoadmap)}</div>
             <div className="pn__rail-body">{roadmap}</div>
           </section>
-          <section className="pn__rail-row">
+          <section className="pn__rail-row" data-reason="projects">
             <div className="pn__rail-head">{partHead(projectsHead)}</div>
             <div className="pn__rail-body">{built}</div>
           </section>
@@ -1517,13 +1559,15 @@ export default function Panes() {
     const questsOwner = new Set(agentRoadmap.items.map((item) => item.agent)).size === 1 ? agentRoadmap.items[0].agent : null;
     return (
       <div data-agents="a">
-        <p className="pn__agents-hook">{sections.agents.hook}</p>
+        <p className="pn__agents-hook" data-reason="agents">
+          {sections.agents.hook}
+        </p>
         <div className="pn__agents">
           {agentList.map((agentEl, i) =>
             agents[i].name === questsOwner ? (
               <div key={agents[i].name}>
                 {agentEl}
-                <section className="pn__part pn__quests">
+                <section className="pn__part pn__quests" data-reason="agents">
                   {partHead({ ...agentRoadmap, note: agentRoadmap.noteOneAgent })}
                   <ul className="pn__does">
                     {agentRoadmap.items.map((item) => (
@@ -1538,12 +1582,12 @@ export default function Panes() {
           )}
         </div>
         {!questsOwner && (
-          <section className="pn__roadmap pn__part" style={nameColumn}>
+          <section className="pn__roadmap pn__part" style={nameColumn} data-reason="agents">
             {partHead(agentRoadmap)}
             {roadmap}
           </section>
         )}
-        <section className="pn__part">
+        <section className="pn__part" data-reason="projects">
           {partHead(projectsHead)}
           {built}
         </section>
