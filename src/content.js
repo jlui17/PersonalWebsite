@@ -93,8 +93,11 @@ export const agents = [
 // `does`.
 export const agentRoadmap = {
   heading: "Future side quests",
-  // the few words beside the heading that say what the list is
+  // the few words beside the heading that say what the list is; `noteOneAgent`
+  // where every line is one agent's and the list sits in his column
+  // (provisional: Justin has not seen it yet)
   note: "Ideas I plan to build with them",
+  noteOneAgent: "Ideas I plan to build with him",
   items: [
     { agent: "luibuilder", task: "Doing some robotics experiments with me" },
     { agent: "luibuilder", task: "Designing parts for a 3D printer I want to get, for those robotics experiments" },

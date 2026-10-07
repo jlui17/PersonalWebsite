@@ -1524,7 +1524,7 @@ export default function Panes() {
               <div key={agents[i].name}>
                 {agentEl}
                 <section className="pn__part pn__quests">
-                  {partHead(agentRoadmap)}
+                  {partHead({ ...agentRoadmap, note: agentRoadmap.noteOneAgent })}
                   <ul className="pn__does">
                     {agentRoadmap.items.map((item) => (
                       <li key={item.task}>{item.task}</li>
