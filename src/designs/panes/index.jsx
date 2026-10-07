@@ -856,15 +856,22 @@ export default function Panes() {
   // trip from or to it is the pane's beam alone.
   // A pane place answers in three ways: `undefined` when its element is gone
   // (the pane has unmounted), `null` when the robot is there but the visitor
-  // cannot see him whole (scrolled out of the pane body's box, or mid one of
-  // his own beams), else his box. Nobody saw a robot who is not whole, so he
-  // gets no beam there.
-  const inBody = useCallback((el, whole = true) => {
+  // cannot see any of him (scrolled out of the pane body's box, or mid one of
+  // his own beams), else his box and the pane body's top and bottom, which
+  // clip his beam. Whole or in part, a robot the visitor can see beams out.
+  const inBody = useCallback((el, seen = true) => {
     if (!el) return undefined;
-    if (!whole) return null;
+    if (!seen) return null;
     const r = el.getBoundingClientRect();
     const body = bodyRef.current?.getBoundingClientRect();
-    return body && r.top >= body.top && r.bottom <= body.bottom ? r : null;
+    if (!body || r.bottom <= body.top || r.top >= body.bottom) return null;
+    return { left: r.left, top: r.top, width: r.width, height: r.height, clip: { top: body.top, bottom: body.bottom } };
+  }, []);
+  // Whether a pane place is wholly in view: the test for where he may go.
+  const wholeInBody = useCallback((el) => {
+    const r = el?.getBoundingClientRect();
+    const body = bodyRef.current?.getBoundingClientRect();
+    return !!r && !!body && r.top >= body.top && r.bottom <= body.bottom;
   }, []);
   const robotRects = useMemo(
     () => ({
@@ -877,8 +884,10 @@ export default function Panes() {
         pathway: () => (phone ? null : document.querySelector('[data-prop="luibuilder"]')?.getBoundingClientRect() ?? null),
         pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibuilder"]')),
         pane6: () => {
+          if (!document.querySelector(".pn-built")) return undefined;
+          // between two projects of his own he is nowhere to be seen
           const el = document.querySelector(".pn-builder");
-          return inBody(el, !el?.dataset.action.startsWith("beam"));
+          return el ? inBody(el, !el.dataset.action.startsWith("beam")) : null;
         },
       },
     }),
@@ -939,8 +948,11 @@ export default function Panes() {
       const reading = projectsEl && body.scrollTop > 0 && (projectsEl.getBoundingClientRect().top < b.top + b.height / 2 || atEnd);
       const first = reading ? firstProjectInView(projectsEl, body) : -1;
       // no project head in view while the projects are read (the last
-      // stories): he stays where he is
-      setBuilderAt((at) => (first >= 0 ? (at ?? first) : reading ? at : null));
+      // stories): he stays where he is; and he goes back beside his name only
+      // where the visitor can see it whole (scrolled to the middle, it can be
+      // above the window: he stays at his project until it is in view)
+      const nameSeen = wholeInBody(body.querySelector('.pn-robot[data-robot="luibuilder"]'));
+      setBuilderAt((at) => (first >= 0 ? (at ?? first) : reading || !nameSeen ? at : null));
     };
     const settle = () => {
       clearTimeout(timer);
@@ -955,13 +967,15 @@ export default function Panes() {
       body.removeEventListener("scroll", settle);
       resized.disconnect();
     };
-  }, [focused, showMaster, expanded]);
+  }, [focused, showMaster, expanded, wholeInBody]);
   const luibuilderUp = useRobotHandoff({
     name: "luibuilder",
     target: focused !== "agents" ? "pathway" : builderAt === null ? "pane" : "pane6",
     rects: robotRects.luibuilder,
     delay: 120,
-    canLeave: (from) => pathwayClear("luibuilder", from),
+    // at a project, a move of his own (a beam to another project, a hop)
+    // ends before this one begins
+    canLeave: (from) => (from === "pane6" ? !document.querySelector('.pn-builder:is([data-action^="beam"], [data-action="hop"])') : pathwayClear("luibuilder", from)),
     canLand: (to) => pathwayClear("luibuilder", to),
   });
 

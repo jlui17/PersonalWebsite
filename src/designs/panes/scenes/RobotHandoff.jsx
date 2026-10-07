@@ -13,16 +13,20 @@ import "./scenes.css";
 // overlay draws the beam at the exact pixels of the place he leaves or
 // arrives at. Leaving a pane, that place is gone by the time the beam-out
 // plays (the pane unmounts in the render that sends him down), so the beam is
-// drawn where he last stood whole and in view, over whatever the next pane
-// puts there; a robot the visitor could not see whole (scrolled out of the
-// pane body's box, mid a beam of his own) gets no beam-out: nobody saw him
-// leave, and he just beams in at the other place.
+// drawn where he last stood in view, over whatever the next pane puts there.
+// Wherever the visitor could see him, whole or in part, he beams out; a robot
+// the visitor could not see at all (scrolled out of the pane body's box, mid a
+// beam of his own, not drawn on a phone's pathway) gets no beam-out, and at a
+// place the visitor cannot see he arrives with no beam-in: nobody saw either.
+// A pane's beam is clipped to the pane body's box, as he was.
 //
 // `target` is where he should be: "pathway" or a pane place (a key of
 // `rects`, such as "pane" or "pane6"); `rects` measures each place's box on
 // screen (a pane place answers `undefined` when its element is gone, `null`
-// when he is there but not whole); `delay` staggers the start so two robots
-// never beam as one block. Under reduced motion he is simply at the target.
+// when the visitor cannot see him there at all, else his box, with `clip`, the
+// box he is seen through, when only part of him may be in view); `delay`
+// staggers the start so two robots never beam as one block. Under reduced
+// motion he is simply at the target.
 const GONE = 150;
 const SLICE = 16; // ms between looks at the target while a beam-in plays
 const isPane = (place) => place !== "pathway" && place !== "overlay" && place !== "none";
@@ -34,8 +38,9 @@ const LANDING_WAIT = 2500;
 // - `outAction(from)`: the beam-out's action for the place he leaves (the
 //   pathway's robot may be in the air, mid-errand), else "beam-out".
 // - `canLeave(from)` / `canLand(to)`: the box he beams out of / into is clear
-//   (of Justin, on the pathway); the beam waits (polling) until it is, for
-//   LANDING_WAIT at most. A beam drawn over him is what this waits out.
+//   (of Justin, on the pathway), or he is done with a move of his own in a
+//   pane place; the beam waits (polling) until it is, for LANDING_WAIT at
+//   most. A beam drawn over him, or two moves at once, is what this waits out.
 // - `onOut(from)`: the beam-out is over and he is nowhere.
 // - `skipIn()`: the pathway will take him on straight away (an errand waits),
 //   so he stays gone instead of beaming in there only to beam out again;
@@ -55,9 +60,9 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
   const targetRef = useRef(target);
   const hooks = useRef({});
   const run = useRef(0);
-  // Where he last stood, whole and in view, in each pane place: the beam-out
-  // after the pane has unmounted plays there (null: he was not to be seen
-  // when the pane went, so no beam-out).
+  // Where he last stood in view, whole or in part, in each pane place: the
+  // beam-out after the pane has unmounted plays there (null: he was not to be
+  // seen when the pane went, so no beam-out).
   const lastPaneRect = useRef({});
   targetRef.current = target;
   hooks.current = { outAction, canLeave, onOut, skipIn, onSkipIn, canLand };
@@ -74,7 +79,7 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
 
   useEffect(() => {
     if (shownRef.current === target) return undefined;
-    if (reducedMotion() || !rects[target]()) {
+    if (reducedMotion()) {
       shownRef.current = target;
       setShown(target);
       setOverlay(null);
@@ -124,12 +129,15 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
       let from = shownRef.current;
       for (;;) {
         // out, where he stands (skipped when he is already mid-beam or gone,
-        // or was not to be seen whole in the pane he leaves)
+        // or was not to be seen at all where he leaves). In a pane place he
+        // first finishes a move of his own (`canLeave`), so he is measured
+        // where that move has left him.
         if (from === "pathway" || isPane(from)) {
-          const rect = rects[from]() ?? (isPane(from) ? lastPaneRect.current[from] : null);
-          if (rect) {
+          const seen = () => rects[from]() ?? (isPane(from) ? lastPaneRect.current[from] : null);
+          if (isPane(from) || seen()) {
             if (!(await until(hooks.current.canLeave && (() => hooks.current.canLeave(from))))) return;
-            await playBeam(hooks.current.outAction?.(from) ?? "beam-out", rect);
+            const rect = seen();
+            if (rect) await playBeam(hooks.current.outAction?.(from) ?? "beam-out", rect);
           }
         }
         show("none");
@@ -145,7 +153,8 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
           show(to);
           return;
         }
-        if (!(await until(hooks.current.canLand && (() => hooks.current.canLand(to))))) return;
+        // a place the visitor cannot see takes him at once, with no beam-in
+        if (rects[to]() && !(await until(hooks.current.canLand && (() => hooks.current.canLand(to))))) return;
         const rect = rects[to]();
         // the place he is forming at may move on mid-beam: in a pane that has
         // closed he never arrives (dropped at once); on the pathway a robot
@@ -169,10 +178,14 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
   return { shown, overlay };
 }
 
-// The beam itself, drawn over everything at the place's own pixels.
+// The beam itself, drawn over everything at the place's own pixels, and only
+// inside the box he is seen through (a robot half scrolled out of the pane
+// beams there, not over the chrome above it).
 export function RobotBeam({ name, overlay }) {
   if (!overlay) return null;
   const { rect, action, frame } = overlay;
+  const { clip } = rect;
+  const inset = clip && `inset(${Math.max(0, clip.top - rect.top)}px 0 ${Math.max(0, rect.top + rect.height - clip.bottom)}px 0)`;
   return (
     <span
       className="pn-beam"
@@ -180,7 +193,7 @@ export function RobotBeam({ name, overlay }) {
       data-action={action}
       data-frame={frame}
       aria-hidden="true"
-      style={{ left: rect.left, top: rect.top, width: rect.width, height: rect.height }}
+      style={{ left: rect.left, top: rect.top, width: rect.width, height: rect.height, clipPath: inset || undefined }}
     >
       <Sprite character={name} action={action} frame={frame} scale={1} />
     </span>
