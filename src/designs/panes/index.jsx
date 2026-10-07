@@ -907,11 +907,14 @@ export default function Panes() {
   }, [stage, luibotUp.shown]);
   // luibuilder is one character, so pane 2 has one of him. He stands beside
   // his name while the agents are what the visitor reads, and works on a
-  // project while the projects are: once the scroll has settled (as his own
-  // rounds wait for it) with the projects reaching above the middle of the
-  // pane's window. `builderAt` is the project he beams to, the first whose
-  // spot he fits in whole, chosen at that moment; null keeps him by his name.
-  // Under reduced motion he stays by his name.
+  // project while the projects are: once the visitor has scrolled and the
+  // scroll has settled (as his own rounds wait for it) with the projects
+  // reaching above the middle of the pane's window, or at the pane's end (at
+  // the window's whole width pane 2 scrolls only a little, and the middle is
+  // never reached). At the top of the pane he is by his name, whatever fits
+  // under it. `builderAt` is the project he beams to, the first whose spot he
+  // fits in whole, chosen at that moment; null keeps him by his name. Under
+  // reduced motion he stays by his name.
   const [builderAt, setBuilderAt] = useState(null);
   useEffect(() => {
     const body = bodyRef.current;
@@ -923,7 +926,8 @@ export default function Panes() {
     const decide = () => {
       const projectsEl = body.querySelector(".pn-built");
       const b = body.getBoundingClientRect();
-      const reading = projectsEl && projectsEl.getBoundingClientRect().top < b.top + b.height / 2;
+      const atEnd = body.scrollTop >= body.scrollHeight - body.clientHeight - 1;
+      const reading = projectsEl && body.scrollTop > 0 && (projectsEl.getBoundingClientRect().top < b.top + b.height / 2 || atEnd);
       const first = reading ? firstProjectInView(projectsEl, body) : -1;
       // no project head in view while the projects are read (the last
       // stories): he stays where he is
