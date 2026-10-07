@@ -32,7 +32,7 @@ export const intro = [
   },
 ];
 
-// Pane 3, one card per person: `heading` is one warm, complete sentence with
+// Pane 4, one card per person: `heading` is one warm, complete sentence with
 // the person as its subject, `body` what they are like and then what they mean
 // to him. `girlfriend: true` marks the one highlighted card.
 export const people = [
@@ -104,7 +104,7 @@ export const agentRoadmap = {
   ],
 };
 
-// Pane 4, what he is up to these days: a small status sign (`status`, the
+// Pane 3, what he is up to these days: a small status sign (`status`, the
 // things that change month to month, dated by `updated`: bump it whenever a
 // line changes), the story under it (`blocks`, like the hello blocks) and a
 // normal week (`week`).

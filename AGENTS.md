@@ -25,7 +25,7 @@ Justin's words for the parts. Use them in code, docs and messages, and invent no
 
 - **Pane**: the main area at the upper left that shows one section. "Pane 2" is the agents and projects section open there.
 - **Pathway**: the strip along the bottom where his sprite walks ("because it's like me walking along it").
-- **Step**: one station on the pathway, one per section. "Step 1" is where he holds the shoeboxes and "step 3" is where he pets Truffle.
+- **Step**: one station on the pathway, one per section. "Step 1" is where he holds the shoeboxes and "step 4" is where he pets Truffle.
 - **Card**: a section's box in the right column, with its title, card line and invite ("the card on the right").
 - **Select a step**: navigate to it by any means (a key, a click, the search), so that its section shows in the pane and his sprite walks to it.
 
@@ -46,7 +46,7 @@ All colours are CSS variables at the top of `panes.css`; change them there and n
 ### Live details
 
 - `SFClock` in the title bar ticks in `America/Los_Angeles`.
-- The **status sign** at the top of pane 4 shows `lately.status` (learning / building / saving up for). **Bump `lately.updated` whenever a line changes**; a stale date under a "live" readout defeats it.
+- The **status sign** at the top of pane 3 shows `lately.status` (learning / building / saving up for). **Bump `lately.updated` whenever a line changes**; a stale date under a "live" readout defeats it.
 
 ## Design principles
 
@@ -87,7 +87,7 @@ Pixel sprites of Justin in his straw hat, Truffle, the robots luibot and luibuil
 - Personal details (relationships, quirks, the dog) are first-class content, not filler.
 - **Each piece of text a skimmer sees has one job**, in this order of rank:
   - **Title**: what the section is, in plain words ("when i am skimming it, i don't need to think about what it means").
-  - **Card line** (`trailer`, on the card in the right column): a fun, specific sentence in his voice that makes a stranger want to open the pane, mostly one "I" sentence with a verb ("I have two OpenClaw agents running around."). A list of nouns introduces nothing; pane 3's list of his people is the exception.
+  - **Card line** (`trailer`, on the card in the right column): a fun, specific sentence in his voice that makes a stranger want to open the pane, mostly one "I" sentence with a verb ("I have two OpenClaw agents running around."). A list of nouns introduces nothing; pane 4's list of his people is the exception.
   - **Invite**: the few words on the way in; it can name what is inside ("Meet luibot and luibuilder").
   - **Hook** (the first line of the open pane): a short, natural opener that leaves the telling to the blocks ("Meet my AI agents."): "this kind of wording feels more natural and doesnt repeat so much of the content of the pane". One short sentence, or two. A hook ending in "…" is finished by each heading under it.
   - **`###`**: see "How a `###` is worded" in `docs/writing-a-pane.md`.

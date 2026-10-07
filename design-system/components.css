@@ -763,7 +763,7 @@ body {
 }
 
 /* A part of a pane after its first: a hairline, then the part. In pane 2,
-   under the two agents, the roadmap and then the projects; in pane 4, under
+   under the two agents, the roadmap and then the projects; in pane 3, under
    the sign, its story in blocks like pane 1's, in two columns, and the week.
    The story's blocks keep their order, down the first column and then the
    second; the site's script splits them where the taller column comes
@@ -852,7 +852,7 @@ body {
   background: var(--pn-amber);
 }
 
-/* Pane 4's week, a part of its own under a hairline: the heading, then a day
+/* Pane 3's week, a part of its own under a hairline: the heading, then a day
    to a column on the same two columns, each day a "what I hand him" list
    (.pn__does). The items read in order through the day, so a day is never
    split or balanced across columns. */
@@ -1594,7 +1594,7 @@ body {
   display: block;
 }
 
-/* ---- pane 4: the status sign ---- */
+/* ---- pane 3: the status sign ---- */
 
 /* Off, the sign's words are the quietest text colour (4.6:1 on the pane);
    lit, each goes to its own strength. Only colours, the glow and the knob

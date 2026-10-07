@@ -1558,7 +1558,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
     throwBall,
     pet,
     tipHat: () => strike("hat", 0, undefined, { frames: HAT_TIP }),
-    // On his feet for a while (a direct load of step 3: Truffle is about to
+    // On his feet for a while (a direct load of step 4: Truffle is about to
     // ask, and he would have stood for her had he walked in). The pet's own
     // idle takes over.
     stand: () => {

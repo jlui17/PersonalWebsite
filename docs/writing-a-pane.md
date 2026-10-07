@@ -10,8 +10,8 @@ Each pane has one job. Put a new fact in the pane whose job it is, and give it o
 |---|---|---|
 | 1 Hello | Who he is at a glance | His work in plain words, the traits that say the most about him (he nerds out over small details, he automates things that don't need it), fun facts, the photo, where he moved from, his links |
 | 2 My agents and projects | What he builds: his two AI agents, then the things he has built ("kind of like a fun portfolio") | Each agent first (what he does for him, how he works with him), then "Future side quests", the list of what he wants to build with them next, then "Things I've built", one entry per project with the story behind it, in the order he sets |
-| 3 My people | The people he loves | One card per person: what they are like, then what they mean to him |
-| 4 What I'm up to | What his life looks like these days | The status sign (learning, building, saving up for), what he is doing that he would not have done before San Francisco, the experiments with his coworkers, and a normal week |
+| 3 What I'm up to | What his life looks like these days | The status sign (learning, building, saving up for), what he is doing that he would not have done before San Francisco, the experiments with his coworkers, and a normal week |
+| 4 My people | The people he loves | One card per person: what they are like, then what they mean to him |
 | 5 My future plans | Where he hopes life goes | One plan per block, each finishing "In the future, I want to…", with the reason in his words |
 
 ## Who edits what

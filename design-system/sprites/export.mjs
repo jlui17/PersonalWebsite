@@ -159,7 +159,7 @@ const cards = {
   },
   truffle: {
     title: "Truffle",
-    note: "Justin's French Bulldog. She sleeps at step 3 of the pathway until he comes over to pet her.",
+    note: "Justin's French Bulldog. She sleeps at step 4 of the pathway until he comes over to pet her.",
     actions: {
       sleep: "lying down, head on her paws, breathing",
       ear: "one ear pricks up and an eye opens a slit; plays once and holds",
@@ -211,7 +211,7 @@ const cards = {
   },
   coffee: {
     title: "Coffee corner",
-    note: "The espresso machine and the grinder on their own cabinet, at step 4.",
+    note: "The espresso machine and the grinder on their own cabinet, at step 3.",
     actions: { idle: "at rest", empty: "the cup is gone, because it is in his hand", brew: "pulling a shot", ready: "the cup on the tray, steaming" },
   },
   "shoe-rack": {

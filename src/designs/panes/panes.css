@@ -876,7 +876,7 @@ body {
 }
 
 /* A part of a pane after its first: a hairline, then the part. In pane 2,
-   under the two agents, the roadmap and then the projects; in pane 4, under
+   under the two agents, the roadmap and then the projects; in pane 3, under
    the sign, its story in blocks like pane 1's, in two columns, and the week.
    The story's blocks keep their order, down the first column and then the
    second; `Balanced` in index.jsx splits them where the taller column comes
@@ -965,7 +965,7 @@ body {
   background: var(--pn-amber);
 }
 
-/* Pane 4's week, a part of its own under a hairline: the heading, then a day
+/* Pane 3's week, a part of its own under a hairline: the heading, then a day
    to a column on the same two columns, each day a "what I hand him" list
    (.pn__does). The items read in order through the day, so a day is never
    split or balanced across columns. */
@@ -1498,7 +1498,7 @@ body {
    alone, with "all" in its head to come back. The status bar's segments are
    the tab strip, a swipe moves between open panes, the clock sits in the
    title bar and the palette shrinks to its icon. */
-/* Pane 3 in a narrow pane (a phone, a small or a tall window): the family goes
+/* Pane 4 in a narrow pane (a phone, a small or a tall window): the family goes
    one to a row. Two columns need about 24 heading characters a line each, so
    that today's longest heading (50 characters) takes three lines at most; that
    is 460px of pane inside its padding, a window about 965px wide. */

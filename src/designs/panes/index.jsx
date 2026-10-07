@@ -66,7 +66,7 @@ const propWidth = (sheet) => sheet.actions.idle.frames[0][0].length;
 // BODY_X in stage.js it is the one standing spot the coffee actions are
 // drawn for.
 const COFFEE_PROP_X = -26;
-// The espresso round at step 4's coffee corner. The coffee actions are drawn
+// The espresso round at step 3's coffee corner. The coffee actions are drawn
 // for one arrangement: he stands right of the machine, unflipped, and works
 // it with the arm nearest it, so every beat faces front (+1) whichever side
 // he came from. The beats follow the sheet comments: `press` f0 arm rising,
@@ -85,7 +85,7 @@ const COFFEE_BEATS = [
   { pose: "sip", ms: 7200, flag: "drink", facing: COFFEE_FACING, leave: PUT_BACK },
   { pose: "grab", frames: [4, 3, 2, 1, 0], ms: 0, flag: "return", facing: COFFEE_FACING },
 ];
-// How long he plays with Truffle at step 4 before the next espresso.
+// How long he plays with Truffle at step 3 before the next espresso.
 const COFFEE_EVERY = [180000, 240000];
 // Where the cow's canvas sits in his `pat` canvas (the comment above `pat` in
 // src/sprites/justin.js). MUST match it.
@@ -191,8 +191,8 @@ function useAmbient(sheet, actionNames, offset, { min = 6000, max = 10000 } = {}
 const PANES = [
   { id: "hello", short: "hello", keywords: ["hello", "hi", "intro", "about", "me", "start", "lui", "justin", "work", "scorecard", "one piece", "geography", "shoes", "shoe rack"], ...sections.intro },
   { id: "agents", short: "agents", keywords: ["agents", "agent", "luibot", "luibuilder", "robots", "bots", "openclaw", "side quests", "robotics", "3d printer", "projects", "built", "tools", "code", "puzzle", "puzzlewithme", "mdnote", "slk", "slack", "things", "things i've built", "things i’ve built"], ...sections.agents },
-  { id: "people", short: "people", keywords: ["people", "family", "mom", "dad", "sister", "andrea", "girlfriend", "dog", "truffle"], ...sections.people },
   { id: "now", short: "now", keywords: ["now", "up to", "lately", "status", "learning", "japanese", "espresso", "coffee", "grinder", "pokemon", "experiments", "week", "weekend", "friends", "trader joe's", "san mateo"], ...sections.now },
+  { id: "people", short: "people", keywords: ["people", "family", "mom", "dad", "sister", "andrea", "girlfriend", "dog", "truffle"], ...sections.people },
   { id: "someday", short: "future", keywords: ["future", "plans", "someday", "farm", "new york", "japan", "sheep", "cow", "chickens", "hen"], ...sections.someday },
 ];
 const order = PANES.map((p) => p.id);
@@ -649,7 +649,7 @@ export default function Panes() {
   const [scene, setScene] = useState(() => stage.snapshot());
 
   const boxesWhere = scene.boxes.where;
-  // Step 4: he is on his feet from the espresso through the game (a direct
+  // Step 3: he is on his feet from the espresso through the game (a direct
   // load of the step showed the hour's pose for a second before the scene);
   // only once the rounds are over does he rest in the hour's pose, until the
   // next espresso or the visitor's next ask.
@@ -672,7 +672,7 @@ export default function Panes() {
     [part, stretchOf, resting, stage],
   );
 
-  // Step 4: an espresso first, then the game with Truffle: throw; she
+  // Step 3: an espresso first, then the game with Truffle: throw; she
   // fetches and brings it to his feet; a moment later she asks and he pets
   // her; a rest; and again, one round about every 25 s. After three rounds both rest
   // where they are (she lies down, he stands or sips) until the visitor asks
@@ -767,7 +767,7 @@ export default function Panes() {
   const layoutStage = useCallback((anew = false) => {
     stage.pathway.left = 0;
     stage.pathway.right = width;
-    stage.yard.left = nowStretch.yardLeft ?? 0; // clear of the coffee corner (a phone away from step 4 has no yard)
+    stage.yard.left = nowStretch.yardLeft ?? 0; // clear of the coffee corner (a phone away from step 3 has no yard)
     stage.yard.right = phone ? width : nowStretch.right;
     stage.yard.rest = phone ? stretchOf(focused).station + BALL_AT_SHOE : nowStretch.residents.ball;
     stage.setHome(phone ? width / 2 + 52 : peopleStretch.residents.truffle);
@@ -776,7 +776,7 @@ export default function Panes() {
       const s = stretchOf(focused);
       // at the desk the chair is tucked until he pulls it out: he stands with a hand on its back
       const pull = focused === "agents" && stage.chair.frame > 0 && !reducedMotion();
-      // at step 4 he starts at the coffee corner: the espresso comes first
+      // at step 3 he starts at the coffee corner: the espresso comes first
       const atCoffee = focused === "now";
       stage.place(pull ? stage.pullSpot(s.residents.desk) : atCoffee ? s.coffeeStation : s.station, {
         rest: pull || atCoffee ? "idle" : restFor(focused),
@@ -796,7 +796,7 @@ export default function Panes() {
   }, [stage, stretchOf, focused, sceneFor]);
 
   // At first paint he is already at the open step (by the shoe rack on a
-  // plain load); its scene starts about a second later. At step 3 he is on
+  // plain load); its scene starts about a second later. At step 4 he is on
   // his feet meanwhile: Truffle is about to ask (walking in, he would have
   // arrived standing).
   const firstLayout = useRef(true);
@@ -838,7 +838,7 @@ export default function Panes() {
   }, [focused, stage]);
 
   // luibot's chores in the panes (the anchors are the pane scenes'
-  // `data-anchor` elements): when pane 4 opens he flies up to the sign's
+  // `data-anchor` elements): when pane 3 opens he flies up to the sign's
   // switch and flips it; when pane 5 opens he flies to above the feed spot and
   // pours. `luibotDone[anchor]` turns true the moment the chore lands (the
   // sign lights, the grain is on the ground): the pane scenes read it in
