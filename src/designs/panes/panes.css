@@ -2077,21 +2077,12 @@ body {
    wide enough, each pane takes the shape its content has room for, from what
    the items are: never wider lines, never stretched gaps. */
 @container pane (min-width: 1100px) {
-  /* hello: the blocks read down two columns, the photo and the last line beside them */
+  /* hello: the blocks stay one column, in the order they are written (two
+     columns read a fun fact before the work), at a wider measure, and the
+     photo beside them is larger */
   .panes[data-top] .pn__hello-body {
-    grid-template-columns: minmax(0, 1fr) clamp(260px, 26%, 360px);
-    gap: 24px 48px;
-  }
-
-  .panes[data-top] .pn__hello-body .pn__blocks {
-    display: block;
-    columns: 2;
-    column-gap: 40px;
-  }
-
-  .panes[data-top] .pn__hello-body .pn__block {
-    break-inside: avoid;
-    padding-bottom: var(--pn-gap-block); /* the column's own gap, as a column has no flex gap */
+    grid-template-columns: minmax(0, 72ch) clamp(260px, 30%, 400px);
+    gap: 24px 56px;
   }
 
   /* people: her card over the four others, side by side in one row */
