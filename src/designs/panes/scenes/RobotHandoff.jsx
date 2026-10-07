@@ -48,11 +48,12 @@ const LANDING_WAIT = 2500;
 // A target that changes while he is nowhere (waiting to leave, gone, waiting
 // to land) cancels that trip before anything shows and starts the new one
 // from where it left off. A beam-out, once begun, is whole. A beam-in that
-// the target changes under is dropped within a display frame while the robot
-// is still thin (a robot never forms whole over a pane that has moved on);
-// on the pathway one past its half is mostly formed and finishes, then he
-// beams straight out again. Every beam runs against one deadline from the
-// sheet's durations, so it lasts what the sheet says whatever the timers do.
+// the target changes under is dropped within a display frame only where its
+// pane has closed (a robot never forms whole over a pane that has moved on);
+// in a pane still open, and on the pathway once past its half, it finishes,
+// then he beams straight out again: one move at a time. Every beam runs
+// against one deadline from the sheet's durations, and every frame of it is
+// painted (`painted` in script.js), so it is whole whatever the timers do.
 export function useRobotHandoff({ name, target, rects, delay = 0, outAction, canLeave, onOut, skipIn, onSkipIn, canLand }) {
   const [shown, setShown] = useState(target); // "pathway" | a pane place | "overlay" | "none"
   const [overlay, setOverlay] = useState(null); // { rect, action, frame }
@@ -162,10 +163,10 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
         if (rects[to]() && !(await until(hooks.current.canLand && (() => hooks.current.canLand(to))))) return;
         const rect = rects[to]();
         // the place he is forming at may move on mid-beam: in a pane that has
-        // closed he never arrives (dropped at once); on the pathway a robot
-        // past half formed finishes and then beams out again
+        // closed he never arrives (dropped at once); in a pane still open, or
+        // on the pathway past half formed, he finishes and then beams out again
         const half = sheet["beam-in"].durations.length / 2;
-        const dropped = rect && (await playBeam("beam-in", rect, (f) => targetRef.current !== to && (to !== "pathway" || f < half)));
+        const dropped = rect && (await playBeam("beam-in", rect, (f) => targetRef.current !== to && (to === "pathway" ? f < half : rects[to]() === undefined)));
         if (!dropped) {
           show(to);
           if (targetRef.current === to) return;
