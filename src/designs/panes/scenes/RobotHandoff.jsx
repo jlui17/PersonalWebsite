@@ -108,14 +108,19 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
     };
     // Plays `action`'s frames at `rect` against one running deadline: a frame
     // ends at the beam's start plus the sheet's durations so far, however late
-    // the timers wake. With `abort`, the wait is sliced and `abort(f)` is asked
+    // the timers wake, but every frame is painted at least once (late timers
+    // under load set the last frames in one tick, so they never showed and the
+    // beam looked cut). With `abort`, the wait is sliced and `abort(f)` is asked
     // on every slice; true ends the beam on frame f. Returns whether it was aborted.
+    const painted = (ms) =>
+      Promise.race([new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))), wait(ms)]); // a hidden tab paints nothing: the frame's own length at most
     const playBeam = async (action, rect, abort) => {
       const { durations } = sheet[action];
       let deadline = performance.now();
       for (let f = 0; f < durations.length; f += 1) {
         show("overlay", { rect, action, frame: f });
-        deadline += durations[f];
+        await painted(durations[f]);
+        deadline = Math.max(deadline + durations[f], performance.now());
         for (let left = deadline - performance.now(); left > 0; left = deadline - performance.now()) {
           await wait(Math.min(abort ? SLICE : left, left));
           if (abort?.(f)) return true;
