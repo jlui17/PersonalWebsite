@@ -909,10 +909,10 @@ export default function Panes() {
   // his name while the agents are what the visitor reads, and works on a
   // project while the projects are: once the visitor has scrolled and the
   // scroll has settled (as his own rounds wait for it) with the projects
-  // reaching above the middle of the pane's window, or at the pane's end (at
-  // the window's whole width pane 2 scrolls only a little, and the middle is
-  // never reached). At the top of the pane he is by his name, whatever fits
-  // under it. `builderAt` is the project he beams to, the first whose spot he
+  // reaching above the middle of the pane's window, or near the pane's end
+  // (at the window's whole width pane 2 scrolls only a little, and the middle
+  // is never reached). At the top of the pane he is by his name, whatever
+  // fits under it. `builderAt` is the project he beams to, the first whose spot he
   // fits in whole, chosen at that moment; null keeps him by his name. Under
   // reduced motion he stays by his name.
   const [builderAt, setBuilderAt] = useState(null);
@@ -926,7 +926,9 @@ export default function Panes() {
     const decide = () => {
       const projectsEl = body.querySelector(".pn-built");
       const b = body.getBoundingClientRect();
-      const atEnd = body.scrollTop >= body.scrollHeight - body.clientHeight - 1;
+      // a line or two short of the end counts, so a small nudge back up
+      // from the end (where the scroll stops) does not send him back
+      const atEnd = body.scrollTop >= body.scrollHeight - body.clientHeight - 24;
       const reading = projectsEl && body.scrollTop > 0 && (projectsEl.getBoundingClientRect().top < b.top + b.height / 2 || atEnd);
       const first = reading ? firstProjectInView(projectsEl, body) : -1;
       // no project head in view while the projects are read (the last
