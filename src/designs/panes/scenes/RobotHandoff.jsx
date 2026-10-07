@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Sprite, characters } from "../../../sprites/Sprite.jsx";
-import { reducedMotion } from "./script.js";
+import { painted, reducedMotion } from "./script.js";
 import "./scenes.css";
 
 // A robot moves between the pathway and a pane the way Justin asked: "going up
@@ -109,18 +109,16 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
     };
     // Plays `action`'s frames at `rect` against one running deadline: a frame
     // ends at the beam's start plus the sheet's durations so far, however late
-    // the timers wake, but every frame is painted at least once (late timers
-    // under load set the last frames in one tick, so they never showed and the
-    // beam looked cut). With `abort`, the wait is sliced and `abort(f)` is asked
-    // on every slice; true ends the beam on frame f. Returns whether it was aborted.
-    const painted = (ms) =>
-      Promise.race([new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))), wait(ms)]); // a hidden tab paints nothing: the frame's own length at most
+    // the timers wake, but never before it has been painted (late timers under
+    // load set the last frames in one tick, so they never showed and the beam
+    // looked cut). With `abort`, the wait is sliced and `abort(f)` is asked on
+    // every slice; true ends the beam on frame f. Returns whether it was aborted.
     const playBeam = async (action, rect, abort) => {
       const { durations } = sheet[action];
       let deadline = performance.now();
       for (let f = 0; f < durations.length; f += 1) {
         show("overlay", { rect, action, frame: f });
-        await painted(durations[f]);
+        await painted(() => document.querySelector(`.pn-beam[data-robot="${name}"][data-action="${action}"][data-frame="${f}"]`));
         deadline = Math.max(deadline + durations[f], performance.now());
         for (let left = deadline - performance.now(); left > 0; left = deadline - performance.now()) {
           await wait(Math.min(abort ? SLICE : left, left));

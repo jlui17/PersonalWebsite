@@ -10,6 +10,22 @@ export function script(run) {
   return () => clearTimeout(timer);
 }
 
+// Resolves once the page has painted a frame in which `shown()` is true, so
+// a frame that a late timer set is never skipped: the one rule for every beam
+// (the robots' between places, luibuilder's between projects). A hidden tab
+// paints nothing, so there it resolves at once, and after a second it gives up
+// (the actor went away meanwhile).
+export const painted = (shown) =>
+  new Promise((resolve) => {
+    const start = performance.now();
+    if (document.hidden) return resolve();
+    requestAnimationFrame(function look() {
+      if (document.hidden || performance.now() - start > 1000) return resolve();
+      if (!shown()) return requestAnimationFrame(look);
+      requestAnimationFrame(() => resolve()); // the frame that showed it has been painted
+    });
+  });
+
 // Whether the element is in view (in the window and not scrolled out of its
 // pane): a scene's loops and one-shots run only then.
 export function useInView(ref) {
