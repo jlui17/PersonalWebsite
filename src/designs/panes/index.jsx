@@ -197,14 +197,15 @@ const PANES = [
 ];
 const order = PANES.map((p) => p.id);
 // Each step's name on the pathway at the top: three or four plain words a
-// visitor who has never heard of the thing understands (provisional).
+// visitor who has never heard of the thing understands (provisional). The
+// search palette's "Go to" commands use the same words, so a section has one
+// name.
 const STEP_LABEL = {
   hello: "A bit about me",
+  agents: "My agents and projects",
   people: "The people I love",
-  agents: "My two AI agents",
-  someday: "My future plans",
   now: "What I’m up to",
-  built: "Things I’ve built",
+  someday: "My future plans",
 };
 const stepLabel = (p) => STEP_LABEL[p.id] ?? p.title;
 // The pane's name in the chrome (its strip, its fold, the step bar). The
@@ -1338,7 +1339,7 @@ export default function Panes() {
     () => [
       ...PANES.map((p) => ({
         id: `go-${p.id}`,
-        label: `Go to ${paneName(p)}`,
+        label: `Go to ${onTop ? stepLabel(p) : paneName(p)}`,
         keywords: [...p.keywords, p.title],
         kind: "section",
         run: () => focusPane(p.id, { focusTitle: true }),
