@@ -1304,10 +1304,13 @@ export default function Panes() {
   );
 
   const pane = PANES.find((p) => p.id === focused);
-  // On a phone he shows only with the pane open: at his own step, or up at a
-  // pane spot on an errand (the pathway is one step wide, and drawn off his
-  // own step he sat over the cow and the coffee stand).
-  const botHidden = scene.bot.hidden || luibotUp.shown !== "pathway" || (phone && !(open && (focused === "agents" || scene.bot.y > 0)));
+  // On a phone he shows only up at a pane spot on an errand, with the pane
+  // open: the pathway is one step wide (drawn off his own step he sat over
+  // the cow and the coffee stand), and at his own step he is up in pane 2
+  // (drawn there for the moment before his beam-in, he vanished from nowhere).
+  const botHidden = scene.bot.hidden || luibotUp.shown !== "pathway" || (phone && !(open && scene.bot.y > 0));
+  // luibuilder is never drawn on a phone's pathway, for the same reason
+  const builderOnPathway = luibuilderUp.shown === "pathway" && !phone;
   const truffleState = scene.truffle.pushing ? "bringing the ball back" : truffleWords[scene.truffle.pose];
 
   // The coffee corner's state follows his beats: brewing from the press, a
@@ -1666,8 +1669,8 @@ export default function Panes() {
               </span>
             )}
             {s.residents.luibuilder !== undefined && (
-              <span className="pn__prop" data-prop="luibuilder" data-action={luibuilderUp.shown === "pathway" ? robotAction("luibuilder") : "away"} style={{ left: s.residents.luibuilder - s.left - 15 }}>
-                {luibuilderUp.shown === "pathway" ? <Sprite character="luibuilder" action={robotAction("luibuilder")} scale={1} /> : <RobotBox name="luibuilder" />}
+              <span className="pn__prop" data-prop="luibuilder" data-action={builderOnPathway ? robotAction("luibuilder") : "away"} style={{ left: s.residents.luibuilder - s.left - 15 }}>
+                {builderOnPathway ? <Sprite character="luibuilder" action={robotAction("luibuilder")} scale={1} /> : <RobotBox name="luibuilder" />}
               </span>
             )}
             {s.residents.cow !== undefined && (
