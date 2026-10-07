@@ -1,4 +1,4 @@
-export { BuilderScene, BuilderSpot } from "./Builder.jsx";
+export { BuilderScene, BuilderSpot, firstProjectInView } from "./Builder.jsx";
 export { HelloScene } from "./Hello.jsx";
 export { FarmScene } from "./Farm.jsx";
 export { JapanScene, NewYorkScene, PlanTitle } from "./Places.jsx";

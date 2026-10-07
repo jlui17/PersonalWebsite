@@ -17,6 +17,12 @@ import "./scenes.css";
 // (`beam-in`, whose last frame is `stand`), and gives one small hop in place
 // ("they can slightly move around if they want after they teleport").
 //
+// He is the same luibuilder who stands beside his name at the top of the
+// pane: index.jsx beams him here (`present`) once the projects are what the
+// visitor reads, to the project `startAt`, and back up to his name once the
+// agents are again. While he is up there his spot keeps its size at
+// `startAt` (so the beam-in can be measured) and nothing here moves.
+//
 // His rest is `stand`, never `idle` (idle holds a stone block the working
 // poses lack). All his canvases share their left edge and the body's place in
 // them; `hop` is the widest, so the spot is reserved for it.
@@ -37,21 +43,44 @@ const STAND_H = sheet.actions.stand.frames[0].length;
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// A project's spot is in view when his whole box is inside the pane's window,
+// clear of the fade the pane lays over its last lines while more is below.
+const spotInView = (spot, body) => {
+  if (!spot) return false;
+  const s = spot.getBoundingClientRect(); // his feet; he stands HEIGHT + ARC above them
+  const b = body.getBoundingClientRect();
+  const fade = body.hasAttribute("data-more") ? FADE : 0;
+  return s.bottom - HEIGHT - ARC >= b.top && s.bottom <= b.bottom - fade;
+};
+
+// The first project under `root` whose spot is in view in the pane `body`, or -1.
+export const firstProjectInView = (root, body) => [...root.querySelectorAll("[data-builder-spot]")].findIndex((spot) => spotInView(spot, body));
+
 const BuilderContext = createContext(null);
 
-// `present` is false while he is still on his way up from the pathway (or
-// down): his spot keeps its size and nothing is drawn in it.
-export function BuilderScene({ children, present = true }) {
+// `present` is false while he is beside his name or on his way: his spot
+// keeps its size at `startAt` (or where he left) and nothing is drawn in it.
+export function BuilderScene({ children, present = true, startAt = null }) {
   const root = useRef(null);
   const [builder, setBuilder] = useState({ at: 0, ...REST });
+  // where his spot is in this render: read when the beam-in is measured, so
+  // it is already at `startAt` in the render that sends him here
+  const at = present ? builder.at : (startAt ?? builder.at);
+  const atRef = useRef(at);
+  atRef.current = at;
+  // and his state follows, so the render that shows him here has him there
+  useLayoutEffect(() => {
+    if (!present && startAt !== null && builder.at !== startAt) setBuilder({ at: startAt, ...REST });
+  }, [present, startAt, builder.at]);
 
+  // He works only while he is here; each arrival starts his rounds afresh.
   useEffect(() => {
-    if (reducedMotion()) return undefined;
+    if (reducedMotion() || !present) return undefined;
     const el = root.current;
     const body = el.closest(".pn__pane-body");
     let timer;
     let raf;
-    let at = 0;
+    let at = atRef.current;
     let idleRounds = 0;
     let scrolledAt = 0;
     let onInput = null;
@@ -81,16 +110,8 @@ export function BuilderScene({ children, present = true }) {
       while (busy()) await wait(600);
     };
 
-    // A project is in view when his whole box is inside the pane's window,
-    // clear of the fade the pane lays over its last lines while more is below.
     const spots = () => [...el.querySelectorAll("[data-builder-spot]")];
-    const inView = (spot) => {
-      if (!spot) return false;
-      const s = spot.getBoundingClientRect(); // his feet; he stands HEIGHT + ARC above them
-      const b = body.getBoundingClientRect();
-      const fade = body.hasAttribute("data-more") ? FADE : 0;
-      return s.bottom - HEIGHT - ARC >= b.top && s.bottom <= b.bottom - fade;
-    };
+    const inView = (spot) => spotInView(spot, body);
     const seen = () => inView(spots()[at]);
     const othersInView = () =>
       spots()
@@ -109,7 +130,8 @@ export function BuilderScene({ children, present = true }) {
     body.addEventListener("scroll", scrolled, { passive: true });
 
     (async () => {
-      await wait(2500);
+      show(REST);
+      await wait(1000);
       for (;;) {
         if (idleRounds >= ROUNDS) await new Promise((resolve) => (onInput = resolve));
         onInput = null;
@@ -180,7 +202,7 @@ export function BuilderScene({ children, present = true }) {
       inputs.forEach((name) => window.removeEventListener(name, input));
       body.removeEventListener("scroll", scrolled);
     };
-  }, []);
+  }, [present]);
 
   // His box follows the words on the head's last line. Where he would then
   // stand over words (the box alone on a new line under the title, or beside
@@ -214,7 +236,7 @@ export function BuilderScene({ children, present = true }) {
   }, []);
 
   return (
-    <BuilderContext.Provider value={{ ...builder, present }}>
+    <BuilderContext.Provider value={{ ...builder, at, present }}>
       <div className="pn-built" ref={root} style={{ "--builder-w": `${WIDTH}px`, "--builder-work-w": `${STONES_W}px`, "--builder-h": `${HEIGHT + ARC}px` }}>
         {children}
       </div>

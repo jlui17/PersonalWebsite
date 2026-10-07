@@ -7,7 +7,7 @@ import * as propSheets from "../../sprites/props.js";
 import ballSheet from "./ball.js";
 import { Palette } from "./Palette.jsx";
 import { BALL_AT_SHOE, createStage, petLowSpot, poseBox } from "./stage.js";
-import { AgentRobot, BuilderScene, BuilderSpot, FarmScene, HelloScene, JapanScene, NewYorkScene, PlanTitle, RobotBeam, RobotBox, UpTo, useRobotHandoff } from "./scenes";
+import { AgentRobot, BuilderScene, BuilderSpot, FarmScene, firstProjectInView, HelloScene, JapanScene, NewYorkScene, PlanTitle, RobotBeam, RobotBox, UpTo, useRobotHandoff } from "./scenes";
 
 // ?hour=0..23 pins the San Francisco hour, clock included, so each time of
 // day can be checked by hand.
@@ -732,13 +732,15 @@ export default function Panes() {
   // place of their own timers. It resets when the visitor leaves the pane.
   // The robots between the pathway and the panes: while pane 2 is open they
   // stand beside their names, and luibuilder works among the projects while
-  // they are what the visitor reads (below); each trip is a beam out where he stands and a beam in at the
-  // other place, luibuilder 120ms after luibot. luibot goes up only once his
+  // they are what the visitor reads (`builderAt`, below); each trip is a beam
+  // out where he stands and a beam in at the other place, luibuilder 120ms
+  // after luibot. luibot goes up only once his
   // pathway chore is done (`botUp`, from the stage at that moment), from
   // wherever that leaves him; a pane's chore is dropped and he goes up from
   // its spot. Coming back down as Justin leaves step 2, each waits until he
   // has walked clear of its spot (a beam drawn over him was the defect). On a
-  // phone (one step on the pathway) they are simply in place.
+  // phone the pathway is one step wide and its robots are not drawn, so a
+  // trip from or to it is the pane's beam alone.
   // A pane place answers in three ways: `undefined` when its element is gone
   // (the pane has unmounted), `null` when the robot is there but the visitor
   // cannot see him whole (scrolled out of the pane body's box, or mid one of
@@ -752,24 +754,21 @@ export default function Panes() {
     return body && r.top >= body.top && r.bottom <= body.bottom ? r : null;
   }, []);
   const robotRects = useMemo(
-    () =>
-      phone
-        ? { luibot: { pathway: () => null, pane: () => null }, luibuilder: { pathway: () => null, pane: () => null, pane6: () => null } }
-        : {
-            luibot: {
-              // mid-beam on the pathway there is nobody to beam out
-              pathway: () => (stage.bot.hidden ? null : document.querySelector(".pn__bot svg")?.getBoundingClientRect() ?? null),
-              pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibot"]')),
-            },
-            luibuilder: {
-              pathway: () => document.querySelector('[data-prop="luibuilder"]')?.getBoundingClientRect() ?? null,
-              pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibuilder"]')),
-              pane6: () => {
-                const el = document.querySelector(".pn-builder");
-                return inBody(el, !el?.dataset.action.startsWith("beam"));
-              },
-            },
-          },
+    () => ({
+      luibot: {
+        // mid-beam on the pathway there is nobody to beam out
+        pathway: () => (phone || stage.bot.hidden ? null : document.querySelector(".pn__bot svg")?.getBoundingClientRect() ?? null),
+        pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibot"]')),
+      },
+      luibuilder: {
+        pathway: () => (phone ? null : document.querySelector('[data-prop="luibuilder"]')?.getBoundingClientRect() ?? null),
+        pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibuilder"]')),
+        pane6: () => {
+          const el = document.querySelector(".pn-builder");
+          return inBody(el, !el?.dataset.action.startsWith("beam"));
+        },
+      },
+    }),
     [phone, stage, inBody],
   );
   // The stage's one clearance rule, asked of a pathway box (the pathway's x
@@ -800,9 +799,47 @@ export default function Panes() {
   useEffect(() => {
     stage.setBotAway(luibotUp.shown !== "pathway"); // up in pane 2, the pathway's robot waits
   }, [stage, luibotUp.shown]);
+  // luibuilder is one character, so pane 2 has one of him. He stands beside
+  // his name while the agents are what the visitor reads, and works on a
+  // project while the projects are: once the scroll has settled (as his own
+  // rounds wait for it) with the projects reaching above the middle of the
+  // pane's window. `builderAt` is the project he beams to, the first whose
+  // spot he fits in whole, chosen at that moment; null keeps him by his name.
+  // Under reduced motion he stays by his name.
+  const [builderAt, setBuilderAt] = useState(null);
+  useEffect(() => {
+    const body = bodyRef.current;
+    if (focused !== "agents" || !body || reducedMotion()) {
+      setBuilderAt(null);
+      return undefined;
+    }
+    let timer;
+    const decide = () => {
+      const projectsEl = body.querySelector(".pn-built");
+      const b = body.getBoundingClientRect();
+      const reading = projectsEl && projectsEl.getBoundingClientRect().top < b.top + b.height / 2;
+      const first = reading ? firstProjectInView(projectsEl, body) : -1;
+      // no project head in view while the projects are read (the last
+      // stories): he stays where he is
+      setBuilderAt((at) => (first >= 0 ? (at ?? first) : reading ? at : null));
+    };
+    const settle = () => {
+      clearTimeout(timer);
+      timer = setTimeout(decide, 600);
+    };
+    settle();
+    body.addEventListener("scroll", settle, { passive: true });
+    const resized = new ResizeObserver(settle);
+    resized.observe(body);
+    return () => {
+      clearTimeout(timer);
+      body.removeEventListener("scroll", settle);
+      resized.disconnect();
+    };
+  }, [focused, showMaster, expanded]);
   const luibuilderUp = useRobotHandoff({
     name: "luibuilder",
-    target: focused === "agents" ? "pane" : "pathway",
+    target: focused !== "agents" ? "pathway" : builderAt === null ? "pane" : "pane6",
     rects: robotRects.luibuilder,
     delay: 120,
     canLeave: (from) => pathwayClear("luibuilder", from),
@@ -1358,7 +1395,7 @@ export default function Panes() {
             <h3 className="pn__h3">{projectsHead.heading}</h3>
             {projectsHead.note && <Label>{projectsHead.note}</Label>}
           </div>
-          <BuilderScene present={luibuilderUp.shown === "pane6"}>
+          <BuilderScene present={luibuilderUp.shown === "pane6"} startAt={builderAt}>
             <ul className="pn__projects">
               {projects.map((project, i) => (
                 <li className="pn__project" key={project.title}>
