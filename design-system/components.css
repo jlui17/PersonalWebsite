@@ -719,8 +719,7 @@ body {
 }
 
 /* a list ends on its last line's text, so the step under it is the same as under a paragraph */
-.pn__does li:last-child,
-.pn__roadmap li:last-child {
+.pn__does li:last-child {
   padding-bottom: 0;
 }
 
@@ -733,6 +732,23 @@ body {
   height: 14px;
   border-radius: 1px;
   background: var(--pn-line-strong);
+}
+
+/* A side quest, a line he is handed next: its marker is a hollow box, like a
+   to-do not yet ticked, where the lines he has now take a bar, and a small
+   "next" tag starts it. The shape and the word carry it, not a colour. */
+.pn__does li[data-next]::before {
+  top: calc(var(--pn-line-pad) + 7px);
+  width: 7px;
+  height: 7px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--pn-dim);
+  background: none;
+}
+
+.pn__does li .pn__next-tag {
+  display: inline;
+  margin: 0 8px 0 0;
 }
 
 /* ---- pane 2's two options: TEMPORARY, until Justin picks one ----
@@ -749,7 +765,7 @@ body {
   letter-spacing: var(--pn-h1-track);
 }
 
-[data-agents] .pn__roadmap-head .pn__h3 {
+[data-agents] .pn__part-head .pn__h3 {
   font: var(--pn-h3-large);
   letter-spacing: var(--pn-h3-track);
 }
@@ -763,7 +779,7 @@ body {
 }
 
 /* A part of a pane after its first: a hairline, then the part. In pane 2,
-   under the two agents, the roadmap and then the projects; in pane 3, under
+   under the two agents, the projects; in pane 3, under
    the sign, its story in blocks like pane 1's, in two columns, and the week.
    The story's blocks keep their order, down the first column and then the
    second; the site's script splits them where the taller column comes
@@ -802,54 +818,15 @@ body {
   max-width: 62ch;
 }
 
-/* The roadmap: a plain to-do list, a relative of the "what I hand him" lists.
-   Each line starts with its agent's name in a column as wide as the longer
-   name (--name-ch, from the content; the label face is a mono, so ch is
-   exact). The line's marker is a small square, blue for luibot and amber for
-   luibuilder: the name carries the meaning, the colour only helps the eye
-   scan a mixed list. */
 /* the heading with its note beside it, as a tag sits beside an agent's name:
    one row on a shared baseline; where the row is too narrow for both, the
    note goes under the heading as a quieter line */
-.pn__roadmap-head {
+.pn__part-head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 4px 10px;
   margin-bottom: calc(var(--pn-gap-heading) - 4px); /* the list's first line brings its own 5px */
-}
-
-.pn__roadmap li {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: var(--pn-line-pad) 0;
-  font-size: 13px;
-  color: var(--pn-dim);
-}
-
-.pn__roadmap-agent {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: calc(var(--name-ch) * 1ch + 14px); /* the square, its gap and the name */
-}
-
-.pn__roadmap-agent::before {
-  content: "";
-  flex: none;
-  width: 6px;
-  height: 6px;
-  background: var(--pn-faint);
-}
-
-.pn__roadmap-agent[data-agent="luibot"]::before {
-  background: var(--pn-blue);
-}
-
-.pn__roadmap-agent[data-agent="luibuilder"]::before {
-  background: var(--pn-amber);
 }
 
 /* Pane 3's week, a part of its own under a hairline: the heading, then a day
@@ -1316,8 +1293,8 @@ body {
     max-width: 240px;
   }
 
-  /* the agents stacked: the gap is the grid's, so it holds when one of them
-     shares his cell with the side quests */
+  /* the agents stacked: the gap is the grid's, so it holds whatever stands
+     in either cell */
   .pn__agents {
     row-gap: 28px;
   }

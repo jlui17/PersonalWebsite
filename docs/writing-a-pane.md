@@ -70,7 +70,7 @@ card (right column)            open pane
 - `more` goes when the blocks below say the same (hello, people, agents and projects all dropped it).
 - A block that the hook already covers gets no `###` (pane 1's work paragraph).
 - A block can hold a paragraph and a list, as long as they share no fact: the paragraph tells one story, the list holds the rest (each agent in pane 2).
-- A living list he keeps up to date gets a plain title, a quiet note beside it that says what the list is, and one line per item ("Future side quests", "Ideas I plan to build with them"). A line that is done moves to where the finished things live.
+- A living list he keeps up to date goes where its items belong, one line per item, and says what is not done yet by shape and a word, not by a heading of its own: each agent's side quests close his "what I hand him" list, each with a hollow box and a small "next" tag ("somehow combine current responsibilities with future side quests"). A side quest that is done loses its tag and moves up among the lines he has now.
 - A part after a pane's first opens under a hairline with a plain title and the quiet note beside it, the same grammar as the living list: pane 2's "Things I've built" with "I like building small tools for people I know." (the projects pane's old hook).
 
 ## How a `###` is worded

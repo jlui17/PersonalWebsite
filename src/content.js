@@ -66,7 +66,11 @@ export const people = [
 
 // Pane 2 opens with his agents, one block each: a short `tag` beside the name,
 // a `heading`, a `body` with one story, and the `does` list with the rest (no
-// fact in both).
+// fact in both). `does` is one list per agent, in two parts: first what he
+// does for Justin now (a plain string each), then his side quests, the things
+// Justin plans to build with him next (`{ text, next: true }`), in the order
+// Justin adds them. Justin keeps it up to date; a side quest that is done
+// loses its `next` and moves up among the strings.
 export const agents = [
   {
     name: "luibot",
@@ -83,26 +87,13 @@ export const agents = [
     name: "luibuilder",
     tag: "Coding agent",
     heading: "I tell him I have an idea, and he goes off and builds it.",
-    does: ["Building puzzlewithme, an online puzzle game my GF and I play together"],
+    does: [
+      "Building puzzlewithme, an online puzzle game my GF and I play together",
+      { text: "Doing some robotics experiments with me", next: true },
+      { text: "Designing parts for a 3D printer I want to get, for those robotics experiments", next: true },
+    ],
   },
 ];
-
-// Pane 2's second part, after the agents: the things Justin wants his agents
-// to do next, one line each, in the order he adds them. He keeps this list up
-// to date as he builds with them; a line that is done moves into that agent's
-// `does`.
-export const agentRoadmap = {
-  heading: "Future side quests",
-  // the few words beside the heading that say what the list is; `noteOneAgent`
-  // where every line is one agent's and the list sits in his column
-  // (provisional: Justin has not seen it yet)
-  note: "Ideas I plan to build with them",
-  noteOneAgent: "Ideas I plan to build with him",
-  items: [
-    { agent: "luibuilder", task: "Doing some robotics experiments with me" },
-    { agent: "luibuilder", task: "Designing parts for a 3D printer I want to get, for those robotics experiments" },
-  ],
-};
 
 // Pane 3, what he is up to these days: a small status sign (`status`, the
 // things that change month to month, dated by `updated`: bump it whenever a
@@ -176,7 +167,7 @@ export const someday = [
 ];
 
 // Pane 2's last part, the things he has built: `projectsHead` is its heading
-// and the few words beside it, as on `agentRoadmap`. `projects` is in the
+// and the few words beside it. `projects` is in the
 // order he sets: `tag` is a short stamp, `kicker` says what the
 // thing is in a few words (no period), and `story` is a short paragraph with
 // the person or the reason behind it.

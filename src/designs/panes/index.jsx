@@ -1,6 +1,6 @@
 import { Children, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import "./panes.css";
-import { agentRoadmap, agents, intro, lately, people, projects, projectsHead, sections, someday } from "../../content";
+import { agents, intro, lately, people, projects, projectsHead, sections, someday } from "../../content";
 import { Sprite, characters } from "../../sprites/Sprite.jsx";
 import justinSheet from "../../sprites/justin.js";
 import * as propSheets from "../../sprites/props.js";
@@ -362,12 +362,21 @@ function Agent({ agent, waving, present, rail = false }) {
     <>
       <h3>{agent.heading}</h3>
       {agent.body && <p>{agent.body}</p>}
+      {/* one list: what he does now, then his side quests, each marked as
+          coming next by its own marker shape and a small tag, never by colour alone */}
       <div className="pn__does">
         <Label>what I hand him</Label>
         <ul>
-          {agent.does.map((line) => (
-            <li key={line}>{line}</li>
-          ))}
+          {agent.does.map((item) =>
+            typeof item === "string" ? (
+              <li key={item}>{item}</li>
+            ) : (
+              <li key={item.text} data-next>
+                <Label className="pn__next-tag">next</Label>
+                {item.text}
+              </li>
+            ),
+          )}
         </ul>
       </div>
     </>
@@ -1485,11 +1494,12 @@ export default function Panes() {
   const cowAction = useAmbient(cow, ["tail"], 1500, { min: 7000, max: 12000 });
   const sheepAction = useAmbient(sheep, sheep ? Object.keys(sheep.actions).filter((a) => a !== "idle" && a !== "walk") : [], 2500);
 
-  // Pane 2: the agents, then their side quests, then the things he has built.
-  // Each part after the first opens with a heading and the few words beside it.
+  // Pane 2: the agents (each with what he does now and his side quests), then
+  // the things he has built. The part after the agents opens with a heading
+  // and the few words beside it.
   const agentsDetail = () => {
     const partHead = (part) => (
-      <div className="pn__roadmap-head">
+      <div className="pn__part-head">
         <h3 className="pn__h3">{part.heading}</h3>
         {part.note && <Label>{part.note}</Label>}
       </div>
@@ -1503,21 +1513,6 @@ export default function Panes() {
         present={(agent.name === "luibot" ? luibotUp : luibuilderUp).shown === "pane"}
       />
     ));
-    // what he wants them to do next, a plain list he keeps up to date (each
-    // line names its agent first, in a column as wide as the longer name)
-    const nameColumn = { "--name-ch": Math.max(...agents.map((agent) => agent.name.length)) };
-    const roadmap = (
-      <ul>
-        {agentRoadmap.items.map((item) => (
-          <li key={item.task}>
-            <span className="pn__label pn__roadmap-agent" data-agent={item.agent}>
-              {item.agent}
-            </span>
-            <span>{item.task}</span>
-          </li>
-        ))}
-      </ul>
-    );
     // the things he has built, two by two
     const built = (
       <BuilderScene present={luibuilderUp.shown === "pane6"} startAt={builderAt}>
@@ -1542,51 +1537,18 @@ export default function Panes() {
       return (
         <div className="pn__rail" data-agents="b">
           {agentList}
-          <section className="pn__rail-row pn__roadmap" style={nameColumn} data-reason="agents">
-            <div className="pn__rail-head">{partHead(agentRoadmap)}</div>
-            <div className="pn__rail-body">{roadmap}</div>
-          </section>
           <section className="pn__rail-row" data-reason="projects">
             <div className="pn__rail-head">{partHead(projectsHead)}</div>
             <div className="pn__rail-body">{built}</div>
           </section>
         </div>
       );
-    // a: when every side quest is one agent's, they read in his column, right
-    // after what he is handed now, and the line needs no name: the column says
-    // whose they are (all luibuilder's today, whose column was otherwise empty
-    // under his one line). The order stays agents, side quests, projects.
-    const questsOwner = new Set(agentRoadmap.items.map((item) => item.agent)).size === 1 ? agentRoadmap.items[0].agent : null;
     return (
       <div data-agents="a">
         <p className="pn__agents-hook" data-reason="agents">
           {sections.agents.hook}
         </p>
-        <div className="pn__agents">
-          {agentList.map((agentEl, i) =>
-            agents[i].name === questsOwner ? (
-              <div key={agents[i].name}>
-                {agentEl}
-                <section className="pn__part pn__quests" data-reason="agents">
-                  {partHead({ ...agentRoadmap, note: agentRoadmap.noteOneAgent })}
-                  <ul className="pn__does">
-                    {agentRoadmap.items.map((item) => (
-                      <li key={item.task}>{item.task}</li>
-                    ))}
-                  </ul>
-                </section>
-              </div>
-            ) : (
-              agentEl
-            ),
-          )}
-        </div>
-        {!questsOwner && (
-          <section className="pn__roadmap pn__part" style={nameColumn} data-reason="agents">
-            {partHead(agentRoadmap)}
-            {roadmap}
-          </section>
-        )}
+        <div className="pn__agents">{agentList}</div>
         <section className="pn__part" data-reason="projects">
           {partHead(projectsHead)}
           {built}
