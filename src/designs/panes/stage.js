@@ -121,7 +121,9 @@ function extent(who, pose, facing, side) {
 // `sheet` is Justin's sheet: the names of the actions he has today, and the
 // frame durations a scripted beat steps through (a beat that names its
 // `frames` plays them once, each for the sheet's duration, and holds the last).
-export function createStage({ reduced, sheet, luibot: luibotSheet }) {
+// `botShown(pose, frame)`: whether the page has drawn luibot in that pose
+// and frame (his beams wait for it); with no page, always.
+export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = () => true }) {
   const pathway = { left: 0, right: 600 };
   const yard = { left: 0, right: 600, rest: 300 }; // where the ball may go and Truffle fetches, and where it rests
   const actions = Object.keys((sheet ?? justinSheet).actions);
@@ -368,7 +370,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
         step.t0 = now;
         if (step.face) bot.facing = step.face;
       }
-      const elapsed = now - step.t0;
+      let elapsed = now - step.t0;
       let t = 0;
       let f = shot.durations.length - 1;
       for (let i = 0; i < shot.durations.length; i++) {
@@ -378,8 +380,30 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
           break;
         }
       }
+      // A beam shows every frame, as the design's beams do (`painted` in
+      // scenes/script.js): it never runs more than one frame past the frame
+      // the page has drawn (`botShown`), and ends only once its last frame
+      // has been drawn, so a stall (a pane mounting under him) delays it
+      // instead of cutting frames. A frame the page has not drawn in half a
+      // second is given up on.
+      const beamShot = step.pose.startsWith("beam");
+      const last = shot.durations.length - 1;
+      if (beamShot) {
+        // in the page at two ticks running: a paint has come between them
+        if (step.shown !== undefined && botShown(step.pose, step.shown)) {
+          if (step.inPage === step.shown) step.seen = step.shown;
+          step.inPage = step.shown;
+        }
+        const next = (step.seen ?? -1) + 1;
+        if (f > next && now - (step.held ??= now) < 500) {
+          f = next;
+          step.t0 = now - shot.durations.slice(0, f).reduce((sum, d) => sum + d, 0);
+          elapsed = now - step.t0;
+        } else if (f <= next) step.held = undefined;
+      }
+      step.shown = f;
       bot.frame = f;
-      if (elapsed >= shot.total) {
+      if (elapsed >= shot.total && (!beamShot || step.seen === last || now - (step.held ??= now) >= 500)) {
         bot.steps.shift();
         bot.frame = undefined;
         tickBot(now, dt);

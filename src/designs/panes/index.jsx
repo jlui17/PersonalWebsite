@@ -673,7 +673,17 @@ export default function Panes() {
   const nowStretch = stretchOf("now");
 
   // ---- the stage: the three who travel ----
-  const stage = useMemo(() => createStage({ reduced: reducedMotion, sheet: justinSheet, luibot: characters.luibot }), []);
+  const stage = useMemo(
+    () =>
+      createStage({
+        reduced: reducedMotion,
+        sheet: justinSheet,
+        luibot: characters.luibot,
+        // his layer carries the pose and frame it draws
+        botShown: (pose, frame) => !!document.querySelector(`.pn__bot[data-pose="${pose}"][data-frame="${frame}"]`),
+      }),
+    [],
+  );
   const [scene, setScene] = useState(() => stage.snapshot());
 
   const boxesWhere = scene.boxes.where;
@@ -1115,7 +1125,11 @@ export default function Panes() {
       if (!at()) return;
       body?.removeEventListener("scroll", tryStart);
       cancel = stage.after(250, () => {
-        stage.botGone(); // nowhere on the pathway: the trip is the beam-in alone
+        // nowhere on the pathway: the trip is the beam-in alone. Still beaming
+        // out of the other pane's errand, he is not: that beam plays whole,
+        // and this errand, queued, starts from it (the stage lands him here
+        // in place of home).
+        if (!stage.botBusy()) stage.botGone();
         start();
       });
     };
@@ -1936,6 +1950,7 @@ export default function Panes() {
         className="pn__bot"
         aria-hidden="true"
         data-pose={scene.bot.pose}
+        data-frame={scene.bot.frame ?? ""}
         data-x={scene.bot.x}
         data-y={scene.bot.y}
         data-hidden={botHidden || undefined}
