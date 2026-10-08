@@ -273,6 +273,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     if (bot.steps[0]?.kind === "land" && bot.steps[0].home && bot.hidden && bot.queue.length) bot.steps = [];
     if (!bot.steps.length && bot.queue.length) {
       const chore = bot.queue.shift();
+      bot.inTheWay = false; // a new errand: its beams keep clear of Justin again
       bot.steps = chore.steps;
       bot.pane = chore.pane;
     }
@@ -498,6 +499,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   // The design has beamed him out of the pathway: he is nowhere now, and comes
   // back down at his spot at the agents step, on his feet, however he left.
   function botTaken() {
+    bot.inTheWay = false;
     bot.x = bot.home;
     bot.y = 0;
     bot.pose = "idle";
@@ -609,11 +611,18 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   // He is back before luibot has pushed the chair in: the chore is dropped
   // where it is (the chair stays as far in as it got, and he pulls it from
   // there); if luibot is on it, he leaves it (for his next errand, or home).
+  // Released at the chair, he leaves at once (`botInTheWay`): Justin is
+  // coming to pull it and sit, so waiting for the spot to clear of him would
+  // keep him there the whole visit.
   function cancelTuck() {
     bot.queue = bot.queue.filter((c) => c.kind !== "tuck");
     if (!chair.busy) return;
     chair.busy = false;
+    bot.inTheWay = true;
+    if (releaseBeamIn(bot.steps[0])) return;
     bot.steps = [];
+    bot.frame = undefined; // the hand pinned on the chair is not held
+    if (bot.pose === "fly-wave") bot.pose = "fly";
   }
 
   // Back at the desk: standing at `pullSpot` (his hand on the chair back, his
@@ -1595,6 +1604,8 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     chair,
     flyToSpot,
     cancelPaneChores,
+    cancelTuck,
+    botInTheWay: () => !!bot.inTheWay,
     bot,
     botBusy,
     botChoreFor: (pane) => bot.pane === pane || bot.queue.some((c) => c.pane === pane), // on, or queued for, that pane's errand

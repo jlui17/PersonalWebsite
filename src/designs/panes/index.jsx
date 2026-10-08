@@ -939,7 +939,7 @@ export default function Panes() {
   const pathwayClear = useCallback(
     (who, place) => {
       if (place !== "pathway") return true;
-      if (who === "luibot") return stage.clearOf(stage.bot.x, stage.bot.y);
+      if (who === "luibot") return stage.botInTheWay() || stage.clearOf(stage.bot.x, stage.bot.y);
       const r = robotRects.luibuilder.pathway();
       return !r || stage.clearOf(r.left, 0, r.width);
     },
@@ -1077,7 +1077,10 @@ export default function Panes() {
     if (focused !== "agents") {
       stage.wantBotUp(null);
       setBotUp(false);
-    } else stage.wantBotUp(() => setBotUp(true)); // on a phone too: caught mid-errand in a pane, he beams out where he is (`onOut` then puts him away on the ground, so he never pops up at his errand's height later)
+    } else {
+      stage.cancelTuck(); // back at the desk: luibot leaves the chair at once (the chair stays as far in as it got)
+      stage.wantBotUp(() => setBotUp(true));
+    } // on a phone too: caught mid-errand in a pane, he beams out where he is (`onOut` then puts him away on the ground, so he never pops up at his errand's height later)
     const anchor = { now: "sign-switch", someday: "feed-spot" }[focused];
     if (!anchor) return undefined;
     if (!paneChanged && (luibotDoneRef.current[anchor] || stage.botChoreFor(focused))) return undefined;
