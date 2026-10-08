@@ -510,22 +510,29 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   // beam at all), and one he was on ends where he is; the next tick takes him
   // straight to the next errand, or home. A pathway chore (the boxes in his
   // hands, the chair half tucked) finishes its small moves first.
+  // A chore dropped while he beams in (its spot's pane has closed, or the
+  // visitor is back at the desk): early, nearly empty, he is dropped within a
+  // frame and his next trip starts with a beam-in; from frame 3 on he is
+  // mostly formed, so he finishes forming in place and leaves from there with
+  // a beam-out, never vanishing whole. True if he was caught beaming in.
+  function releaseBeamIn(cur) {
+    if (!(cur?.kind === "shot" && cur.pose.startsWith("beam-in"))) return false;
+    const air = bot.y !== 0;
+    if ((bot.frame ?? 0) <= 2) {
+      bot.steps = [];
+      bot.hidden = true;
+      bot.pose = air ? "fly" : "idle";
+      bot.frame = undefined;
+    } else bot.steps = [{ ...cur, follow: undefined, onGone: undefined }, { kind: "do", fn: () => {}, pose: air ? "fly" : "idle" }];
+    return true;
+  }
+
   function cancelPaneChores(keepPane) {
     bot.queue = bot.queue.filter((c) => !c.pane || c.pane === keepPane);
     if (!bot.pane || bot.pane === keepPane) return;
     bot.pane = undefined;
     const cur = bot.steps[0];
-    // caught beaming in at the closed pane's spot: the place is gone, so he
-    // is dropped within a frame, still half formed, and his next trip starts
-    // with a beam-in (the pose left at a beam-in frame blinked fully formed,
-    // then near empty, before his beam-out)
-    if (cur?.kind === "shot" && cur.pose.startsWith("beam-in")) {
-      bot.steps = [];
-      bot.hidden = true;
-      bot.pose = bot.y !== 0 ? "fly" : "idle";
-      bot.frame = undefined;
-      return;
-    }
+    if (releaseBeamIn(cur)) return; // caught beaming in at the closed pane's spot
     // caught beaming out: that beam finishes (then he is hidden, and his next
     // trip starts with a beam-in); anything else ends where he is
     bot.steps = cur?.kind === "shot" && cur.pose.startsWith("beam-out") ? [cur, { kind: "hide", ms: 150 }] : [];
