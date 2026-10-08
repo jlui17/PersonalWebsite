@@ -851,12 +851,30 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
   function setRest(pose) {
     justin.rest = pick(pose);
     if (justin.walking) return;
-    let at = fitsJustin(justin.cx, justin.rest);
-    // a wide rest (sitting, asleep) must not land on the ball at his shoe
-    const side = sign(ball.x - at) || 1;
-    const wide = extent("justin", justin.rest, justin.facing, side);
-    if (!ball.held && wide > 18 && Math.abs(ball.x - at) < wide + BALL.gap + BALL.size / 2) at = fitsJustin(ball.x - side * (wide + BALL.gap + BALL.size / 2), justin.rest);
+    const at = restSpot(justin.cx, justin.rest);
     if (at !== justin.cx) walkTo(at);
+  }
+
+  // Where he takes a wide rest (sitting, asleep) near `cx`: clear of the ball
+  // at his shoe and of Truffle sitting or lying still beside him, at the
+  // nearest such place on the pathway. Moving clear of the ball alone put him
+  // on top of her after the fetch rounds (asleep at 2am, sitting at 7pm).
+  // Her canvas may touch his (asleep beside her at the people step, his ends
+  // where hers begins); it may not overlap.
+  function restSpot(cx, pose) {
+    const left = extent("justin", pose, justin.facing, -1);
+    const right = extent("justin", pose, justin.facing, 1);
+    const here = fitsJustin(cx, pose);
+    if (Math.max(left, right) <= 18) return here;
+    const blocks = [];
+    if (!ball.held && !ball.flight && !ball.roll) blocks.push([ball.x - BALL.size / 2 - BALL.gap, ball.x + BALL.size / 2 + BALL.gap]);
+    if (!truffle.plan && ["sit", "sleep", "ear", "paw"].includes(truffle.pose)) {
+      const half = poseBox("truffle", "sleep")[0] / 2; // her widest still pose
+      blocks.push([truffle.cx - half, truffle.cx + half]);
+    }
+    const clear = (c) => blocks.every(([from, to]) => c + right <= from || c - left >= to);
+    const spots = [here, ...blocks.flatMap(([from, to]) => [from - right, to + left])].map((c) => fitsJustin(c, pose));
+    return spots.filter(clear).sort((p, q) => Math.abs(p - cx) - Math.abs(q - cx))[0] ?? here;
   }
 
   // The current beat's pose and, for a scripted beat, the frame `now` falls
