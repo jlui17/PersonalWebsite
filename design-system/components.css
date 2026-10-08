@@ -493,8 +493,8 @@ body {
 }
 
 /* Three ranks: the hook, the quieter line under it, and the title and invite
-   in the chrome voice on the top row. A card is as tall as its words, all
-   six are always whole, and the column's spare room sits at its end. */
+   in the chrome voice on the top row. A card is as tall as its words, every
+   card is always whole, and the column's spare room sits at its end. */
 .pn__fold {
   display: flex;
   flex-direction: column;
@@ -1021,7 +1021,7 @@ body {
   border-top: 0;
 }
 
-/* ---- status bar: six segments spread between the pathway's props ---- */
+/* ---- status bar: one segment per section, spread between the pathway's props ---- */
 
 .pn__statusbar {
   height: var(--pn-bar-h);
