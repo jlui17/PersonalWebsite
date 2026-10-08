@@ -372,8 +372,7 @@ function Agent({ agent, waving, present, rail = false }) {
               <li key={item}>{item}</li>
             ) : (
               <li key={item.text} data-next>
-                <Label className="pn__next-tag">next</Label>
-                {item.text}
+                <Label className="pn__next-tag">next</Label> {item.text}
               </li>
             ),
           )}

@@ -748,7 +748,7 @@ body {
 
 .pn__does li .pn__next-tag {
   display: inline;
-  margin: 0 8px 0 0;
+  margin: 0 4px 0 0; /* with the space after it in the words, so it reads "next Doing ..." */
 }
 
 /* ---- pane 2's two options: TEMPORARY, until Justin picks one ----
