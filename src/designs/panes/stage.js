@@ -490,9 +490,20 @@ export function createStage({ reduced, sheet, luibot: luibotSheet }) {
     bot.queue = bot.queue.filter((c) => !c.pane || c.pane === keepPane);
     if (!bot.pane || bot.pane === keepPane) return;
     bot.pane = undefined;
+    const cur = bot.steps[0];
+    // caught beaming in at the closed pane's spot: the place is gone, so he
+    // is dropped within a frame, still half formed, and his next trip starts
+    // with a beam-in (the pose left at a beam-in frame blinked fully formed,
+    // then near empty, before his beam-out)
+    if (cur?.kind === "shot" && cur.pose.startsWith("beam-in")) {
+      bot.steps = [];
+      bot.hidden = true;
+      bot.pose = bot.y !== 0 ? "fly" : "idle";
+      bot.frame = undefined;
+      return;
+    }
     // caught beaming out: that beam finishes (then he is hidden, and his next
     // trip starts with a beam-in); anything else ends where he is
-    const cur = bot.steps[0];
     bot.steps = cur?.kind === "shot" && cur.pose.startsWith("beam-out") ? [cur, { kind: "hide", ms: 150 }] : [];
     if (!bot.steps.length) bot.frame = undefined; // a frame the dropped step had pinned (the hand on the knob) is not held
   }
