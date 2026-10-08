@@ -115,6 +115,14 @@
   outline-offset: -2px;
 }
 
+/* The open pane's body takes keyboard focus where it scrolls and holds no
+   link to stop on (the browser makes it a stop, so the arrow keys can read
+   it): it gets the same ring, inside its own edge, not the browser's 1px. */
+.panes .pn__pane-body:focus-visible {
+  outline: 2px solid var(--pn-amber);
+  outline-offset: -2px;
+}
+
 /* The page under the window. This sheet is in the main bundle, so the ground
    is dark before React mounts. */
 html,
