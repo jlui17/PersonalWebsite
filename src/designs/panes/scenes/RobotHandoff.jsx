@@ -21,7 +21,7 @@ import "./scenes.css";
 // A pane's beam is clipped to the pane body's box, as he was.
 //
 // `target` is where he should be: "pathway" or a pane place (a key of
-// `rects`, such as "pane" or "pane6"); `rects` measures each place's box on
+// `rects`, such as "pane" or "projects"); `rects` measures each place's box on
 // screen (a pane place answers `undefined` when its element is gone, `null`
 // when the visitor cannot see him there at all, else his box, with `clip`, the
 // box he is seen through, when only part of him may be in view); `delay`

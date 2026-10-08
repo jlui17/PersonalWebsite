@@ -907,7 +907,7 @@ export default function Panes() {
       luibuilder: {
         pathway: () => (phone ? null : document.querySelector('[data-prop="luibuilder"]')?.getBoundingClientRect() ?? null),
         pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibuilder"]')),
-        pane6: () => {
+        projects: () => {
           if (!document.querySelector(".pn-built")) return undefined;
           // between two projects of his own he is nowhere to be seen
           const el = document.querySelector(".pn-builder");
@@ -1036,12 +1036,12 @@ export default function Panes() {
   }, [focused, showMaster, expanded, wholeInBody]);
   const luibuilderUp = useRobotHandoff({
     name: "luibuilder",
-    target: focused !== "agents" ? "pathway" : builderAt === null ? "pane" : "pane6",
+    target: focused !== "agents" ? "pathway" : builderAt === null ? "pane" : "projects",
     rects: robotRects.luibuilder,
     delay: 120,
     // at a project, a move of his own (a beam to another project, a hop)
     // ends, and he stands still a moment, before this one begins
-    canLeave: (from) => (from === "pane6" ? builderRestedFor(400) : pathwayClear("luibuilder", from)),
+    canLeave: (from) => (from === "projects" ? builderRestedFor(400) : pathwayClear("luibuilder", from)),
     canLand: (to) => pathwayClear("luibuilder", to),
   });
 
@@ -1525,7 +1525,7 @@ export default function Panes() {
     ));
     // the things he has built, two by two
     const built = (
-      <BuilderScene present={luibuilderUp.shown === "pane6"} startAt={builderAt}>
+      <BuilderScene present={luibuilderUp.shown === "projects"} startAt={builderAt}>
         <ul className="pn__projects">
           {projects.map((project, i) => (
             <li className="pn__project" key={project.title}>
