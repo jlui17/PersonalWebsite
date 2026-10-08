@@ -172,7 +172,8 @@ export function BuilderScene({ children, present = true, startAt = null }) {
     body.addEventListener("pointermove", pointed, { passive: true });
     body.addEventListener("focusin", pointed);
 
-    // When he last came to rest after a move (arriving, a beam, a hop): the
+    // When he last came to rest after a move (arriving, a beam, a hop, a round
+    // of hammering): the
     // pane's own move waits until he has stood still a moment (`builderRestedFor`),
     // so two moves never run back to back.
     const cameToRest = () => {
@@ -197,6 +198,7 @@ export function BuilderScene({ children, present = true, startAt = null }) {
               await wait(BUILD[f]);
             }
           show(REST);
+          cameToRest(); // hammering is a move too: the pane waits for his rest after it
           await wait(900);
           await calm();
         }
@@ -228,19 +230,16 @@ export function BuilderScene({ children, present = true, startAt = null }) {
         }
 
         // the hop in place, unless the visitor is busy (a reason for the pane
-        // to take him away may be coming: no hop and beam back to back); one
-        // that comes during the crouch, before he lifts off, cancels it
+        // to take him away may be coming); once begun it plays out, and the
+        // pane's move waits for his rest after it
         if (justLanded && !busy()) {
           show({ action: "hop", frame: 0 });
           await wait(HOP[0]);
-          if (busy()) show(REST);
-          else {
-            await glide(0, ARC, HOP[1] / 2, rising);
-            await glide(ARC, 0, HOP[1] / 2, falling);
-            show({ action: "hop", frame: 2 });
-            await wait(HOP[2]);
-            show(REST);
-          }
+          await glide(0, ARC, HOP[1] / 2, rising);
+          await glide(ARC, 0, HOP[1] / 2, falling);
+          show({ action: "hop", frame: 2 });
+          await wait(HOP[2]);
+          show(REST);
           cameToRest();
         }
 
