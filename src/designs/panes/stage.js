@@ -396,6 +396,10 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
           step.inPage = step.shown;
         }
         const next = (step.seen ?? -1) + 1;
+        if (step.heldFor !== next) {
+          step.heldFor = next; // each frame gets its own half second
+          step.held = undefined;
+        }
         if (f > next && now - (step.held ??= now) < 500) {
           f = next;
           step.t0 = now - shot.durations.slice(0, f).reduce((sum, d) => sum + d, 0);
