@@ -88,7 +88,6 @@ export const agents = [
     tag: "Coding agent",
     heading: "I tell him I have an idea, and he goes off and builds it.",
     does: [
-      "Building puzzlewithme, an online puzzle game my GF and I play together",
       { text: "Doing some robotics experiments with me", next: true },
       { text: "Designing parts for a 3D printer I want to get, for those robotics experiments", next: true },
     ],
