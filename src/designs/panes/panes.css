@@ -1992,8 +1992,10 @@ body {
     padding: 0 8px;
   }
 
+  /* the scrolling row clips at its own bottom, so the tab ends there: a
+     pixel past it showed nothing and cut the focus ring */
   .panes[data-top="a"] .pn__step {
-    height: 41px;
+    height: 40px;
   }
 
   .panes[data-top="b"] .pn__steps {
