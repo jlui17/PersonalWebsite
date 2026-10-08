@@ -50,8 +50,8 @@ const LANDING_WAIT = 2500;
 // from where it left off. A beam-out, once begun, is whole. A beam-in that
 // the target changes under is dropped within a display frame only where its
 // pane has closed (a robot never forms whole over a pane that has moved on);
-// in a pane still open, and on the pathway once past its half, it finishes,
-// then he beams straight out again: one move at a time. Every beam runs
+// in a pane still open, and on the pathway, it finishes, then he beams
+// straight out again: one move at a time. Every beam runs
 // against one deadline from the sheet's durations, and every frame of it is
 // painted (`painted` in script.js), so it is whole whatever the timers do.
 export function useRobotHandoff({ name, target, rects, delay = 0, outAction, canLeave, onOut, skipIn, onSkipIn, canLand }) {
@@ -117,8 +117,10 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
       const { durations } = sheet[action];
       let deadline = performance.now();
       for (let f = 0; f < durations.length; f += 1) {
+        if (f > 0 && abort?.(f - 1)) return true; // asked before every frame too: a late timer skips the waits below
         show("overlay", { rect, action, frame: f });
         await painted(() => document.querySelector(`.pn-beam[data-robot="${name}"][data-action="${action}"][data-frame="${f}"]`));
+        if (abort?.(f)) return true;
         deadline = Math.max(deadline + durations[f], performance.now());
         for (let left = deadline - performance.now(); left > 0; left = deadline - performance.now()) {
           await wait(Math.min(abort ? SLICE : left, left));
@@ -161,10 +163,10 @@ export function useRobotHandoff({ name, target, rects, delay = 0, outAction, can
         if (rects[to]() && !(await until(hooks.current.canLand && (() => hooks.current.canLand(to))))) return;
         const rect = rects[to]();
         // the place he is forming at may move on mid-beam: in a pane that has
-        // closed he never arrives (dropped at once); in a pane still open, or
-        // on the pathway past half formed, he finishes and then beams out again
-        const half = sheet["beam-in"].durations.length / 2;
-        const dropped = rect && (await playBeam("beam-in", rect, (f) => targetRef.current !== to && (to === "pathway" ? f < half : rects[to]() === undefined)));
+        // closed he never arrives (dropped within a frame: the place is gone);
+        // anywhere else (a pane still open, the pathway) he finishes forming
+        // and then beams out again, so a half-formed robot never just vanishes
+        const dropped = rect && (await playBeam("beam-in", rect, () => targetRef.current !== to && to !== "pathway" && rects[to]() === undefined));
         if (!dropped) {
           show(to);
           if (targetRef.current === to) return;
