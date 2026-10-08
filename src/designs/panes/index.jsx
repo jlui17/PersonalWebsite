@@ -484,6 +484,18 @@ function Fold({ pane, index, focused, onOpen, buttonRef }) {
   );
 }
 
+// Scrolls a step's row so the step stands in its middle (clamped at the
+// row's ends), on a phone where the row scrolls sideways. Only the row
+// scrolls: scrollIntoView also scrolled the window's own grid, and the page
+// slid. A row that does not scroll is left alone.
+const centreInRow = (step) => {
+  const row = step?.parentElement;
+  if (!row || row.scrollWidth <= row.clientWidth) return;
+  const s = step.getBoundingClientRect();
+  const r = row.getBoundingClientRect();
+  row.scrollTo({ left: row.scrollLeft + s.left - r.left - (r.width - s.width) / 2, behavior: reducedMotion() ? "auto" : "smooth" });
+};
+
 // The steps on top (?top=a|b|c): one button per step, each over its own
 // stretch of the pathway, with its number and its few plain words. The open
 // step's button wears the open pane's amber, a filled dot and its own shape
@@ -505,7 +517,10 @@ function Steps({ focused, onSelect, refs, onPreview }) {
           onClick={() => onSelect(p.id)}
           onPointerEnter={(event) => event.pointerType === "mouse" && onPreview?.(p.id)}
           onPointerLeave={(event) => event.pointerType === "mouse" && onPreview?.(null)}
-          onFocus={(event) => event.target.matches(":focus-visible") && onPreview?.(p.id)}
+          onFocus={(event) => {
+            centreInRow(event.currentTarget); // a step the keyboard reaches is wholly in view
+            if (event.target.matches(":focus-visible")) onPreview?.(p.id);
+          }}
           onBlur={() => onPreview?.(null)}
         >
           <span className="pn__dot" aria-hidden="true" />
@@ -1122,15 +1137,10 @@ export default function Panes() {
   }, [expanded, phone, stage]);
 
   // A phone with the steps on top: the row of steps scrolls sideways, and the
-  // open one comes into view, centred. Only the row scrolls: scrollIntoView
-  // also scrolled the window's own grid sideways, and the page slid.
+  // open one comes into view, centred (as does a step the keyboard focuses:
+  // `Steps` calls `centreInRow` too).
   useEffect(() => {
-    const step = segmentRefs.current[focused];
-    const row = step?.parentElement;
-    if (!onTop || !phone || !row) return;
-    const s = step.getBoundingClientRect();
-    const r = row.getBoundingClientRect();
-    row.scrollTo({ left: row.scrollLeft + s.left - r.left - (r.width - s.width) / 2, behavior: reducedMotion() ? "auto" : "smooth" });
+    if (onTop && phone) centreInRow(segmentRefs.current[focused]);
   }, [focused, phone]);
 
   // The open step in the URL, so a reload or a shared link lands on it.
