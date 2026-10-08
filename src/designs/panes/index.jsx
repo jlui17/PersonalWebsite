@@ -7,7 +7,7 @@ import * as propSheets from "../../sprites/props.js";
 import ballSheet from "./ball.js";
 import { Palette } from "./Palette.jsx";
 import { BALL_AT_SHOE, createStage, petLowSpot, poseBox } from "./stage.js";
-import { AgentRobot, BuilderScene, BuilderSpot, FarmScene, firstProjectInView, HelloScene, JapanScene, NewYorkScene, PlanTitle, RobotBeam, RobotBox, UpTo, useRobotHandoff } from "./scenes";
+import { AgentRobot, BuilderScene, BuilderSpot, builderRestedFor, FarmScene, firstProjectInView, HelloScene, JapanScene, NewYorkScene, PlanTitle, RobotBeam, RobotBox, UpTo, useRobotHandoff } from "./scenes";
 
 // ?hour=0..23 pins the San Francisco hour, clock included, so each time of
 // day can be checked by hand.
@@ -1025,8 +1025,8 @@ export default function Panes() {
     rects: robotRects.luibuilder,
     delay: 120,
     // at a project, a move of his own (a beam to another project, a hop)
-    // ends before this one begins
-    canLeave: (from) => (from === "pane6" ? !document.querySelector('.pn-builder:is([data-action^="beam"], [data-action="hop"])') : pathwayClear("luibuilder", from)),
+    // ends, and he stands still a moment, before this one begins
+    canLeave: (from) => (from === "pane6" ? builderRestedFor(400) : pathwayClear("luibuilder", from)),
     canLand: (to) => pathwayClear("luibuilder", to),
   });
 

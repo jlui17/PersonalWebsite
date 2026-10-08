@@ -63,6 +63,14 @@ const partlyInView = (spot, body) => {
   return s.bottom > b.top && s.bottom - HEIGHT - ARC < b.bottom;
 };
 
+// Whether luibuilder at a project stands at rest and has for `ms`: the pane
+// moves him only then, so a visible rest separates any two of his moves.
+export const builderRestedFor = (ms) => {
+  const el = document.querySelector(".pn-builder");
+  const root = document.querySelector(".pn-built");
+  return !el || (el.dataset.action === "stand" && performance.now() - Number(root?.dataset.restedAt ?? 0) >= ms);
+};
+
 // The first project under `root` whose spot is in view in the pane `body`, or -1.
 export const firstProjectInView = (root, body) => [...root.querySelectorAll("[data-builder-spot]")].findIndex((spot) => spotInView(spot, body));
 
@@ -164,8 +172,15 @@ export function BuilderScene({ children, present = true, startAt = null }) {
     body.addEventListener("pointermove", pointed, { passive: true });
     body.addEventListener("focusin", pointed);
 
+    // When he last came to rest after a move (arriving, a beam, a hop): the
+    // pane's own move waits until he has stood still a moment (`builderRestedFor`),
+    // so two moves never run back to back.
+    const cameToRest = () => {
+      el.dataset.restedAt = String(performance.now());
+    };
     (async () => {
       show(REST);
+      cameToRest();
       await wait(1000);
       for (;;) {
         if (idleRounds >= ROUNDS) await new Promise((resolve) => (onInput = resolve));
@@ -208,19 +223,25 @@ export function BuilderScene({ children, present = true, startAt = null }) {
           for (let f = 0; f < BEAM.length; f += 1) await beamFrame("beam-in", f);
           justLanded = true;
           show(REST);
+          cameToRest();
           await wait(500);
         }
 
         // the hop in place, unless the visitor is busy (a reason for the pane
-        // to take him away may be coming: no hop and beam back to back)
+        // to take him away may be coming: no hop and beam back to back); one
+        // that comes during the crouch, before he lifts off, cancels it
         if (justLanded && !busy()) {
           show({ action: "hop", frame: 0 });
           await wait(HOP[0]);
-          await glide(0, ARC, HOP[1] / 2, rising);
-          await glide(ARC, 0, HOP[1] / 2, falling);
-          show({ action: "hop", frame: 2 });
-          await wait(HOP[2]);
-          show(REST);
+          if (busy()) show(REST);
+          else {
+            await glide(0, ARC, HOP[1] / 2, rising);
+            await glide(ARC, 0, HOP[1] / 2, falling);
+            show({ action: "hop", frame: 2 });
+            await wait(HOP[2]);
+            show(REST);
+          }
+          cameToRest();
         }
 
         // He rests 10 to 14 s; once his project has been scrolled out of view
