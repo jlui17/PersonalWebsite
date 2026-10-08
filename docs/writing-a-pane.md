@@ -9,7 +9,7 @@ Each pane has one job. Put a new fact in the pane whose job it is, and give it o
 | Pane | Its job | What lives there |
 |---|---|---|
 | 1 Hello | Who he is at a glance | His work in plain words, the traits that say the most about him (he nerds out over small details, he automates things that don't need it), fun facts, the photo, where he moved from, his links |
-| 2 My agents and projects | What he builds: his two AI agents, then the things he has built ("kind of like a fun portfolio") | Each agent first (what he does for him, how he works with him), then "Future side quests", the list of what he wants to build with them next, then "Things I've built", one entry per project with the story behind it, in the order he sets |
+| 2 Projects & Agents | What he builds: his two AI agents, then the things he has built ("kind of like a fun portfolio") | Each agent first (what he does for him, how he works with him), then "Future side quests", the list of what he wants to build with them next, then "Things I've built", one entry per project with the story behind it, in the order he sets |
 | 3 What I'm up to | What his life looks like these days | The status sign (learning, building, saving up for), what he is doing that he would not have done before San Francisco, the experiments with his coworkers, and a normal week |
 | 4 My people | The people he loves | One card per person: what they are like, then what they mean to him |
 | 5 My future plans | Where he hopes life goes | One plan per block, each finishing "In the future, I want to…", with the reason in his words |
@@ -152,7 +152,7 @@ Each line points to its rule in `AGENTS.md` where one exists.
 ## Still open
 
 - **The now pane's card line** is a noun list ("Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s."), against the card-line rule. He asked for something "more fun", then "snarky", and has not picked a replacement yet. The projects never got a card line for the same reason.
-- **Pane 2, since the projects joined it.** Its title "My agents and projects" is provisional and his call. Its card keeps the agents' line and invite, which name only the agents. luibuilder's list line "Building puzzlewithme, ..." and the puzzlewithme project now sit on one screen. `?agents=a` and `?agents=b` are two ways to rank the robots' names above everything else; he has not picked.
+- **Pane 2, since the projects joined it.** Its title is "Projects & Agents", his pick (the hash stays `#agents`); the agents still come first inside it. Its card keeps the agents' line and invite, which name only the agents. luibuilder's list line "Building puzzlewithme, ..." and the puzzlewithme project now sit on one screen. `?agents=a` and `?agents=b` are two ways to rank the robots' names above everything else; he has not picked.
 
 - **What makes a card an invitation.** His examples, as `<Card>, <Trailer line>, <Invite phrase>`: "hello, I tinker with agents, automation, and brew espresso., learn more about me" and "my agents, I have Openclaw agents running around, meet Luibot and Luibuilder". The working reading: a specific, slightly surprising detail the pane pays off, with the topic plain enough that an uninterested reader knows to skip.
 - **Capital letters for the agents.** He writes "Luibot" and "Luibuilder"; the site writes them in lowercase. Not answered yet.

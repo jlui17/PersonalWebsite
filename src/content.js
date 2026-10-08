@@ -262,7 +262,7 @@ export const sections = {
   },
   // his agents, their side quests and the things he has built, in one pane
   agents: {
-    title: "My agents and projects",
+    title: "Projects & Agents",
     trailer: "I have two OpenClaw agents running around.",
     hook: "Meet my AI agents.",
     invite: "Meet luibot and luibuilder",

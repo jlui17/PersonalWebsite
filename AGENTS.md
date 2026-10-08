@@ -23,7 +23,7 @@ The site is **one calm, keyboard-friendly tool window**: one section is open at 
 
 Justin's words for the parts. Use them in code, docs and messages, and invent no others:
 
-- **Pane**: the main area at the upper left that shows one section. "Pane 2" is the agents and projects section open there.
+- **Pane**: the main area at the upper left that shows one section. "Pane 2" is the Projects & Agents section open there.
 - **Pathway**: the strip along the bottom where his sprite walks ("because it's like me walking along it").
 - **Step**: one station on the pathway, one per section. "Step 1" is where he holds the shoeboxes and "step 4" is where he pets Truffle.
 - **Card**: a section's box in the right column, with its title, card line and invite ("the card on the right").

@@ -202,7 +202,7 @@ const order = PANES.map((p) => p.id);
 // name.
 const STEP_LABEL = {
   hello: "A bit about me",
-  agents: "My agents and projects",
+  agents: "Projects & Agents",
   people: "My favourite people",
   now: "What I’m up to",
   someday: "My future plans",
