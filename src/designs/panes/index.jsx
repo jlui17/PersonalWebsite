@@ -517,8 +517,13 @@ function Steps({ focused, onSelect, refs, onPreview }) {
           onPointerEnter={(event) => event.pointerType === "mouse" && onPreview?.(p.id)}
           onPointerLeave={(event) => event.pointerType === "mouse" && onPreview?.(null)}
           onFocus={(event) => {
-            centreInRow(event.currentTarget); // a step the keyboard reaches is wholly in view
-            if (event.target.matches(":focus-visible")) onPreview?.(p.id);
+            // a step the keyboard reaches comes wholly into view; a tap's focus
+            // does not scroll the row (an instant scroll under reduced motion
+            // moved another step under the finger before the click), its
+            // selection centres the row once the step opens
+            if (!event.target.matches(":focus-visible")) return;
+            centreInRow(event.currentTarget);
+            onPreview?.(p.id);
           }}
           onBlur={() => onPreview?.(null)}
         >
