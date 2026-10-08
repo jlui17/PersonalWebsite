@@ -900,7 +900,9 @@ export default function Panes() {
     () => ({
       luibot: {
         // mid-beam on the pathway there is nobody to beam out
-        pathway: () => (phone || stage.bot.hidden ? null : document.querySelector(".pn__bot svg")?.getBoundingClientRect() ?? null),
+        // on a phone he is drawn only up at a pane spot on an errand (the
+        // pathway is one step wide), and there he beams out like anywhere else
+        pathway: () => (stage.bot.hidden || (phone && stage.bot.y === 0) ? null : document.querySelector(".pn__bot svg")?.getBoundingClientRect() ?? null),
         pane: () => inBody(document.querySelector('.pn-robot[data-robot="luibot"]')),
       },
       luibuilder: {
@@ -1060,14 +1062,7 @@ export default function Panes() {
     if (focused !== "agents") {
       stage.wantBotUp(null);
       setBotUp(false);
-    } else if (phone) {
-      // no pathway leg on a phone: an errand he was on is dropped (above) and
-      // he is put away for real, on the ground and idle, before the pane takes
-      // him; left at his errand's height he popped up there, fully formed,
-      // when the next pane opened
-      stage.botTaken();
-      setBotUp(true);
-    } else stage.wantBotUp(() => setBotUp(true));
+    } else stage.wantBotUp(() => setBotUp(true)); // on a phone too: caught mid-errand in a pane, he beams out where he is (`onOut` then puts him away on the ground, so he never pops up at his errand's height later)
     const anchor = { now: "sign-switch", someday: "feed-spot" }[focused];
     if (!anchor) return undefined;
     if (!paneChanged && (luibotDoneRef.current[anchor] || stage.botChoreFor(focused))) return undefined;
