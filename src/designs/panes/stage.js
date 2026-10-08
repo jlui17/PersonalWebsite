@@ -431,7 +431,9 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
         step.until = now + step.ms;
         step.enter?.();
       }
-      if (now >= step.until) bot.steps.shift();
+      // `done()`: the hold also waits for its work to show (the grain on the
+      // pile), for 3 s at most past its time
+      if (now >= step.until && (!step.done || step.done() || now >= step.until + 3000)) bot.steps.shift();
       return;
     }
     const dx = step.x - bot.x;
@@ -679,7 +681,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   // down onto the knob and the sign lights). `flip` faces him left so his
   // working hand is on the right. Under reduced motion he does not fly and
   // the chore is done at once.
-  function flyToSpot({ at, action, ms, reach, flip = false, pane, onDone }) {
+  function flyToSpot({ at, action, ms, reach, flip = false, pane, onDone, until }) {
     if (reduced()) {
       onDone?.();
       return;
@@ -693,7 +695,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     };
     const work = reach
       ? reach.flatMap((r) => [...(r.done ? [{ kind: "do", fn: report, pose: action, frame: r.frame }] : []), { kind: "hold", ms: r.ms, pose: action, frame: r.frame }])
-      : [{ kind: "hold", ms, pose: action }, { kind: "do", fn: report, pose: "fly" }];
+      : [{ kind: "do", fn: report, pose: action }, { kind: "hold", ms, pose: action, done: until }]; // the work shows from its first frame (the grain falls while he pours), and lasts `ms` and until `until()`
     // at the spot every step follows the anchor (the pane may scroll under him)
     const atSpot = (step) => ({ ...step, follow: at, onGone: report });
     bot.queue.push({

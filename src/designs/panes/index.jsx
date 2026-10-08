@@ -55,7 +55,13 @@ const panePose = { people: "sleep", agents: "type" };
 
 // Props are staged by name and measured from their sheets, so art that is
 // still being drawn (the sheep, a redrawn cow) drops in without a code change.
-const { coffee, shoeRack, cow, sheep } = propSheets;
+const { coffee, shoeRack, cow, sheep, feed } = propSheets;
+// luibot pours the feed until the grain has reached the pile (the comment
+// above `feed` in src/sprites/luibot.js): at least the grain's fall and a
+// beat after, so the sack is seen empty over it, and until the farm shows the
+// pile, however late its timers run
+const POUR_MS = feed.actions.fall.durations.slice(0, -1).reduce((sum, d) => sum + d, 0) + 300;
+const grainOnPile = () => /^pile/.test(document.querySelector('[data-anchor="feed-spot"]')?.dataset.grain ?? "");
 // luibot's canvas heights at his two pane spots, for whether he fits in the pane's window
 const BOT_FLY_H = characters.luibot.actions.fly.frames[0].length;
 const BOT_FEED_H = characters.luibot.actions.feed.frames[0].length;
@@ -1110,7 +1116,7 @@ export default function Panes() {
     // lights and the knob slides out from under his hand on that frame
     const start = () => {
       if (anchor === "sign-switch") stage.flyToSpot({ at, action: "fly-wave", reach: [{ frame: 1, ms: 300 }, { frame: 0, ms: 700, done: true }], flip: true, pane: focused, onDone: done });
-      else stage.flyToSpot({ at, action: "feed", ms: 900, pane: focused, onDone: done });
+      else stage.flyToSpot({ at, action: "feed", ms: POUR_MS, until: grainOnPile, pane: focused, onDone: done });
     };
     if (!phone) {
       // queued now, so he goes to it straight from wherever he is
