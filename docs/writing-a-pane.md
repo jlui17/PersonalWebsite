@@ -9,7 +9,7 @@ Each pane has one job. Put a new fact in the pane whose job it is, and give it o
 | Pane | Its job | What lives there |
 |---|---|---|
 | 1 Hello | Who he is at a glance | His work in plain words, the traits that say the most about him (he nerds out over small details, he automates things that don't need it), fun facts, the photo, where he moved from, his links |
-| 2 Projects & Agents | What he builds: his two AI agents, then the things he has built ("kind of like a fun portfolio") | Each agent first (what he does for him, how he works with him), then "Future side quests", the list of what he wants to build with them next, then "Things I've built", one entry per project with the story behind it, in the order he sets |
+| 2 Projects & Agents | What he builds: his two AI agents, then the things he has built ("kind of like a fun portfolio") | Each agent first (what he does for him, how he works with him, and in the same list what he plans to build with him next, each line marked "next"), then "Things I've built", one entry per project with the story behind it, in the order he sets |
 | 3 What I'm up to | What his life looks like these days | The status sign (learning, building, saving up for), what he is doing that he would not have done before San Francisco, the experiments with his coworkers, and a normal week |
 | 4 My people | The people he loves | One card per person: what they are like, then what they mean to him |
 | 5 My future plans | Where he hopes life goes | One plan per block, each finishing "In the future, I want to…", with the reason in his words |
@@ -76,7 +76,7 @@ card (right column)            open pane
 ## How a `###` is worded
 
 - Over a block of sentences, a `###` is an "I" sentence and the fun version ("I automate things that don't need it"; a lead-in such as "Fun fact:" is fine), and the details under it explain in plain terms with a few fun words mixed in.
-- Three exceptions. In a pane about other people, the person is the subject ("She's my role model for hard work and perseverance."; he said no to "I" headings in "My people"). Under a hook that ends in "…", each heading finishes the hook ("Live in Japan with my girlfriend."). Over a list, a `###` is a plain title ("Future side quests" replaced "I keep a list of what I want them to do next").
+- Three exceptions. In a pane about other people, the person is the subject ("She's my role model for hard work and perseverance."; he said no to "I" headings in "My people"). Under a hook that ends in "…", each heading finishes the hook ("Live in Japan with my girlfriend."). Over a list, a `###` is a plain title ("Things I've built" over the projects).
 - No skim line repeats a `###`, and a block the hook already covers gets none ("the main header already covers it"). The first sentence under a `###` says something new, not the `###` again ("there's a bit too much overalp between the subheader and the first sentence here").
 
 ## Checklist
