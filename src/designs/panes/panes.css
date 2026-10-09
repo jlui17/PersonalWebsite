@@ -537,13 +537,13 @@ body {
   gap: 10px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--pn-line-strong);
-  margin-bottom: calc(14px + var(--pn-more-text));
+  margin-bottom: calc(9px + var(--pn-more-text)); /* the rule to the bold sentence, as under a project's name */
 }
 
 .pn__agent h3 {
   font: var(--pn-h3);
   letter-spacing: var(--pn-h3-track);
-  margin-bottom: calc(8px + var(--pn-more-text));
+  margin-bottom: calc(6px + var(--pn-more-text)); /* the bold sentence to its detail, as in pane 4 */
   text-wrap: pretty;
 }
 
@@ -681,7 +681,7 @@ body {
 .pn__projects {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: calc(22px + var(--pn-more-row)) 32px;
+  gap: calc(14px + var(--pn-more-row)) 32px; /* each row opens with a 24px name on its rule, so a small step parts two rows */
 }
 
 /* A project's head takes a row shared with the project beside it, so the
@@ -719,7 +719,7 @@ body {
   letter-spacing: var(--pn-h3-track);
   color: var(--pn-ink);
   padding-top: var(--pn-more-text); /* on top of the head's own 9px (scenes.css); a margin would collapse into it */
-  margin-bottom: calc(var(--pn-gap-heading) + 6px); /* a step apart from the story, so the two don't read as one paragraph */
+  margin-bottom: calc(6px + var(--pn-more-text)); /* the bold sentence to its detail, as in pane 4 */
   text-wrap: pretty;
 }
 
