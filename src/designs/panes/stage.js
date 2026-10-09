@@ -1266,6 +1266,21 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     scene += 1;
   }
 
+  // Woken for a throw or a pet that the visitor has since left: she stands
+  // (her wake ends on walk f0) for her minimum hold, then sits where she is,
+  // and lies down after her sit. Waiting on her feet while he was busy (the
+  // rule for a throw that is coming) kept her standing at home through his
+  // whole walk and espresso.
+  function settleHere() {
+    const sitDown = () => {
+      if (truffle.plan || truffle.shot || !/walk|trot/.test(truffle.pose)) return;
+      truffle.pose = "sit";
+      truffle.frame = undefined;
+      truffle.sitUntil = performance.now() + TRUFFLE.sitFor;
+    };
+    if (!holdFor(truffle, sitDown)) sitDown();
+  }
+
   // A hand on Truffle, staged as the sheets say (the comments above `paw`
   // and `wake` in truffle.js, `nod` in justin.js): she comes to him and asks.
   // He stands still (idle, flagged "asked") while she does. Asleep or one ear
@@ -1347,11 +1362,12 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
       });
     };
     const come = () =>
-      live() &&
-      start(
-        { kind: "goto", gait: Math.abs(spot - truffle.cx) > 80 ? TROT : WALK, target: () => spot, lookAt: () => justin.cx, then: ask },
-        { earIn: 0, trotIn: 0 },
-      );
+      live()
+        ? start(
+            { kind: "goto", gait: Math.abs(spot - truffle.cx) > 80 ? TROT : WALK, target: () => spot, lookAt: () => justin.cx, then: ask },
+            { earIn: 0, trotIn: 0 },
+          )
+        : settleHere(); // called away during her wake: she settles where she stood up
     if (truffle.pose === "sleep" || truffle.pose === "ear") {
       truffle.earAt = truffle.earDown = 0;
       truffleShot("wake", 1, come);
@@ -1417,7 +1433,10 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     if ((lying || covering) && !truffle.plan && !truffle.shot) {
       const aside = fitsTruffle(ball.x + (sign(truffle.cx - justin.cx) || 1) * 30);
       const off = () => {
-        if (!live()) return; // the visitor has left: awake, she settles where she is
+        if (!live()) {
+          settleHere(); // the visitor has left: awake, she settles where she is
+          return;
+        }
         if (covering) start({ kind: "goto", gait: WALK, target: () => aside, lookAt: () => justin.cx, then: again }, { earIn: 0, trotIn: 0 });
         else again();
       };
