@@ -1,5 +1,7 @@
 // Child processes and temp folders that go away with this Node process, however it ends,
-// and a caffeinate that keeps the Mac awake until then. Every tool spawns through here.
+// and a caffeinate that keeps the Mac and its display awake until then (with the display asleep,
+// headless Chrome draws a frame only every 17 to 150 ms and plain 1x runs drift).
+// Every tool spawns through here.
 import { spawn } from "node:child_process";
 import { createServer } from "node:net";
 import { mkdtempSync, rmSync } from "node:fs";
@@ -50,7 +52,7 @@ export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 let caffeinate;
 export function stayAwake() {
-  caffeinate ??= spawnTracked("caffeinate", ["-i", "-w", String(process.pid)]);
+  caffeinate ??= spawnTracked("caffeinate", ["-d", "-i", "-w", String(process.pid)]);
 }
 
 process.on("exit", () => {
