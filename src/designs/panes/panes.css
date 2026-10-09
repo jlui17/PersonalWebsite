@@ -289,6 +289,110 @@ body {
   padding: 3px 5px;
 }
 
+/* ---- TEMPORARY: the Trial control (TrialPicker.jsx), until Justin picks ----
+   A dashed button, so it never reads as part of the design, and under it one
+   row of choices per trial. The one on show is amber with a filled dot (the
+   steps' own mark). Under 720px the title bar has no room for it beside the
+   clock (it fits from about 680px), so it waits in the bottom right corner,
+   over the pane (over the cards in the old layout, clear of its pathway and
+   step bar), and opens upwards. */
+.pn__trial {
+  position: relative;
+  z-index: 10; /* over luibot's layer and the beams, under the search palette */
+}
+
+.pn__trial-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 7px 0 8px;
+  border: 1px dashed var(--pn-line-strong);
+  border-radius: 4px;
+  font: var(--pn-label);
+  color: var(--pn-muted);
+}
+
+.pn__trial-button:hover {
+  border-color: var(--pn-muted);
+  color: var(--pn-ink-2);
+}
+
+.pn__trial-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--pn-raised);
+  border: 1px solid var(--pn-line-strong);
+  border-radius: var(--pn-radius);
+}
+
+.pn__trial-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pn__trial-label {
+  width: 52px;
+  flex: none;
+  font: var(--pn-label);
+  color: var(--pn-dim);
+}
+
+.pn__trial-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font: var(--pn-label);
+  color: var(--pn-ink-2);
+}
+
+.pn__trial-option:hover {
+  color: var(--pn-ink);
+}
+
+.pn__trial-option[aria-pressed="true"] {
+  color: var(--pn-amber);
+}
+
+.pn__trial-option[aria-pressed="true"] .pn__dot {
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+}
+
+@media (max-width: 719px) {
+  .pn__trial {
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .panes:not([data-top]) .pn__trial {
+    bottom: calc(var(--pn-pathway-h) + var(--pn-bar-h) + 8px);
+  }
+
+  .pn__trial-button {
+    height: 32px;
+    background: var(--pn-raised);
+  }
+
+  .pn__trial-panel {
+    top: auto;
+    bottom: calc(100% + 8px);
+  }
+
+  .pn__trial-option {
+    height: 32px;
+  }
+}
+
 /* ---- workspace: the open pane and the stack of folded ones ---- */
 
 /* The open section on the left, the cards of every section on the right. The

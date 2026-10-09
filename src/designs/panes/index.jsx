@@ -6,6 +6,7 @@ import justinSheet from "../../sprites/justin.js";
 import * as propSheets from "../../sprites/props.js";
 import ballSheet from "./ball.js";
 import { Palette } from "./Palette.jsx";
+import { TrialPicker, useTrial } from "./TrialPicker.jsx";
 import { BALL_AT_SHOE, createStage, petLowSpot, poseBox } from "./stage.js";
 import { AgentRobot, BuilderScene, BuilderSpot, builderRestedFor, FarmScene, firstProjectInView, HelloScene, JapanScene, NewYorkScene, PlanTitle, RobotBeam, RobotBox, UpTo, useRobotHandoff } from "./scenes";
 
@@ -13,22 +14,7 @@ import { AgentRobot, BuilderScene, BuilderSpot, builderRestedFor, FarmScene, fir
 // day can be checked by hand.
 const hourOverride = new URLSearchParams(window.location.search).get("hour");
 
-// ?top=a|b|c|old: a trial of the pathway at the top of the window, where its
-// steps, each named in a few plain words, take over from the column of cards.
-// Temporary, like &fonts= was: it goes once Justin has picked. `old` is the
-// layout before the trial; anything else is a.
-const TOP = { a: "a", b: "b", c: "c", old: "old" }[new URLSearchParams(window.location.search).get("top")] ?? "a";
-const onTop = TOP !== "old";
-
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// TEMPORARY, until Justin picks: ?agents=a (the default) or ?agents=b, two
-// ways for pane 2 to rank the robots' names above everything else in it.
-// a: the agents side by side, each name the largest thing in its column, and
-//    the hook as a quiet line over them. b: one grid for the whole pane, the
-//    skim level (each robot's name and sprite, each part's heading) in a
-//    column on the left and the details on the right, with no hook.
-const agentsOption = new URLSearchParams(window.location.search).get("agents") === "b" ? "b" : "a";
 
 const sfHour = () =>
   hourOverride !== null
@@ -662,8 +648,19 @@ export default function Panes() {
   const phone = useMedia("(max-width: 639px)");
   const width = useWidth();
 
+  // TEMPORARY, until Justin picks (TrialPicker.jsx): the steps on top (tabs,
+  // signs or a timeline) in place of the column of cards, or the old layout;
+  // and pane 2's layout.
+  const [trial, pickTrial] = useTrial();
+  const TOP = trial.top;
+  const onTop = TOP !== "old";
+  const agentsOption = trial.agents;
+
   const [focused, setFocused] = useState(() => paneFromHash() ?? PANES[0].id);
   const [open, setOpen] = useState(() => onTop || !!paneFromHash()); // phone: the focused pane is open (else the list; with the steps on top there is no list)
+  useEffect(() => {
+    if (onTop) setOpen(true); // flipped from the old layout's list on a phone: the pane is open, as on a load
+  }, [onTop]);
   const [expanded, setExpanded] = useState(false); // desktop: the open pane alone
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [robotBeat, setRobotBeat] = useState(null); // 'luibot' | 'luibuilder' | null
@@ -1175,7 +1172,7 @@ export default function Panes() {
   // `Steps` calls `centreInRow` too).
   useEffect(() => {
     if (onTop && phone) centreInRow(segmentRefs.current[focused]);
-  }, [focused, phone]);
+  }, [focused, phone, onTop]);
 
   // The open step in the URL, so a reload or a shared link lands on it.
   const hashWritten = useRef(!!paneFromHash());
@@ -1298,7 +1295,7 @@ export default function Panes() {
     if (!pendingTitleFocus.current) return;
     pendingTitleFocus.current = false;
     (onTop ? segmentRefs.current[focused] : showMaster ? titleRef.current : foldRefs.current[focused])?.focus({ preventScroll: true });
-  }, [focused, showMaster, open, expanded]);
+  }, [focused, showMaster, open, expanded, onTop]);
 
   // A pane that scrolls says so with a soft fade at its cut, gone at the end.
   const [moreBelow, setMoreBelow] = useState(false);
@@ -1439,7 +1436,7 @@ export default function Panes() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [step, paletteOpen, toggleExpanded, expanded, phone, open, focusPane]);
+  }, [step, paletteOpen, toggleExpanded, expanded, phone, open, focusPane, onTop]);
 
   const touch = useRef(null);
   const onTouchStart = (event) => {
@@ -1513,7 +1510,7 @@ export default function Panes() {
       { id: "wave-luibuilder", label: "Wave to luibuilder", kind: "play", run: () => wave("luibuilder") },
       { id: "1070", label: "Episode 1070", kind: "play", run: () => stage.cheer() },
     ],
-    [expanded, phone, focusPane, toggleExpanded, stage, wave, coffeeRound, playCycle],
+    [expanded, phone, focusPane, toggleExpanded, stage, wave, coffeeRound, playCycle, onTop],
   );
 
   const pane = PANES.find((p) => p.id === focused);
@@ -1752,6 +1749,7 @@ export default function Panes() {
           </span>
         </button>
         <div className="pn__title-right">
+          <TrialPicker trial={trial} onPick={pickTrial} />
           <span className="pn__hint">
             <b aria-label="Left and right arrow keys">
               <Arrow to="left" />
