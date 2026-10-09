@@ -1885,15 +1885,12 @@ body {
   height: 34px;
 }
 
-/* the open tab's focus ring is open at the bottom too, so a step selected
-   from the keyboard keeps the tab joined to the pane: one more pixel inside
-   its amber border on the top and the sides (2px, as every ring) */
+/* the open tab's focus ring stands inside it, clear of its border, so a
+   step selected from the keyboard keeps the tab's sides 1px like the pane's
+   and the join seamless (a ring on the border made them 2px at the corner) */
 .panes[data-top="a"] .pn__step[aria-current="true"]:focus-visible {
-  outline: none;
-  box-shadow:
-    inset 0 1px var(--pn-amber),
-    inset 1px 0 var(--pn-amber),
-    inset -1px 0 var(--pn-amber);
+  outline: 2px solid var(--pn-amber);
+  outline-offset: -5px;
 }
 
 /* where the open tab stands on the pane's corner, the corner is square, so
