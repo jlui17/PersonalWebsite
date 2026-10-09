@@ -140,8 +140,10 @@
   vertical-align: var(--title-lift);
 }
 
-/* a word and the picture that follows it break onto a line together */
+/* The word before the picture and the picture break onto a line together.
+   An inline-block, because a nowrap inline turns off the heading's balance. */
 .pn-inline__keep {
+  display: inline-block;
   white-space: nowrap;
 }
 

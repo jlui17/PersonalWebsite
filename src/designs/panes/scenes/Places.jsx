@@ -18,9 +18,9 @@ import "./scenes.css";
 // `tag`), and the name is the sign's text: real text, in reading order, laid
 // over the panel the scene's sign has for it (`signBox` on the scene), so a
 // screen reader and a copy get the whole sentence once. The scenes hide their
-// svgs from the accessibility tree. The farm's sentence does not hold its
-// sign's words, so its scene follows the word the sign ends on ("a family
-// farm [The farm]"), the same picture inside the sentence as the other two.
+// svgs from the accessibility tree. The picture breaks onto a line with the
+// word before it, so it never starts a line alone ("Start a / family [farm] /
+// with all kinds of animals." on a phone).
 //
 // The title row: the heading with its picture, and under it the rule that is
 // the scene's ground. Every row is as tall as the tallest picture, so the
@@ -59,38 +59,22 @@ export function PlanTitle({ heading, place, scene }) {
 function PlanHeading({ heading, place, scene }) {
   const box = scene.type.signBox;
   const at = heading.indexOf(place);
-  const picture = (
-    <span className="pn-picture" aria-hidden={at < 0 || undefined}>
-      <span
-        className="pn-plan-sign"
-        style={{ left: box.x, top: -(box.up + box.h), "--sign-w": `${box.w}px`, "--sign-h": `${box.h}px`, "--sign-up": `${box.up}px` }}
-      >
-        <span className="pn-plan-sign__text">{place}</span>
-      </span>
-      {scene}
-    </span>
-  );
-  if (at < 0) {
-    // the farm: its sign says "The farm" and its sentence "a family farm", so the
-    // picture follows the sign's last word in the sentence and keeps to it on one
-    // line, and the sign's words are not read a second time
-    const word = place.split(" ").at(-1);
-    const cut = heading.indexOf(word);
-    return (
-      <h3 className="pn-inline">
-        <span className="pn-inline__words">{heading.slice(0, cut)}</span>
-        <span className="pn-inline__keep">
-          <span className="pn-inline__words">{`${word} `}</span>
-          {picture}
-        </span>
-        <span className="pn-inline__words">{heading.slice(cut + word.length)}</span>
-      </h3>
-    );
-  }
+  const before = heading.lastIndexOf(" ", at - 2) + 1; // the word before the place
   return (
     <h3 className="pn-inline">
-      <span className="pn-inline__words">{heading.slice(0, at)}</span>
-      {picture}
+      <span className="pn-inline__words">{heading.slice(0, before)}</span>
+      <span className="pn-inline__keep">
+        <span className="pn-inline__words">{heading.slice(before, at)}</span>
+        <span className="pn-picture">
+          <span
+            className="pn-plan-sign"
+            style={{ left: box.x, top: -(box.up + box.h), "--sign-w": `${box.w}px`, "--sign-h": `${box.h}px`, "--sign-up": `${box.up}px` }}
+          >
+            <span className="pn-plan-sign__text">{place}</span>
+          </span>
+          {scene}
+        </span>
+      </span>
       <span className="pn-inline__words">{heading.slice(at + place.length)}</span>
     </h3>
   );

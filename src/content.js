@@ -146,8 +146,8 @@ export const lately = {
 // Pane 3's second part, where he hopes life goes: `somedayHead.heading` opens
 // it (it was the hook of a pane of its own), and each plan's heading finishes
 // it, so it starts with a verb and no "I want to". `tag` is the place's name
-// on its sign: where it appears word for word in the heading, the place's
-// picture sits inside the sentence there; otherwise beside it.
+// on its sign, word for word as the heading has it: the place's picture sits
+// inside the sentence there, and the sign holds that word.
 export const somedayHead = {
   heading: "In the future, I want to…",
 };
@@ -164,7 +164,7 @@ export const someday = [
     body: "My girlfriend is from Japan.",
   },
   {
-    tag: "The farm",
+    tag: "farm",
     heading: "Start a family farm with all kinds of animals.",
     body: "I’ve always been an animal person, so I want to be surrounded by dogs, cows, chickens, sheep, and pigs. I’m from Vancouver, where there’s so much nature, so I’ve always loved the outdoors. My girlfriend really wants a farm too, so she can grow fresh vegetables, fruits, and flowers. I plan to spend my days automating every part of the farm with robots, which is where luibot and luibuilder come in. It doesn’t have to wait until I’m done with tech, either. I might work remotely and live on the farm, or I might work in farming tech, and I’d like to do both.",
   },
