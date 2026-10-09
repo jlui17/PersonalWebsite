@@ -734,8 +734,9 @@ export default function Panes() {
     cancelCycle.current?.();
     cancelCycle.current = null;
     cycleRound.current++;
+    stage.cancelScene(); // a throw or a pet still on its way goes no further
     setResting(false);
-  }, []);
+  }, [stage]);
   const coffeeRound = useCallback(() => {
     stopCycle();
     const s = stretchOf("now");

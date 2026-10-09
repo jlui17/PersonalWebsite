@@ -1247,6 +1247,25 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     } else truffle.earDown = 0;
   }
 
+  // The open step's scene (step 3's throws, the pets at steps 3 and 4) as a
+  // token: a throw or a pet takes it when asked, and every step it leaves
+  // for later (her wake, a walk aside, a fetch, a hold, his arrival) goes on
+  // only while it is current. `cancelScene` (the design calls it whenever the
+  // step's scene stops: the visitor leaves the step, or asks for a new round)
+  // retires it, so nobody carries on alone at another step: what is already
+  // moving finishes (she ends her walk, sits and sleeps where she is), and
+  // nothing new starts. Leaving step 3 while she woke for the next throw, she
+  // went on to fetch the ball at the next step, and he threw it at the coffee
+  // corner on the next visit, in place of his espresso.
+  let scene = 0;
+  const inScene = () => {
+    const mine = scene;
+    return () => mine === scene;
+  };
+  function cancelScene() {
+    scene += 1;
+  }
+
   // A hand on Truffle, staged as the sheets say (the comments above `paw`
   // and `wake` in truffle.js, `nod` in justin.js): she comes to him and asks.
   // He stands still (idle, flagged "asked") while she does. Asleep or one ear
@@ -1261,7 +1280,8 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   // `then` runs once the pet is over (never if he is called away first).
   function pet(then) {
     if (ball.flight || ball.roll) return false;
-    const again = () => pet(then);
+    const live = inScene();
+    const again = () => live() && pet(then);
     if (truffle.plan) {
       truffle.plan.then = again; // when she gets where she is going
       return true;
@@ -1280,7 +1300,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     if (
       holdFor(truffle, () => {
         truffle.petWait = false;
-        if (justin.target === here) pet(then); // still where he asked from
+        if (justin.target === here && live()) pet(then); // still where he asked from
       })
     ) {
       truffle.petWait = true;
@@ -1313,7 +1333,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     }
     const ask = () => {
       truffle.sitUntil = 0;
-      if (!asked()) {
+      if (!asked() || !live()) {
         truffle.sitUntil = performance.now() + 1500;
         return;
       }
@@ -1327,6 +1347,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
       });
     };
     const come = () =>
+      live() &&
       start(
         { kind: "goto", gait: Math.abs(spot - truffle.cx) > 80 ? TROT : WALK, target: () => spot, lookAt: () => justin.cx, then: ask },
         { earIn: 0, trotIn: 0 },
@@ -1376,7 +1397,8 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   // `then` runs once she has brought the ball back to his feet.
   function throwBall(then) {
     if (ball.flight || ball.roll) return false;
-    const again = () => throwBall(then);
+    const live = inScene();
+    const again = () => live() && throwBall(then);
     if (truffle.plan?.kind === "fetch") {
       truffle.plan.then = again;
       return true;
@@ -1394,8 +1416,11 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     const covering = Math.abs(truffle.cx - ball.x) < poseBox("truffle", truffle.pose)[0] / 2 + BALL.size / 2;
     if ((lying || covering) && !truffle.plan && !truffle.shot) {
       const aside = fitsTruffle(ball.x + (sign(truffle.cx - justin.cx) || 1) * 30);
-      const off = () =>
-        covering ? start({ kind: "goto", gait: WALK, target: () => aside, lookAt: () => justin.cx, then: again }, { earIn: 0, trotIn: 0 }) : again();
+      const off = () => {
+        if (!live()) return; // the visitor has left: awake, she settles where she is
+        if (covering) start({ kind: "goto", gait: WALK, target: () => aside, lookAt: () => justin.cx, then: again }, { earIn: 0, trotIn: 0 });
+        else again();
+      };
       if (lying) {
         truffle.earAt = truffle.earDown = 0;
         truffleShot("wake", 1, off);
@@ -1404,7 +1429,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     }
     const atFeet = Math.abs(ball.x - justin.cx) <= extent("justin", justin.pose, justin.facing, side) + BALL.gap + BALL.size + 6;
     if (!atFeet) {
-      fetchHome({ earIn: 150, trotIn: 450 }, throwBall);
+      fetchHome({ earIn: 150, trotIn: 450 }, again); // and he throws as she brings it, `then` and all
       return true;
     }
     // He picks it up where it lies (walking the difference if it is not at
@@ -1661,6 +1686,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     goHome,
     callTruffle,
     throwBall,
+    cancelScene,
     pet,
     tipHat: () => strike("hat", 0, undefined, { frames: HAT_TIP }),
     // On his feet for a while (a direct load of step 4: Truffle is about to
