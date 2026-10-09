@@ -1353,8 +1353,9 @@ body {
   border-top-right-radius: 0;
 }
 
-/* Where a step's room is too narrow for its words on one line, they take
-   two, and the dot goes (the number and the amber still mark the open one). */
+/* From 640 to 1050px the dot goes (the number and the amber still mark the
+   open one) and a step's words may wrap to two lines, which with today's
+   words only happens below about 700px. */
 @media (min-width: 640px) and (max-width: 1050px) {
   /* every tab keeps room at its sides, so the longest name wraps like the
      others instead of running to its edges */

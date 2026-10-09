@@ -232,9 +232,10 @@ export const projects = [
 ];
 
 // How each section introduces itself to a reader who only skims, in plain
-// words: `title` names it, `trailer` is its card's line, `invite` labels the
-// way in, `hook` is the short first line of the open pane, and `more` is an
-// optional quieter line under it. The job of each is in AGENTS.md under Voice.
+// words: `title` names it, `hook` is the short first line of the open pane,
+// and `more` is an optional quieter line under it. `trailer` (its card's line)
+// and `invite` (the card's way in) show nowhere since the card column went on
+// 2026-10-09. The job of each is in AGENTS.md under Voice.
 // `agents` has no hook: pane 2 opens on the robots' names. Keyed by section.
 export const sections = {
   intro: {

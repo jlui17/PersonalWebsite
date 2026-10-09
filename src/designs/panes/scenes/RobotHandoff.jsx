@@ -6,11 +6,10 @@ import "./scenes.css";
 // A robot moves between the pathway and a pane the way Justin asked: "going up
 // into the pane and going down back down to the steps" with the beam (said
 // with the pathway at the bottom; on top, it is down into the pane and back
-// up). He
-// beams out where he stands, is nowhere for GONE ms, and beams in at the other
-// place; `beam-in`'s last frame is his rest pose there. Only one of him is
-// ever visible: the place he is at shows him, the other shows an empty box of
-// his size (so it can be measured), and while he is between the two an
+// up). He beams out where he stands, is nowhere for GONE ms, and beams in at
+// the other place; `beam-in`'s last frame is his rest pose there. Only one of
+// him is ever visible: the place he is at shows him, the other shows an empty
+// box of his size (so it can be measured), and while he is between the two an
 // overlay draws the beam at the exact pixels of the place he leaves or
 // arrives at. Leaving a pane, that place is gone by the time the beam-out
 // plays (the pane unmounts in the render that sends him down), so the beam is

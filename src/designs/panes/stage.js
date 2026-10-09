@@ -473,8 +473,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   // At a spot in a pane he keeps to its anchor while the pane scrolls or
   // re-flows: every tick, and (the design calls it) in the same frame the
   // window crosses the phone width, so no frame draws him over the words that
-  // moved. False when
-  // the anchor is out of the pane's window.
+  // moved. False when the anchor is out of the pane's window.
   function followAnchor() {
     const step = bot.steps[0];
     if (!step?.follow) return true;
