@@ -43,7 +43,6 @@
   --pn-font-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --pn-label: 500 11.5px/1 var(--pn-font-head); /* small chrome text */
   --pn-label-track: 0;
-  --pn-label-phone: 10.5px; /* the step bar on a phone; 0.5px less under 360px */
   /* The label voice on the drawn boards of the future plans: their panel is 59px wide and
      13px tall, and "New York" is 55px at this size. */
   --pn-sign: 500 11.5px/1 var(--pn-font-head);
@@ -65,13 +64,8 @@
   --pn-h3-track: -0.015em;
   --pn-h3-measure: 48ch;
 
-  /* ---- the window: the right column (its width, and its cards' padding, inner gap and type),
-     the three bars, the radius ---- */
+  /* ---- the window: the right column's width (until the next commit), the three bars, the radius ---- */
   --pn-stack-w: 424px;
-  --pn-fold-pad: 10px 12px 12px;
-  --pn-fold-gap: 7px;
-  --pn-fold-hook: 500 14px/1.3 var(--pn-font-head);
-  --pn-fold-hook-track: -0.01em;
   --pn-bar-h: 30px;
   --pn-title-h: 40px;
   --pn-pathway-h: 68px; /* the tallest pose (62px) plus a little air */
@@ -97,8 +91,6 @@
 /* Phone: the list of cards is the home screen and scrolls, so the cards are roomier. */
 @media (max-width: 639px) {
   :root {
-    --pn-fold-pad: 11px 12px 12px;
-    --pn-fold-gap: 7px;
     --pn-h1: 500 30px/1.1 var(--pn-font-head);
     --pn-h2: 500 21px/1.25 var(--pn-font-head);
   }

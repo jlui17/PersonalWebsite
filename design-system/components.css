@@ -133,11 +133,6 @@ body {
 .pn__title-right,
 .pn__clock,
 .pn__kbd,
-.pn__pane-title,
-.pn__back,
-.pn__expand,
-.pn__fold-head,
-.pn__statusbar,
 .pn__option-kind,
 .pn__palette-foot {
   font: var(--pn-label);
@@ -303,17 +298,6 @@ body {
   overflow: hidden;
 }
 
-.pn__work.pn__work--solo,
-.pn__work.pn__work--list {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.pn__work--solo .pn__pane {
-  max-width: 820px;
-  width: 100%;
-  margin: 0 auto;
-}
-
 .pn__pane {
   position: relative;
   display: flex;
@@ -325,26 +309,8 @@ body {
   border-radius: var(--pn-radius);
 }
 
-.pn__pane-head {
-  display: flex;
-  align-items: center;
-  flex: none;
-  height: 34px;
-  padding: 0 5px;
-  border-bottom: 1px solid var(--pn-line);
-}
-
 /* 24px tall and 5px in from the section's border on every side, like the
    Expand button at the other end, so its focus ring nests in the corner. */
-.pn__pane-title {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  height: 24px;
-  padding: 0 8px;
-  border-radius: 4px;
-  color: var(--pn-amber);
-}
 
 .pn__dot {
   width: 7px;
@@ -355,61 +321,9 @@ body {
   flex: none;
 }
 
-.pn__pane-title .pn__dot {
-  border-color: var(--pn-amber);
-  background: var(--pn-amber);
-}
-
-.pn__pane-index {
-  color: var(--pn-dim);
-  font-weight: 400;
-}
-
-.pn__chevron {
-  width: 10px;
-  height: 10px;
-  color: var(--pn-dim);
-  flex: none;
-}
-
-.pn__chevron--open {
-  transform: rotate(90deg);
-  color: var(--pn-amber);
-}
-
-.pn__back {
-  height: 34px;
-  padding: 0 10px 0 8px;
-  color: var(--pn-muted);
-  border-right: 1px solid var(--pn-line);
-  margin-right: 4px;
-}
-
 /* Expand: the open section alone, filling the workspace. A bordered button
    with an icon and a word, always visible; the icon and the word both change
    when it is on. */
-.pn__expand {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  height: 24px;
-  padding: 0 9px 0 8px;
-  border: 1px solid var(--pn-line-strong);
-  border-radius: 4px;
-  color: var(--pn-muted);
-}
-
-.pn__expand:hover {
-  border-color: var(--pn-muted);
-  color: var(--pn-ink);
-}
-
-.pn__expand-icon {
-  width: 11px;
-  height: 11px;
-  flex: none;
-}
 
 .pn__pane-body {
   flex: 1;
@@ -425,8 +339,7 @@ body {
 }
 
 /* more below the cut: the last lines fade instead of stopping mid-thought */
-.pn__pane-body[data-more],
-.pn__stack[data-more] {
+.pn__pane-body[data-more] {
   -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent);
   mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent);
 }
@@ -493,85 +406,11 @@ body {
 
 /* ---- the stack of folded panes ---- */
 
-.pn__stack {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-height: 0;
-  overflow-y: auto;
-  scrollbar-color: var(--pn-line-strong) transparent;
-}
-
 /* Three ranks: the hook, the quieter line under it, and the title and invite
    in the chrome voice on the top row. A card is as tall as its words, every
    card is always whole, and the column's spare room sits at its end. */
-.pn__fold {
-  display: flex;
-  flex-direction: column;
-  flex: none;
-  padding: var(--pn-fold-pad);
-  background: var(--pn-surface);
-  border: 1px solid var(--pn-line);
-  border-radius: var(--pn-radius);
-  color: var(--pn-ink);
-}
-
-.pn__fold:hover {
-  border-color: var(--pn-line-strong);
-}
 
 /* the open section's card: the open section's border, and a filled dot */
-.pn__fold[aria-current="true"] {
-  border-color: var(--pn-amber);
-}
-
-.pn__fold-head {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: var(--pn-fold-gap);
-  color: var(--pn-dim);
-}
-
-.pn__fold-title {
-  color: var(--pn-muted);
-}
-
-.pn__fold[aria-current="true"] .pn__dot {
-  border-color: var(--pn-amber);
-  background: var(--pn-amber);
-}
-
-.pn__fold[aria-current="true"] .pn__fold-title {
-  color: var(--pn-amber);
-}
-
-.pn__fold-hook {
-  font: var(--pn-fold-hook);
-  letter-spacing: var(--pn-fold-hook-track);
-  color: var(--pn-ink);
-  text-wrap: balance;
-}
-
-.pn__fold-invite {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--pn-dim);
-  white-space: nowrap;
-}
-
-.pn__fold:hover .pn__fold-invite,
-.pn__fold:focus-visible .pn__fold-invite {
-  color: var(--pn-amber);
-}
-
-.pn__fold-invite .pn__chevron {
-  width: 9px;
-  height: 9px;
-  color: inherit;
-}
 
 /* ---- the open pane's detail level ---- */
 
@@ -1019,65 +858,6 @@ body {
 
 /* ---- status bar: one segment per section, spread between the pathway's props ---- */
 
-.pn__statusbar {
-  height: var(--pn-bar-h);
-  display: flex;
-  align-items: stretch;
-  background: var(--pn-bar);
-  border-top: 1px solid var(--pn-line);
-}
-
-.pn__segments {
-  display: flex;
-  align-items: stretch;
-  width: 100%;
-}
-
-.pn__segment {
-  position: relative;
-  flex: 1 1 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0 6px;
-  min-width: 0;
-  color: var(--pn-muted);
-  white-space: nowrap;
-}
-
-.pn__segment:hover {
-  color: var(--pn-ink);
-}
-
-.pn__segment-n {
-  color: var(--pn-dim);
-  font-weight: 400;
-}
-
-.pn__segment[aria-current="true"] {
-  color: var(--pn-amber);
-}
-
-.pn__segment[aria-current="true"] .pn__segment-n {
-  color: var(--pn-muted);
-}
-
-.pn__segment[aria-current="true"]::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 44px;
-  margin-left: -22px;
-  height: 2px;
-  background: var(--pn-amber);
-}
-
-.pn__segment:focus-visible {
-  outline-offset: -3px;
-}
-
 /* ---- the pathway: the sprites' own strip of chrome above the status bar. Its
    bottom edge (the bar's top rule) is their floor; the workspace ends at its
    top rule, so they never stand on anything but the pathway. ---- */
@@ -1370,21 +1150,6 @@ body {
     padding: 18px 16px 24px;
   }
 
-  .pn__segment {
-    padding: 0 3px;
-    font-size: var(--pn-label-phone);
-    gap: 4px;
-  }
-
-  .pn__segment-n {
-    display: none;
-  }
-
-  .pn__segment[aria-current="true"]::after {
-    width: 28px;
-    margin-left: -14px;
-  }
-
   .pn__palette-backdrop {
     padding-top: 8vh;
   }
@@ -1394,21 +1159,11 @@ body {
      heights; an invisible box around each one takes the taps. The steps' boxes
      reach 11px up into the pathway, under the sprites there, which keep their
      own taps (they are stacked above). */
-  .pn__palette-button,
-  .pn__back,
-  .pn__pane-title {
+  .pn__palette-button {
     position: relative;
   }
 
-  .pn__back::before,
-  .pn__pane-title::before {
-    z-index: 1; /* these two reach over the body's top padding, and the body is stacked after the head */
-  }
-
-  .pn__palette-button::before,
-  .pn__back::before,
-  .pn__pane-title::before,
-  .pn__segment::before {
+  .pn__palette-button::before {
     content: "";
     position: absolute;
   }
@@ -1419,17 +1174,6 @@ body {
 
   /* the section clips what reaches over its top edge, so these two grow
      downwards, into the body's empty top padding */
-  .pn__back::before {
-    inset: 0 0 -6px; /* 34 to 40 tall */
-  }
-
-  .pn__pane-title::before {
-    inset: -5px 0 -11px; /* 24 to 40 tall */
-  }
-
-  .pn__segment::before {
-    inset: -11px 0 0; /* 29 to 40 tall */
-  }
 
   .pn__card--tinted {
     margin: 0 -8px;
@@ -1439,10 +1183,6 @@ body {
 }
 
 @media (max-width: 359px) {
-  .pn__segment {
-    padding: 0 2px;
-    font-size: calc(var(--pn-label-phone) - 0.5px);
-  }
 
   .pn__clock-seconds,
   .pn__title-name .pn__label {

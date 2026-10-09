@@ -174,12 +174,11 @@ function useAmbient(sheet, actionNames, offset, { min = 6000, max = 10000 } = {}
   return action;
 }
 
-// In reading order, which is also the tab order, the segment order, the
-// order of the folded panes and the order of the pathway's stretches. Each
-// pane's words (title, hook, more, invite) come from `sections`; `short` is
-// the one-word form for the status bar's segment.
+// In reading order, which is also the tab order, the order of the steps and
+// the order of the pathway's stretches. Each pane's words (title, hook, more)
+// come from `sections`; `short` is the one-word form in the URL hash.
 // `keywords` are the plain words a visitor might type into the palette for
-// the pane (its step-bar word first).
+// the pane (its `short` first).
 const PANES = [
   { id: "hello", short: "hello", keywords: ["hello", "hi", "intro", "about", "me", "start", "lui", "justin", "work", "scorecard", "one piece", "geography", "shoes", "shoe rack"], ...sections.intro },
   { id: "agents", short: "agents", keywords: ["agents", "agent", "luibot", "luibuilder", "robots", "bots", "openclaw", "side quests", "robotics", "3d printer", "projects", "built", "tools", "code", "puzzle", "puzzlewithme", "mdnote", "slk", "slack", "things", "things i've built", "things i’ve built"], ...sections.agents },
@@ -198,10 +197,6 @@ const STEP_LABEL = {
   now: "Now and later",
 };
 const stepLabel = (p) => STEP_LABEL[p.id] ?? p.title;
-// The pane's name in the chrome (its strip, its fold, the step bar). The
-// hello pane's title is its own h1, so its name is the step-bar word,
-// capitalised like the other panes' titles ("Hello", "My people").
-const paneName = (p) => (p.id === "hello" ? p.short[0].toUpperCase() + p.short.slice(1) : p.title);
 // The open step lives in the URL hash (#agents), so a reload or a shared
 // link opens it with Justin already standing there. #place was the "My place"
 // step until 2026-09-26; what it held is under now. #projects was its own step
@@ -226,29 +221,6 @@ const scrollKeys = {
 
 const Label = ({ children, className = "" }) => <span className={`pn__label ${className}`}>{children}</span>;
 
-// The Expand button's icon: two arrows pointing out to the corners, or in
-// towards the middle once the section is expanded.
-const ExpandIcon = ({ expanded }) => (
-  <svg
-    className="pn__expand-icon"
-    viewBox="0 0 12 12"
-    aria-hidden="true"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.3"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path
-      d={
-        expanded
-          ? "M10.5 5H7V1.5M7 5l3.5-3.5M1.5 7H5v3.5M5 7l-3.5 3.5"
-          : "M7 1.5h3.5V5M10.5 1.5 7 5M5 10.5H1.5V7M1.5 10.5 5 7"
-      }
-    />
-  </svg>
-);
-
 // An arrow drawn, not typed: the arrow characters are in neither type family,
 // so a typed one would bring in a third, system font. `to` is left, right or
 // out (up and to the right: the link leaves the site). `label` is the word a
@@ -265,21 +237,6 @@ const Arrow = ({ to, label }) => (
     strokeLinejoin="round"
   >
     <path d="M2 6h8M7 3l3 3-3 3" />
-  </svg>
-);
-
-const Chevron = ({ open }) => (
-  <svg
-    className={`pn__chevron${open ? " pn__chevron--open" : ""}`}
-    viewBox="0 0 10 10"
-    aria-hidden="true"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.4"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M3.5 2 7 5 3.5 8" />
   </svg>
 );
 
@@ -412,46 +369,6 @@ function Pixels({ sheet, action, frame }) {
         ),
       )}
     </svg>
-  );
-}
-
-// A section's card in the right column: the plain title, one line (the
-// section's `trailer`: what is inside, in other words than the open section
-// uses, since both show on one screen), and the invite with the chevron at the
-// top right as the one way in. The quieter `more` line belongs to the open
-// section only. All
-// the cards always show all of it, so nothing in the column moves when the
-// visitor picks a section; the open section's card wears the open section's
-// amber border and a filled dot, and has no invite (there is nowhere to go).
-// A section without a trailer has its hook stand in on its card.
-const cardLine = (pane) => pane.trailer ?? pane.hook;
-
-function Fold({ pane, index, focused, onOpen, buttonRef }) {
-  return (
-    <button
-      ref={buttonRef}
-      type="button"
-      className="pn__fold"
-      data-fold={pane.id}
-      aria-current={focused ? "true" : undefined}
-      aria-label={`${paneName(pane)}. ${cardLine(pane)}${focused ? "" : ` ${pane.invite}`}`}
-      onClick={() => onOpen(pane.id)}
-    >
-      <span className="pn__fold-head">
-        <span className="pn__dot" aria-hidden="true" />
-        <span className="pn__pane-index" aria-hidden="true">
-          {index + 1}
-        </span>
-        <span className="pn__fold-title">{paneName(pane)}</span>
-        {!focused && (
-          <span className="pn__fold-invite">
-            {pane.invite}
-            <Chevron open={false} />
-          </span>
-        )}
-      </span>
-      <span className="pn__fold-hook">{cardLine(pane)}</span>
-    </button>
   );
 }
 
@@ -594,21 +511,11 @@ export default function Panes() {
 
   // Justin's pick: the steps on top as tabs, and pane 2's agents side by side.
   const TOP = "a";
-  const onTop = true;
 
   const [focused, setFocused] = useState(() => paneFromHash() ?? PANES[0].id);
-  const [open, setOpen] = useState(() => onTop || !!paneFromHash()); // phone: the focused pane is open (else the list; with the steps on top there is no list)
-  useEffect(() => {
-    if (onTop) setOpen(true); // flipped from the old layout's list on a phone: the pane is open, as on a load
-  }, [onTop]);
-  const [expanded, setExpanded] = useState(false); // desktop: the open pane alone
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [robotBeat, setRobotBeat] = useState(null); // 'luibot' | 'luibuilder' | null
-  const showStack = onTop ? false : phone ? !open : !expanded;
-  const showMaster = onTop || (phone ? open : true);
 
-  const titleRef = useRef(null);
-  const foldRefs = useRef({});
   const segmentRefs = useRef({});
   const bodyRef = useRef(null);
 
@@ -1003,7 +910,7 @@ export default function Panes() {
       body.removeEventListener("focusin", focusedIn);
       resized.disconnect();
     };
-  }, [focused, showMaster, expanded, wholeInBody]);
+  }, [focused, wholeInBody]);
   const luibuilderUp = useRobotHandoff({
     name: "luibuilder",
     target: focused !== "agents" ? "pathway" : builderAt === null ? "pane" : "projects",
@@ -1115,20 +1022,20 @@ export default function Panes() {
     };
   }, [focused, phone, stage]);
 
-  // The pane expands or folds back in one render, and its words move: he
-  // moves with his anchor in that same frame, not a tick later.
+  // Off a phone he moves with his anchor in the frame the layout settles, not
+  // a tick later.
   useLayoutEffect(() => {
     if (phone) return;
     stage.followAnchor();
     setScene(stage.snapshot());
-  }, [expanded, phone, stage]);
+  }, [phone, stage]);
 
   // A phone with the steps on top: the row of steps scrolls sideways, and the
   // open one comes into view, centred (as does a step the keyboard focuses:
   // `Steps` calls `centreInRow` too).
   useEffect(() => {
-    if (onTop && phone) centreInRow(segmentRefs.current[focused]);
-  }, [focused, phone, onTop]);
+    if (phone) centreInRow(segmentRefs.current[focused]);
+  }, [focused, phone]);
 
   // The open step in the URL, so a reload or a shared link lands on it.
   const hashWritten = useRef(!!paneFromHash());
@@ -1245,13 +1152,13 @@ export default function Panes() {
   }, [stage, focused, boxesWhere, scene.justin.moving, scene.justin.cx, helloStation]);
 
   const flag = scene.justin.flag;
-  // ---- panes: focus, open, expanded, keyboard ----
-  const pendingTitleFocus = useRef(false);
+  // ---- panes: focus and keyboard ----
+  const pendingStepFocus = useRef(false);
   useEffect(() => {
-    if (!pendingTitleFocus.current) return;
-    pendingTitleFocus.current = false;
-    (onTop ? segmentRefs.current[focused] : showMaster ? titleRef.current : foldRefs.current[focused])?.focus({ preventScroll: true });
-  }, [focused, showMaster, open, expanded, onTop]);
+    if (!pendingStepFocus.current) return;
+    pendingStepFocus.current = false;
+    segmentRefs.current[focused]?.focus({ preventScroll: true });
+  }, [focused]);
 
   // A pane that scrolls says so with a soft fade at its cut, gone at the end.
   const [moreBelow, setMoreBelow] = useState(false);
@@ -1263,7 +1170,7 @@ export default function Panes() {
     bodyRef.current?.scrollTo({ top: 0 });
     measureMore();
     document.fonts.ready.then(measureMore); // the fallback faces are taller
-  }, [focused, measureMore, width, showStack]);
+  }, [focused, measureMore, width]);
 
   // The pane's vertical rhythm grows with the pane (--pn-rise in panes.css),
   // but never so far that a pane which fits starts to scroll: --pn-fit, from
@@ -1295,38 +1202,20 @@ export default function Panes() {
     });
     resized.observe(body);
     return () => resized.disconnect();
-  }, [focused, showMaster, showStack, measureMore]);
+  }, [focused, measureMore]);
 
-  // The column of cards says the same when a short window cuts it.
-  const stackRef = useRef(null);
-  const [stackMore, setStackMore] = useState(false);
-  const measureStack = useCallback(() => {
-    const el = stackRef.current;
-    setStackMore(!!el && el.scrollHeight - el.clientHeight - el.scrollTop > 8);
-  }, []);
-  useEffect(() => {
-    if (!stackRef.current) return undefined;
-    const observer = new ResizeObserver(measureStack);
-    observer.observe(stackRef.current);
-    document.fonts.ready.then(measureStack);
-    return () => observer.disconnect();
-  }, [measureStack, showStack]);
-
-  const focusPane = useCallback((id, { focusTitle = false, openIt = true } = {}) => {
+  const focusPane = useCallback((id, { focusStep = false } = {}) => {
     setFocused(id);
-    if (openIt) setOpen(true);
-    if (focusTitle) pendingTitleFocus.current = true;
+    if (focusStep) pendingStepFocus.current = true;
   }, []);
 
   const step = useCallback(
     (delta) => {
       const next = order[order.indexOf(focused) + delta];
-      if (next) focusPane(next, { focusTitle: true, openIt: open });
+      if (next) focusPane(next, { focusStep: true });
     },
-    [focused, focusPane, open],
+    [focused, focusPane],
   );
-
-  const toggleExpanded = useCallback(() => setExpanded((m) => !m), []);
 
   useEffect(() => {
     const onKey = (event) => {
@@ -1340,51 +1229,38 @@ export default function Panes() {
       if (tag === "INPUT" || tag === "TEXTAREA" || event.target.isContentEditable) return;
 
       // Left and right move between sections from anywhere (the pathway and the
-      // step bar run that way) and the number keys jump: the keys the title bar teaches.
+      // steps run that way) and the number keys jump: the keys the title bar teaches.
       // Up and down are for reading: they scroll the open section wherever
-      // focus is. With focus in the list of sections (up and down) or in the
-      // step bar (left and right) the arrows move through that list and focus
-      // stays in it. h j k l stay for whoever reaches for them, and so does z
-      // where there is an Expand for it to press (?top=old).
+      // focus is. With focus on a step, left and right move along the steps
+      // and focus stays on them. h j k l stay for whoever reaches for them.
       const sideways = { ArrowLeft: -1, ArrowRight: 1 };
-      const vertical = { ArrowUp: -1, ArrowDown: 1 };
-      const card = event.target.closest?.("[data-fold]");
       const segment = event.target.closest?.("[data-segment]");
       const body = bodyRef.current;
-      const walk = (from, delta, refs) => {
+      const walk = (from, delta) => {
         const next = order[order.indexOf(from) + delta];
         if (!next) return;
-        focusPane(next, { openIt: open });
-        refs.current[next]?.focus();
+        focusPane(next);
+        segmentRefs.current[next]?.focus();
       };
       const vim = { h: -1, l: 1, k: -1, j: 1 };
       const number = /^[1-9]$/.test(event.key) && order[Number(event.key) - 1];
       if (number) {
         event.preventDefault();
-        focusPane(number, { focusTitle: true, openIt: open });
+        focusPane(number, { focusStep: true });
       } else if (vim[event.key]) {
         event.preventDefault();
         step(vim[event.key]);
       } else if (sideways[event.key] && segment) {
         event.preventDefault();
-        walk(segment.dataset.segment, sideways[event.key], segmentRefs);
+        walk(segment.dataset.segment, sideways[event.key]);
       } else if (sideways[event.key]) {
         event.preventDefault();
         step(sideways[event.key]);
-      } else if (vertical[event.key] && card) {
-        event.preventDefault();
-        walk(card.dataset.fold, vertical[event.key], foldRefs);
       } else if (scrollKeys[event.key] && body && !body.contains(event.target)) {
         // focus is outside the scroller (the page itself, a tab, a step), so
         // the browser would scroll nothing
         event.preventDefault();
         body.scrollTo({ top: scrollKeys[event.key](body) });
-      } else if (event.key === "z" && !phone && !onTop) {
-        event.preventDefault();
-        toggleExpanded();
-      } else if (event.key === "Escape") {
-        if (phone && open && !onTop) setOpen(false);
-        else if (expanded) setExpanded(false);
       } else if (event.key === "/") {
         event.preventDefault();
         setPaletteOpen(true);
@@ -1392,7 +1268,7 @@ export default function Panes() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [step, paletteOpen, toggleExpanded, expanded, phone, open, focusPane, onTop]);
+  }, [step, paletteOpen, focusPane]);
 
   const touch = useRef(null);
   const onTouchStart = (event) => {
@@ -1400,7 +1276,7 @@ export default function Panes() {
     touch.current = { x: t.clientX, y: t.clientY };
   };
   const onTouchEnd = (event) => {
-    if (!touch.current || !phone || !open) return;
+    if (!touch.current || !phone) return;
     const t = event.changedTouches[0];
     const dx = t.clientX - touch.current.x;
     const dy = t.clientY - touch.current.y;
@@ -1410,7 +1286,7 @@ export default function Panes() {
 
   const wave = useCallback(
     (name) => {
-      focusPane("agents", { focusTitle: true });
+      focusPane("agents", { focusStep: true });
       setRobotBeat(name);
       setTimeout(() => setRobotBeat(null), 2400);
     },
@@ -1421,22 +1297,11 @@ export default function Panes() {
     () => [
       ...PANES.map((p) => ({
         id: `go-${p.id}`,
-        label: `Go to ${onTop ? stepLabel(p) : paneName(p)}`,
+        label: `Go to ${stepLabel(p)}`,
         keywords: [...p.keywords, p.title],
         kind: "section",
-        run: () => focusPane(p.id, { focusTitle: true }),
+        run: () => focusPane(p.id, { focusStep: true }),
       })),
-      ...(phone || onTop
-        ? []
-        : [
-            {
-              id: "expand",
-              label: expanded ? "Show all sections" : "Expand this section",
-              keywords: ["expand", "full", "only", "all"],
-              kind: "view",
-              run: () => toggleExpanded(),
-            },
-          ]),
       ...projects.map((project) => ({
         id: `open-${project.title}`,
         label: `Open ${project.title} on GitHub`,
@@ -1466,15 +1331,14 @@ export default function Panes() {
       { id: "wave-luibuilder", label: "Wave to luibuilder", kind: "play", run: () => wave("luibuilder") },
       { id: "1070", label: "Episode 1070", kind: "play", run: () => stage.cheer() },
     ],
-    [expanded, phone, focusPane, toggleExpanded, stage, wave, coffeeRound, playCycle, onTop],
+    [focusPane, stage, wave, coffeeRound, playCycle],
   );
 
   const pane = PANES.find((p) => p.id === focused);
-  // On a phone he shows only up at a pane spot on an errand, with the pane
-  // open: the pathway is one step wide (drawn off his own step he sat over
+  // On a phone he shows only up at a pane spot on an errand: the pathway is one step wide (drawn off his own step he sat over
   // the cow and the coffee stand), and at his own step he is up in pane 2
   // (drawn there for the moment before his beam-in, he vanished from nowhere).
-  const botHidden = scene.bot.hidden || luibotUp.shown !== "pathway" || (phone && !(open && scene.bot.y !== 0));
+  const botHidden = scene.bot.hidden || luibotUp.shown !== "pathway" || (phone && scene.bot.y === 0);
   // luibuilder is never drawn on a phone's pathway, for the same reason
   const builderOnPathway = luibuilderUp.shown === "pathway" && !phone;
   const truffleState = scene.truffle.pushing ? "bringing the ball back" : truffleWords[scene.truffle.pose];
@@ -1541,8 +1405,8 @@ export default function Panes() {
     );
   };
 
-  // The open pane's detail level. It leads with the same hook its fold shows,
-  // set large, then the quieter line, then everything else smaller.
+  // The open pane's detail level. It leads with its hook, set large, then the
+  // quieter line, then everything else smaller.
   const detail = {
     hello: (
       <div className="pn__flow">
@@ -1676,7 +1540,7 @@ export default function Panes() {
   const botHeight = characters.luibot.actions[scene.bot.pose].frames[0].length;
 
   return (
-    <div className="panes" data-top={onTop ? TOP : undefined} style={onTop ? { "--pn-steps": PANES.length } : undefined}>
+    <div className="panes" data-top={TOP} style={{ "--pn-steps": PANES.length }}>
       <header className="pn__titlebar">
         <div className="pn__title-name">
           Justin Lui
@@ -1714,87 +1578,21 @@ export default function Panes() {
         </div>
       </header>
 
-      {onTop && (
-        <Steps focused={focused} refs={segmentRefs} onSelect={(id) => focusPane(id)} />
-      )}
+      <Steps focused={focused} refs={segmentRefs} onSelect={(id) => focusPane(id)} />
 
-      <main
-        className={`pn__work${showStack || onTop ? "" : " pn__work--solo"}${showMaster ? "" : " pn__work--list"}`}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
-        {showMaster && (
-          <article
-            className="pn__pane pn__pane--open"
-            data-pane={pane.id}
-            {...(onTop ? { "aria-label": stepLabel(pane) } : { "aria-labelledby": `pn-title-${pane.id}` })}
-            key={pane.id}
-          >
-            {!onTop && (
-              <div className="pn__pane-head">
-                {phone && (
-                  <button type="button" className="pn__back" onClick={() => setOpen(false)}>
-                    ‹ all
-                  </button>
-                )}
-                <button
-                  ref={titleRef}
-                  id={`pn-title-${pane.id}`}
-                  type="button"
-                  className="pn__pane-title"
-                  aria-expanded="true"
-                  onClick={() => (phone ? setOpen(false) : toggleExpanded())}
-                >
-                  <span className="pn__dot" aria-hidden="true" />
-                  <span className="pn__pane-index" aria-hidden="true">
-                    {focusedIndex + 1}
-                  </span>
-                  {paneName(pane)}
-                  <Chevron open />
-                </button>
-                {!phone && (
-                  <button
-                    type="button"
-                    className="pn__expand"
-                    aria-label={expanded ? "Show all sections" : "Expand this section"}
-                    title={expanded ? "Show all sections (Esc)" : "Expand this section"}
-                    onClick={toggleExpanded}
-                  >
-                    <ExpandIcon expanded={expanded} />
-                    {expanded ? "Show all sections" : "Expand"}
-                  </button>
-                )}
-              </div>
+      <main className="pn__work" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        <article className="pn__pane pn__pane--open" data-pane={pane.id} aria-label={stepLabel(pane)} key={pane.id}>
+          <div className="pn__pane-body" ref={bodyRef} data-more={moreBelow || undefined} onScroll={measureMore}>
+            {/* hello's lead is under its h1; pane 2 opens on the robots' names, with no hook */}
+            {pane.id !== "hello" && pane.id !== "agents" && (
+              <>
+                <p className="pn__lead">{pane.hook}</p>
+                {pane.more && <p className="pn__more">{pane.more}</p>}
+              </>
             )}
-            <div className="pn__pane-body" ref={bodyRef} data-more={moreBelow || undefined} onScroll={measureMore}>
-              {/* hello's lead is under its h1; pane 2 opens on the robots' names, with no hook */}
-              {pane.id !== "hello" && pane.id !== "agents" && (
-                <>
-                  <p className="pn__lead">{pane.hook}</p>
-                  {pane.more && <p className="pn__more">{pane.more}</p>}
-                </>
-              )}
-              {detail[pane.id]}
-            </div>
-          </article>
-        )}
-
-        {showStack && (
-          <nav className="pn__stack" aria-label="All sections" ref={stackRef} data-more={stackMore || undefined} onScroll={measureStack}>
-            {PANES.map((p, i) => (
-              <Fold
-                key={p.id}
-                pane={p}
-                index={i}
-                focused={p.id === focused && showMaster}
-                onOpen={(id) => focusPane(id, { focusTitle: phone })}
-                buttonRef={(el) => {
-                  foldRefs.current[p.id] = el;
-                }}
-              />
-            ))}
-          </nav>
-        )}
+            {detail[pane.id]}
+          </div>
+        </article>
       </main>
 
       {/* The pathway: one stretch per pane, each with its residents at home all
@@ -1921,31 +1719,6 @@ export default function Panes() {
       </span>
       <RobotBeam name="luibot" overlay={luibotUp.overlay} />
       <RobotBeam name="luibuilder" overlay={luibuilderUp.overlay} />
-
-      {!onTop && (
-        <footer className="pn__statusbar">
-          <nav className="pn__segments" aria-label="Sections">
-            {PANES.map((p, i) => (
-              <button
-                key={p.id}
-                ref={(el) => {
-                  segmentRefs.current[p.id] = el;
-                }}
-                type="button"
-                className="pn__segment"
-                data-segment={p.id}
-                aria-current={focused === p.id ? "true" : undefined}
-                onClick={() => focusPane(p.id)}
-              >
-                <span className="pn__segment-n" aria-hidden="true">
-                  {i + 1}
-                </span>
-                {p.short}
-              </button>
-            ))}
-          </nav>
-        </footer>
-      )}
 
       {paletteOpen && (
         <Palette
