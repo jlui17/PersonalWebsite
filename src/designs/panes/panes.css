@@ -58,15 +58,15 @@
   /* The heading ranks, each a visible step under the last by size, weight
      and colour together. Pane 4 set the grammar: a large name, a bold
      sentence under it, then the quiet detail. */
-  --pn-h1: 500 34px/1.1 var(--pn-font-head); /* a pane's title, a star's name (a robot, a person), a part's heading ("Things I've built", "In the future, I want to…") */
+  --pn-h1: 500 34px/1.1 var(--pn-font-head); /* a pane's title, a star's name (a robot, a person), "Things I've built" */
   --pn-h1-track: -0.04em;
   --pn-lead: 400 19px/1.4 var(--pn-font-head); /* the open section's hook */
   --pn-lead-track: -0.02em;
   --pn-lead-measure: 46ch;
   --pn-lead-measure-wide: 730px; /* 64ch of the 19px hook. In a pane at the window's whole width a hook takes one or two long lines, not three short ones; hello's text column is this wide */
-  --pn-h2: 500 24px/1.25 var(--pn-font-head); /* a block's heading with no name over it: hello's and pane 3's "###"s, the future plans, a project's name */
+  --pn-h2: 500 24px/1.25 var(--pn-font-head); /* a block's heading with no name over it: hello's and pane 3's "###"s, "In the future, I want to…", a project's name */
   --pn-h2-track: -0.03em;
-  --pn-h3: 700 17px/1.4 var(--pn-font-head); /* the bold sentence under a name (a person, a robot, a project), card headings */
+  --pn-h3: 700 17px/1.4 var(--pn-font-head); /* the bold sentence under a name or heading (a person, a robot, a project, a future plan), card headings */
   --pn-h3-track: -0.015em;
   --pn-h3-measure: 48ch;
   /* the right column: its width, and its cards' padding, inner gap and type */
@@ -631,8 +631,9 @@ body {
   text-wrap: balance;
 }
 
-/* A part's heading after a pane's first ("Things I've built", "In the
-   future, I want to…"): the rank of the names, over the headings in it. */
+/* A part's heading after a pane's first: one rank over the headings in it.
+   "Things I've built" takes the names' rank, over the projects' names and
+   beside the robots it follows; pane 3's is under .pn__later. */
 .pn__part-title {
   font: var(--pn-h1);
   letter-spacing: var(--pn-h1-track);
@@ -1054,8 +1055,8 @@ body {
   display: none;
 }
 
-.pn__story > div > * {
-  max-width: 62ch;
+.pn__story p {
+  max-width: 62ch; /* the paragraphs' measure; a heading over one takes its column */
 }
 
 /* the heading with its note beside it, as a tag sits beside an agent's name:
@@ -1262,15 +1263,22 @@ body {
   border-top: 0;
 }
 
-/* pane 3's second part, the future plans: its heading ("In the future, I
-   want to…") in the names' rank (--pn-h1), over the plans' headings
-   (--pn-h2), which finish it, as "Things I've built" is over the projects in
-   pane 2. Then three chapters, the farm
+/* pane 3's second part, the future plans, in pane 4's grammar: its heading
+   ("In the future, I want to…") in the rank of the now part's headings beside
+   it (--pn-h2), and each plan, which finishes it, as the bold sentence under
+   it (--pn-h3), then the quiet detail. In the names' rank it was the largest
+   thing in the pane, at the top of the later column, and read before the now
+   part. Then three chapters, the farm
    last, the sheep grazing beside its heading. Each plan opens with its title
    row, whose rule is the scene's ground; that rule marks the plan, so nothing
    else separates two plans but this step. The step is also luibot's room:
    pouring over the farm he reaches 5px above its title row, clear of the
    paragraph before it. */
+.pn__later .pn__part-title {
+  font: var(--pn-h2);
+  letter-spacing: var(--pn-h2-track);
+}
+
 .pn__later .pn__part-head {
   margin-bottom: var(--pn-gap-hook);
 }
@@ -1285,8 +1293,8 @@ body {
 }
 
 .pn__chapter h3 {
-  font: var(--pn-h2);
-  letter-spacing: var(--pn-h2-track);
+  font: var(--pn-h3);
+  letter-spacing: var(--pn-h3-track);
   color: var(--pn-ink);
   margin-bottom: 8px;
   max-width: var(--pn-h3-measure);

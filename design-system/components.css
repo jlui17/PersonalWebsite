@@ -482,8 +482,9 @@ body {
   text-wrap: balance;
 }
 
-/* A part's heading after a pane's first ("Things I've built", "In the
-   future, I want to…"): the rank of the names, over the headings in it. */
+/* A part's heading after a pane's first: one rank over the headings in it.
+   "Things I've built" takes the names' rank, over the projects' names and
+   beside the robots it follows; pane 3's is under .pn__later. */
 .pn__part-title {
   font: var(--pn-h1);
   letter-spacing: var(--pn-h1-track);
@@ -811,8 +812,8 @@ body {
   display: none;
 }
 
-.pn__story > div > * {
-  max-width: 62ch;
+.pn__story p {
+  max-width: 62ch; /* the paragraphs' measure; a heading over one takes its column */
 }
 
 /* the heading with its note beside it, as a tag sits beside an agent's name:

@@ -77,7 +77,8 @@ export const stepAt = (pathway, x) => pathway.find((s) => x >= s.left && x < s.r
 //   left, right   room from the body's edges to the nearest thing drawn
 //   band          the tallest blank band across the whole width, between the first and last thing
 //   gap           the tallest blank under one thing before the next thing under it in its column
-//   hole          the largest blank rectangle between the content's left, right, top and bottom
+//   hole          the largest blank rectangle at least 160px wide (wider than a column gap) between
+//                 the content's left, right, top and bottom
 //   end           room under the last thing (negative: the pane scrolls by that much)
 export const MEASURE = `(() => {
   const body = document.querySelector(".pn__pane-body");
@@ -134,7 +135,7 @@ export const MEASURE = `(() => {
       const hh = j < cols ? heights[j] : 0;
       while (stack.length && heights[stack.at(-1)] >= hh) {
         const k = stack.pop(), start = stack.length ? stack.at(-1) + 1 : 0, w = j - start;
-        if (w * heights[k] * cell * cell > hole.w * hole.h) hole = { w: w * cell, h: heights[k] * cell, x: Math.round(left + start * cell), y: Math.round(top + (i - heights[k] + 1) * cell) };
+        if (w * cell >= 160 && w * heights[k] * cell * cell > hole.w * hole.h) hole = { w: w * cell, h: heights[k] * cell, x: Math.round(left + start * cell), y: Math.round(top + (i - heights[k] + 1) * cell) };
       }
       stack.push(j);
     }
