@@ -1765,7 +1765,7 @@ export default function Panes() {
           </span>
         </button>
         <div className="pn__title-right">
-          <TrialPicker trial={trial} onPick={pickTrial} />
+          <TrialPicker trial={trial} onPick={pickTrial} where="bar" />
           <span className="pn__hint">
             <b aria-label="Left and right arrow keys">
               <Arrow to="left" />
@@ -2018,6 +2018,8 @@ export default function Panes() {
           </nav>
         </footer>
       )}
+
+      <TrialPicker trial={trial} onPick={pickTrial} where="foot" />
 
       {paletteOpen && (
         <Palette

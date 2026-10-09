@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 // TEMPORARY, until Justin picks: the trial versions of the page, flipped on
-// the page by the Trial control in the title bar (in the bottom right corner
-// of a narrow window) and kept in the URL
+// the page by the Trial control (in the title bar, or at the window's foot
+// on a narrow window) and kept in the URL
 // (?top=, ?agents=), so a shared link opens the same version. The first
 // option of each is the default.
 // top: where the steps are. a, b and c put them at the top of the window in
@@ -38,53 +38,28 @@ export function useTrial() {
   return [trial, pick];
 }
 
-// A dashed button that says what it is, and under it one row of choices per
-// trial; the one on show is amber with a filled dot. It stays open while
-// Justin flips, and closes on Escape, on a click outside it, or on itself.
-export function TrialPicker({ trial, onPick }) {
-  const [open, setOpen] = useState(false);
-  const root = useRef(null);
-  useEffect(() => {
-    if (!open) return undefined;
-    const away = (event) => !root.current?.contains(event.target) && setOpen(false);
-    document.addEventListener("pointerdown", away);
-    return () => document.removeEventListener("pointerdown", away);
-  }, [open]);
+// One row of choices per trial, always on show, so flipping never hides
+// what is being compared; the one on show is amber in a box. Rendered in two
+// places and shown in one (panes.css): `bar`, two small rows in the title
+// bar on a wide window, and `foot`, one row in a slim bar of its own at the
+// window's foot where the title bar has no room (it covers nothing, and it
+// comes last in the Tab order).
+export function TrialPicker({ trial, onPick, where }) {
   return (
-    <div
-      className="pn__trial"
-      ref={root}
-      onKeyDown={(event) => {
-        if (event.key !== "Escape" || !open) return;
-        event.stopPropagation(); // the window's own Escape is for the panes
-        setOpen(false);
-        root.current.querySelector(".pn__trial-button").focus();
-      }}
-    >
-      <button type="button" className="pn__trial-button" aria-expanded={open} aria-controls="pn-trial-panel" onClick={() => setOpen((o) => !o)}>
-        Trial
-        <svg className={`pn__chevron${open ? " pn__chevron--open" : ""}`} viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3.5 2 7 5 3.5 8" />
-        </svg>
-      </button>
-      {open && (
-        <div className="pn__trial-panel" id="pn-trial-panel">
-          {Object.entries(TRIALS).map(([key, { label, options }]) => (
-            <div key={key} className="pn__trial-row" role="group" aria-labelledby={`pn-trial-${key}`}>
-              <span className="pn__trial-label" id={`pn-trial-${key}`}>
-                {label}
-              </span>
-              {/* buttons, not radios: after a click the arrow keys still walk the steps, as from any button on the page */}
-              {Object.entries(options).map(([value, name]) => (
-                <button key={value} type="button" className="pn__trial-option" aria-pressed={trial[key] === value} onClick={() => onPick(key, value)}>
-                  <span className="pn__dot" aria-hidden="true" />
-                  {name}
-                </button>
-              ))}
-            </div>
+    <div className={`pn__trial pn__trial--${where}`} role="group" aria-label="Trial versions">
+      {Object.entries(TRIALS).map(([key, { label, options }]) => (
+        <div key={key} className="pn__trial-row" role="group" aria-labelledby={`pn-trial-${where}-${key}`}>
+          <span className="pn__trial-label" id={`pn-trial-${where}-${key}`}>
+            {label}
+          </span>
+          {/* buttons, not radios: after a click the arrow keys still walk the steps, as from any button on the page */}
+          {Object.entries(options).map(([value, name]) => (
+            <button key={value} type="button" className="pn__trial-option" aria-pressed={trial[key] === value} onClick={() => onPick(key, value)}>
+              {name}
+            </button>
           ))}
         </div>
-      )}
+      ))}
     </div>
   );
 }

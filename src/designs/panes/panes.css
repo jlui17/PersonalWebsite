@@ -72,6 +72,7 @@
   --pn-fold-hook: 500 14px/1.3 var(--pn-font-head);
   --pn-fold-hook-track: -0.01em;
   --pn-bar-h: 30px;
+  --pn-trial-h: 34px; /* TEMPORARY: the Trial control's own bar at a narrow window's foot (40px on a phone) */
   --pn-title-h: 40px;
   --pn-pathway-h: 68px; /* the tallest pose (62px) plus a little air */
   --pn-radius: 6px;
@@ -291,106 +292,116 @@ body {
 }
 
 /* ---- TEMPORARY: the Trial control (TrialPicker.jsx), until Justin picks ----
-   A dashed button, so it never reads as part of the design, and under it one
-   row of choices per trial. The one on show is amber with a filled dot (the
-   steps' own mark). Under 720px the title bar has no room for it beside the
-   clock (it fits from about 680px), so it waits in the bottom right corner,
-   over the pane (over the cards in the old layout, clear of its pathway and
-   step bar), and opens upwards. */
+   One row of choices per trial, always on show, and never over the steps,
+   the pathway, a sprite or the pane: on a window of 1030px and up, two small
+   rows in the title bar's right side (`bar`), the keyboard hints giving way
+   where both do not fit (under 1400px); under that, one row in a slim bar of
+   its own at the window's foot (`foot`), which scrolls sideways on a phone.
+   The one on show is amber in an amber box (a shape, not only a colour). A
+   dashed edge says it is no part of the design. */
 .pn__trial {
-  position: relative;
-  z-index: 10; /* over luibot's layer and the beams, under the search palette */
+  display: grid;
+  align-content: center;
+  gap: 2px;
 }
 
-.pn__trial-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 24px;
-  padding: 0 7px 0 8px;
+.pn__trial--bar {
+  padding: 0 3px;
   border: 1px dashed var(--pn-line-strong);
   border-radius: 4px;
-  font: var(--pn-label);
-  color: var(--pn-muted);
-}
-
-.pn__trial-button:hover {
-  border-color: var(--pn-muted);
-  color: var(--pn-ink-2);
-}
-
-.pn__trial-panel {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  display: grid;
-  gap: 8px;
-  padding: 10px 12px;
-  background: var(--pn-raised);
-  border: 1px solid var(--pn-line-strong);
-  border-radius: var(--pn-radius);
 }
 
 .pn__trial-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
 }
 
 .pn__trial-label {
-  width: 52px;
+  width: 46px;
   flex: none;
   font: var(--pn-label);
-  color: var(--pn-dim);
+  color: var(--pn-muted);
 }
 
 .pn__trial-option {
   display: flex;
   align-items: center;
-  gap: 6px;
-  height: 26px;
-  padding: 0 8px;
-  border-radius: 4px;
+  height: 17px;
+  padding: 0 5px;
+  border: 1px solid transparent;
+  border-radius: 3px;
   font: var(--pn-label);
   color: var(--pn-ink-2);
+  white-space: nowrap;
 }
 
 .pn__trial-option:hover {
+  border-color: var(--pn-line-strong);
   color: var(--pn-ink);
 }
 
 .pn__trial-option[aria-pressed="true"] {
+  border-color: var(--pn-amber);
   color: var(--pn-amber);
 }
 
-.pn__trial-option[aria-pressed="true"] .pn__dot {
-  border-color: var(--pn-amber);
-  background: var(--pn-amber);
+.pn__trial--foot {
+  display: none;
 }
 
-@media (max-width: 719px) {
-  .pn__trial {
-    position: fixed;
-    right: 8px;
-    bottom: 8px;
+@media (max-width: 1399px) {
+  .pn__hint {
+    display: none;
+  }
+}
+
+@media (max-width: 1029px) {
+  .pn__trial--bar {
+    display: none;
   }
 
-  .panes:not([data-top]) .pn__trial {
-    bottom: calc(var(--pn-pathway-h) + var(--pn-bar-h) + 8px);
+  .panes {
+    padding-bottom: var(--pn-trial-h);
   }
 
-  .pn__trial-button {
-    height: 32px;
-    background: var(--pn-raised);
+  .pn__trial--foot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--pn-trial-h);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--pn-bar);
+    border-top: 1px dashed var(--pn-line-strong);
   }
 
-  .pn__trial-panel {
-    top: auto;
-    bottom: calc(100% + 8px);
+  .pn__trial--foot .pn__trial-label {
+    width: auto;
+    margin-right: 6px;
   }
 
-  .pn__trial-option {
-    height: 32px;
+  .pn__trial--foot .pn__trial-option {
+    height: 24px;
+  }
+}
+
+@media (max-width: 639px) {
+  .panes {
+    padding-bottom: 40px;
+  }
+
+  .pn__trial--foot {
+    height: 40px;
+  }
+
+  .pn__trial--foot .pn__trial-option {
+    height: 32px; /* in the 40px bar, a place for a thumb */
   }
 }
 
