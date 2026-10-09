@@ -2291,29 +2291,26 @@ body {
     border-top: 0;
   }
 
-  /* hello: the title, the hook and the blocks in the first column, in the
-     order they are written; the photo's column runs from the top beside
-     them, with its caption and the quiet last line under it. */
-  .panes[data-top] .pn__flow:has(.pn__hello-body) {
-    grid-template-rows: auto 1fr; /* the photo's column is the taller: its extra height goes under the blocks, never between the hook and them */
-    align-items: start;
-  }
-
+  /* hello: the title and the hook over both columns, as every other pane's
+     hook; under them the blocks in the first column, in the order they are
+     written, and the photo beside them in the second, with its caption and
+     the quiet last line under it. */
   .panes[data-top] .pn__flow:has(.pn__hello-body) > :first-child {
-    grid-column: 1;
+    grid-column: 1 / -1;
   }
 
   .panes[data-top] .pn__hello-body {
     display: contents;
   }
 
-  .panes[data-top] .pn__hello-body > .pn__blocks {
-    grid-column: 1;
+  .panes[data-top] .pn__hello-body > * {
+    align-self: start;
   }
 
-  .panes[data-top] .pn__hello-body > .pn__hello-side {
-    grid-column: 2;
-    grid-row: 1 / span 2;
+  /* the photo no wider than its column at his window (about 1440x1000):
+     wider, in a 1920x1080 window, it pushed his links under the pane's foot */
+  .panes[data-top] .pn__hello-side {
+    max-width: 480px;
   }
 }
 
