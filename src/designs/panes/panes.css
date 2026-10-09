@@ -2287,20 +2287,27 @@ body {
 
 /* hello in the trials: the blocks one column, in the order they are written
    (two columns read a fun fact before the work), at 72ch at every width, and
-   the photo beside them, larger, wherever both fit (623px of text, the
-   56px gap and the photo's 260px); under that, below them */
+   the photo beside them wherever the text keeps a readable measure beside it
+   (a pane of 600px, a tablet: the photo below the text left a hole beside
+   it, which Justin rejected); under that, on a phone, below them */
 .panes[data-top] .pn__hello-body {
   grid-template-columns: minmax(0, 72ch);
 }
 
-@container pane (min-width: 940px) {
+@container pane (min-width: 600px) {
   .panes[data-top] .pn__hello-body {
-    grid-template-columns: minmax(0, 72ch) clamp(260px, 30%, 400px);
-    gap: 24px 56px;
+    grid-template-columns: minmax(0, 72ch) clamp(200px, 35%, 400px);
+    gap: 24px 40px;
   }
 
   .panes[data-top] .pn__photo {
     max-width: none;
+  }
+}
+
+@container pane (min-width: 940px) {
+  .panes[data-top] .pn__hello-body {
+    column-gap: 56px;
   }
 }
 
