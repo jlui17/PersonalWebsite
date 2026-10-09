@@ -406,7 +406,7 @@ body {
   font: var(--pn-h2);
   letter-spacing: var(--pn-h2-track);
   color: var(--pn-ink);
-  text-wrap: balance;
+  text-wrap: pretty; /* lines fill the column; balance split "Pokémon AI" and ran short headings to three lines */
 }
 
 /* A part's heading after a pane's first: one rank over the headings in it.
