@@ -1,14 +1,14 @@
 /* panes: the site as one calm tool window. A deep warm ground (never black),
    two accents that are blue against amber, never red against green: amber for
    focus and attention, blue for links. Amber is always backed by a shape (a
-   filled dot, a bar under the segment), so colour alone never carries it.
+   filled dot, a tab's border), so colour alone never carries it.
    Two type families, loaded by the font link in index.html: one for every
    heading and every piece of chrome, one for the sentences (see "the type
    system" below).
 
-   Two reading levels. A folded pane shows its title and one sentence; the
-   open pane, in the wide column, shows that sentence large and then the
-   details, smaller and quieter. There is always exactly one open pane. */
+   Two reading levels. A step's tab shows its few plain words; the open pane,
+   at the window's whole width, shows its hook large and then the details,
+   smaller and quieter. There is always exactly one open pane. */
 .panes {
   position: relative; /* luibot's layer is placed against the window */
   --pn-ground: #28221b; /* a dark roast coffee brown: clearly brown, never a near-black */
@@ -35,7 +35,7 @@
 
   /* ---- the type system: two families ----
      --pn-font-head: every heading, hook and section title, and all the chrome:
-       buttons, labels, tabs, the step bar, hints, the search box and its rows,
+       buttons, labels, the steps, hints, the search box and its rows,
        captions, the clock.
      --pn-font-body: the sentences: paragraphs, details, list items, card
        bodies, the quieter line under a hook.
@@ -68,17 +68,16 @@
   --pn-h3: 700 17px/1.4 var(--pn-font-head); /* the bold sentence under a name or heading (a person, a robot, a project, a future plan), card headings */
   --pn-h3-track: -0.015em;
   --pn-h3-measure: 48ch;
-  /* the right column's width (until the next commit) */
-  --pn-stack-w: 424px;
-  --pn-bar-h: 30px;
   --pn-title-h: 40px;
   --pn-pathway-h: 68px; /* the tallest pose (62px) plus a little air */
   --pn-radius: 6px;
 
-  /* One window: title bar, the workspace, the sprites' pathway, the status bar.
-     The workspace never scrolls as a whole; the open pane's body does. */
+  /* One window: the title bar, the sprites' pathway, the steps, the
+     workspace. The workspace never scrolls as a whole; the open pane's body
+     does. */
   display: grid;
-  grid-template-rows: var(--pn-title-h) minmax(0, 1fr) var(--pn-pathway-h) var(--pn-bar-h);
+  grid-template-rows: var(--pn-title-h) auto auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr); /* the window's width, whatever a line in it holds */
   height: 100dvh;
   overflow: clip; /* the window never scrolls, not even from a script: luibot's hidden layer off a phone's edge let it slide 53px */
   background: var(--pn-ground);
@@ -99,7 +98,7 @@
 /* The focus ring. Around a link it stands 2px off the words. On a button it
    is drawn on the button's own edge, inwards, with the button's own corners:
    a ring that stands off a control pokes out of whatever holds it (the
-   section's border, the folded column's clip, the bars). */
+   section's border, the steps' clip, the bars). */
 .panes :where(a, button, [tabindex]) {
   border-radius: 3px;
 }
@@ -144,7 +143,6 @@ body {
 
 .pn__title-name,
 .pn__palette-button,
-.pn__card-name,
 .pn__hello-foot,
 .pn__option,
 .pn__palette-empty {
@@ -171,6 +169,7 @@ body {
 /* ---- title bar ---- */
 
 .pn__titlebar {
+  grid-row: 1;
   height: var(--pn-title-h);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -284,20 +283,14 @@ body {
   padding: 3px 5px;
 }
 
-/* ---- workspace: the open pane and the stack of folded ones ---- */
+/* ---- workspace: the open pane, at the window's whole width, under the
+   steps (its top border is the open tab's foot) ---- */
 
-/* The open section on the left, the cards of every section on the right. The
-   right column is as wide as the longest hook that should stay on one line
-   (set for "I like building small tools for people I know.", the projects'
-   card before they joined pane 2) plus a few px, so the
-   short hooks fill most of their card and the long ones, like every quieter
-   line, wrap to two balanced lines. The rest of the window goes to the open
-   section. */
 .pn__work {
+  grid-row: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) min(var(--pn-stack-w), 50%);
-  gap: 10px;
-  padding: 10px;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0 10px 10px;
   min-height: 0;
   overflow: hidden;
 }
@@ -377,7 +370,7 @@ body {
   }
 }
 
-/* The sentence a pane leads with (its hook, the same one its fold shows),
+/* The sentence a pane leads with (its hook),
    then the quieter line one rank down. */
 .pn__lead {
   font: var(--pn-lead);
@@ -468,8 +461,11 @@ body {
   margin-bottom: calc(6px + var(--pn-more-text));
 }
 
+/* a star's name (a robot in pane 2, a person in pane 4): the names' rank */
 .pn__card-name {
-  color: var(--pn-ink-2);
+  font: var(--pn-h1);
+  letter-spacing: var(--pn-h1-track);
+  color: var(--pn-ink);
 }
 
 .pn__card h3 {
@@ -494,10 +490,6 @@ body {
   border-top: 0;
   border-radius: var(--pn-radius);
   background: var(--pn-amber-dim);
-}
-
-.pn__card--tinted .pn__card-name {
-  color: var(--pn-ink);
 }
 
 .pn__card--tinted p {
@@ -546,14 +538,6 @@ body {
   padding-bottom: 8px;
   border-bottom: 1px solid var(--pn-line-strong);
   margin-bottom: calc(14px + var(--pn-more-text));
-}
-
-/* each robot's name is the largest thing in pane 2 (the names' rank), with
-   his sprite beside it on the rule */
-.pn__agent-head .pn__card-name {
-  font: var(--pn-h1);
-  letter-spacing: var(--pn-h1-track);
-  color: var(--pn-ink);
 }
 
 .pn__agent h3 {
@@ -757,17 +741,38 @@ body {
   gap: calc(20px + var(--pn-more-part));
 }
 
-/* hello's detail level: a block per trait (a "###" and its paragraph) in a
-   column of a readable measure; right beside it from the first block down,
-   the photo and under it one quiet last line. A wider pane gives the photo more
-   room, never the lines. */
+/* hello's detail level: a block per trait (a "###" and its paragraph) in one
+   column, in the order they are written (two columns read a fun fact before
+   the work), at 72ch, and the photo beside them with one quiet last line under
+   it wherever the text keeps a readable measure beside it (a pane of 600px, a
+   tablet: the photo below the text left a hole beside it, which Justin
+   rejected); under that, on a phone, below them. A wider pane gives the photo
+   more room, never the lines. */
 .pn__hello-body {
   display: grid;
-  grid-template-columns: minmax(0, 62ch) clamp(200px, 30%, 360px);
+  grid-template-columns: minmax(0, 72ch);
   justify-content: start;
   align-items: start;
   gap: 24px 40px;
-  font-size: 13px; /* the paragraphs' size, so the column's 62ch is theirs */
+  font-size: 13px; /* the paragraphs' size, so the column's 72ch is theirs */
+}
+
+@container pane (width < 600px) {
+  .pn__photo {
+    max-width: 240px;
+  }
+}
+
+@container pane (min-width: 600px) {
+  .pn__hello-body {
+    grid-template-columns: minmax(0, 72ch) clamp(200px, 35%, 400px);
+  }
+}
+
+@container pane (min-width: 940px) {
+  .pn__hello-body {
+    column-gap: 56px;
+  }
 }
 
 .pn__blocks,
@@ -928,16 +933,19 @@ body {
   margin-bottom: 0;
 }
 
-/* ---- the pathway: the sprites' own strip of chrome above the status bar. Its
-   bottom edge (the bar's top rule) is their floor; the workspace ends at its
-   top rule, so they never stand on anything but the pathway. ---- */
+/* ---- the pathway: the sprites' strip along the top of the window, under
+   the title bar, on the page's own ground. Its floor is the top of the steps
+   under it, so they never stand on anything but the pathway. The robots beam
+   down into pane 2 and back up. ---- */
 
-/* luibot's layer: over the workspace and the pathway, feet on the pathway's ground
-   line (the status bar's top) when he stands */
+/* luibot's layer: over the pathway and the workspace, a line with no height
+   at the pathway's floor; his svg stands on it, and his own transform (feet
+   row 31 on the ground) lifts him from there */
 .pn__bot {
   position: absolute;
+  top: calc(var(--pn-title-h) + var(--pn-pathway-h));
   left: 0;
-  bottom: var(--pn-bar-h);
+  height: 0;
   z-index: 5;
   line-height: 0;
   pointer-events: none;
@@ -945,14 +953,15 @@ body {
 }
 
 .pn__bot svg {
-  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 
 .pn__stage {
+  grid-row: 2;
   position: relative;
   height: var(--pn-pathway-h);
-  background: var(--pn-bar);
-  border-top: 1px solid var(--pn-line);
   overflow: hidden;
 }
 
@@ -1131,14 +1140,6 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .pn__hello-body {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .pn__photo {
-    max-width: 240px;
-  }
-
   /* the agents stacked: the gap is the grid's, so it holds whatever stands
      in either cell */
   .pn__agents {
@@ -1214,7 +1215,7 @@ body {
   }
 
   .pn__work {
-    padding: 8px;
+    padding: 0 8px 8px;
   }
 
   .panes {
@@ -1266,51 +1267,31 @@ body {
   }
 }
 
-/* ---- trial: the pathway at the top (?top=a|b|c, `TOP` in index.jsx) ----
-   The pathway moves from under the workspace to over it, and its steps, each
-   named in a few plain words, take over from the column of cards: the open
-   pane gets the window's whole width. Three far-apart ways to build it, for
-   Justin to pick between on the page; this block goes when he has. In all
-   three luibot's layer stands on the pathway's floor at the top, and the
-   robots beam down into pane 2 and back up. */
-.panes[data-top] {
-  grid-template-rows: var(--pn-title-h) auto auto minmax(0, 1fr);
-  grid-template-columns: minmax(0, 1fr); /* the window's width, whatever a line in it holds */
+/* ---- the steps: tabs the pathway stands on ----
+   Under the walk, its floor, and hanging from the floor one tab per step,
+   each named in a few plain words; the open step's tab is joined to the pane
+   under it, like the tab of a folder, so the pane needs no title of its own:
+   the pane's amber top border runs under the other tabs and straight into
+   the open tab's sides, with no line under the open tab. Every tab is drawn
+   as a tab, quietly, so a visitor who is not a developer sees a row of things
+   to open; the open one is the pane's own colour and border. */
+.pn__steps {
+  grid-row: 3;
+  position: relative;
+  z-index: 1; /* the open tab covers the pane's top border */
+  display: grid;
+  grid-template-columns: repeat(var(--pn-steps), minmax(0, 1fr));
+  column-gap: 4px;
+  height: 34px;
+  margin-bottom: -1px; /* the row's last pixel row is the pane's top border */
+  padding: 0 10px;
+  /* the pathway's floor, drawn inside the row so the tabs' tops lie on it
+     (a border is outside a phone's scrolling row, which clips the tabs) */
+  background: linear-gradient(var(--pn-line-strong), var(--pn-line-strong)) top / 100% 1px no-repeat;
 }
 
-.panes[data-top] .pn__titlebar {
-  grid-row: 1;
-}
-
-/* every row in the one column */
-.panes[data-top] > :is(.pn__titlebar, .pn__steps, .pn__work, .pn__stage) {
-  grid-column: 1;
-}
-
-.panes[data-top] .pn__stage {
-  grid-row: 2;
-  border-top: 0;
-  background: transparent; /* the walk is on the page's own ground */
-}
-
-.panes[data-top] .pn__work {
-  grid-row: 4;
-  grid-template-columns: minmax(0, 1fr);
-}
-
-/* luibot's layer: a line with no height at the pathway's floor; his svg
-   stands on it, and his own transform (feet row 31 on the ground) is as before */
-.panes[data-top] .pn__bot {
-  bottom: auto;
-  height: 0;
-}
-
-.panes[data-top] .pn__bot svg {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-
+/* each tab ends on the pane's top border; the open one reaches one row
+   further and covers it, so its sides meet the border on both sides */
 .pn__step {
   display: flex;
   align-items: center;
@@ -1321,10 +1302,16 @@ body {
   letter-spacing: var(--pn-ui-track);
   color: var(--pn-muted);
   white-space: nowrap;
+  height: 33px;
+  border: 1px solid var(--pn-line);
+  border-bottom: 0;
+  border-radius: var(--pn-radius) var(--pn-radius) 0 0;
+  background: var(--pn-bar);
 }
 
 .pn__step:hover {
   color: var(--pn-ink);
+  border-color: var(--pn-line-strong);
 }
 
 .pn__step-n {
@@ -1334,7 +1321,10 @@ body {
 }
 
 .pn__step[aria-current="true"] {
+  height: 34px;
   color: var(--pn-amber);
+  border-color: var(--pn-amber);
+  background: var(--pn-surface);
 }
 
 .pn__step[aria-current="true"] .pn__step-n {
@@ -1346,101 +1336,38 @@ body {
   background: var(--pn-amber);
 }
 
-/* a: tabs the pathway stands on. Under the walk, its floor, and hanging from
-   the floor one tab per step; the open step's tab is joined to the pane under
-   it, like the tab of a folder, so the pane needs no title of its own: the
-   pane's amber top border runs under the other tabs and straight into the
-   open tab's sides, with no line under the open tab. */
-.panes[data-top="a"] .pn__bot {
-  top: calc(var(--pn-title-h) + var(--pn-pathway-h));
-}
-
-.panes[data-top="a"] .pn__steps {
-  grid-row: 3;
-  position: relative;
-  z-index: 1; /* the open tab covers the pane's top border */
-  display: grid;
-  grid-template-columns: repeat(var(--pn-steps), minmax(0, 1fr));
-  height: 34px;
-  margin-bottom: -1px; /* the row's last pixel row is the pane's top border */
-  padding: 0 10px;
-  /* the pathway's floor, drawn inside the row so the tabs' tops lie on it
-     (a border is outside a phone's scrolling row, which clips the tabs) */
-  background: linear-gradient(var(--pn-line-strong), var(--pn-line-strong)) top / 100% 1px no-repeat;
-}
-
-/* each tab ends on the pane's top border; the open one reaches one row
-   further and covers it, so its sides meet the border on both sides */
-.panes[data-top="a"] .pn__step {
-  height: 33px;
-  border: 1px solid transparent;
-  border-bottom: 0;
-  border-radius: var(--pn-radius) var(--pn-radius) 0 0;
-}
-
-.panes[data-top="a"] .pn__step[aria-current="true"] {
-  height: 34px;
-}
-
 /* the open tab takes no focus ring: its own 1px amber border already marks
    it, and the arrow keys move focus and the open step together (Justin: "the
    inner highlight/border isn't necessary. just the thinner outer border") */
-.panes[data-top="a"] .pn__step[aria-current="true"]:focus-visible {
+.pn__step[aria-current="true"]:focus-visible {
   outline: none;
 }
 
 /* where the open tab stands on the pane's corner, the corner is square, so
    the tab's side and the pane's are one straight line */
-.panes[data-top="a"]:has(.pn__step:first-child[aria-current="true"]) .pn__pane {
+.panes:has(.pn__step:first-child[aria-current="true"]) .pn__pane {
   border-top-left-radius: 0;
 }
 
-.panes[data-top="a"]:has(.pn__step:last-child[aria-current="true"]) .pn__pane {
+.panes:has(.pn__step:last-child[aria-current="true"]) .pn__pane {
   border-top-right-radius: 0;
-}
-
-/* every tab is drawn as a tab, quietly, so a visitor who is not a developer
-   sees a row of things to open; the open one is the pane's own colour and border */
-.panes[data-top="a"] .pn__steps {
-  column-gap: 4px;
-}
-
-.panes[data-top="a"] .pn__step {
-  border-color: var(--pn-line);
-  background: var(--pn-bar);
-}
-
-.panes[data-top="a"] .pn__step:hover {
-  border-color: var(--pn-line-strong);
-}
-
-.panes[data-top="a"] .pn__step[aria-current="true"] {
-  border-color: var(--pn-amber);
-  background: var(--pn-surface);
-}
-
-.panes[data-top="a"] .pn__work {
-  padding-top: 0;
 }
 
 /* Where a step's room is too narrow for its words on one line, they take
    two, and the dot goes (the number and the amber still mark the open one). */
 @media (min-width: 640px) and (max-width: 1050px) {
-  .panes[data-top] .pn__step {
+  /* every tab keeps room at its sides, so the longest name wraps like the
+     others instead of running to its edges */
+  .pn__step {
+    padding-inline: 10px;
     font: var(--pn-label);
     line-height: 1.15;
     white-space: normal;
     text-align: center;
   }
 
-  .panes[data-top] .pn__step .pn__dot {
+  .pn__step .pn__dot {
     display: none;
-  }
-
-  /* every tab keeps room at its sides, so the longest name wraps like the
-     others instead of running to its edges */
-  .panes[data-top="a"] .pn__step {
-    padding-inline: 10px;
   }
 }
 
@@ -1448,35 +1375,29 @@ body {
    steps under it are one row that scrolls sideways, with the open one
    scrolled into view. Every step is a 40px tap target. */
 @media (max-width: 639px) {
-  .panes[data-top] .pn__steps {
+  .pn__steps {
     display: flex;
     overflow-x: auto;
     scrollbar-width: none;
     gap: 4px;
-  }
-
-  .panes[data-top] .pn__step {
-    flex: none;
-    padding: 0 12px;
-  }
-
-  .panes[data-top="a"] .pn__steps {
     height: 40px;
     padding: 0 8px;
   }
 
   /* the scrolling row clips at its own bottom, so the open tab ends there,
      on the pane's top border (its last pixel row), and the others one above */
-  .panes[data-top="a"] .pn__step {
+  .pn__step {
+    flex: none;
     height: 39px;
+    padding: 0 12px;
   }
 
-  .panes[data-top="a"] .pn__step[aria-current="true"] {
+  .pn__step[aria-current="true"] {
     height: 40px;
   }
 }
 
-/* The open pane at a wide window (all three trials): one grid for every
+/* The open pane at a wide window: one grid for every
    pane. The content keeps the same room on both sides, and every pair of
    columns in it (the robots, the projects, hello's words and photo, now and
    later, the people) sits on the same two columns with the same gap, so a
@@ -1491,32 +1412,32 @@ body {
     --pn-col-gap: 10%; /* of the width between the insets */
   }
 
-  .panes[data-top] .pn__pane-body > * {
+  .pn__pane-body > * {
     margin-inline: var(--pn-inset);
   }
 
-  .panes[data-top] :is(.pn__agents, .pn__projects, .pn__people, .pn__now-later, .pn__flow:has(.pn__hello-body)) {
+  :is(.pn__agents, .pn__projects, .pn__people, .pn__now-later, .pn__flow:has(.pn__hello-body)) {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--pn-col-gap);
   }
 
-  .panes[data-top] .pn__lead {
+  .pn__lead {
     max-width: var(--pn-lead-measure-wide);
   }
 
   /* now and later: the now part in the first column, the later part in the
      second, each read top to bottom. The column gap parts them, as it parts
      the robots and the people, so the later part needs no hairline here. */
-  .panes[data-top] .pn__now-later {
+  .pn__now-later {
     align-items: start;
   }
 
-  .panes[data-top] .pn__now .pn__story {
+  .pn__now .pn__story {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .panes[data-top] .pn__now-later > .pn__later {
+  .pn__now-later > .pn__later {
     margin-top: 0;
     padding-top: 0;
     border-top: 0;
@@ -1526,56 +1447,21 @@ body {
      hook; under them the blocks in the first column, in the order they are
      written, and the photo beside them in the second, with its caption and
      the quiet last line under it. */
-  .panes[data-top] .pn__flow:has(.pn__hello-body) > :first-child {
+  .pn__flow:has(.pn__hello-body) > :first-child {
     grid-column: 1 / -1;
   }
 
-  .panes[data-top] .pn__hello-body {
+  .pn__hello-body {
     display: contents;
   }
 
-  .panes[data-top] .pn__hello-body > * {
+  .pn__hello-body > * {
     align-self: start;
   }
 
   /* the photo no wider than its column at his window (about 1440x1000):
      wider, in a 1920x1080 window, it pushed his links under the pane's foot */
-  .panes[data-top] .pn__hello-side {
+  .pn__hello-side {
     max-width: 480px;
-  }
-}
-
-/* people in the trials: the people are the stars of this pane, as the
-   robots are of pane 2, so each name is set in the role pane 2 gives the
-   robots' names (h1), at every width. */
-.panes[data-top] .pn__people .pn__card-name {
-  font: var(--pn-h1);
-  letter-spacing: var(--pn-h1-track);
-  color: var(--pn-ink);
-}
-
-/* hello in the trials, under the wide grid: the blocks one column, in the
-   order they are written (two columns read a fun fact before the work), at
-   72ch, and the photo beside them wherever the text keeps a readable measure
-   beside it (a pane of 600px, a tablet: the photo below the text left a hole
-   beside it, which Justin rejected); under that, on a phone, below them */
-.panes[data-top] .pn__hello-body {
-  grid-template-columns: minmax(0, 72ch);
-}
-
-@container pane (min-width: 600px) {
-  .panes[data-top] .pn__hello-body {
-    grid-template-columns: minmax(0, 72ch) clamp(200px, 35%, 400px);
-    gap: 24px 40px;
-  }
-
-  .panes[data-top] .pn__photo {
-    max-width: none;
-  }
-}
-
-@container pane (min-width: 940px) {
-  .panes[data-top] .pn__hello-body {
-    column-gap: 56px;
   }
 }

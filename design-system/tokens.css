@@ -32,7 +32,7 @@
 
   /* ---- the type system: two families ----
      --pn-font-head: every heading, hook and section title, and all the chrome:
-       buttons, labels, tabs, the step bar, hints, the search box and its rows,
+       buttons, labels, the steps, hints, the search box and its rows,
        captions, the clock.
      --pn-font-body: the sentences: paragraphs, details, list items, card
        bodies, the quieter line under a hook.
@@ -64,9 +64,7 @@
   --pn-h3-track: -0.015em;
   --pn-h3-measure: 48ch;
 
-  /* ---- the window: the right column's width (until the next commit), the three bars, the radius ---- */
-  --pn-stack-w: 424px;
-  --pn-bar-h: 30px;
+  /* ---- the window: the title bar, the pathway, the radius ---- */
   --pn-title-h: 40px;
   --pn-pathway-h: 68px; /* the tallest pose (62px) plus a little air */
   --pn-radius: 6px;

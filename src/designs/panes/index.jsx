@@ -509,9 +509,6 @@ export default function Panes() {
   const phone = useMedia("(max-width: 639px)");
   const width = useWidth();
 
-  // Justin's pick: the steps on top as tabs, and pane 2's agents side by side.
-  const TOP = "a";
-
   const [focused, setFocused] = useState(() => paneFromHash() ?? PANES[0].id);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [robotBeat, setRobotBeat] = useState(null); // 'luibot' | 'luibuilder' | null
@@ -1540,7 +1537,7 @@ export default function Panes() {
   const botHeight = characters.luibot.actions[scene.bot.pose].frames[0].length;
 
   return (
-    <div className="panes" data-top={TOP} style={{ "--pn-steps": PANES.length }}>
+    <div className="panes" style={{ "--pn-steps": PANES.length }}>
       <header className="pn__titlebar">
         <div className="pn__title-name">
           Justin Lui
