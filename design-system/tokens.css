@@ -84,6 +84,16 @@
   }
 }
 
+/* A wide window: the room on both sides of a pane's content and the gap between its two
+   columns, the same in every pane (percentages: the inset of the pane body's width, the gap of
+   the width between the insets). Under it a pane keeps its whole width and its columns stack. */
+@media (min-width: 1101px) {
+  :root {
+    --pn-inset: 11%;
+    --pn-col-gap: 10%;
+  }
+}
+
 /* Phone: the list of cards is the home screen and scrolls, so the cards are roomier. */
 @media (max-width: 639px) {
   :root {

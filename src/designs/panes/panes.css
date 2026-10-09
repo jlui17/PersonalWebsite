@@ -815,20 +815,6 @@ body {
   gap: 0 32px;
 }
 
-/* Side by side in a wide pane: the two robots are inset from both sides and
-   kept apart by a wider gap, so the room is shared around them (his asks:
-   "too much space to the right here for luibot and luibuilder"; centred on
-   thirds was "too close now", on quarters "too far apart now"; this sits in
-   between). Pane 4's people take the same inset and gap, so the two panes'
-   pairs of columns match. */
-@media (min-width: 1101px) {
-  .panes[data-top] .pn__agents,
-  .panes[data-top] .pn__people {
-    padding-inline: 11%;
-    column-gap: 10%;
-  }
-}
-
 .pn__agent {
   min-width: 0;
 }
@@ -2246,24 +2232,39 @@ body {
   }
 }
 
-/* The open pane at the window's whole width (all three trials). Where it is
-   wide enough, each pane takes the shape its content has room for, from what
-   the items are: never wider lines, never stretched gaps. */
-@container pane (min-width: 1100px) {
+/* The open pane at a wide window (all three trials): one grid for every
+   pane. The content keeps the same room on both sides, and every pair of
+   columns in it (the robots, the projects, hello's words and photo, now and
+   later, the people) sits on the same two columns with the same gap, so a
+   hook, a part's heading and its hairline line up with the columns under
+   them. The values are the ones Justin set on pane 2's robots by eye: centred
+   on thirds was "too close now", on quarters "too far apart now", and this
+   sits in between. Under 1101px a pane keeps its whole width, and the
+   columns stack (the max-width: 1100px rules). */
+@media (min-width: 1101px) {
+  .panes {
+    --pn-inset: 11%; /* of the pane body's width, so only on its own children */
+    --pn-col-gap: 10%; /* of the width between the insets */
+  }
+
+  .panes[data-top] .pn__pane-body > * {
+    margin-inline: var(--pn-inset);
+  }
+
+  .panes[data-top] :is(.pn__agents, .pn__projects, .pn__people, .pn__now-later, .pn__flow:has(.pn__hello-body)) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--pn-col-gap);
+  }
 
   .panes[data-top] .pn__lead {
     max-width: var(--pn-lead-measure-wide);
   }
 
-  /* now and later: the two parts side by side, each read top to bottom, the
-     now part on the left. The later part opens beside a hairline, as it opens
-     under one when they are stacked. Inside a half, one column of blocks. The
-     later half is a little wider: at a 1440 window it holds the farm's title
-     row on one line (its heading, the gap and the scene: 687px). */
+  /* now and later: the now part in the first column, the later part in the
+     second, each read top to bottom. The column gap parts them, as it parts
+     the robots and the people, so the later part needs no hairline here. */
   .panes[data-top] .pn__now-later {
-    display: grid;
-    grid-template-columns: minmax(0, 8fr) minmax(0, 9fr);
-    column-gap: 56px;
     align-items: start;
   }
 
@@ -2273,31 +2274,33 @@ body {
 
   .panes[data-top] .pn__now-later > .pn__later {
     margin-top: 0;
-    padding: 0 0 0 28px;
+    padding-top: 0;
     border-top: 0;
-    border-left: 1px solid var(--pn-line);
-    margin-left: -28px;
   }
 
-}
-
-/* A wider pane still (a window of about 1700px and up): inside each half,
-   two columns of its own, so no half is mostly a margin. The two story
-   blocks side by side; New York and Japan side by side (both "Live in ...
-   with my girlfriend."), the farm, the bigger plan, under them. */
-@container pane (min-width: 1600px) {
-  .panes[data-top] .pn__now .pn__story {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* hello: the title, the hook and the blocks in the first column, in the
+     order they are written; the photo's column runs from the top beside
+     them, with its caption and the quiet last line under it. */
+  .panes[data-top] .pn__flow:has(.pn__hello-body) {
+    grid-template-rows: auto 1fr; /* the photo's column is the taller: its extra height goes under the blocks, never between the hook and them */
+    align-items: start;
   }
 
-  .panes[data-top] .pn__chapters {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 32px;
+  .panes[data-top] .pn__flow:has(.pn__hello-body) > :first-child {
+    grid-column: 1;
   }
 
-  .panes[data-top] .pn__chapter:nth-child(3) {
-    grid-column: 1 / -1;
+  .panes[data-top] .pn__hello-body {
+    display: contents;
+  }
+
+  .panes[data-top] .pn__hello-body > .pn__blocks {
+    grid-column: 1;
+  }
+
+  .panes[data-top] .pn__hello-body > .pn__hello-side {
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 }
 
@@ -2310,11 +2313,11 @@ body {
   color: var(--pn-ink);
 }
 
-/* hello in the trials: the blocks one column, in the order they are written
-   (two columns read a fun fact before the work), at 72ch at every width, and
-   the photo beside them wherever the text keeps a readable measure beside it
-   (a pane of 600px, a tablet: the photo below the text left a hole beside
-   it, which Justin rejected); under that, on a phone, below them */
+/* hello in the trials, under the wide grid: the blocks one column, in the
+   order they are written (two columns read a fun fact before the work), at
+   72ch, and the photo beside them wherever the text keeps a readable measure
+   beside it (a pane of 600px, a tablet: the photo below the text left a hole
+   beside it, which Justin rejected); under that, on a phone, below them */
 .panes[data-top] .pn__hello-body {
   grid-template-columns: minmax(0, 72ch);
 }
@@ -2333,55 +2336,6 @@ body {
 @container pane (min-width: 940px) {
   .panes[data-top] .pn__hello-body {
     column-gap: 56px;
-  }
-}
-
-/* hello at the window's whole width: the photo's column runs from the top of
-   the pane, beside the title and the hook, so the right side holds the photo
-   at a size that reads, and under it its caption and the quiet last line.
-   The title, the hook and the blocks keep their one column on the left, in
-   the order they are written. */
-@container pane (min-width: 1100px) {
-  .panes[data-top] .pn__pane-body > .pn__flow:has(.pn__hello-body) {
-    display: grid;
-    grid-template-columns: minmax(0, var(--pn-lead-measure-wide)) clamp(300px, 100% - var(--pn-lead-measure-wide) - 56px, 640px); /* the photo takes what the text column leaves */
-    grid-template-rows: auto 1fr; /* the photo's column is the taller: its extra height goes under the blocks, never between the hook and them */
-    column-gap: 56px;
-    align-items: start;
-    justify-content: center; /* only where the pane is wider than both columns (a window of about 1500px and up) */
-  }
-
-  .panes[data-top] .pn__flow:has(.pn__hello-body) > :first-child {
-    grid-column: 1;
-  }
-
-  .panes[data-top] .pn__hello-body {
-    display: contents;
-  }
-
-  .panes[data-top] .pn__hello-body > .pn__blocks {
-    grid-column: 1;
-    max-width: 72ch;
-  }
-
-  .panes[data-top] .pn__hello-body > .pn__hello-side {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-  }
-}
-
-/* things I've built (the last part of pane 2): three to a row where each
-   column still holds the longest head on one row, the name, its tag and
-   luibuilder's spot (391px for LetMeInUBC-2.0), so 3 x 391 + 2 x 40. It asks
-   the projects' own width, which in ?agents=b is the rail's right column. */
-.panes[data-top] .pn-built {
-  container: built / inline-size;
-}
-
-@container built (min-width: 1253px) {
-  .panes[data-top] .pn__projects {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 40px;
   }
 }
 

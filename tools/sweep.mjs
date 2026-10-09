@@ -9,13 +9,14 @@
 // --top, --agents  trial values to sweep (?top=, ?agents=); default the page's own default
 // --wait    page seconds after the load before the shot (default 2), --speed (default 4)
 // --hour    ?hour= (default 14, "none" for the real hour), --reduced, --chromes N (default 2)
+// --measure also measures the open pane's use of space (MEASURE in tools/site.mjs) into measure.json
 // Site: --url | --dev | --commit, as in tools/tour.mjs. Writes tools/out/sweep-<time>/.
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { cli, outDir } from "./cli.mjs";
 import { launch } from "./chrome.mjs";
 import { SITE_OPTIONS, openSite } from "./serve.mjs";
-import { RECORDER, release, steps, until } from "./site.mjs";
+import { MEASURE, RECORDER, release, steps, until } from "./site.mjs";
 
 const args = cli(import.meta.url, {
   ...SITE_OPTIONS,
@@ -28,6 +29,7 @@ const args = cli(import.meta.url, {
   hour: "14",
   reduced: false,
   chromes: 2,
+  measure: false,
 });
 const site = await openSite(args);
 const paths = args.paths ? args.paths.split(",") : steps(site.root).map((s) => `/#${s}`);
@@ -69,6 +71,7 @@ async function worker(queue) {
     await page.shot(join(dir, shot.name));
     shot.errors = [...page.errors];
     shot.sideways = await page.eval("document.documentElement.scrollWidth - document.documentElement.clientWidth");
+    if (args.measure) shot.measure = await page.eval(MEASURE);
     await release(page);
     console.log(
       `${shot.name}${shot.errors.length ? `  ERRORS: ${shot.errors.join("; ")}` : ""}${shot.sideways > 0 ? `  scrolls sideways by ${shot.sideways}px` : ""}`,
@@ -102,5 +105,14 @@ ${rows
   .join("\n")}
 `,
 );
+if (args.measure) {
+  writeFileSync(join(dir, "measure.json"), JSON.stringify(Object.fromEntries(shots.map((s) => [s.name, s.measure])), null, 1));
+  const m = (s) => s.measure;
+  console.log("\nshot                         pane       left right  band   gap  hole       end");
+  for (const s of shots.filter(m))
+    console.log(
+      `${s.name.padEnd(28)} ${m(s).pane.join("x").padEnd(10)} ${String(m(s).left).padStart(4)} ${String(m(s).right).padStart(5)} ${String(m(s).band.h).padStart(5)} ${String(m(s).gap.h).padStart(5)}  ${`${m(s).hole.w}x${m(s).hole.h}`.padEnd(9)} ${String(m(s).end).padStart(5)}`,
+    );
+}
 console.log(`\n${shots.length} shots: ${join(dir, "index.html")}`);
 process.exit(0);

@@ -71,6 +71,78 @@ export const PATHWAY = `(() => [...document.querySelectorAll("[data-stretch]")].
 
 export const stepAt = (pathway, x) => pathway.find((s) => x >= s.left && x < s.right)?.step ?? "off";
 
+// The open pane's use of space, in px, from what is drawn in its body: every line of words, every
+// picture or sprite, every visible rule and every tinted box. Measured over the whole scrolled
+// content, from the pane body's own edges (its padding counts as room).
+//   left, right   room from the body's edges to the nearest thing drawn
+//   band          the tallest blank band across the whole width, between the first and last thing
+//   gap           the tallest blank under one thing before the next thing under it in its column
+//   hole          the largest blank rectangle between the content's left, right, top and bottom
+//   end           room under the last thing (negative: the pane scrolls by that much)
+export const MEASURE = `(() => {
+  const body = document.querySelector(".pn__pane-body");
+  if (!body) return null;
+  const b = body.getBoundingClientRect();
+  const at = (r) => ({ x: r.left - b.left, y: r.top - b.top + body.scrollTop, w: r.width, h: r.height });
+  const rects = [];
+  const shown = (el) => el.checkVisibility({ opacityProperty: true, visibilityProperty: true });
+  const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+  for (let n; (n = walker.nextNode());) {
+    if (!n.data.trim() || !shown(n.parentElement)) continue;
+    const range = document.createRange();
+    range.selectNodeContents(n);
+    for (const r of range.getClientRects()) if (r.width && r.height) rects.push({ ...at(r), what: n.data.trim().slice(0, 28) });
+  }
+  for (const el of body.querySelectorAll("*")) {
+    if (!shown(el)) continue;
+    const r = el.getBoundingClientRect();
+    if (!r.width || !r.height) continue;
+    const s = getComputedStyle(el);
+    const p = at(r);
+    if (/^(IMG|svg|CANVAS)$/.test(el.tagName)) rects.push({ ...p, what: el.tagName });
+    const alpha = (c) => c !== "transparent" && !/rgba\\([^)]*, 0\\)$/.test(c);
+    if (alpha(s.backgroundColor)) rects.push({ ...p, what: "box" });
+    for (const [side, rect] of [["Top", { ...p, h: 1 }], ["Bottom", { ...p, y: p.y + p.h - 1, h: 1 }], ["Left", { ...p, w: 1 }], ["Right", { ...p, x: p.x + p.w - 1, w: 1 }]])
+      if (parseFloat(s["border" + side + "Width"]) > 0 && s["border" + side + "Style"] !== "none" && alpha(s["border" + side + "Color"])) rects.push({ ...rect, what: "rule" });
+  }
+  if (!rects.length) return null;
+  const W = body.clientWidth, H = Math.max(body.scrollHeight, body.clientHeight);
+  const left = Math.min(...rects.map((r) => r.x)), right = W - Math.max(...rects.map((r) => r.x + r.w));
+  const top = Math.min(...rects.map((r) => r.y)), bottom = Math.max(...rects.map((r) => r.y + r.h));
+  const ys = rects.map((r) => [r.y, r.y + r.h]).sort((a, c) => a[0] - c[0]);
+  let band = { h: 0 }, reach = ys[0][1];
+  for (const [y0, y1] of ys) { if (y0 - reach > band.h) band = { h: Math.round(y0 - reach), y: Math.round(reach) }; reach = Math.max(reach, y1); }
+  let gap = { h: 0 };
+  for (const a of rects) {
+    const under = rects.filter((c) => c !== a && c.y >= a.y + a.h - 0.5 && Math.min(a.x + a.w, c.x + c.w) - Math.max(a.x, c.x) > 2);
+    if (!under.length) continue;
+    const next = under.reduce((m, c) => (c.y < m.y ? c : m));
+    const h = next.y - (a.y + a.h);
+    if (h > gap.h) gap = { h: Math.round(h), from: a.what, to: next.what, x: Math.round(a.x), y: Math.round(a.y + a.h) };
+  }
+  const cell = 4, cols = Math.ceil((W - left - right) / cell), rows = Math.ceil((bottom - top) / cell);
+  const full = Array.from({ length: rows }, () => new Uint8Array(cols));
+  for (const r of rects)
+    for (let i = Math.max(0, Math.floor((r.y - top) / cell)); i < Math.min(rows, Math.ceil((r.y + r.h - top) / cell)); i++)
+      for (let j = Math.max(0, Math.floor((r.x - left) / cell)); j < Math.min(cols, Math.ceil((r.x + r.w - left) / cell)); j++) full[i][j] = 1;
+  let hole = { w: 0, h: 0 };
+  const heights = new Array(cols).fill(0);
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) heights[j] = full[i][j] ? 0 : heights[j] + 1;
+    const stack = [];
+    for (let j = 0; j <= cols; j++) {
+      const hh = j < cols ? heights[j] : 0;
+      while (stack.length && heights[stack.at(-1)] >= hh) {
+        const k = stack.pop(), start = stack.length ? stack.at(-1) + 1 : 0, w = j - start;
+        if (w * heights[k] * cell * cell > hole.w * hole.h) hole = { w: w * cell, h: heights[k] * cell, x: Math.round(left + start * cell), y: Math.round(top + (i - heights[k] + 1) * cell) };
+      }
+      stack.push(j);
+    }
+  }
+  const end = body.scrollHeight > body.clientHeight ? body.clientHeight - body.scrollHeight : Math.round(body.clientHeight - bottom);
+  return { pane: [W, body.clientHeight], left: Math.round(left), right: Math.round(right), band, gap, hole, end };
+})()`;
+
 // Sprites each step must show after a direct load, by its `short` in PANES. The pathway's own
 // residents are on every step on a wide window; a phone shows the open step's stretch alone.
 // "a|b" is either; "justin=type" is a sprite in a pose (while he types, his pose draws the desk).
