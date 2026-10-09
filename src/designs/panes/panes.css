@@ -1903,7 +1903,7 @@ body {
 
 /* b: signs over the walk, and the walk on the pane. Each step's name floats
    on a small sign over its stretch, the way the board floats over the
-   buildings in pane 5; the open step's sign is lit amber. There is no bar
+   buildings in pane 3; the open step's sign is lit amber. There is no bar
    under the sprites: they walk on the pane's own top edge, and the pane fills
    the window under it from side to side. */
 .panes[data-top="b"] .pn__steps {
