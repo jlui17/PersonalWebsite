@@ -741,15 +741,22 @@ export default function Panes() {
     stopCycle();
     const s = stretchOf("now");
     nextCoffeeAt.current = performance.now() + COFFEE_EVERY[0] + Math.random() * (COFFEE_EVERY[1] - COFFEE_EVERY[0]);
-    stage.walkTo(s.coffeeStation, {
-      rest: "idle",
-      face: COFFEE_FACING,
-      onArrive: () =>
-        stage.play(COFFEE_BEATS, () => {
-          if (focusedRef.current !== "now") return;
-          stage.walkTo(s.station, { rest: "idle", onArrive: () => playCycle() }); // the game follows: he stands
-        }),
-    });
+    // Truffle lying where he makes it walks clear first, past the yard's spot he goes to next
+    const spots = [
+      { cx: s.coffeeStation, poses: ["idle", ...COFFEE_BEATS.map((b) => b.pose)], facing: COFFEE_FACING },
+      { cx: s.station, poses: ["idle"], facing: 1 },
+    ];
+    stage.makeRoom(spots, () =>
+      stage.walkTo(s.coffeeStation, {
+        rest: "idle",
+        face: COFFEE_FACING,
+        onArrive: () =>
+          stage.play(COFFEE_BEATS, () => {
+            if (focusedRef.current !== "now") return;
+            stage.walkTo(s.station, { rest: "idle", onArrive: () => playCycle() }); // the game follows: he stands
+          }),
+      }),
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stage, stopCycle, stretchOf, restFor]);
   coffeeRoundRef.current = coffeeRound;
