@@ -290,6 +290,110 @@ body {
   padding: 3px 5px;
 }
 
+/* ---- TEMPORARY: the Trial control (TrialPicker.jsx), until Justin picks ----
+   A dashed button, so it never reads as part of the design, and under it one
+   row of choices per trial. The one on show is amber with a filled dot (the
+   steps' own mark). Under 720px the title bar has no room for it beside the
+   clock (it fits from about 680px), so it waits in the bottom right corner,
+   over the pane (over the cards in the old layout, clear of its pathway and
+   step bar), and opens upwards. */
+.pn__trial {
+  position: relative;
+  z-index: 10; /* over luibot's layer and the beams, under the search palette */
+}
+
+.pn__trial-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 7px 0 8px;
+  border: 1px dashed var(--pn-line-strong);
+  border-radius: 4px;
+  font: var(--pn-label);
+  color: var(--pn-muted);
+}
+
+.pn__trial-button:hover {
+  border-color: var(--pn-muted);
+  color: var(--pn-ink-2);
+}
+
+.pn__trial-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--pn-raised);
+  border: 1px solid var(--pn-line-strong);
+  border-radius: var(--pn-radius);
+}
+
+.pn__trial-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pn__trial-label {
+  width: 52px;
+  flex: none;
+  font: var(--pn-label);
+  color: var(--pn-dim);
+}
+
+.pn__trial-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font: var(--pn-label);
+  color: var(--pn-ink-2);
+}
+
+.pn__trial-option:hover {
+  color: var(--pn-ink);
+}
+
+.pn__trial-option[aria-pressed="true"] {
+  color: var(--pn-amber);
+}
+
+.pn__trial-option[aria-pressed="true"] .pn__dot {
+  border-color: var(--pn-amber);
+  background: var(--pn-amber);
+}
+
+@media (max-width: 719px) {
+  .pn__trial {
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .panes:not([data-top]) .pn__trial {
+    bottom: calc(var(--pn-pathway-h) + var(--pn-bar-h) + 8px);
+  }
+
+  .pn__trial-button {
+    height: 32px;
+    background: var(--pn-raised);
+  }
+
+  .pn__trial-panel {
+    top: auto;
+    bottom: calc(100% + 8px);
+  }
+
+  .pn__trial-option {
+    height: 32px;
+  }
+}
+
 /* ---- workspace: the open pane and the stack of folded ones ---- */
 
 /* The open section on the left, the cards of every section on the right. The
@@ -1718,7 +1822,9 @@ body {
 
 /* a: tabs the pathway stands on. Under the walk, its floor, and hanging from
    the floor one tab per step; the open step's tab is joined to the pane under
-   it, like the tab of a folder, so the pane needs no title of its own. */
+   it, like the tab of a folder, so the pane needs no title of its own: the
+   pane's amber top border runs under the other tabs and straight into the
+   open tab's sides, with no line under the open tab. */
 .panes[data-top="a"] .pn__bot {
   top: calc(var(--pn-title-h) + var(--pn-pathway-h));
 }
@@ -1730,16 +1836,45 @@ body {
   display: grid;
   grid-template-columns: repeat(var(--pn-steps), minmax(0, 1fr));
   height: 34px;
+  margin-bottom: -1px; /* the row's last pixel row is the pane's top border */
   padding: 0 10px;
-  border-top: 1px solid var(--pn-line-strong); /* the pathway's floor */
+  /* the pathway's floor, drawn inside the row so the tabs' tops lie on it
+     (a border is outside a phone's scrolling row, which clips the tabs) */
+  background: linear-gradient(var(--pn-line-strong), var(--pn-line-strong)) top / 100% 1px no-repeat;
 }
 
+/* each tab ends on the pane's top border; the open one reaches one row
+   further and covers it, so its sides meet the border on both sides */
 .panes[data-top="a"] .pn__step {
-  height: 35px;
-  margin-top: -1px; /* the open tab's top edge lies on the floor */
+  height: 33px;
   border: 1px solid transparent;
   border-bottom: 0;
   border-radius: var(--pn-radius) var(--pn-radius) 0 0;
+}
+
+.panes[data-top="a"] .pn__step[aria-current="true"] {
+  height: 34px;
+}
+
+/* the open tab's focus ring is open at the bottom too, so a step selected
+   from the keyboard keeps the tab joined to the pane: one more pixel inside
+   its amber border on the top and the sides (2px, as every ring) */
+.panes[data-top="a"] .pn__step[aria-current="true"]:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 1px var(--pn-amber),
+    inset 1px 0 var(--pn-amber),
+    inset -1px 0 var(--pn-amber);
+}
+
+/* where the open tab stands on the pane's corner, the corner is square, so
+   the tab's side and the pane's are one straight line */
+.panes[data-top="a"]:has(.pn__step:first-child[aria-current="true"]) .pn__pane {
+  border-top-left-radius: 0;
+}
+
+.panes[data-top="a"]:has(.pn__step:last-child[aria-current="true"]) .pn__pane {
+  border-top-right-radius: 0;
 }
 
 /* every tab is drawn as a tab, quietly, so a visitor who is not a developer
@@ -1764,10 +1899,6 @@ body {
 
 .panes[data-top="a"] .pn__work {
   padding-top: 0;
-}
-
-.panes[data-top="a"] .pn__pane {
-  margin-top: -1px; /* its top border under the tabs' foot, covered by the open one */
 }
 
 /* b: signs over the walk, and the walk on the pane. Each step's name floats
@@ -2015,9 +2146,13 @@ body {
     padding: 0 8px;
   }
 
-  /* the scrolling row clips at its own bottom, so the tab ends there: a
-     pixel past it showed nothing and cut the focus ring */
+  /* the scrolling row clips at its own bottom, so the open tab ends there,
+     on the pane's top border (its last pixel row), and the others one above */
   .panes[data-top="a"] .pn__step {
+    height: 39px;
+  }
+
+  .panes[data-top="a"] .pn__step[aria-current="true"] {
     height: 40px;
   }
 
