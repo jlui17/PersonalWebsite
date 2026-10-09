@@ -1703,7 +1703,9 @@ body {
 
 /* a: tabs the pathway stands on. Under the walk, its floor, and hanging from
    the floor one tab per step; the open step's tab is joined to the pane under
-   it, like the tab of a folder, so the pane needs no title of its own. */
+   it, like the tab of a folder, so the pane needs no title of its own: the
+   pane's amber top border runs under the other tabs and straight into the
+   open tab's sides, with no line under the open tab. */
 .panes[data-top="a"] .pn__bot {
   top: calc(var(--pn-title-h) + var(--pn-pathway-h));
 }
@@ -1715,16 +1717,45 @@ body {
   display: grid;
   grid-template-columns: repeat(var(--pn-steps), minmax(0, 1fr));
   height: 34px;
+  margin-bottom: -1px; /* the row's last pixel row is the pane's top border */
   padding: 0 10px;
-  border-top: 1px solid var(--pn-line-strong); /* the pathway's floor */
+  /* the pathway's floor, drawn inside the row so the tabs' tops lie on it
+     (a border is outside a phone's scrolling row, which clips the tabs) */
+  background: linear-gradient(var(--pn-line-strong), var(--pn-line-strong)) top / 100% 1px no-repeat;
 }
 
+/* each tab ends on the pane's top border; the open one reaches one row
+   further and covers it, so its sides meet the border on both sides */
 .panes[data-top="a"] .pn__step {
-  height: 35px;
-  margin-top: -1px; /* the open tab's top edge lies on the floor */
+  height: 33px;
   border: 1px solid transparent;
   border-bottom: 0;
   border-radius: var(--pn-radius) var(--pn-radius) 0 0;
+}
+
+.panes[data-top="a"] .pn__step[aria-current="true"] {
+  height: 34px;
+}
+
+/* the open tab's focus ring is open at the bottom too, so a step selected
+   from the keyboard keeps the tab joined to the pane: one more pixel inside
+   its amber border on the top and the sides (2px, as every ring) */
+.panes[data-top="a"] .pn__step[aria-current="true"]:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 1px var(--pn-amber),
+    inset 1px 0 var(--pn-amber),
+    inset -1px 0 var(--pn-amber);
+}
+
+/* where the open tab stands on the pane's corner, the corner is square, so
+   the tab's side and the pane's are one straight line */
+.panes[data-top="a"]:has(.pn__step:first-child[aria-current="true"]) .pn__pane {
+  border-top-left-radius: 0;
+}
+
+.panes[data-top="a"]:has(.pn__step:last-child[aria-current="true"]) .pn__pane {
+  border-top-right-radius: 0;
 }
 
 /* every tab is drawn as a tab, quietly, so a visitor who is not a developer
@@ -1749,10 +1780,6 @@ body {
 
 .panes[data-top="a"] .pn__work {
   padding-top: 0;
-}
-
-.panes[data-top="a"] .pn__pane {
-  margin-top: -1px; /* its top border under the tabs' foot, covered by the open one */
 }
 
 /* b: signs over the walk, and the walk on the pane. Each step's name floats
@@ -2000,9 +2027,13 @@ body {
     padding: 0 8px;
   }
 
-  /* the scrolling row clips at its own bottom, so the tab ends there: a
-     pixel past it showed nothing and cut the focus ring */
+  /* the scrolling row clips at its own bottom, so the open tab ends there,
+     on the pane's top border (its last pixel row), and the others one above */
   .panes[data-top="a"] .pn__step {
+    height: 39px;
+  }
+
+  .panes[data-top="a"] .pn__step[aria-current="true"] {
     height: 40px;
   }
 
