@@ -1,4 +1,4 @@
-// The stage is the sprite pathway above the status bar: a one-dimensional floor
+// The stage is the sprite pathway above the tabs: a one-dimensional floor
 // that Justin, Truffle and the tennis ball live on. Positions are the centre
 // of each actor's feet in CSS px from the left of the window, so a pose that
 // is wider or narrower stays put when it changes. Walking frames advance by
@@ -228,7 +228,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     { kind: "land", at: step.at ?? (() => ({ x: step.x, y: step.y })), face: step.face, then: step.then, home: step.home, ...step.landing },
   ];
   // No robot beams where Justin is or may walk while the beam plays (the
-  // pathway only: a spot up in a pane is above him). A beam-in waits until
+  // pathway only: a spot in a pane is below him). A beam-in waits until
   // its landing box, and a beam-out until the box he stands in, is clear of
   // Justin's canvas grown by a margin and, while he walks, by the distance a
   // walk covers in the beam's time on both sides (the visitor may turn him
@@ -239,10 +239,10 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   const TRIP_MS = 2 * BEAM_MS + 150; // out, gone, in: how far ahead a departure looks at its landing
   const CLEAR_MARGIN = 12;
   const CLEAR_CAP = 3000;
-  // a landing this far above or below the ground (a pane's spot, whichever
-  // side of the pathway the panes are on) clears him by height
+  // a landing this far below the ground (a spot in the pane under the
+  // pathway) clears him by height
   const PATHWAY_AIR = 60;
-  const offPathway = (y) => Math.abs(y) >= PATHWAY_AIR;
+  const offPathway = (y) => y <= -PATHWAY_AIR;
   function clearOf(x, y, w = 28, ms = BEAM_MS + 150) {
     if (offPathway(y)) return true;
     const reach = justin.walking ? (JUSTIN.speed * ms) / 1000 : 0;
@@ -472,7 +472,8 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   const CARRY = { x: 5, xFlipped: 7, below: 9 };
   // At a spot in a pane he keeps to its anchor while the pane scrolls or
   // re-flows: every tick, and (the design calls it) in the same frame the
-  // pane expands, so no frame draws him over the words that moved. False when
+  // window crosses the phone width, so no frame draws him over the words that
+  // moved. False when
   // the anchor is out of the pane's window.
   function followAnchor() {
     const step = bot.steps[0];
