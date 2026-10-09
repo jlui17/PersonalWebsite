@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Sprite, characters } from "../../../sprites/Sprite.jsx";
 import { reducedMotion, script, useInView } from "./script.js";
 import "./scenes.css";
@@ -18,20 +18,39 @@ import "./scenes.css";
 // `tag`), and the name is the sign's text: real text, in reading order, laid
 // over the panel the scene's sign has for it (`signBox` on the scene), so a
 // screen reader and a copy get the whole sentence once. The scenes hide their
-// svgs from the accessibility tree. A heading that does not hold its place's
-// name keeps its scene beside it, with the same sign (the farm), and when the
-// row is too narrow for both, under it.
+// svgs from the accessibility tree. The farm's sentence does not hold its
+// sign's words, so its scene follows the word the sign ends on ("a family
+// farm [The farm]"), the same picture inside the sentence as the other two.
 //
-// The title row: the heading, the scene, and under both the rule that is the
-// scene's ground. All three rows are as tall as the tallest picture, so each
-// plan's number sits the same distance above its heading. A scene that
-// luibot visits says how far he reaches above it (`hoverRoom`): the row does
-// not grow for him (beside the heading he is over the number row's empty
-// right side); only a scene that has wrapped under its heading keeps that
-// much clear above itself.
+// The title row: the heading with its picture, and under it the rule that is
+// the scene's ground. Every row is as tall as the tallest picture, so the
+// words of each heading sit the same distance under the row's top. A scene
+// that luibot visits says where he pours over it (`hover`: from x, w across,
+// reaching `room` above the scene). On the heading's first line he has the
+// step over the plan for it; where the picture wraps under words that would
+// be under him, it keeps that much clear above itself.
 export function PlanTitle({ heading, place, scene }) {
+  const row = useRef(null);
+  const hover = scene.type.hover;
+  useLayoutEffect(() => {
+    if (!hover) return undefined;
+    const el = row.current;
+    const picture = el.querySelector(".pn-picture");
+    const settle = () => {
+      picture.removeAttribute("data-room-above");
+      const p = picture.getBoundingClientRect();
+      const [left, right, top] = [p.left + hover.x, p.left + hover.x + hover.w, p.top - hover.room];
+      const words = [...el.querySelectorAll(".pn-inline__words")].flatMap((span) => [...span.getClientRects()]);
+      if (words.some((w) => w.right > left && w.left < right && w.bottom > top && w.top < p.top)) picture.setAttribute("data-room-above", "");
+    };
+    settle();
+    const observer = new ResizeObserver(settle);
+    observer.observe(el);
+    document.fonts.ready.then(settle);
+    return () => observer.disconnect();
+  }, [hover]);
   return (
-    <div className="pn__chapter-title" style={{ "--row-h": `${TALLEST + 1}px`, "--hover-room": `${scene.type.hoverRoom ?? 0}px` }}>
+    <div className="pn__chapter-title" ref={row} style={{ "--row-h": `${TALLEST + 1}px`, "--hover-room": `${hover?.room ?? 0}px` }}>
       <PlanHeading heading={heading} place={place} scene={scene} />
     </div>
   );
@@ -41,7 +60,7 @@ function PlanHeading({ heading, place, scene }) {
   const box = scene.type.signBox;
   const at = heading.indexOf(place);
   const picture = (
-    <span className="pn-picture">
+    <span className="pn-picture" aria-hidden={at < 0 || undefined}>
       <span
         className="pn-plan-sign"
         style={{ left: box.x, top: -(box.up + box.h), "--sign-w": `${box.w}px`, "--sign-h": `${box.h}px`, "--sign-up": `${box.up}px` }}
@@ -51,13 +70,23 @@ function PlanHeading({ heading, place, scene }) {
       {scene}
     </span>
   );
-  if (at < 0)
+  if (at < 0) {
+    // the farm: its sign says "The farm" and its sentence "a family farm", so the
+    // picture follows the sign's last word in the sentence and keeps to it on one
+    // line, and the sign's words are not read a second time
+    const word = place.split(" ").at(-1);
+    const cut = heading.indexOf(word);
     return (
-      <>
-        <h3>{heading}</h3>
-        {picture}
-      </>
+      <h3 className="pn-inline">
+        <span className="pn-inline__words">{heading.slice(0, cut)}</span>
+        <span className="pn-inline__keep">
+          <span className="pn-inline__words">{`${word} `}</span>
+          {picture}
+        </span>
+        <span className="pn-inline__words">{heading.slice(cut + word.length)}</span>
+      </h3>
     );
+  }
   return (
     <h3 className="pn-inline">
       <span className="pn-inline__words">{heading.slice(0, at)}</span>

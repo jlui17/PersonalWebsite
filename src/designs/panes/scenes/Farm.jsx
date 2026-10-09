@@ -3,7 +3,7 @@ import { Sprite, characters } from "../../../sprites/Sprite.jsx";
 import { reducedMotion, script, useChore } from "./script.js";
 import "./scenes.css";
 
-// Pane 3's future part: the hen and the sheep on one ground line beside the farm heading
+// Pane 3's future part: the hen and the sheep on one ground line inside the farm heading
 // (the cow stays in the pathway). Each has a small life of her own, stepped here
 // frame by frame and never in sync. When the feed is poured (`fed`) the grain
 // falls once at the feed spot, the hen walks over and eats it, and the sheep
@@ -152,4 +152,5 @@ export function FarmScene({ fed }) {
   );
 }
 FarmScene.signBox = SIGN_BOX;
-FarmScene.hoverRoom = HOVER - HEIGHT;
+// where luibot pours: from the feed spot, his width across, this far above the scene
+FarmScene.hover = { x: FEED_X, w: width(luibot, "feed"), room: HOVER - HEIGHT };

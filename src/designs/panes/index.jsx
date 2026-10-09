@@ -1502,8 +1502,8 @@ export default function Panes() {
         </div>
         {/* the second part, his future plans: its heading is the sentence each plan's heading
             finishes. Each plan's scene stands inside its heading where the place is named (the
-            skyline, the cherry tree and the gate), or beside it (the hen and the sheep; the
-            pathway has the cow; luibot pours their feed) */}
+            skyline, the cherry tree and the gate; the hen and the sheep after "farm", the
+            pathway has the cow, and luibot pours their feed) */}
         <section className="pn__part pn__later">
           <div className="pn__part-head">
             <h2 className="pn__part-title">{somedayHead.heading}</h2>

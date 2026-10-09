@@ -107,12 +107,9 @@
 
 /* ---- pane 3's future part: a small scene beside each plan's heading ---- */
 
-/* A plan's title row: the heading, its scene right beside it, and under both
-   a rule that is the scene's ground. In a narrow pane the scene takes its own
-   line under the heading. */
+/* A plan's title row: the heading with its scene inside the sentence, and
+   under it a rule that is the scene's ground. */
 .panes .pn__chapter-title {
-  flex-wrap: wrap;
-  gap: 6px 32px;
   border-bottom: 1px solid var(--pn-line-strong);
   margin-bottom: calc(12px + var(--pn-more-text)); /* the rhythm tokens are in panes.css */
 }
@@ -120,15 +117,10 @@
 .panes .pn__chapter-title {
   --title-lift: 9px; /* how far the heading's words sit above their line's foot */
   min-height: var(--row-h);
-  row-gap: calc(6px + var(--hover-room)); /* only a wrapped row has a row gap */
 }
 
-/* No measure here: a heading that does not fit beside its scene keeps its one
-   line and the scene goes under it, instead of the heading wrapping and the
-   scene standing far off beside its last line. */
 .panes .pn__chapter-title h3 {
   max-width: 100%;
-  padding-bottom: var(--title-lift);
 }
 
 /* A heading with its place drawn inside the sentence. The line's foot is on
@@ -141,21 +133,19 @@
    block, a flex item or an absolutely placed box inside the sentence would
    put a line break into a copy of it. */
 .panes .pn__chapter-title h3.pn-inline {
-  padding-bottom: 0;
   text-wrap: balance; /* wrapped, no lone word is left behind the picture at the first line's end */
-}
-
-/* A plain heading starts as far under the row's top as the words of a picture
-   heading do, also when it runs to two lines with its scene under it. */
-.panes .pn__chapter-title h3:not(.pn-inline) {
-  padding-top: calc(var(--row-h) - 1px - var(--title-lift) - 1lh); /* the row's height less its rule */
 }
 
 .pn-inline__words {
   vertical-align: var(--title-lift);
 }
 
-/* A scene with its sign's text, inside the sentence or beside the heading. */
+/* a word and the picture that follows it break onto a line together */
+.pn-inline__keep {
+  white-space: nowrap;
+}
+
+/* A scene with its sign's text, inside the sentence. */
 .pn-picture {
   flex: none;
   display: inline-block;
@@ -170,6 +160,12 @@
 .pn-inline .pn-picture {
   margin-left: 4px;
   margin-right: 4px;
+}
+
+/* Wrapped under words that would be under luibot as he pours, a scene keeps
+   his reach clear above itself (PlanTitle settles it). */
+.pn-picture[data-room-above] {
+  margin-top: calc(6px + var(--hover-room));
 }
 
 /* The sign's text: real text in the label voice over the panel the scene has
