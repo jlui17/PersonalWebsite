@@ -295,13 +295,6 @@ body {
   padding: 3px 5px;
 }
 
-/* the keyboard hints give way to the Trial control under 1400px (until the next commit) */
-@media (max-width: 1399px) {
-  .pn__hint {
-    display: none;
-  }
-}
-
 /* ---- workspace: the open pane and the stack of folded ones ---- */
 
 /* The open section on the left, the cards of every section on the right. The
