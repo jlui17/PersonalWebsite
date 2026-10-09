@@ -4,7 +4,7 @@ Justin's personal site (justinlui.dev). It is about who Justin is, not a portfol
 
 ## Tech stack
 
-React 19 + Vite, single page, no router. Styling is plain CSS: the design's own stylesheets (`src/designs/panes/panes.css`, and `scenes/scenes.css` beside it) on top of the reset in `src/index.css`. Hosting is Cloudflare Pages, project `justinlui-site`, connected to this GitHub repo: pushing `main` builds `npm run build` and publishes `dist`. Live at justinlui.dev and www.justinlui.dev; justinlui-site.pages.dev is the project subdomain. Inspect it with `bunx cf pages projects get justinlui-site` (run `cf auth login` first). Keep the project name `justinlui-site`; the reason is in `docs/design-process.md` under "Shipping to main".
+React 19 + Vite, single page, no router. Styling is plain CSS: the design's own stylesheets (`src/designs/panes/panes.css`, and `scenes/scenes.css` beside it) on top of the reset in `src/index.css`. Hosting is Cloudflare Pages, project `justinlui-site`, connected to this GitHub repo: pushing `main` builds `npm run build` and publishes `dist`. Live at justinlui.dev and www.justinlui.dev; justinlui-site.pages.dev is the project subdomain. Inspect it with `bunx cf pages get justinlui-site` (run `cf auth login` first). Keep the project name `justinlui-site`; the reason is in `docs/design-process.md` under "Shipping to main".
 
 **Every pushed branch is public.** Cloudflare builds it as a preview at `<branch>.justinlui-site.pages.dev`. Branch new work from `main`. On a machine that has them, never push the local branch `redesign-options` or the tags `glass-prototype` and `spec-sheet-evolved-prototype`: their history is not for publishing.
 
