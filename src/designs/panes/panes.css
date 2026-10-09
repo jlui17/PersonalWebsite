@@ -681,7 +681,7 @@ body {
 .pn__projects {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: calc(14px + var(--pn-more-row)) 32px; /* each row opens with a 24px name on its rule, so a small step parts two rows */
+  gap: calc(22px + var(--pn-more-row)) 32px;
 }
 
 /* A project's head takes a row shared with the project beside it, so the
@@ -1420,6 +1420,12 @@ body {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--pn-col-gap);
+  }
+
+  /* two projects to a row: each row opens with a 24px name on its rule, so
+     a small step parts two rows, and pane 2 fits his window */
+  .pn__projects {
+    row-gap: calc(14px + var(--pn-more-row));
   }
 
   .pn__lead {
