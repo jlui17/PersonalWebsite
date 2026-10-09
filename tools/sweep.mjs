@@ -10,6 +10,7 @@
 // --hour    ?hour= (default 14, "none" for the real hour), --reduced, --chromes N (default 2)
 // --measure also measures the open pane's use of space (MEASURE in tools/site.mjs) into measure.json
 // --eval    a page expression to print for each shot, e.g. --eval "document.querySelectorAll('[data-own-line]').length"
+// --scroll  a selector to scroll to the middle of the window before each shot, e.g. --scroll .pn-farm
 // Every shot waits for the page's images to be decoded and its smooth scrolls (a phone's row of
 // steps centring the open one runs on Chrome's own clock) to stop, and shots.json records each shot with the
 // boxes of what moves on timing of its own (LIVE in tools/site.mjs), for tools/pixdiff.mjs --live.
@@ -32,6 +33,7 @@ const args = cli(import.meta.url, {
   chromes: 2,
   measure: false,
   eval: "",
+  scroll: "",
 });
 const site = await openSite(args);
 const paths = args.paths ? args.paths.split(",") : steps(site.root).map((s) => `/#${s}`);
@@ -65,6 +67,7 @@ async function worker(queue) {
       init: [RECORDER],
     });
     await until(page, wait);
+    if (args.scroll) await page.eval(`document.querySelector(${JSON.stringify(args.scroll)})?.scrollIntoView({ block: "center" })`);
     await page.eval("Promise.all([...document.images].map((i) => i.decode().catch(() => null))).then(() => true)");
     for (let last = null, i = 0; i < 40; i++) {
       const now = await page.eval("JSON.stringify([...document.querySelectorAll('*')].filter((el) => el.scrollLeft || el.scrollTop).map((el) => [el.scrollLeft, el.scrollTop]))");
