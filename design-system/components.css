@@ -1449,11 +1449,30 @@ body {
     align-self: start;
   }
 
-  /* the photo no wider than its column at his window (about 1440x1000):
-     wider, in a 1920x1080 window, it pushed his links under the pane's foot */
+  /* the photo fills its column, and the three quiet lines go on one row
+     beside its caption (under it where the column is too narrow), so a wide
+     window has no room left beside the photo and his links stay in the pane:
+     under the photo they took three lines and a block's step, and at 1920x1080
+     that pushed them under the pane's foot */
   .pn__hello-side {
-    max-width: 480px;
-    justify-self: end;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 24px;
+  }
+
+  .pn__hello-side .pn__photo {
+    display: contents;
+  }
+
+  .pn__photo-frame {
+    flex-basis: 100%;
+  }
+
+  .pn__hello-foot {
+    flex-direction: row;
+    gap: 16px;
   }
 }
 
