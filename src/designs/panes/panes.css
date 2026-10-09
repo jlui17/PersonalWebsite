@@ -2158,6 +2158,40 @@ body {
   }
 }
 
+/* hello at the window's whole width: the photo's column runs from the top of
+   the pane, beside the title and the hook, so the right side holds the photo
+   at a size that reads, and under it its caption and the quiet last line.
+   The title, the hook and the blocks keep their one column on the left, in
+   the order they are written. */
+@container pane (min-width: 1100px) {
+  .panes[data-top] .pn__pane-body > .pn__flow:has(.pn__hello-body) {
+    display: grid;
+    grid-template-columns: minmax(0, var(--pn-lead-measure-wide)) clamp(300px, 100% - var(--pn-lead-measure-wide) - 56px, 640px); /* the photo takes what the text column leaves */
+    grid-template-rows: auto 1fr; /* the photo's column is the taller: its extra height goes under the blocks, never between the hook and them */
+    column-gap: 56px;
+    align-items: start;
+    justify-content: center; /* only where the pane is wider than both columns (a window of about 1500px and up) */
+  }
+
+  .panes[data-top] .pn__flow:has(.pn__hello-body) > :first-child {
+    grid-column: 1;
+  }
+
+  .panes[data-top] .pn__hello-body {
+    display: contents;
+  }
+
+  .panes[data-top] .pn__hello-body > .pn__blocks {
+    grid-column: 1;
+    max-width: 72ch;
+  }
+
+  .panes[data-top] .pn__hello-body > .pn__hello-side {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
 /* things I've built (the last part of pane 2): three to a row where each
    column still holds the longest head on one row, the name, its tag and
    luibuilder's spot (391px for LetMeInUBC-2.0), so 3 x 391 + 2 x 40. It asks
