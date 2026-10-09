@@ -57,17 +57,16 @@ Two families, split by reading level, and no third: not even for an arrow or a k
 
 | Role token | Font | Tracking | Used for |
 | --- | --- | --- | --- |
-| `--pn-h1` | 500 34px/1.1 (30px on a phone) | -0.04em | The first pane's title, in pane 2 each robot's name (provisional: the site shows two options for pane 2 until Justin picks), and with the steps on top each person's name in pane 4. |
+| `--pn-h1` | 500 34px/1.1 (30px on a phone) | -0.04em | The first pane's title, the stars' names (each robot in pane 2, each person in pane 4), and the heading of a part after a pane's first ("Things I’ve built", "In the future, I want to…"). |
 | `--pn-lead` | 400 19px/1.4 (17.5px under 900px), 46ch; `--pn-lead-measure-wide` (730px, 64ch) in a pane at the window's whole width | -0.02em | The open pane's hook. |
-| `--pn-h3-large` | 700 20px/1.3, 48ch | -0.015em | The heading of a part after a pane's first: pane 2's projects ("Things I’ve built") and pane 3's future plans ("In the future, I want to…"). |
-| `--pn-h3` | 700 17px/1.4 | -0.015em | A pane's "###" over a block of details, card headings, and project names. |
-| `--pn-h4` | 500 17px/1.4, in `--pn-ink-2` | -0.015em | A heading under a part's heading: the future plans, each finishing "In the future, I want to…". |
+| `--pn-h2` | 500 24px/1.25 (21px on a phone) | -0.03em | A block's heading with no name over it: hello's and pane 3's "###"s, the future plans (each finishing "In the future, I want to…"), and a project's name. |
+| `--pn-h3` | 700 17px/1.4 | -0.015em | The bold sentence under a name (a person, a robot, a project's one-line summary), card headings. |
 | `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | The search box's input. |
 | `--pn-fold-hook` | 500 14px/1.3 | -0.01em | The one line on a card. |
 | `--pn-ui` | 500 13px/1.3 | -0.01em | Names on cards, his name in the title bar, search rows, the status sign's values. |
 | `--pn-label`, `--pn-sign` | 500 11.5px/1 (10.5px in a phone's step bar) | 0 | All small chrome: tags, captions, buttons, hints, the clock, the step bar, the words on the drawn sign boards. |
 
-**Instrument Sans** (`--pn-font-body`, weight 400) is the details: the sentences under a heading. The window's base is 15px/1.6. Paragraphs, list lines and project stories are 13px in `--pn-dim`, and paragraphs sit on a 62ch measure. The quieter line under a hook is 14px in `--pn-muted` on 60ch. A project's one-line summary is 15px in `--pn-ink`.
+**Instrument Sans** (`--pn-font-body`, weight 400) is the details: the sentences under a heading. The window's base is 15px/1.6. Paragraphs, list lines and project stories are 13px in `--pn-dim`, and paragraphs sit on a 62ch measure. The quieter line under a hook is 14px in `--pn-muted` on 60ch. A project's one-line summary is its bold sentence, in `--pn-h3`.
 
 ## Spacing
 
@@ -94,7 +93,7 @@ Each part has a card in `components/`. Use the class names as they are.
 - **Title bar** (`titlebar.html`): `.pn__titlebar` with `.pn__title-name` (his name and "pronounced loo-wee" as a `.pn__label`), the search button `.pn__palette-button` with its `.pn__kbd` key, and `.pn__title-right` with two `.pn__hint`s and the `.pn__clock`. The hints hide on touch screens and under 900px.
 - **Card** (`card.html`): `.pn__stack` holds one `.pn__fold` button per section. Each has a `.pn__fold-head` (a `.pn__dot`, the number `.pn__pane-index`, the `.pn__fold-title` and the `.pn__fold-invite` with a `.pn__chevron`) and one `.pn__fold-hook` line. The selected card has `aria-current="true"`: amber border, filled dot, amber title, no invite.
 - **Pane** (`pane.html`): `.pn__pane` with a `.pn__pane-head` (the `.pn__pane-title` button and the `.pn__expand` button) and a scrolling `.pn__pane-body`. The body opens with the hook `.pn__lead` and sometimes a quieter `.pn__more`. `data-more` on the body fades its last lines.
-- **Blocks** (`pane.html`, `pages/home.html`): `.pn__block` is a `.pn__h3` over a paragraph, and a block without a heading reads as the next paragraph of the one above it. `.pn__blocks` stacks them in one column. `.pn__part` opens a new part under a hairline, and `.pn__story` does the same and sets its blocks in two columns that keep their reading order. `.pn__link` is a link inside a sentence.
+- **Blocks** (`pane.html`, `pages/home.html`): `.pn__block` is a `.pn__h2` over a paragraph, and a block without a heading reads as the next paragraph of the one above it. `.pn__blocks` stacks them in one column. `.pn__part` opens a new part under a hairline, and `.pn__story` does the same and sets its blocks in two columns that keep their reading order. `.pn__link` is a link inside a sentence.
 - **Lists** (`pane.html`): `.pn__does` is a `.pn__label` over a list whose lines each take a small bar. `.pn__week` with `.pn__week-days` sets one such list per day. A line with `data-next` is a side quest: a hollow box for its marker and a `.pn__next-tag` ("next") before its words.
 - **Agent** (`pane.html`): `.pn__agents` holds two `.pn__agent` columns, with no hook above them. The `.pn__agent-head` has the name (in the h1 role inside `[data-agents]`), a tag and the robot (`.pn-robot`), who stands on the head's rule and speaks in a `.pn-robot__bubble`. A later part (`.pn__part`) opens with a `.pn__part-head`: a heading and the quiet note beside it.
 - **People cards** (`people.html`): `.pn__people` holds `.pn__card`s, each a `.pn__card-name`, a heading and a paragraph. `.pn__card--tinted` with `.pn__people-wide` is his girlfriend's card, the one highlight. `.pn__card-live` is Truffle's live label.

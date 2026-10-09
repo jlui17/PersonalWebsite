@@ -55,15 +55,18 @@
   --pn-ui: 500 13px/1.3 var(--pn-font-head); /* names, search box rows */
   --pn-ui-large: 500 14.5px/1.3 var(--pn-font-head); /* project and agent names */
   --pn-ui-track: -0.01em;
-  --pn-h1: 500 34px/1.1 var(--pn-font-head);
+  /* The heading ranks, each a visible step under the last by size, weight
+     and colour together. Pane 4 set the grammar: a large name, a bold
+     sentence under it, then the quiet detail. */
+  --pn-h1: 500 34px/1.1 var(--pn-font-head); /* a pane's title, a star's name (a robot, a person), a part's heading ("Things I've built", "In the future, I want to…") */
   --pn-h1-track: -0.04em;
   --pn-lead: 400 19px/1.4 var(--pn-font-head); /* the open section's hook */
   --pn-lead-track: -0.02em;
   --pn-lead-measure: 46ch;
   --pn-lead-measure-wide: 730px; /* 64ch of the 19px hook. In a pane at the window's whole width a hook takes one or two long lines, not three short ones; hello's text column is this wide */
-  --pn-h3: 700 17px/1.4 var(--pn-font-head); /* a pane's "###", card headings */
-  --pn-h3-large: 700 20px/1.3 var(--pn-font-head); /* a part's heading after a pane's first ("Things I've built", "In the future, I want to…") */
-  --pn-h4: 500 17px/1.4 var(--pn-font-head); /* a heading under a part's heading (the future plans), in --pn-ink-2: a step under it by size, weight and colour */
+  --pn-h2: 500 24px/1.25 var(--pn-font-head); /* a block's heading with no name over it: hello's and pane 3's "###"s, the future plans, a project's name */
+  --pn-h2-track: -0.03em;
+  --pn-h3: 700 17px/1.4 var(--pn-font-head); /* the bold sentence under a name (a person, a robot, a project), card headings */
   --pn-h3-track: -0.015em;
   --pn-h3-measure: 48ch;
   /* the right column: its width, and its cards' padding, inner gap and type */
@@ -166,10 +169,11 @@ body {
   letter-spacing: var(--pn-ui-track);
 }
 
-/* a project's name is the "###" over its block */
+/* a project's name is the heading over its block, a rank under "Things I've
+   built" (a project named larger than its part read as a portfolio) */
 .pn__project-title {
-  font: var(--pn-h3);
-  letter-spacing: var(--pn-h3-track);
+  font: var(--pn-h2);
+  letter-spacing: var(--pn-h2-track);
 }
 
 .pn__label {
@@ -617,12 +621,21 @@ body {
   margin-bottom: 0;
 }
 
-/* The second heading rank (a pane's "###"): over a block of details, saying
-   what the block is about. Head family, one clear step under the lead and
-   over the body by size, weight and colour. */
-.pn__h3 {
-  font: var(--pn-h3);
-  letter-spacing: var(--pn-h3-track);
+/* A block's heading (a pane's "###" with no name over it): over a block of
+   details, saying what the block is about. It stands out as a person's name
+   does in pane 4: large, in full ink, over the quiet detail. */
+.pn__h2 {
+  font: var(--pn-h2);
+  letter-spacing: var(--pn-h2-track);
+  color: var(--pn-ink);
+  text-wrap: balance;
+}
+
+/* A part's heading after a pane's first ("Things I've built", "In the
+   future, I want to…"): the rank of the names, over the headings in it. */
+.pn__part-title {
+  font: var(--pn-h1);
+  letter-spacing: var(--pn-h1-track);
   color: var(--pn-ink);
   text-wrap: balance;
 }
@@ -911,11 +924,6 @@ body {
   letter-spacing: var(--pn-h1-track);
 }
 
-[data-agents] .pn__part-head .pn__h3 {
-  font: var(--pn-h3-large);
-  letter-spacing: var(--pn-h3-track);
-}
-
 /* b: one grid for the whole pane. The left column is the skim level (each
    robot's name on the rule he stands on, his tag under it; each part's
    heading with its note under it), as wide as the widest of them; the
@@ -1065,7 +1073,7 @@ body {
    to a column on the same two columns, each day a "what I hand him" list
    (.pn__does). The items read in order through the day, so a day is never
    split or balanced across columns. */
-.pn__week .pn__h3 {
+.pn__week .pn__h2 {
   margin-bottom: calc(10px + var(--pn-more-text));
 }
 
@@ -1079,10 +1087,10 @@ body {
   margin-top: 0;
 }
 
-/* projects: two by two, a step under their part's head (the head's own
-   margin is set for a list line, which brings its own 5px) */
+/* projects: two by two, under their part's heading by the step a hook
+   keeps to the first part (the head's own margin is set for a list line) */
 .pn__part > .pn-built {
-  margin-top: calc(var(--pn-gap-heading) + 10px);
+  margin-top: var(--pn-gap-hook);
 }
 
 .pn__projects {
@@ -1113,8 +1121,9 @@ body {
 }
 
 .pn__project-kicker {
+  font: var(--pn-h3);
+  letter-spacing: var(--pn-h3-track);
   color: var(--pn-ink);
-  font-size: 15px;
   padding-top: var(--pn-more-text); /* on top of the head's own 9px (scenes.css); a margin would collapse into it */
   margin-bottom: calc(var(--pn-gap-heading) + 6px); /* a step apart from the story, so the two don't read as one paragraph */
   text-wrap: pretty;
@@ -1158,8 +1167,8 @@ body {
   gap: var(--pn-gap-block);
 }
 
-.pn__block .pn__h3 {
-  margin-bottom: var(--pn-gap-heading);
+.pn__block .pn__h2 {
+  margin-bottom: calc(var(--pn-gap-heading) + 4px); /* a large heading keeps its paragraph a little further off than a small one */
 }
 
 .pn__block p {
@@ -1254,19 +1263,14 @@ body {
 }
 
 /* pane 3's second part, the future plans: its heading ("In the future, I
-   want to…") a visible rank over the plans' headings, which finish it, as
-   "Things I've built" is over the projects in pane 2: larger, heavier and in
-   full ink, the plans in --pn-h4 and --pn-ink-2. Then three chapters, the farm
+   want to…") in the names' rank (--pn-h1), over the plans' headings
+   (--pn-h2), which finish it, as "Things I've built" is over the projects in
+   pane 2. Then three chapters, the farm
    last, the sheep grazing beside its heading. Each plan opens with its title
    row, whose rule is the scene's ground; that rule marks the plan, so nothing
    else separates two plans but this step. The step is also luibot's room:
    pouring over the farm he reaches 5px above its title row, clear of the
    paragraph before it. */
-.pn__later .pn__part-head .pn__h3 {
-  font: var(--pn-h3-large);
-  letter-spacing: var(--pn-h3-track);
-}
-
 .pn__later .pn__part-head {
   margin-bottom: var(--pn-gap-hook);
 }
@@ -1281,9 +1285,9 @@ body {
 }
 
 .pn__chapter h3 {
-  font: var(--pn-h4);
-  letter-spacing: var(--pn-h3-track);
-  color: var(--pn-ink-2);
+  font: var(--pn-h2);
+  letter-spacing: var(--pn-h2-track);
+  color: var(--pn-ink);
   margin-bottom: 8px;
   max-width: var(--pn-h3-measure);
   text-wrap: pretty;
@@ -1666,6 +1670,7 @@ body {
     --pn-fold-pad: 11px 12px 12px;
     --pn-fold-gap: 7px;
     --pn-h1: 500 30px/1.1 var(--pn-font-head);
+    --pn-h2: 500 21px/1.25 var(--pn-font-head);
   }
 
   .pn__pane-body {

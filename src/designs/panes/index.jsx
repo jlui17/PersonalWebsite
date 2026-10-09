@@ -305,7 +305,7 @@ function Prose({ paragraph }) {
 function Block({ block }) {
   return (
     <section className="pn__block">
-      {block.heading && <h3 className="pn__h3">{block.heading}</h3>}
+      {block.heading && <h3 className="pn__h2">{block.heading}</h3>}
       {[].concat(block.body).length > 0 && <Prose paragraph={[].concat(block.body)} />}
     </section>
   );
@@ -1550,7 +1550,7 @@ export default function Panes() {
   const agentsDetail = () => {
     const partHead = (part) => (
       <div className="pn__part-head">
-        <h3 className="pn__h3">{part.heading}</h3>
+        <h3 className="pn__part-title">{part.heading}</h3>
         {part.note && <Label>{part.note}</Label>}
       </div>
     );
@@ -1686,7 +1686,7 @@ export default function Panes() {
               in the grammar of pane 2's "what I hand him" lists */}
           {lately.week && (
             <section className="pn__week">
-              <h3 className="pn__h3">{lately.week.heading}</h3>
+              <h3 className="pn__h2">{lately.week.heading}</h3>
               <div className="pn__week-days">
                 {lately.week.days.map((day) => (
                   <div className="pn__does" key={day.label}>
@@ -1708,7 +1708,7 @@ export default function Panes() {
             pathway has the cow; luibot pours their feed) */}
         <section className="pn__part pn__later">
           <div className="pn__part-head">
-            <h2 className="pn__h3">{somedayHead.heading}</h2>
+            <h2 className="pn__part-title">{somedayHead.heading}</h2>
           </div>
           <div className="pn__chapters">
             {someday.map((entry, i) => (

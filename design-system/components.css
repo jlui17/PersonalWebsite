@@ -160,10 +160,11 @@ body {
   letter-spacing: var(--pn-ui-track);
 }
 
-/* a project's name is the "###" over its block */
+/* a project's name is the heading over its block, a rank under "Things I've
+   built" (a project named larger than its part read as a portfolio) */
 .pn__project-title {
-  font: var(--pn-h3);
-  letter-spacing: var(--pn-h3-track);
+  font: var(--pn-h2);
+  letter-spacing: var(--pn-h2-track);
 }
 
 .pn__label {
@@ -471,12 +472,21 @@ body {
   margin-bottom: 0;
 }
 
-/* The second heading rank (a pane's "###"): over a block of details, saying
-   what the block is about. Head family, one clear step under the lead and
-   over the body by size, weight and colour. */
-.pn__h3 {
-  font: var(--pn-h3);
-  letter-spacing: var(--pn-h3-track);
+/* A block's heading (a pane's "###" with no name over it): over a block of
+   details, saying what the block is about. It stands out as a person's name
+   does in pane 4: large, in full ink, over the quiet detail. */
+.pn__h2 {
+  font: var(--pn-h2);
+  letter-spacing: var(--pn-h2-track);
+  color: var(--pn-ink);
+  text-wrap: balance;
+}
+
+/* A part's heading after a pane's first ("Things I've built", "In the
+   future, I want to…"): the rank of the names, over the headings in it. */
+.pn__part-title {
+  font: var(--pn-h1);
+  letter-spacing: var(--pn-h1-track);
   color: var(--pn-ink);
   text-wrap: balance;
 }
@@ -765,11 +775,6 @@ body {
   letter-spacing: var(--pn-h1-track);
 }
 
-[data-agents] .pn__part-head .pn__h3 {
-  font: var(--pn-h3-large);
-  letter-spacing: var(--pn-h3-track);
-}
-
 /* A part of a pane after its first: a hairline, then the part. In pane 2,
    under the two agents, the projects; in pane 3, under
    the sign, its story in blocks like pane 1's, in two columns, and the week.
@@ -825,7 +830,7 @@ body {
    to a column on the same two columns, each day a "what I hand him" list
    (.pn__does). The items read in order through the day, so a day is never
    split or balanced across columns. */
-.pn__week .pn__h3 {
+.pn__week .pn__h2 {
   margin-bottom: calc(10px + var(--pn-more-text));
 }
 
@@ -842,7 +847,7 @@ body {
 /* projects: two by two, a step under their part's head (the head's own
    margin is set for a list line, which brings its own 5px) */
 .pn__part > .pn-built {
-  margin-top: calc(var(--pn-gap-heading) + 10px);
+  margin-top: var(--pn-gap-hook);
 }
 
 .pn__projects {
@@ -873,8 +878,9 @@ body {
 }
 
 .pn__project-kicker {
+  font: var(--pn-h3);
+  letter-spacing: var(--pn-h3-track);
   color: var(--pn-ink);
-  font-size: 15px;
   padding-top: var(--pn-more-text); /* on top of the head's own 9px (scenes.css); a margin would collapse into it */
   margin-bottom: calc(var(--pn-gap-heading) + 6px); /* a step apart from the story, so the two don't read as one paragraph */
   text-wrap: pretty;
@@ -918,8 +924,8 @@ body {
   gap: var(--pn-gap-block);
 }
 
-.pn__block .pn__h3 {
-  margin-bottom: var(--pn-gap-heading);
+.pn__block .pn__h2 {
+  margin-bottom: calc(var(--pn-gap-heading) + 4px); /* a large heading keeps its paragraph a little further off than a small one */
 }
 
 .pn__block p {

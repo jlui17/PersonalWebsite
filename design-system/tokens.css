@@ -51,16 +51,17 @@
   --pn-ui: 500 13px/1.3 var(--pn-font-head); /* names, search box rows */
   --pn-ui-large: 500 14.5px/1.3 var(--pn-font-head); /* project and agent names */
   --pn-ui-track: -0.01em;
-  --pn-h1: 500 34px/1.1 var(--pn-font-head);
+  /* The heading ranks, each a visible step under the last by size, weight and colour together.
+     Pane 4 set the grammar: a large name, a bold sentence under it, then the quiet detail. */
+  --pn-h1: 500 34px/1.1 var(--pn-font-head); /* a pane's title, a star's name (a robot, a person), a part's heading ("Things I've built", "In the future, I want to…") */
   --pn-h1-track: -0.04em;
   --pn-lead: 400 19px/1.4 var(--pn-font-head); /* the open section's hook */
   --pn-lead-track: -0.02em;
   --pn-lead-measure: 46ch;
   --pn-lead-measure-wide: 730px; /* 64ch of the 19px hook. In a pane at the window's whole width a hook takes one or two long lines, not three short ones; hello's text column is this wide */
-  --pn-h3: 700 17px/1.4 var(--pn-font-head); /* a pane's "###", card headings */
-  --pn-h3-large: 700 20px/1.3 var(--pn-font-head); /* a part's heading after a pane's first ("Things I've built", "In the future, I want to…") */
-  --pn-h4: 500 17px/1.4 var(--pn-font-head); /* a heading under a part's heading (the future plans), in --pn-ink-2: a step under it by size, weight and colour */
-  --pn-h4: 500 17px/1.4 var(--pn-font-head); /* a heading under a part's heading (the future plans), in --pn-ink-2: a step under it by size, weight and colour */
+  --pn-h2: 500 24px/1.25 var(--pn-font-head); /* a block's heading with no name over it: hello's and pane 3's "###"s, the future plans, a project's name */
+  --pn-h2-track: -0.03em;
+  --pn-h3: 700 17px/1.4 var(--pn-font-head); /* the bold sentence under a name (a person, a robot, a project), card headings */
   --pn-h3-track: -0.015em;
   --pn-h3-measure: 48ch;
 
@@ -100,6 +101,7 @@
     --pn-fold-pad: 11px 12px 12px;
     --pn-fold-gap: 7px;
     --pn-h1: 500 30px/1.1 var(--pn-font-head);
+    --pn-h2: 500 21px/1.25 var(--pn-font-head);
   }
 }
 
