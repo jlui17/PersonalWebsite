@@ -71,6 +71,16 @@ export const PATHWAY = `(() => [...document.querySelectorAll("[data-stretch]")].
 
 export const stepAt = (pathway, x) => pathway.find((s) => x >= s.left && x < s.right)?.step ?? "off";
 
+// The boxes, as [x0, y0, x1, y1] in CSS px, of everything drawn on timing of its own rather than the
+// page clock's (a beam waits for painted frames, a scene's loops for an IntersectionObserver), so
+// two shots of one moment differ there from run to run: every sprite on the pathway, luibot's
+// layer, the beams and the pane's scenes, the status sign (lit when luibot's hand lands), the
+// clock, which reads the real time of day, and the photo, whose dimmed pixels vary in the last bit.
+// Each box takes one more pixel on every side, for a sprite's edge.
+export const LIVE = `[...document.querySelectorAll(".pn__stage svg, .pn__bot svg, .pn-beam, .pn-hello, .pn-robot, .pn-builder, .pn-farm, .pn-place, .pn-picture, .pn-upto__sign, .pn__clock, .pn__photo img")]
+  .map((el) => el.getBoundingClientRect()).filter((r) => r.width && r.height)
+  .map((r) => [Math.floor(r.left) - 1, Math.floor(r.top) - 1, Math.ceil(r.right) + 1, Math.ceil(r.bottom) + 1])`;
+
 // The open pane's use of space, in px, from what is drawn in its body: every line of words, every
 // picture or sprite, every visible rule and every tinted box. Measured over the whole scrolled
 // content, from the pane body's own edges (its padding counts as room).

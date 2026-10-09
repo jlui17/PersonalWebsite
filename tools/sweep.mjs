@@ -11,13 +11,16 @@
 // --hour    ?hour= (default 14, "none" for the real hour), --reduced, --chromes N (default 2)
 // --measure also measures the open pane's use of space (MEASURE in tools/site.mjs) into measure.json
 // --eval    a page expression to print for each shot, e.g. --eval "document.querySelectorAll('[data-own-line]').length"
+// Every shot waits for the page's images to be decoded and its smooth scrolls (a phone's row of
+// steps centring the open one runs on Chrome's own clock) to stop, and shots.json records each shot with the
+// boxes of what moves on timing of its own (LIVE in tools/site.mjs), for tools/pixdiff.mjs --live.
 // Site: --url | --dev | --commit, as in tools/tour.mjs. Writes tools/out/sweep-<time>/.
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { cli, outDir } from "./cli.mjs";
 import { launch } from "./chrome.mjs";
 import { SITE_OPTIONS, openSite } from "./serve.mjs";
-import { MEASURE, RECORDER, release, steps, until } from "./site.mjs";
+import { LIVE, MEASURE, RECORDER, release, steps, until } from "./site.mjs";
 
 const args = cli(import.meta.url, {
   ...SITE_OPTIONS,
@@ -70,7 +73,15 @@ async function worker(queue) {
       init: [RECORDER],
     });
     await until(page, wait);
+    await page.eval("Promise.all([...document.images].map((i) => i.decode().catch(() => null))).then(() => true)");
+    for (let last = null, i = 0; i < 40; i++) {
+      const now = await page.eval("JSON.stringify([...document.querySelectorAll('*')].filter((el) => el.scrollLeft || el.scrollTop).map((el) => [el.scrollLeft, el.scrollTop]))");
+      if (now === last) break;
+      last = now;
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     await page.shot(join(dir, shot.name));
+    shot.live = await page.eval(LIVE);
     shot.errors = [...page.errors];
     shot.sideways = await page.eval("document.documentElement.scrollWidth - document.documentElement.clientWidth");
     if (args.measure) shot.measure = await page.eval(MEASURE);
@@ -108,6 +119,7 @@ ${rows
   .join("\n")}
 `,
 );
+writeFileSync(join(dir, "shots.json"), JSON.stringify(shots, null, 1));
 if (args.measure) {
   writeFileSync(join(dir, "measure.json"), JSON.stringify(Object.fromEntries(shots.map((s) => [s.name, s.measure])), null, 1));
   const m = (s) => s.measure;

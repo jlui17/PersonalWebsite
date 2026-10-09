@@ -13,16 +13,30 @@
 // "seen N of M", and how many runs had the same pose sequence as the first.
 // Prints the pose sequence with the marks (load, key, arrival); writes the full logs as JSON to
 // tools/out/tour-<time>/run-<n>.json. --quiet prints only the summary.
-import { writeFileSync } from "node:fs";
+// --compare a.json b.json compares two such logs: each sprite's own order of poses, and where each
+// sprite is last logged (x, y); exits 1 if any differs. Two runs of one build can differ in page
+// time and in a pane sprite's y mid-fade, so the order and the end are what can be held equal.
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { cli, outDir } from "./cli.mjs";
 import { launch } from "./chrome.mjs";
 import { SITE_OPTIONS, openSite } from "./serve.mjs";
 import { SCENARIO, bySprite, endSteps, formatSequence, poseSequence, runScenario, steps } from "./site.mjs";
 
-const args = cli(import.meta.url, { ...SCENARIO, ...SITE_OPTIONS, runs: 1, expect: "", quiet: false });
-if (args.cpu > 1 && args.speed > 1)
-  console.log(`note: under --speed every page frame is 1/60 s, so the stalls --cpu ${args.cpu} is for never reach the site; use --cpu with --speed 1`);
+const args = cli(import.meta.url, { ...SCENARIO, ...SITE_OPTIONS, runs: 1, expect: "", quiet: false, compare: false });
+if (args.compare) {
+  const [a, b] = args._.map((f) => JSON.parse(readFileSync(f, "utf8")).log);
+  const [orderA, orderB] = [a, b].map((log) => bySprite(poseSequence(log)));
+  const end = (log) => Object.fromEntries(log.filter((e) => e.pose !== "gone").map((e) => [e.who, `${e.pose} ${e.x},${e.y ?? ""}`]));
+  const [endA, endB] = [end(a), end(b)];
+  let differs = 0;
+  for (const who of [...new Set([...Object.keys(orderA), ...Object.keys(orderB)])].sort()) {
+    const same = JSON.stringify(orderA[who]) === JSON.stringify(orderB[who]) && endA[who] === endB[who];
+    differs += !same;
+    console.log(`${same ? "same   " : "DIFFERS"} ${who}: ${orderA[who]?.length ?? 0} poses, ends ${endA[who]}${same ? "" : `\n        vs ${orderB[who]?.length ?? 0} poses, ends ${endB[who]}\n        A ${orderA[who]?.join(" ")}\n        B ${orderB[who]?.join(" ")}`}`);
+  }
+  process.exit(differs ? 1 : 0);
+}
 const site = await openSite(args);
 const order = steps(site.root);
 const expect = args.expect ? args.expect.split(",").map((s) => s.trim()) : [];
