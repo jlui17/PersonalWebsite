@@ -2122,6 +2122,13 @@ body {
     padding: 4px 8px;
   }
 
+  /* every tab and stop keeps room at its sides, so the longest name wraps
+     like the others instead of running to its edges */
+  .panes[data-top="a"] .pn__step,
+  .panes[data-top="c"] .pn__step {
+    padding-inline: 10px;
+  }
+
   .panes[data-top="c"] .pn__steps {
     height: auto;
     min-height: 32px;
