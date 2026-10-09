@@ -54,8 +54,8 @@ const hourPose = { morning: "sip", day: "idle", evening: "sit", night: "sleep" }
 const panePose = { people: "sleep", agents: "type" };
 
 // Props are staged by name and measured from their sheets, so art that is
-// still being drawn (the sheep, a redrawn cow) drops in without a code change.
-const { coffee, shoeRack, cow, sheep, feed } = propSheets;
+// still being drawn (a redrawn cow, say) drops in without a code change.
+const { coffee, shoeRack, cow, feed } = propSheets;
 // luibot pours the feed until the grain has reached the pile (the comment
 // above `feed` in src/sprites/luibot.js): at least the grain's fall and a
 // beat after, so the sack is seen empty over it, and until the farm shows the
@@ -617,17 +617,17 @@ function stretches(width, phone, focusedIndex) {
     if (pane.id === "now") {
       // The cow at the stretch's start, for the farm in the pane's second part
       // (the hen and the sheep are up in its scene); she stays there and
-      // swishes her tail. A stretch too narrow for her gets the sheep, and one
-      // too narrow for either has only the coffee corner and the yard.
-      // `corner` is what those two need: from the machine's left to the ball
-      // by his shoe at his nearest station (`station` below), then a throw of
-      // at least 50px to where the ball lands, 40px short of the yard's end.
+      // swishes her tail. A stretch too narrow for her has only the coffee
+      // corner and the yard (not the sheep: the farm has her, and no sprite
+      // shows twice on a page). `corner` is what those two need: from the
+      // machine's left to the ball by his shoe at his nearest station
+      // (`station` below), then a throw of at least 50px to where the ball
+      // lands, 40px short of the yard's end.
       const corner = 4 - COFFEE_PROP_X + poseBox("justin", "press")[1] + 40 + BALL_AT_SHOE + 50 + 40;
-      const animal = [cow, sheep].find((sheet) => sheet && span >= GAP + propWidth(sheet) + GAP + corner);
       let start = left + GAP;
-      if (animal) {
-        s.residents[animal === cow ? "cow" : "sheep"] = start;
-        start += propWidth(animal) + GAP;
+      if (cow && span >= GAP + propWidth(cow) + GAP + corner) {
+        s.residents.cow = start;
+        start += propWidth(cow) + GAP;
       }
       // Then the coffee corner and the yard for the ball right of it. He
       // goes between the two: `coffeeStation` is the one
@@ -1538,7 +1538,6 @@ export default function Panes() {
 
   // under his hand she idles or swishes her tail (the sheet says no grazing there)
   const cowAction = useAmbient(cow, ["tail"], 1500, { min: 7000, max: 12000 });
-  const sheepAction = useAmbient(sheep, sheep ? Object.keys(sheep.actions).filter((a) => a !== "idle" && a !== "walk") : [], 2500);
 
   // Pane 2: the agents (each with what he does now and his side quests), then
   // the things he has built. The part after the agents opens with a heading
@@ -1896,11 +1895,6 @@ export default function Panes() {
             {s.residents.cow !== undefined && (
               <span className="pn__prop" data-prop="cow" data-action={cowAction} style={{ left: s.residents.cow - s.left }}>
                 <Sprite character="cow" action={cowAction} scale={1} />
-              </span>
-            )}
-            {s.residents.sheep !== undefined && (
-              <span className="pn__prop" data-prop="sheep" data-action={sheepAction} style={{ left: s.residents.sheep - s.left }}>
-                <Sprite character="sheep" action={sheepAction} scale={1} />
               </span>
             )}
             {s.residents.coffee !== undefined && (
