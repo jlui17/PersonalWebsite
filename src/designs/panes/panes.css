@@ -815,15 +815,20 @@ body {
   gap: 0 32px;
 }
 
-/* Side by side in a wide pane: each robot's column is centred on a third of
-   the pane (his ask: "too much space to the right here for luibot and
-   luibuilder"), so the room is shared on both sides. With a 32px gap that is
-   an inset of a sixth of the width plus half the gap; the hook keeps to the
-   same left edge. */
+/* Side by side in a wide pane: each robot's block is 80% of its half and
+   centred on it, so the two sit on the pane's quarters with room shared on
+   both sides (his asks: "too much space to the right here for luibot and
+   luibuilder", then on thirds "too close now"). The hook keeps to luibot's
+   left edge. */
 @media (min-width: 1101px) {
-  .pn__agents,
+  .pn__agents > .pn__agent,
+  .pn__agents > :has(> .pn__agent) {
+    width: 80%;
+    justify-self: center;
+  }
+
   .pn__agents-hook {
-    padding-inline: calc(100% / 6 + 16px);
+    padding-inline-start: calc((100% - 32px) / 2 * 0.1);
   }
 }
 
