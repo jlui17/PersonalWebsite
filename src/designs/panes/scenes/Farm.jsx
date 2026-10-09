@@ -22,8 +22,9 @@ import "./scenes.css";
 // or under luibot, and the sheep's mouth (she faces left, towards the feed)
 // has bare ground. Only `tuft-a` sways.
 
-const { chicken, sheep, feed, luibot, farmSign } = characters;
+const { chicken, sheep, feed, luibot, farmSign, grass } = characters;
 const width = (sheet, action) => sheet.actions[action].frames[0][0].length;
+const tall = (sheet, action, frame = 0) => sheet.actions[action].frames[frame].length;
 const HEN_BEAK = 18; // from her canvas's left edge to the grain under her beak in `peck`
 const WALK = 12; // px she walks to the feed: six frames of her 2px stride
 // The sign stands at the field's left end; the panel for its text is x 1-59,
@@ -45,6 +46,12 @@ const TUFTS = [
 ];
 const HEIGHT = sheep.actions.idle.frames[0].length; // the tallest resident
 const HOVER = 16 + luibot.actions.feed.frames[0].length; // luibot pouring reaches this far above the ground: the pathway hovers him 16px up
+const FEED_H = tall(feed, "fall");
+// Where a canvas `h` tall stands with its left edge `x` from the scene's left
+// edge. Each actor is a zero-size inline box at the scene's top-left corner,
+// moved into place: an absolutely placed box inside the heading would put a
+// line break into a copy of its sentence (as the props in Places.jsx).
+const at = (x, h, box = HEIGHT) => ({ left: x, top: box - h });
 
 const PECK = [1, 2, 3, 1, 2, 3]; // a bout: two pecks; her beak is down in frame 2
 const LAST_BITE = PECK.lastIndexOf(2);
@@ -127,26 +134,27 @@ export function FarmScene({ fed }) {
 
   return (
     <span className="pn-farm" aria-hidden="true" style={{ "--farm-w": `${WIDTH}px`, "--farm-h": `${HEIGHT}px` }}>
-      <span className="pn-farm__prop" data-prop="farmSign">
+      <span className="pn-farm__prop" data-prop="farmSign" style={at(0, tall(farmSign, "idle"))}>
         <Sprite character="farmSign" action="idle" scale={1} />
       </span>
       {TUFTS.map((tuft) => (
-        <span className="pn-farm__prop" data-prop={tuft.action} key={tuft.x} style={{ left: tuft.x }}>
+        <span className="pn-farm__prop" data-prop={tuft.action} key={tuft.x} style={at(tuft.x, tall(grass, tuft.action))}>
           <Sprite character="grass" action={tuft.action} scale={1} />
         </span>
       ))}
-      <span className="pn-farm__animal" data-animal="hen" data-action={hen.action} style={{ left: HEN_X + henAt.current }}>
+      <span className="pn-farm__animal" data-animal="hen" data-action={hen.action} style={at(HEN_X + henAt.current, tall(chicken, hen.action, hen.frame))}>
         <Sprite character="chicken" action={hen.action} frame={hen.frame} scale={1} />
       </span>
-      <span className="pn-farm__feed" data-anchor="feed-spot" data-grain={grain ? `${grain.action} ${grain.frame}` : ""} style={{ left: FEED_X, width: width(feed, "fall"), height: feed.actions.fall.frames[0].length }}>
+      <span className="pn-farm__animal" data-animal="sheep" data-action={ewe.action} style={at(SHEEP_X, tall(sheep, ewe.action, ewe.frame))}>
+        <Sprite character="sheep" action={ewe.action} frame={ewe.frame} scale={1} flip />
+      </span>
+      {/* last: the only box with a width, so it moves nothing after it */}
+      <span className="pn-farm__feed" data-anchor="feed-spot" data-grain={grain ? `${grain.action} ${grain.frame}` : ""} style={{ ...at(FEED_X, FEED_H), width: width(feed, "fall"), height: FEED_H }}>
         {grain && (
-          <span className="pn-farm__grain" style={{ left: FEED_DX }}>
+          <span className="pn-farm__grain" style={at(FEED_DX, tall(feed, grain.action, grain.frame), FEED_H)}>
             <Sprite character="feed" action={grain.action} frame={grain.frame} scale={1} />
           </span>
         )}
-      </span>
-      <span className="pn-farm__animal" data-animal="sheep" data-action={ewe.action} style={{ left: SHEEP_X }}>
-        <Sprite character="sheep" action={ewe.action} frame={ewe.frame} scale={1} flip />
       </span>
     </span>
   );

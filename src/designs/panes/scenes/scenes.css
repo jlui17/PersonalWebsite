@@ -236,16 +236,17 @@
   line-height: 0;
 }
 
+/* zero-size inline boxes at the scene's top-left corner, moved into place by
+   `left` and `top` (FarmScene's `at`); the feed spot alone has a size */
 .pn-farm__prop,
 .pn-farm__animal,
-.pn-farm__feed {
-  position: absolute;
-  bottom: 0;
-}
-
+.pn-farm__feed,
 .pn-farm__grain {
-  position: absolute;
-  bottom: 0;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 0;
+  height: 0;
 }
 
 .pn-farm__feed {
@@ -253,7 +254,8 @@
 }
 
 .pn-farm svg {
-  display: block;
+  display: inline-block; /* the page's base styles make every svg a block */
+  vertical-align: top;
 }
 
 /* ---- pane 2: each robot beside his name ---- */
