@@ -59,8 +59,9 @@ Two families, split by reading level, and no third: not even for an arrow or a k
 | --- | --- | --- | --- |
 | `--pn-h1` | 500 34px/1.1 (30px on a phone) | -0.04em | The first pane's title, in pane 2 each robot's name (provisional: the site shows two options for pane 2 until Justin picks), and with the steps on top each person's name in pane 4. |
 | `--pn-lead` | 400 19px/1.4 (17.5px under 900px), 46ch; `--pn-lead-measure-wide` (730px, 64ch) in a pane at the window's whole width | -0.02em | The open pane's hook. |
-| `--pn-h3-large` | 700 18.5px/1.35, 48ch | -0.015em | The heading of a part after a pane's first: pane 2's projects ("Things I’ve built") and pane 3's future plans ("In the future, I want to…"). |
-| `--pn-h3` | 700 17px/1.4 | -0.015em | A pane's "###" over a block of details, card headings, project names, and the future plans' headings. |
+| `--pn-h3-large` | 700 20px/1.3, 48ch | -0.015em | The heading of a part after a pane's first: pane 2's projects ("Things I’ve built") and pane 3's future plans ("In the future, I want to…"). |
+| `--pn-h3` | 700 17px/1.4 | -0.015em | A pane's "###" over a block of details, card headings, and project names. |
+| `--pn-h4` | 500 17px/1.4, in `--pn-ink-2` | -0.015em | A heading under a part's heading: the future plans, each finishing "In the future, I want to…". |
 | `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | The search box's input. |
 | `--pn-fold-hook` | 500 14px/1.3 | -0.01em | The one line on a card. |
 | `--pn-ui` | 500 13px/1.3 | -0.01em | Names on cards, his name in the title bar, search rows, the status sign's values. |
