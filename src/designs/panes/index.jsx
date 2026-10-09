@@ -63,6 +63,10 @@ const { coffee, shoeRack, cow, sheep, feed } = propSheets;
 const POUR_MS = feed.actions.fall.durations.slice(0, -1).reduce((sum, d) => sum + d, 0) + 300;
 const grainOnPile = () => /^pile/.test(document.querySelector('[data-anchor="feed-spot"]')?.dataset.grain ?? "");
 // luibot's canvas heights at his two pane spots, for whether he fits in the pane's window
+// How long pane 2 stays open before luibot leaves the chair he is pushing in
+// for it: longer than a quick pass through step 2 (a second key within about
+// 300 ms), short enough that Justin, walking to the chair, is still far off.
+const CHAIR_GRACE_MS = 500;
 const BOT_FLY_H = characters.luibot.actions.fly.frames[0].length;
 const BOT_FEED_H = characters.luibot.actions.feed.frames[0].length;
 const GAP = 4;
@@ -1084,8 +1088,16 @@ export default function Panes() {
       stage.wantBotUp(null);
       setBotUp(false);
     } else {
-      stage.cancelTuck(); // back at the desk: luibot leaves the chair at once (the chair stays as far in as it got)
-      stage.wantBotUp(() => setBotUp(true));
+      // back at the desk: luibot leaves the chair (it stays as far in as it
+      // got) and goes up. On the chair already, he keeps at it for a moment
+      // first, so a visitor passing through step 2 costs him no trip up and
+      // straight back down to finish the push.
+      const up = () => {
+        stage.cancelTuck();
+        stage.wantBotUp(() => setBotUp(true));
+      };
+      if (stage.onChair()) return stage.after(CHAIR_GRACE_MS, up);
+      up();
     } // on a phone too: caught mid-errand in a pane, he beams out where he is (`onOut` then puts him away on the ground, so he never pops up at his errand's height later)
     const anchor = { now: "sign-switch", someday: "feed-spot" }[focused];
     if (!anchor) return undefined;

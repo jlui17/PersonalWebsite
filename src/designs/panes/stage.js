@@ -654,6 +654,10 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     if (bot.pose === "fly-wave") bot.pose = "fly";
   }
 
+  // On the chair: the tuck is under way with his hand on it (not queued, not
+  // on his way there, not still forming at it: those end at once).
+  const onChair = () => chair.busy && !bot.queue.some((c) => c.kind === "tuck") && bot.steps[0]?.kind === "hold";
+
   // Back at the desk: standing at `pullSpot` (his hand on the chair back, his
   // canvas PULL_X from the desk's), he pulls it out, `pull` j with `tuck` 7-j
   // at 75 ms, shuffling backward as the sheet says, then walks round to the
@@ -1634,6 +1638,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     flyToSpot,
     cancelPaneChores,
     cancelTuck,
+    onChair,
     botInTheWay: () => !!bot.inTheWay,
     bot,
     botBusy,
