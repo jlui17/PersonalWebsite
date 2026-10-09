@@ -1,6 +1,6 @@
 import { Children, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import "./panes.css";
-import { agents, intro, lately, people, projects, projectsHead, sections, someday } from "../../content";
+import { agents, intro, lately, people, projects, projectsHead, sections, someday, somedayHead } from "../../content";
 import { Sprite, characters } from "../../sprites/Sprite.jsx";
 import justinSheet from "../../sprites/justin.js";
 import * as propSheets from "../../sprites/props.js";
@@ -46,9 +46,9 @@ const timeOfDay = (hour) =>
 
 // How Justin settles at each pane's station: with the shoebox at hello,
 // typing at the desk beside the robots under agents and projects, asleep by
-// Truffle under people; under the farm and now panes the hour decides
-// (espresso in the morning, standing through the day, sitting in the evening,
-// asleep at night) and the clock says why.
+// Truffle under people; in the yard under now and later, once the game is
+// over, the hour decides (espresso in the morning, standing through the day,
+// sitting in the evening, asleep at night) and the clock says why.
 const hourPose = { morning: "sip", day: "idle", evening: "sit", night: "sleep" };
 // (at hello he carries the shoeboxes while he has them; see restFor)
 const panePose = { people: "sleep", agents: "type" };
@@ -93,9 +93,6 @@ const COFFEE_BEATS = [
 ];
 // How long he plays with Truffle at step 3 before the next espresso.
 const COFFEE_EVERY = [180000, 240000];
-// Where the cow's canvas sits in his `pat` canvas (the comment above `pat` in
-// src/sprites/justin.js). MUST match it.
-const COW_PAT_X = -47;
 
 function useSFHour() {
   const [hour, setHour] = useState(sfHour);
@@ -197,9 +194,8 @@ function useAmbient(sheet, actionNames, offset, { min = 6000, max = 10000 } = {}
 const PANES = [
   { id: "hello", short: "hello", keywords: ["hello", "hi", "intro", "about", "me", "start", "lui", "justin", "work", "scorecard", "one piece", "geography", "shoes", "shoe rack"], ...sections.intro },
   { id: "agents", short: "agents", keywords: ["agents", "agent", "luibot", "luibuilder", "robots", "bots", "openclaw", "side quests", "robotics", "3d printer", "projects", "built", "tools", "code", "puzzle", "puzzlewithme", "mdnote", "slk", "slack", "things", "things i've built", "things i’ve built"], ...sections.agents },
-  { id: "now", short: "now", keywords: ["now", "up to", "lately", "status", "learning", "japanese", "espresso", "coffee", "grinder", "pokemon", "experiments", "week", "weekend", "friends", "trader joe's", "san mateo"], ...sections.now },
+  { id: "now", short: "now", keywords: ["now", "later", "up to", "lately", "status", "learning", "japanese", "espresso", "coffee", "grinder", "pokemon", "experiments", "week", "weekend", "friends", "trader joe's", "san mateo", "future", "plans", "someday", "farm", "new york", "japan", "sheep", "cow", "chickens", "hen"], ...sections.now },
   { id: "people", short: "people", keywords: ["people", "family", "mom", "dad", "sister", "andrea", "girlfriend", "dog", "truffle"], ...sections.people },
-  { id: "someday", short: "future", keywords: ["future", "plans", "someday", "farm", "new york", "japan", "sheep", "cow", "chickens", "hen"], ...sections.someday },
 ];
 const order = PANES.map((p) => p.id);
 // Each step's name on the pathway at the top: three or four plain words a
@@ -210,8 +206,7 @@ const STEP_LABEL = {
   hello: "A bit about me",
   agents: "Projects & Agents",
   people: "My favourite people",
-  now: "What I’m up to",
-  someday: "My future plans",
+  now: "Now and later",
 };
 const stepLabel = (p) => STEP_LABEL[p.id] ?? p.title;
 // The pane's name in the chrome (its strip, its fold, the step bar). The
@@ -221,8 +216,10 @@ const paneName = (p) => (p.id === "hello" ? p.short[0].toUpperCase() + p.short.s
 // The open step lives in the URL hash (#agents), so a reload or a shared
 // link opens it with Justin already standing there. #place was the "My place"
 // step until 2026-09-26; what it held is under now. #projects was its own step
-// until 2026-10-07; the projects are now in the agents pane.
-const HASH_ALIAS = { place: "now", projects: "agents" };
+// until 2026-10-07; the projects are now in the agents pane. The future plans
+// (#future) were a step of their own until 2026-10-08; they are now the second
+// part of the now pane.
+const HASH_ALIAS = { place: "now", projects: "agents", future: "now", someday: "now" };
 const paneFromHash = () => {
   const short = window.location.hash.slice(1);
   return PANES.find((p) => p.short === (HASH_ALIAS[short] ?? short))?.id;
@@ -612,34 +609,30 @@ function stretches(width, phone, focusedIndex) {
       s.residents.luibuilder = s.residents.luibot + 34;
       s.face = 1;
     }
-    if (pane.id === "someday") {
-      // The cow lives on the pathway (the hen and the sheep are up in the pane's
-      // farm scene). He stands to the right of her head and pats her: the
-      // `pat` sheet paints her canvas at COW_PAT_X in his, so his feet are
-      // that far plus his anchor from her left edge. A stretch too narrow
-      // for the two of them gets the sheep instead, and he stands beside her.
-      const room = span - 3 * GAP;
-      if (phone || room >= propWidth(cow) + 26) {
-        s.residents.cow = left + GAP;
-        s.station = s.residents.cow - COW_PAT_X + poseBox("justin", "pat")[1];
-        s.rest = "pat";
-        s.face = 1;
-      } else {
-        s.residents.sheep = left + GAP;
-        s.station = Math.max(centre, left + GAP + propWidth(sheep) + GAP + 18);
-        s.idleOnly = true;
-      }
-    }
     if (pane.id === "now") {
-      // The coffee corner at the stretch's start and the yard for the ball
-      // right of it. He goes between the two: `coffeeStation` is the one
+      // The cow at the stretch's start, for the farm in the pane's second part
+      // (the hen and the sheep are up in its scene); she stays there and
+      // swishes her tail. A stretch too narrow for her gets the sheep, and one
+      // too narrow for either has only the coffee corner and the yard.
+      // `corner` is what those two need: from the machine's left to the ball
+      // by his shoe at his nearest station (`station` below), then a throw of
+      // at least 50px to where the ball lands, 40px short of the yard's end.
+      const corner = 4 - COFFEE_PROP_X + poseBox("justin", "press")[1] + 40 + BALL_AT_SHOE + 50 + 40;
+      const animal = [cow, sheep].find((sheet) => sheet && span >= GAP + propWidth(sheet) + GAP + corner);
+      let start = left + GAP;
+      if (animal) {
+        s.residents[animal === cow ? "cow" : "sheep"] = start;
+        start += propWidth(animal) + GAP;
+      }
+      // Then the coffee corner and the yard for the ball right of it. He
+      // goes between the two: `coffeeStation` is the one
       // standing spot the coffee actions are drawn for (his canvas starts
       // COFFEE_PROP_X left of the machine's, his feet at the press pose's
       // anchor into it); `station` is where he plays with Truffle, left of
       // the yard's middle so the ball flies right, the yard's long side, and
       // far enough left that the ball at his shoe lies clear of the stretch's
       // middle (with ?top=c the open step's amber tick is under it).
-      s.residents.coffee = left + GAP + 4;
+      s.residents.coffee = start + 4;
       s.coffeeStation = s.residents.coffee - COFFEE_PROP_X + poseBox("justin", "press")[1];
       s.yardLeft = s.residents.coffee + propWidth(coffee) + GAP;
       s.station = Math.max(centre - 32, s.coffeeStation + 40);
@@ -676,7 +669,11 @@ export default function Panes() {
   const pathway = useMemo(() => stretches(width, phone, focusedIndex), [width, phone, focusedIndex]);
   const stretchOf = useCallback((id) => pathway.find((s) => s.id === id) ?? pathway[0], [pathway]);
   const peopleStretch = stretchOf("people");
-  const nowStretch = stretchOf("now");
+  // step 3's own stretch, also on a phone while another step is open (the
+  // yard is set from it when the pathway is laid out: from the open step's
+  // stretch, the yard began at the pathway's left edge and his throw went
+  // left, over the coffee corner)
+  const nowStretch = useMemo(() => stretches(width, phone, order.indexOf("now")).find((s) => s.id === "now"), [width, phone]);
 
   // ---- the stage: the three who travel ----
   const stage = useMemo(
@@ -712,7 +709,7 @@ export default function Panes() {
           ? "idle" // he stands until he has pulled the chair out
           : id === "now" && !resting
             ? "idle"
-            : (stretchOf(id).rest ?? panePose[id] ?? (stretchOf(id).idleOnly ? "idle" : hourPose[part])),
+            : (panePose[id] ?? hourPose[part]),
     [part, stretchOf, resting, stage],
   );
 
@@ -882,9 +879,12 @@ export default function Panes() {
   }, [focused, stage]);
 
   // luibot's chores in the panes (the anchors are the pane scenes'
-  // `data-anchor` elements): when pane 3 opens he flies up to the sign's
-  // switch and flips it; when pane 5 opens he flies to above the feed spot and
-  // pours. `luibotDone[anchor]` turns true the moment the chore lands (the
+  // `data-anchor` elements), both in pane 3: when it opens he flies up to the
+  // sign's switch and flips it, and once the farm is in view (at once, where
+  // the pane shows both) he flies to above the feed spot and pours. Each
+  // errand is queued when its spot is in the pane's window, so with both in
+  // view he goes from the switch straight to the feed, in one trip.
+  // `luibotDone[anchor]` turns true the moment the chore lands (the
   // sign lights, the grain is on the ground): the pane scenes read it in
   // place of their own timers. It resets when the visitor leaves the pane.
   // The robots between the pathway and the panes: while pane 2 is open they
@@ -1071,6 +1071,7 @@ export default function Panes() {
   const luibotDoneRef = useRef(luibotDone);
   luibotDoneRef.current = luibotDone;
   const choresFor = useRef(focused);
+  const erranded = useRef({}); // the pane errands asked for on this visit to the pane, by anchor
   useEffect(() => {
     // a phone-width flip keeps the pane and its chores: nothing is reset, and
     // an errand he is on (or has done) is not asked for twice
@@ -1087,14 +1088,12 @@ export default function Panes() {
       stage.cancelTuck(); // back at the desk: luibot leaves the chair at once (the chair stays as far in as it got)
       stage.wantBotUp(() => setBotUp(true));
     } // on a phone too: caught mid-errand in a pane, he beams out where he is (`onOut` then puts him away on the ground, so he never pops up at his errand's height later)
-    const anchor = { now: "sign-switch", someday: "feed-spot" }[focused];
-    if (!anchor) return undefined;
-    if (!paneChanged && (luibotDoneRef.current[anchor] || stage.botChoreFor(focused))) return undefined;
-    // Where he hovers, or null when his canvas would not be wholly inside the
-    // pane's scroll window (nowhere to hover: the errand is dropped, or on a
-    // phone not yet begun). The spot is measured when he lands and on every
-    // tick after, so he follows the pane's scroll.
-    const at = () => {
+    if (paneChanged) erranded.current = {};
+    // Where he hovers for an anchor, or null when his canvas would not be
+    // wholly inside the pane's scroll window (nowhere to hover: not yet
+    // begun, or once begun, the errand is dropped). The spot is measured when
+    // he lands and on every tick after, so he follows the pane's scroll.
+    const spotOf = (anchor) => () => {
       const el = document.querySelector(`[data-anchor="${anchor}"]`);
       const ground = document.querySelector(".pn__stage")?.getBoundingClientRect().bottom;
       const body = bodyRef.current?.getBoundingClientRect();
@@ -1111,42 +1110,52 @@ export default function Panes() {
       if (top < body.top || top + height > body.bottom) return null;
       return anchor === "sign-switch" ? { x: Math.round(r.left + 6 - 27), y: Math.round(ground - top - 32) } : { x: Math.round(r.left), y: Math.round(ground - r.bottom + 16) };
     };
-    const done = () => setLuibotDone((d) => ({ ...d, [anchor]: true }));
-    // arm up (f1), then the hand comes down onto the knob (f0): the sign
-    // lights and the knob slides out from under his hand on that frame
-    const start = () => {
+    const start = (anchor) => {
+      erranded.current[anchor] = true;
+      const at = spotOf(anchor);
+      const done = () => setLuibotDone((d) => ({ ...d, [anchor]: true }));
+      // arm up (f1), then the hand comes down onto the knob (f0): the sign
+      // lights and the knob slides out from under his hand on that frame
       if (anchor === "sign-switch") stage.flyToSpot({ at, action: "fly-wave", reach: [{ frame: 1, ms: 300 }, { frame: 0, ms: 700, done: true }], flip: true, pane: focused, onDone: done });
       else stage.flyToSpot({ at, action: "feed", ms: POUR_MS, until: grainOnPile, pane: focused, onDone: done });
     };
-    if (!phone) {
-      // queued now, so he goes to it straight from wherever he is
-      start();
-      return undefined;
-    }
-    // A phone: he has no pathway leg (the pathway is one step wide and he is
-    // hidden off his own step), so he appears at the spot with a beam-in, once
-    // the spot is in the pane's window (pane 5's feed spot is far below the
-    // first screen: he comes when the visitor scrolls to the farm) and the
-    // pane's open animation (220 ms) has settled.
+    // In order, each errand not yet asked for on this visit to the pane (a
+    // phone-width flip keeps the ones he is on or has done).
+    const anchors = (focused === "now" ? ["sign-switch", "feed-spot"] : []).filter((a) => !(!paneChanged && luibotDoneRef.current[a]) && !erranded.current[a]);
+    if (!anchors.length) return undefined;
+    // An errand starts once its spot is in the pane's window: at once, or
+    // when the visitor scrolls it in (the farm is below the first screen in a
+    // short window and on a phone). On a wide window he is queued then, and
+    // goes to it straight from wherever he is. On a phone he has no pathway
+    // leg (the pathway is one step wide and he is hidden off his own step),
+    // so he appears at the spot with a beam-in, after the pane's open
+    // animation (220 ms) has settled.
     const body = bodyRef.current;
-    let cancel = null;
+    const timers = [];
+    let waiting = anchors;
     const tryStart = () => {
-      if (!at()) return;
-      body?.removeEventListener("scroll", tryStart);
-      cancel = stage.after(250, () => {
-        // nowhere on the pathway: the trip is the beam-in alone. Still beaming
-        // out of the other pane's errand, he is not: that beam plays whole,
-        // and this errand, queued, starts from it (the stage lands him here
-        // in place of home).
-        if (!stage.botBusy()) stage.botGone();
-        start();
-      });
+      const ready = waiting.filter((a) => spotOf(a)());
+      if (!ready.length) return;
+      waiting = waiting.filter((a) => !ready.includes(a));
+      if (!waiting.length) body?.removeEventListener("scroll", tryStart);
+      if (!phone) ready.forEach(start);
+      else
+        timers.push(
+          stage.after(250, () => {
+            // nowhere on the pathway: the trip is the beam-in alone. Still
+            // beaming out of another errand, or on one, he is not: that plays
+            // whole, and this errand, queued, starts from it (the stage lands
+            // him here in place of home)
+            if (!stage.botBusy()) stage.botGone();
+            ready.forEach(start);
+          }),
+        );
     };
     tryStart();
-    if (!cancel) body?.addEventListener("scroll", tryStart, { passive: true });
+    if (waiting.length) body?.addEventListener("scroll", tryStart, { passive: true });
     return () => {
       body?.removeEventListener("scroll", tryStart);
-      cancel?.();
+      timers.forEach((cancel) => cancel());
     };
   }, [focused, phone, stage]);
 
@@ -1655,29 +1664,6 @@ export default function Panes() {
       </div>
     ),
     agents: agentsDetail(),
-    someday: (
-      <div className="pn__flow pn__chapters">
-        {someday.map((entry, i) => (
-          <section className="pn__chapter" key={entry.tag}>
-            {/* each plan's scene stands inside its heading where the place is named (the skyline,
-                the cherry tree and the gate), or beside it (the hen and the sheep; the pathway
-                has the cow; luibot pours their feed) */}
-            <PlanTitle
-              heading={entry.heading}
-              place={entry.tag}
-              scene={
-                [
-                  <NewYorkScene key="new-york" />,
-                  <JapanScene key="japan" />,
-                  <FarmScene key="farm" fed={!!luibotDone["feed-spot"]} />,
-                ][i]
-              }
-            />
-            <p>{entry.body}</p>
-          </section>
-        ))}
-      </div>
-    ),
     now: (
       <>
         <UpTo lit={!!luibotDone["sign-switch"]} />
@@ -1706,6 +1692,33 @@ export default function Panes() {
             </div>
           </section>
         )}
+        {/* the second part, his future plans: its heading is the sentence each plan's heading
+            finishes. Each plan's scene stands inside its heading where the place is named (the
+            skyline, the cherry tree and the gate), or beside it (the hen and the sheep; the
+            pathway has the cow; luibot pours their feed) */}
+        <section className="pn__part pn__later">
+          <div className="pn__part-head">
+            <h2 className="pn__h3">{somedayHead.heading}</h2>
+          </div>
+          <div className="pn__chapters">
+            {someday.map((entry, i) => (
+              <section className="pn__chapter" key={entry.tag}>
+                <PlanTitle
+                  heading={entry.heading}
+                  place={entry.tag}
+                  scene={
+                    [
+                      <NewYorkScene key="new-york" />,
+                      <JapanScene key="japan" />,
+                      <FarmScene key="farm" fed={!!luibotDone["feed-spot"]} />,
+                    ][i]
+                  }
+                />
+                <p>{entry.body}</p>
+              </section>
+            ))}
+          </div>
+        </section>
       </>
     ),
   };

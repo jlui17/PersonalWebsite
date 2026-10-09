@@ -94,10 +94,10 @@ export const agents = [
   },
 ];
 
-// Pane 3, what he is up to these days: a small status sign (`status`, the
-// things that change month to month, dated by `updated`: bump it whenever a
-// line changes), the story under it (`blocks`, like the hello blocks) and a
-// normal week (`week`).
+// Pane 3's first part, what he is up to these days: a small status sign
+// (`status`, the things that change month to month, dated by `updated`: bump
+// it whenever a line changes), the story under it (`blocks`, like the hello
+// blocks) and a normal week (`week`).
 export const lately = {
   updated: "2026-10-03",
   status: [
@@ -143,10 +143,15 @@ export const lately = {
   },
 };
 
-// Pane 5, where he hopes life goes. Each heading finishes the pane's hook, "In the
-// future, I want to…", so it starts with a verb and no "I want to". `tag` is
-// the place's name on its sign: where it appears word for word in the heading,
-// the place's picture sits inside the sentence there; otherwise beside it.
+// Pane 3's second part, where he hopes life goes: `somedayHead.heading` opens
+// it (it was the hook of a pane of its own), and each plan's heading finishes
+// it, so it starts with a verb and no "I want to". `tag` is the place's name
+// on its sign: where it appears word for word in the heading, the place's
+// picture sits inside the sentence there; otherwise beside it.
+export const somedayHead = {
+  heading: "In the future, I want to…",
+};
+
 export const someday = [
   {
     tag: "New York",
@@ -238,8 +243,9 @@ export const sections = {
     hook: "I’m a founding engineer in San Francisco. At Scorecard, I build simulations where AI agents practice real-world tasks.",
     invite: "Learn more about me",
   },
+  // what he is up to these days, then his future plans, in one pane
   now: {
-    title: "What I’m up to",
+    title: "Now and later",
     trailer: "Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s.",
     hook: "Since moving to San Francisco, I’ve been a lot more ambitious.",
     invite: "See what I’m up to",
@@ -256,11 +262,5 @@ export const sections = {
     trailer: "I have two OpenClaw agents running around.",
     hook: "Meet my AI agents.",
     invite: "Meet luibot and luibuilder",
-  },
-  someday: {
-    title: "My future plans",
-    trailer: "I hope to see New York, Japan, and one day my own farm.",
-    hook: "In the future, I want to…",
-    invite: "See the plan",
   },
 };

@@ -1128,20 +1128,34 @@ body {
   border-top: 0;
 }
 
-/* future plans: three chapters down the pane, the farm last, the sheep
-   grazing beside its heading. Each plan opens with its title row, whose rule is the scene's ground; that
-   rule marks the plan, so nothing else separates two plans but this step.
-   The step is also luibot's room: pouring over the farm he reaches 5px above
-   its title row, clear of the paragraph before it. */
+/* pane 3's second part, the future plans: its heading ("In the future, I
+   want to…") a rank over the plans' headings, which finish it, as "Things
+   I've built" is over the projects in pane 2. Then three chapters, the farm
+   last, the sheep grazing beside its heading. Each plan opens with its title
+   row, whose rule is the scene's ground; that rule marks the plan, so nothing
+   else separates two plans but this step. The step is also luibot's room:
+   pouring over the farm he reaches 5px above its title row, clear of the
+   paragraph before it. */
+.pn__later .pn__part-head .pn__h3 {
+  font: var(--pn-h3-large);
+  letter-spacing: var(--pn-h3-track);
+}
+
+.pn__later .pn__part-head {
+  margin-bottom: var(--pn-gap-hook);
+}
+
 /* half the growth of other parts, then 1.5x like the blocks' step: a title row
    is 43px tall with its words at the foot, so the blank a reader sees over a
    heading is this step plus about 20px, from about 62px up to 74px */
-.pn__pane-body > .pn__chapters {
+.pn__chapters {
+  display: flex;
+  flex-direction: column;
   gap: calc((28px + var(--pn-more-part) * 0.5) * 1.5);
 }
 
 .pn__chapter h3 {
-  font: var(--pn-h3-large);
+  font: var(--pn-h3);
   letter-spacing: var(--pn-h3-track);
   color: var(--pn-ink);
   margin-bottom: 8px;
@@ -2076,7 +2090,7 @@ body {
 
   /* future plans: the two places to live side by side (both "Live in ... with
      my girlfriend."), the farm, the bigger plan, across the whole pane under them */
-  .panes[data-top] .pn__pane-body > .pn__chapters {
+  .panes[data-top] .pn__chapters {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 48px;
