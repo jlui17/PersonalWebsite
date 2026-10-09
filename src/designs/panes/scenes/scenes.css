@@ -30,7 +30,21 @@
   pointer-events: none;
 }
 
-/* On a line of its own (where he would otherwise stand over words) the box
+/* Where beside the tag he would stand over the title (Builder.jsx settles
+   it), the tag takes the line under the title and his box the far end of
+   that line, under the title line's empty end. */
+.pn-built .pn__project-head[data-tag-under] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+}
+
+.pn-built .pn__project-head[data-tag-under] > .pn__project-title {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+/* On a line of its own (where he would still stand over words) the box
    is as tall as he is with his hop, on the same rule. */
 .pn-builder-spot[data-own-line] {
   flex-basis: 100%;

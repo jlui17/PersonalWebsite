@@ -266,27 +266,44 @@ export function BuilderScene({ children, present = true, startAt = null }) {
 
   // His box follows the words on the head's last line. Where he would then
   // stand over words (the box alone on a new line under the title, or beside
-  // a tag that sits under a longer title), the box takes a line of its own,
-  // as tall as he is, on the same rule. Settled from the layout alone, for
-  // every head, so nothing moves when he comes or goes.
+  // a tag that sits under a longer title), the tag goes under the title and
+  // he stands at the far end of the tag's line, over the title line's empty
+  // end; the head beside it in the same row does the same, so the two heads
+  // keep one shape and neither has a blank line. Only where he would still
+  // stand over words does the box take a line of its own, as tall as he is,
+  // on the same rule. Settled from the layout alone, for every head, so
+  // nothing moves when he comes or goes.
   useLayoutEffect(() => {
     const el = root.current;
+    const overWords = (spot) => {
+      const box = spot.getBoundingClientRect();
+      const top = box.bottom - HEIGHT - ARC;
+      const words = [...spot.parentElement.children]
+        .filter((child) => child !== spot)
+        .flatMap((child) => {
+          const range = document.createRange();
+          range.selectNodeContents(child);
+          return [...range.getClientRects()];
+        });
+      return words.some((w) => w.right > box.left && w.left < box.right && w.bottom > top && w.top < box.bottom);
+    };
+    const tagUnder = (spot) => {
+      spot.parentElement.setAttribute("data-tag-under", "");
+      if (!overWords(spot)) return true;
+      spot.parentElement.removeAttribute("data-tag-under");
+      return false;
+    };
     const settle = () => {
       const spots = [...el.querySelectorAll("[data-builder-spot]")];
-      spots.forEach((spot) => spot.removeAttribute("data-own-line"));
       spots.forEach((spot) => {
-        const box = spot.getBoundingClientRect();
-        const top = box.bottom - HEIGHT - ARC;
-        const words = [...spot.parentElement.children]
-          .filter((child) => child !== spot)
-          .flatMap((child) => {
-            const range = document.createRange();
-            range.selectNodeContents(child);
-            return [...range.getClientRects()];
-          });
-        if (words.some((w) => w.right > box.left && w.left < box.right && w.bottom > top && w.top < box.bottom))
-          spot.setAttribute("data-own-line", "");
+        spot.removeAttribute("data-own-line");
+        spot.parentElement.removeAttribute("data-tag-under");
       });
+      const moved = spots.filter((spot) => overWords(spot));
+      moved.forEach((spot) => tagUnder(spot) || spot.setAttribute("data-own-line", ""));
+      const rowOf = (spot) => Math.round(spot.parentElement.getBoundingClientRect().top);
+      const rows = new Set(moved.filter((spot) => spot.parentElement.hasAttribute("data-tag-under")).map(rowOf));
+      spots.filter((spot) => !moved.includes(spot) && rows.has(rowOf(spot))).forEach(tagUnder);
     };
     settle();
     const observer = new ResizeObserver(settle);
