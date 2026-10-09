@@ -73,7 +73,6 @@
   --pn-fold-hook: 500 14px/1.3 var(--pn-font-head);
   --pn-fold-hook-track: -0.01em;
   --pn-bar-h: 30px;
-  --pn-trial-h: 34px; /* TEMPORARY: the Trial control's own bar at a narrow window's foot (40px on a phone) */
   --pn-title-h: 40px;
   --pn-pathway-h: 68px; /* the tallest pose (62px) plus a little air */
   --pn-radius: 6px;

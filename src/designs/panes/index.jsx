@@ -6,7 +6,6 @@ import justinSheet from "../../sprites/justin.js";
 import * as propSheets from "../../sprites/props.js";
 import ballSheet from "./ball.js";
 import { Palette } from "./Palette.jsx";
-import { TrialPicker, useTrial } from "./TrialPicker.jsx";
 import { BALL_AT_SHOE, createStage, petLowSpot, poseBox } from "./stage.js";
 import { AgentRobot, BuilderScene, BuilderSpot, builderRestedFor, FarmScene, firstProjectInView, HelloScene, JapanScene, NewYorkScene, PlanTitle, RobotBeam, RobotBox, UpTo, useRobotHandoff } from "./scenes";
 
@@ -641,13 +640,10 @@ export default function Panes() {
   const phone = useMedia("(max-width: 639px)");
   const width = useWidth();
 
-  // TEMPORARY, until Justin picks (TrialPicker.jsx): the steps on top (tabs,
-  // signs or a timeline) in place of the column of cards, or the old layout;
-  // and pane 2's layout.
-  const [trial, pickTrial] = useTrial();
-  const TOP = trial.top;
-  const onTop = TOP !== "old";
-  const agentsOption = trial.agents;
+  // Justin's pick: the steps on top as tabs, and pane 2's agents side by side.
+  const TOP = "a";
+  const onTop = true;
+  const agentsOption = "a";
 
   const [focused, setFocused] = useState(() => paneFromHash() ?? PANES[0].id);
   const [open, setOpen] = useState(() => onTop || !!paneFromHash()); // phone: the focused pane is open (else the list; with the steps on top there is no list)
@@ -1765,7 +1761,6 @@ export default function Panes() {
           </span>
         </button>
         <div className="pn__title-right">
-          <TrialPicker trial={trial} onPick={pickTrial} where="bar" />
           <span className="pn__hint">
             <b aria-label="Left and right arrow keys">
               <Arrow to="left" />
@@ -2018,8 +2013,6 @@ export default function Panes() {
           </nav>
         </footer>
       )}
-
-      <TrialPicker trial={trial} onPick={pickTrial} where="foot" />
 
       {paletteOpen && (
         <Palette
