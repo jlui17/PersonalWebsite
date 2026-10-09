@@ -26,8 +26,8 @@ export function fuzzy(query, text) {
 
 // A command matches by its label (marked in the list) or by one of its plain
 // keywords ("projects", "coffee", "dog"): a keyword that starts with the query,
-// or has a word that does, outranks any label match, so the step bar's own
-// words land on their pane first.
+// or has a word that does, outranks any label match, so each step's own word
+// (its `short`, the first of its keywords) lands on its pane first.
 export function matchCommand(query, command) {
   const label = fuzzy(query, command.label);
   const q = query.trim().toLowerCase();

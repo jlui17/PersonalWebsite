@@ -25,7 +25,7 @@ When a session on the words and a session on the design run at the same time: "i
 ## The order of work
 
 1. **Say what the pane is about** and the one or two things every visitor must take from it. Give every fact a rank: skim or detail: "for each pane, we need to figure out what the pane is about and what information we want to convey and what level each information should be at."
-2. **Make the first pass yourself, on the whole pane**: the card, the hook, the headings and every body, run through the checklist below. He hands it over this way: "give ur best try at it. use ur own taste along with mine."
+2. **Make the first pass yourself, on the whole pane**: the hook, the headings and every body, run through the checklist below. He hands it over this way: "give ur best try at it. use ur own taste along with mine."
 3. **If the pane looks bare, interview him** (next section). Fill it with his stories, not with more list lines.
 4. **Show every new or changed sentence word for word**, with guesses marked, then the built page. He reacts to the page: "i'd like to see it on the preview first before we continue iterating".
 5. **Apply his edits directly.** He sends them as a quoted line and its replacement ("> Looking after the server our games run on" then "Building games that my GF and I play together"). Check whether the change makes another line on the screen repeat it, and fix that too. When his message is cut off ("5", "put the go"), say what you read it as and ask for the rest.
@@ -55,9 +55,9 @@ Turn each answer into a block the same day, show it, and let the next answers ar
 ## The shape of a pane
 
 ```
-card (right column)            open pane
-  Title   · invite phrase ›      # Title            [sprite]
-  card line                      hook (plain, one short breath)
+tabs (under the pathway)       open pane (under the tabs)
+  [1 Few plain words] [2 ...]    # Title (hello's)  [sprite]
+                                 hook (plain, one short breath)
                                  ### I ... (fun)     [photo or scene]
                                  details (plain, a few fun words)
                                  ### I ...
@@ -65,12 +65,12 @@ card (right column)            open pane
                                  quiet last line (links, small facts)
 ```
 
-- `sections.<key>` holds `title`, `trailer` (the card line), `hook`, an optional `more`, and `invite`. A card shows `trailer ?? hook`, so a section without a `trailer` yet shows its hook on its card. The invite can name what is inside ("Meet luibot and luibuilder").
+- `sections.<key>` holds `title`, `hook`, an optional `more`, and `trailer` (the card line) and `invite`, which were on the card column and show nowhere since it went on 2026-10-09. The tab's few plain words are in `STEP_LABEL` in `src/designs/panes/index.jsx`.
 - `more` goes when the blocks below say the same (hello, people, agents and projects all dropped it).
 - A block that the hook already covers gets no `###` (pane 1's work paragraph).
 - A block can hold a paragraph and a list, as long as they share no fact: the paragraph tells one story, the list holds the rest (each agent in pane 2).
 - A living list he keeps up to date goes where its items belong, one line per item, and says what is not done yet by shape and a word, not by a heading of its own: each agent's side quests close his "what I hand him" list, each with a hollow box and a small "next" tag ("somehow combine current responsibilities with future side quests"). A side quest that is done loses its tag and moves up among the lines he has now.
-- A part after a pane's first opens under a hairline with a plain title and the quiet note beside it, the same grammar as the living list: pane 2's "Things I've built" with "I like building small tools for people I know." (the projects pane's old hook). Pane 3's future part opens with the future pane's old hook, "In the future, I want to…", as its title, and each plan's heading finishes it (the two panes became one on 2026-10-08, at his pick).
+- A part after a pane's first opens with a plain title and the quiet note beside it, under a hairline where it follows the part before it down the pane (in a window 1101px or wider, pane 3's future part stands beside the now part, in the second column, with no hairline). It is the same grammar as the living list: pane 2's "Things I've built" with "I like building small tools for people I know." (the projects pane's old hook). Pane 3's future part opens with the future pane's old hook, "In the future, I want to…", as its title, and each plan's heading finishes it (the two panes became one on 2026-10-08, at his pick).
 
 ## How a `###` is worded
 
@@ -82,13 +82,11 @@ card (right column)            open pane
 
 Each line points to its rule in `AGENTS.md` where one exists.
 
-- The card and the open pane share no wording, and they are on screen together ("A section's card and its open section complement each other").
-- No fact shows twice on one screen: count the pane plus the whole card column ("No fact twice on a screen").
+- No fact shows twice on one screen: count the pane plus the tabs ("No fact twice on a screen").
 - A thing another pane tells in full gets one brief mention here, not its own block: puzzlewithme was one list line in the agents pane while the projects pane told its story ("we can just give a really brief summary").
 - Two short blocks about related things become one ("I think these two can be combined").
-- A skimmer who reads only the `#`, the hook and the `###`s knows what the pane holds ("Two heading levels").
+- A skimmer who reads only the tab, the hook and the headings knows what the pane holds ("Three heading sizes").
 - The hook is a short, natural opener that does not sum up the blocks: "Meet my AI agents.", "In the future, I want to…" ("Each piece of text a skimmer sees has one job").
-- The card line reads like the other card lines: one sentence in his voice, mostly "I" with a verb. A noun list or a from-to phrase was rejected as not "aligned with the other card lines".
 - Every `###` follows "How a `###` is worded" above.
 - Every sentence is complete, and sentences that belong together are joined by "but" or "so" ("Simple, complete sentences"). A run of adjectives goes in one clause: "She's so kind, sweet, and beautiful." replaced "She's so kind and sweet, and she's beautiful."
 - A person's details start with what they are like, then what they mean to him: "for my gf, the details should start off with how kind and nice she is."
@@ -150,10 +148,8 @@ Each line points to its rule in `AGENTS.md` where one exists.
 
 ## Still open
 
-- **Pane 3's card** ("Now and later", since the now and future panes became one on 2026-10-08) keeps the now pane's line and invite, which name only the now part. The future pane's line ("I hope to see New York, Japan, and one day my own farm.") and invite ("See the plan") went with its card.
-- **The now pane's card line** is a noun list ("Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s."), against the card-line rule. He asked for something "more fun", then "snarky", and has not picked a replacement yet. The projects never got a card line for the same reason.
-- **Pane 2, since the projects joined it.** Its title is "Projects & Agents", his pick (the hash stays `#agents`); the agents still come first inside it. Its card keeps the agents' line and invite, which name only the agents. luibuilder's list line "Building puzzlewithme, ..." went when the projects joined (Justin: "drop one"); the project keeps the story. `?agents=a` and `?agents=b` are two ways to rank the robots' names above everything else; he has not picked.
+- **Pane 2, since the projects joined it.** Its title is "Projects & Agents", his pick (the hash stays `#agents`); the agents still come first inside it. luibuilder's list line "Building puzzlewithme, ..." went when the projects joined (Justin: "drop one"); the project keeps the story. He picked the robots side by side on 2026-10-09, over their names in a column on the left.
 
-- **What makes a card an invitation.** His examples, as `<Card>, <Trailer line>, <Invite phrase>`: "hello, I tinker with agents, automation, and brew espresso., learn more about me" and "my agents, I have Openclaw agents running around, meet Luibot and Luibuilder". The working reading: a specific, slightly surprising detail the pane pays off, with the topic plain enough that an uninterested reader knows to skip.
+- **The card lines and invites** (`trailer` and `invite` in `src/content.js`) show nowhere since the card column went on 2026-10-09. Three were still open then: pane 3's card named only the now part (the future pane's line "I hope to see New York, Japan, and one day my own farm." and invite "See the plan" went with its card on 2026-10-08), the now pane's line is a noun list ("Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s.") that he wanted "more fun", then "snarky", and pane 2's names only the agents. His examples, as `<Card>, <Trailer line>, <Invite phrase>`: "hello, I tinker with agents, automation, and brew espresso., learn more about me" and "my agents, I have Openclaw agents running around, meet Luibot and Luibuilder". The working reading was a specific, slightly surprising detail the pane pays off, with the topic plain enough that an uninterested reader knows to skip.
 - **Capital letters for the agents.** He writes "Luibot" and "Luibuilder"; the site writes them in lowercase. Not answered yet.
 - **The projects** (pane 2's last part) still need their full pass: the plain-terms check of the four older projects ("this goes for all sentences across the entire site"). mdnote and slk were added and the order set.

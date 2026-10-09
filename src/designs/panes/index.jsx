@@ -387,7 +387,7 @@ const centreInRow = (step) => {
 // The steps on top: one tab per step, each over its own stretch of the
 // pathway, with its number and its few plain words. The open step's tab wears
 // the open pane's amber and a filled dot, and is joined to the pane. The left
-// and right keys move along them, as along the old step bar.
+// and right keys move along them.
 function Steps({ focused, onSelect, refs }) {
   return (
     <nav className="pn__steps" aria-label="Sections">
@@ -489,7 +489,7 @@ function stretches(width, phone, focusedIndex) {
       // anchor into it); `station` is where he plays with Truffle, left of
       // the yard's middle so the ball flies right, the yard's long side, and
       // far enough left that the ball at his shoe lies clear of the stretch's
-      // middle (with ?top=c the open step's amber tick is under it).
+      // middle.
       s.residents.coffee = start + 4;
       s.coffeeStation = s.residents.coffee - COFFEE_PROP_X + poseBox("justin", "press")[1];
       s.yardLeft = s.residents.coffee + propWidth(coffee) + GAP;
