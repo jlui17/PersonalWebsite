@@ -991,6 +991,22 @@ body {
   }
 }
 
+/* the projects' row: its heading with the note beside it, then the projects
+   across the whole width under the robots' rows (beside them, the left
+   column was empty from the second line down) */
+.pn__rail > .pn__rail-row[data-reason="projects"] > * {
+  grid-column: 1 / -1;
+}
+
+.pn__rail-row[data-reason="projects"] .pn__rail-head .pn__part-head {
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.pn__rail-row[data-reason="projects"] .pn__rail-body {
+  margin-top: calc(var(--pn-gap-heading) + 10px);
+}
+
 /* a narrow pane: the left column goes over the details */
 @container pane (max-width: 699px) {
   .pn__rail {
