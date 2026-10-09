@@ -18,7 +18,7 @@
   /* The pane's size in a 1280x800 window. Its body is a size container, so it needs a height. */
   .pn__pane { max-width: 826px; height: 642px; }
   /* This card shows pane 2 scrolled to its last part, so the part's hairline starts the body. */
-  .pn__pane-body > [data-agents] > .pn__part:first-child { margin-top: 0; }
+  .pn__pane-body > div > .pn__part:first-child { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -35,7 +35,7 @@
       <button type="button" class="pn__expand" aria-label="Expand this section"><svg class="pn__expand-icon" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5h3.5V5M10.5 1.5 7 5M5 10.5H1.5V7M1.5 10.5 5 7"/></svg>Expand</button>
     </div>
     <div class="pn__pane-body" data-more>
-      <div data-agents="a">
+      <div>
       <section class="pn__part">
       <div class="pn__part-head">
         <h3 class="pn__part-title">Things I’ve built</h3>

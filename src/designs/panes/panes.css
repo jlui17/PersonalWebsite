@@ -162,7 +162,6 @@ body {
   letter-spacing: var(--pn-ui-track);
 }
 
-.pn__agent-head .pn__card-name,
 .pn__palette-input {
   font: var(--pn-ui-large);
   letter-spacing: var(--pn-ui-track);
@@ -723,13 +722,16 @@ body {
   display: flex;
   align-items: flex-end;
   gap: 10px;
-  height: 44px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--pn-line-strong);
   margin-bottom: calc(14px + var(--pn-more-text));
 }
 
+/* each robot's name is the largest thing in pane 2 (the names' rank), with
+   his sprite beside it on the rule */
 .pn__agent-head .pn__card-name {
+  font: var(--pn-h1);
+  letter-spacing: var(--pn-h1-track);
   color: var(--pn-ink);
 }
 
@@ -794,114 +796,6 @@ body {
 .pn__does li .pn__next-tag {
   display: inline;
   margin: 0 4px 0 0; /* with the space after it in the words, so it reads "next Doing ..." */
-}
-
-/* ---- pane 2's two options: TEMPORARY, until Justin picks one ----
-   ?agents=a and ?agents=b (index.jsx). In both, each robot's name is the
-   largest thing in the pane (the h1 role) with his sprite beside it on the
-   rule, and the parts' headings rank a step above the project names under
-   them. */
-[data-agents] .pn__agent-head {
-  height: auto;
-}
-
-[data-agents] .pn__agent-head .pn__card-name {
-  font: var(--pn-h1);
-  letter-spacing: var(--pn-h1-track);
-}
-
-/* b: one grid for the whole pane. The left column is the skim level (each
-   robot's name on the rule he stands on, his tag under it; each part's
-   heading with its note under it), as wide as the widest of them; the
-   details read on the right. A hairline opens each row after the first. */
-.pn__rail {
-  display: grid;
-  grid-template-columns: fit-content(250px) minmax(0, 1fr);
-  column-gap: 40px;
-}
-
-.pn__rail > .pn__rail-row {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: subgrid;
-  align-items: start;
-}
-
-.pn__rail > .pn__rail-row + .pn__rail-row {
-  margin-top: var(--pn-gap-above-rule);
-  padding-top: var(--pn-gap-below-rule);
-  border-top: 1px solid var(--pn-line);
-}
-
-.pn__rail-head {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  min-width: 0;
-}
-
-.pn__rail-head .pn__agent-head {
-  align-self: stretch;
-  margin-bottom: 0;
-}
-
-.pn__rail-head .pn__part-head {
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 0;
-}
-
-/* a note long enough to wrap keeps its lines apart */
-.pn__rail-head .pn__label {
-  line-height: 1.4;
-}
-
-/* the details start level with the top of the name, and the lists keep
-   their own first line's step */
-.pn__rail-body {
-  container: rail-body / inline-size;
-  min-width: 0;
-}
-
-.pn__rail-body > p {
-  color: var(--pn-dim);
-  font-size: 13px;
-  max-width: 62ch;
-  text-wrap: pretty;
-}
-
-@container rail-body (max-width: 560px) {
-  .pn__rail-body .pn__projects {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-/* the projects' row: its heading with the note beside it, then the projects
-   across the whole width under the robots' rows (beside them, the left
-   column was empty from the second line down) */
-.pn__rail > .pn__rail-row[data-reason="projects"] > * {
-  grid-column: 1 / -1;
-}
-
-.pn__rail-row[data-reason="projects"] .pn__rail-head .pn__part-head {
-  flex-direction: row;
-  align-items: baseline;
-}
-
-.pn__rail-row[data-reason="projects"] .pn__rail-body {
-  margin-top: calc(var(--pn-gap-heading) + 10px);
-}
-
-/* a narrow pane: the left column goes over the details */
-@container pane (max-width: 699px) {
-  .pn__rail {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .pn__rail-head {
-    margin-bottom: calc(14px + var(--pn-more-text));
-  }
 }
 
 /* A part of a pane after its first: a hairline, then the part. In pane 2,
@@ -1981,27 +1875,3 @@ body {
     column-gap: 56px;
   }
 }
-
-/* pane 2 in ?agents=b at the whole width: each robot's details take two
-   columns, his line and its paragraph, and beside them what he is handed, so
-   the list fills the room his short lines leave. The first column holds the
-   longer line (luibuilder's, 565px) on one row. */
-@container pane (min-width: 1340px) {
-  .panes[data-top] .pn__agent .pn__rail-body {
-    display: grid;
-    grid-template-columns: minmax(0, 580px) minmax(0, 1fr);
-    grid-template-rows: auto 1fr; /* a list taller than the line keeps the paragraph right under it */
-    column-gap: 40px;
-  }
-
-  .panes[data-top] .pn__agent .pn__rail-body > :not(.pn__does) {
-    grid-column: 1;
-  }
-
-  .panes[data-top] .pn__agent .pn__rail-body > .pn__does {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    margin-top: 0;
-  }
-}
-

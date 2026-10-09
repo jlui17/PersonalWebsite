@@ -154,7 +154,6 @@ body {
   letter-spacing: var(--pn-ui-track);
 }
 
-.pn__agent-head .pn__card-name,
 .pn__palette-input {
   font: var(--pn-ui-large);
   letter-spacing: var(--pn-ui-track);
@@ -689,13 +688,16 @@ body {
   display: flex;
   align-items: flex-end;
   gap: 10px;
-  height: 44px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--pn-line-strong);
   margin-bottom: calc(14px + var(--pn-more-text));
 }
 
+/* each robot's name is the largest thing in pane 2 (the names' rank), with
+   his sprite beside it on the rule */
 .pn__agent-head .pn__card-name {
+  font: var(--pn-h1);
+  letter-spacing: var(--pn-h1-track);
   color: var(--pn-ink);
 }
 
@@ -760,20 +762,6 @@ body {
 .pn__does li .pn__next-tag {
   display: inline;
   margin: 0 4px 0 0; /* with the space after it in the words, so it reads "next Doing ..." */
-}
-
-/* ---- pane 2's two options: TEMPORARY, until Justin picks one ----
-   ?agents=a and ?agents=b (index.jsx). In both, each robot's name is the
-   largest thing in the pane (the h1 role) with his sprite beside it on the
-   rule, and the parts' headings rank a step above the project names under
-   them. */
-[data-agents] .pn__agent-head {
-  height: auto;
-}
-
-[data-agents] .pn__agent-head .pn__card-name {
-  font: var(--pn-h1);
-  letter-spacing: var(--pn-h1-track);
 }
 
 /* A part of a pane after its first: a hairline, then the part. In pane 2,

@@ -340,18 +340,14 @@ function Balanced({ className, children }) {
   );
 }
 
-// `rail` (option b): the name and the robot on the rule, the tag under it,
-// all in the left column; the rest on the right.
-function Agent({ agent, waving, present, rail = false }) {
-  const head = (
-    <div className="pn__agent-head">
-      <span className="pn__card-name">{agent.name}</span>
-      {!rail && <Label>{agent.tag}</Label>}
-      <AgentRobot name={agent.name} waving={waving} present={present} />
-    </div>
-  );
-  const details = (
-    <>
+function Agent({ agent, waving, present }) {
+  return (
+    <section className="pn__agent" aria-label={agent.name} data-reason="agents">
+      <div className="pn__agent-head">
+        <span className="pn__card-name">{agent.name}</span>
+        <Label>{agent.tag}</Label>
+        <AgentRobot name={agent.name} waving={waving} present={present} />
+      </div>
       <h3>{agent.heading}</h3>
       {agent.body && <p>{agent.body}</p>}
       {/* one list: what he does now, then his side quests, each marked as
@@ -370,22 +366,6 @@ function Agent({ agent, waving, present, rail = false }) {
           )}
         </ul>
       </div>
-    </>
-  );
-  if (rail)
-    return (
-      <section className="pn__agent pn__rail-row" aria-label={agent.name} data-reason="agents">
-        <div className="pn__rail-head">
-          {head}
-          <Label>{agent.tag}</Label>
-        </div>
-        <div className="pn__rail-body">{details}</div>
-      </section>
-    );
-  return (
-    <section className="pn__agent" aria-label={agent.name} data-reason="agents">
-      {head}
-      {details}
     </section>
   );
 }
@@ -615,7 +595,6 @@ export default function Panes() {
   // Justin's pick: the steps on top as tabs, and pane 2's agents side by side.
   const TOP = "a";
   const onTop = true;
-  const agentsOption = "a";
 
   const [focused, setFocused] = useState(() => paneFromHash() ?? PANES[0].id);
   const [open, setOpen] = useState(() => onTop || !!paneFromHash()); // phone: the focused pane is open (else the list; with the steps on top there is no list)
@@ -1525,7 +1504,6 @@ export default function Panes() {
       <Agent
         key={agent.name}
         agent={agent}
-        rail={agentsOption === "b"}
         waving={robotBeat === agent.name}
         present={(agent.name === "luibot" ? luibotUp : luibuilderUp).shown === "pane"}
       />
@@ -1552,24 +1530,14 @@ export default function Panes() {
         </ul>
       </BuilderScene>
     );
-    if (agentsOption === "b")
-      return (
-        <div className="pn__rail" data-agents="b">
-          {agentList}
-          <section className="pn__rail-row" data-reason="projects">
-            <div className="pn__rail-head">{partHead(projectsHead)}</div>
-            <div className="pn__rail-body">{built}</div>
-          </section>
-        </div>
-      );
     return (
-      <div data-agents="a">
+      <>
         <div className="pn__agents">{agentList}</div>
         <section className="pn__part" data-reason="projects">
           {partHead(projectsHead)}
           {built}
         </section>
-      </div>
+      </>
     );
   };
 
