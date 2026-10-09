@@ -14,7 +14,8 @@ import { freePort, kill, removeDir, sleep, spawnTracked, stayAwake, tempDir } fr
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 // Runs in the page before any site code. With a `seed` it replaces Math.random with a seeded
-// generator. With a `speed` other than 1 it gives the page one virtual clock, the page time, that
+// generator. With `clock` (on by itself at a `speed` other than 1) it gives the page one virtual
+// clock, the page time, that
 // follows real time times `speed`: performance.now, Date, setTimeout/setInterval and
 // requestAnimationFrame all read it. Each timer fires at its exact page time, and animation frames
 // come every 1/60 s of page time, each timer and frame in a task of its own (so React commits
@@ -24,12 +25,13 @@ const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 // timers, and scenes came out in another order. Nor CDP's Animation.setPlaybackRate: it scales
 // requestAnimationFrame's timestamps but not performance.now, two clocks the stage compares.
 // When the page's own work is slower than `speed` allows, page time falls behind real time
-// times `speed` and the run just takes longer; window.__clock says by how much.
+// times `speed` and the run just takes longer; window.__clock says by how much. So a stall never
+// reaches the page as a long frame: a check that needs stalls (CPU throttling) runs at 1x.
 // window.__clock.holdAt(t) stops page time at t (`held` turns true once it is there) and
 // release(next) lets it go on to the next hold, so a driver's key or click lands at an exact
 // page time; load()'s `holdAt` sets the first hold before any of the page's code runs.
 // CSS and Web Animations run at `speed` on Chrome's own clock (their playbackRate).
-function pageClock(speed, seed, firstHold) {
+function pageClock(speed, seed, firstHold, virtual) {
   if (seed !== null) {
     let a = seed >>> 0;
     Math.random = () => {
@@ -39,7 +41,7 @@ function pageClock(speed, seed, firstHold) {
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   }
-  if (speed === 1) return;
+  if (!virtual) return;
   const FRAME = 1000 / 60;
   const realNow = performance.now.bind(performance);
   const { setInterval: realInterval, requestAnimationFrame: realFrame } = globalThis;
@@ -240,6 +242,7 @@ export async function launch() {
     pid: proc.pid,
     port,
     speed: 1,
+    clocked: false,
 
     // Opens `url` fresh (about:blank first, so a change of hash alone is a real load).
     // init: extra scripts to run before the site's code, after the clock.
@@ -253,6 +256,7 @@ export async function launch() {
         reducedMotion = false,
         cpu = 1,
         speed = 1,
+        clock = speed !== 1,
         seed = null,
         holdAt = null,
         init = [],
@@ -261,14 +265,14 @@ export async function launch() {
       await send("Page.navigate", { url: "about:blank" });
       for (const identifier of scripts) await send("Page.removeScriptToEvaluateOnNewDocument", { identifier });
       scripts = [];
-      for (const source of [`(${pageClock})(${speed}, ${seed}, ${holdAt});`, ...init]) {
+      for (const source of [`(${pageClock})(${speed}, ${seed}, ${holdAt}, ${clock});`, ...init]) {
         scripts.push((await send("Page.addScriptToEvaluateOnNewDocument", { source })).identifier);
       }
       await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: scale, mobile: phone });
       await send("Emulation.setTouchEmulationEnabled", phone ? { enabled: true, maxTouchPoints: 5 } : { enabled: false });
       await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: reducedMotion ? "reduce" : "no-preference" }] });
       await send("Emulation.setCPUThrottlingRate", { rate: cpu });
-      page.speed = speed;
+      Object.assign(page, { speed, clocked: clock });
       errors.length = 0;
       const loaded = once("Page.loadEventFired");
       await send("Page.navigate", { url });

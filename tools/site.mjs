@@ -92,6 +92,7 @@ export const EXPECTED = {
 //   phone    375-style phone emulation with touch; on by itself under 640px wide
 //   hour     ?hour= (the San Francisco hour), "none" for the real one
 //   seed     seeds Math.random, "none" for the browser's own
+//   clock    the page clock at 1x too (tools/chrome.mjs): real time, with 60 Hz page frames
 export const SCENARIO = {
   step: null,
   way: "load",
@@ -108,6 +109,7 @@ export const SCENARIO = {
   reduced: false,
   cpu: 1,
   speed: 1,
+  clock: false,
   seed: "1",
 };
 
@@ -119,6 +121,7 @@ export function windowOf(s) {
     reducedMotion: s.reduced,
     cpu: Number(s.cpu),
     speed: Number(s.speed),
+    clock: s.clock || Number(s.speed) !== 1,
     seed: s.seed === "none" ? null : Number(s.seed),
   };
 }
@@ -128,13 +131,13 @@ const NOW = `({ t: performance.now(), rt: window.__clock?.realNow() ?? performan
 
 // Resolves at page time `t`. With a page clock (--speed) the clock is held there, so the next
 // key or click lands at exactly `t`; call release(page, next) after it, and page time runs on to
-// the hold at `next`. At 1x it polls real time.
+// the hold at `next`. Without the clock (plain 1x) it polls real time.
 export async function until(page, t) {
-  if (page.speed === 1) return page.waitFor(`performance.now() >= ${t}`, t + 60000, 5);
+  if (!page.clocked) return page.waitFor(`performance.now() >= ${t}`, t + 60000, 5);
   if (await page.eval(`performance.now() > ${t} || __clock.holdAt(${t})`)) throw new Error(`page time was past ${t} before it could be held there`);
   if (!(await page.waitFor("__clock.held", (t / page.speed) * 3 + 60000, 5))) throw new Error(`page time never reached ${t}`);
 }
-export const release = (page, next = Infinity) => page.speed !== 1 && page.eval(`__clock.release(${next})`);
+export const release = (page, next = Infinity) => page.clocked && page.eval(`__clock.release(${next})`);
 
 // Selects `step` by `way`.
 export async function select(page, step, way, order) {

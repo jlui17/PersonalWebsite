@@ -7,7 +7,8 @@
 // table and the screenshot folder; exits 1 on any failure. The full check before a ship to main
 // is still the one in docs/design-process.md.
 //
-// --speed (default 4; tools/speed-check.mjs is how it was chosen), --wait page seconds after a
+// --speed (default 8: tools/speed-check.mjs found the same pose sequences at 1x on the page clock,
+// 4x, 8x and 16x, and past 8x the run is bound by the page's own work), --wait page seconds after a
 // load before checking (default 2), --hour (default 14), and the site options of tools/tour.mjs.
 import { spawn } from "node:child_process";
 import { join } from "node:path";
@@ -17,7 +18,7 @@ import { SITE_OPTIONS, openSite, repo } from "./serve.mjs";
 import { EXPECTED, PATHWAY, RECORDER, SCENARIO, endSteps, release, runScenario, siteUrl, steps, until } from "./site.mjs";
 
 const started = performance.now();
-const args = cli(import.meta.url, { ...SITE_OPTIONS, speed: 4, wait: 2, hour: "14" });
+const args = cli(import.meta.url, { ...SITE_OPTIONS, speed: 8, wait: 2, hour: "14" });
 const results = [];
 const record = (what, ok, detail = "") => results.push({ what, ok, detail });
 

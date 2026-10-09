@@ -2,6 +2,9 @@
 //
 //   node tools/speed-check.mjs [--speeds 1,4] [--runs 3] [--only people,now,walk] [--verbose]
 //
+// A speed ending in "c" (1c) runs with the page clock (tools/chrome.mjs) at that speed; plain 1
+// is the browser's own clocks, untouched.
+//
 // Runs each scenario --runs times at each speed (seeded Math.random, ?hour=14, 1440x1000, CPU x1)
 // and compares each sprite's own pose changes, in order, and the step each pathway sprite ends at
 // (as "(ends)"), with the runs at the first speed (the reference). A sprite passes when it matches
@@ -22,7 +25,7 @@ import { serve } from "./serve.mjs";
 import { SCENARIO, bySprite, endSteps, formatSequence, poseSequence, runScenario, steps } from "./site.mjs";
 
 const args = cli(import.meta.url, { speeds: "1,4", runs: 3, only: "people,now,walk", verbose: false });
-const speeds = String(args.speeds).split(",").map(Number);
+const speeds = String(args.speeds).split(",");
 const site = await serve();
 const order = steps(site.root);
 const SCENARIOS = {
@@ -48,7 +51,7 @@ for (const name of String(args.only).split(",")) {
   for (const speed of speeds) {
     for (let run = 1; run <= args.runs; run++) {
       const realStart = performance.now();
-      const r = await runScenario(page, site.url, { ...SCENARIO, ...SCENARIOS[name], speed }, order);
+      const r = await runScenario(page, site.url, { ...SCENARIO, ...SCENARIOS[name], speed: parseFloat(speed), clock: speed.endsWith("c") }, order);
       const wall = performance.now() - realStart;
       writeFileSync(join(dir, `${name}-${speed}x-${run}.json`), JSON.stringify(r));
       const seq = poseSequence(r.log);

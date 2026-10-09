@@ -22,7 +22,7 @@ import { SCENARIO, bySprite, endSteps, formatSequence, poseSequence, runScenario
 
 const args = cli(import.meta.url, { ...SCENARIO, ...SITE_OPTIONS, runs: 1, expect: "", quiet: false });
 if (args.cpu > 1 && args.speed > 1)
-  console.log(`note: --cpu ${args.cpu} with --speed ${args.speed}: page time will fall behind (a slow phone at 1x is --cpu alone)`);
+  console.log(`note: under --speed every page frame is 1/60 s, so the stalls --cpu ${args.cpu} is for never reach the site; use --cpu with --speed 1`);
 const site = await openSite(args);
 const order = steps(site.root);
 const expect = args.expect ? args.expect.split(",").map((s) => s.trim()) : [];
