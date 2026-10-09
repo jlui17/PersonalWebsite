@@ -10,9 +10,8 @@ Each pane has one job. Put a new fact in the pane whose job it is, and give it o
 |---|---|---|
 | 1 Hello | Who he is at a glance | His work in plain words, the traits that say the most about him (he nerds out over small details, he automates things that don't need it), fun facts, the photo, where he moved from, his links |
 | 2 Projects & Agents | What he builds: his two AI agents, then the things he has built ("kind of like a fun portfolio") | Each agent first (what he does for him, how he works with him, and in the same list what he plans to build with him next, each line marked "next"), then "Things I've built", one entry per project with the story behind it, in the order he sets |
-| 3 What I'm up to | What his life looks like these days | The status sign (learning, building, saving up for), what he is doing that he would not have done before San Francisco, the experiments with his coworkers, and a normal week |
+| 3 Now and later | What his life looks like these days, then where he hopes it goes | First the now part: the status sign (learning, building, saving up for), what he is doing that he would not have done before San Francisco, the experiments with his coworkers, and a normal week. Then the future part, under "In the future, I want to…": one plan per block, each heading finishing that sentence, with the reason in his words |
 | 4 My people | The people he loves | One card per person: what they are like, then what they mean to him |
-| 5 My future plans | Where he hopes life goes | One plan per block, each finishing "In the future, I want to…", with the reason in his words |
 
 ## Who edits what
 
@@ -71,12 +70,12 @@ card (right column)            open pane
 - A block that the hook already covers gets no `###` (pane 1's work paragraph).
 - A block can hold a paragraph and a list, as long as they share no fact: the paragraph tells one story, the list holds the rest (each agent in pane 2).
 - A living list he keeps up to date goes where its items belong, one line per item, and says what is not done yet by shape and a word, not by a heading of its own: each agent's side quests close his "what I hand him" list, each with a hollow box and a small "next" tag ("somehow combine current responsibilities with future side quests"). A side quest that is done loses its tag and moves up among the lines he has now.
-- A part after a pane's first opens under a hairline with a plain title and the quiet note beside it, the same grammar as the living list: pane 2's "Things I've built" with "I like building small tools for people I know." (the projects pane's old hook).
+- A part after a pane's first opens under a hairline with a plain title and the quiet note beside it, the same grammar as the living list: pane 2's "Things I've built" with "I like building small tools for people I know." (the projects pane's old hook). Pane 3's future part opens with the future pane's old hook, "In the future, I want to…", as its title, and each plan's heading finishes it (the two panes became one on 2026-10-08, at his pick).
 
 ## How a `###` is worded
 
 - Over a block of sentences, a `###` is an "I" sentence and the fun version ("I automate things that don't need it"; a lead-in such as "Fun fact:" is fine), and the details under it explain in plain terms with a few fun words mixed in.
-- Three exceptions. In a pane about other people, the person is the subject ("She's my role model for hard work and perseverance."; he said no to "I" headings in "My people"). Under a hook that ends in "…", each heading finishes the hook ("Live in Japan with my girlfriend."). Over a list, a `###` is a plain title ("Things I've built" over the projects).
+- Three exceptions. In a pane about other people, the person is the subject ("She's my role model for hard work and perseverance."; he said no to "I" headings in "My people"). Under a hook or a part's title that ends in "…", each heading finishes it ("Live in Japan with my girlfriend."). Over a list, a `###` is a plain title ("Things I've built" over the projects).
 - No skim line repeats a `###`, and a block the hook already covers gets none ("the main header already covers it"). The first sentence under a `###` says something new, not the `###` again ("there's a bit too much overalp between the subheader and the first sentence here").
 
 ## Checklist
@@ -151,6 +150,7 @@ Each line points to its rule in `AGENTS.md` where one exists.
 
 ## Still open
 
+- **Pane 3's card** ("Now and later", since the now and future panes became one on 2026-10-08) keeps the now pane's line and invite, which name only the now part. The future pane's line ("I hope to see New York, Japan, and one day my own farm.") and invite ("See the plan") went with its card.
 - **The now pane's card line** is a noun list ("Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s."), against the card-line rule. He asked for something "more fun", then "snarky", and has not picked a replacement yet. The projects never got a card line for the same reason.
 - **Pane 2, since the projects joined it.** Its title is "Projects & Agents", his pick (the hash stays `#agents`); the agents still come first inside it. Its card keeps the agents' line and invite, which name only the agents. luibuilder's list line "Building puzzlewithme, ..." went when the projects joined (Justin: "drop one"); the project keeps the story. `?agents=a` and `?agents=b` are two ways to rank the robots' names above everything else; he has not picked.
 

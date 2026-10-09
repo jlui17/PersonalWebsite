@@ -236,7 +236,7 @@ const cards = {
   torii: { title: "Torii", note: "The gate beside the cherry tree. The words on its board are real text laid over its panel.", actions: { idle: "at rest", rested: "a petal has landed on the top beam" } },
   feed: { title: "Feed", note: "The grain luibot pours for the hen.", actions: { fall: "falling; plays once and holds", pile: "a full pile", "pile-half": "half eaten" } },
   chicken: { title: "Hen", note: "The hen of the farm.", actions: { idle: "standing, blinking", peck: "pecking at the feed", walk: "walking, facing right" } },
-  cow: { title: "Cow", note: "The cow at step 5 of the pathway.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right", tail: "a swish of the tail" } },
+  cow: { title: "Cow", note: "The cow at step 3 of the pathway, before the coffee corner.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right", tail: "a swish of the tail" } },
   sheep: { title: "Sheep", note: "The sheep grazing beside the farm's heading.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right" } },
 };
 cards["justin-overshirt"].actions = cards["justin-hoodie"].actions = {

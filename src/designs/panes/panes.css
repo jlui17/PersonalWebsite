@@ -48,7 +48,7 @@
   --pn-label: 500 11.5px/1 var(--pn-font-head); /* small chrome text */
   --pn-label-track: 0;
   --pn-label-phone: 10.5px; /* the step bar on a phone; 0.5px less under 360px */
-  /* The label voice on pane 5's drawn boards: their panel is 59px wide and
+  /* The label voice on pane 3's drawn boards: their panel is 59px wide and
      13px tall, and "New York" is 55px at this size. */
   --pn-sign: 500 11.5px/1 var(--pn-font-head);
   --pn-sign-track: 0;

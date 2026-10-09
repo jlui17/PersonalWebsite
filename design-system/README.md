@@ -6,11 +6,11 @@ This is the design system for Justin Lui's personal site, in its `panes` design.
 
 ## The concept
 
-The site is one calm tool window. A **pane** at the upper left shows one section. A column of **cards** on the right lists all five sections, each with a plain title and one line. The **pathway** runs along the bottom: his pixel sprite walks along it between **steps**, one step per section. Selecting a step, by a key, a click or the search, opens its section in the pane and sends him walking to it. A title bar on top holds his name, the search and a live clock in San Francisco time.
+The site is one calm tool window. A **pane** at the upper left shows one section. A column of **cards** on the right lists all four sections, each with a plain title and one line. The **pathway** runs along the bottom: his pixel sprite walks along it between **steps**, one step per section. Selecting a step, by a key, a click or the search, opens its section in the pane and sends him walking to it. A title bar on top holds his name, the search and a live clock in San Francisco time.
 
 Calm is the layout, the type and the rest state: nothing in the layout moves until the visitor acts. Fun is the sprites. The site is about who Justin is, never a portfolio or a resume.
 
-Justin is a founding engineer at Scorecard in San Francisco, originally from Vancouver. The five sections, in order, are hello, his two AI agents luibot and luibuilder with the things he has built, his people (his mom, his dad, his sister Andrea, his girlfriend, and Truffle, his French Bulldog), what he is up to, and his future plans. Every fact about him comes from `src/content.js`, and the previews here carry the real strings. Never use lorem ipsum, and never invent a fact about him.
+Justin is a founding engineer at Scorecard in San Francisco, originally from Vancouver. The four sections, in order, are hello, his two AI agents luibot and luibuilder with the things he has built, what he is up to and then his future plans (one section, "Now and later"), and his people (his mom, his dad, his sister Andrea, his girlfriend, and Truffle, his French Bulldog). Every fact about him comes from `src/content.js`, and the previews here carry the real strings. Never use lorem ipsum, and never invent a fact about him.
 
 ## Files
 
@@ -59,8 +59,8 @@ Two families, split by reading level, and no third: not even for an arrow or a k
 | --- | --- | --- | --- |
 | `--pn-h1` | 500 34px/1.1 (30px on a phone) | -0.04em | The first pane's title, and in pane 2 each robot's name (provisional: the site shows two options for pane 2 until Justin picks). |
 | `--pn-lead` | 400 19px/1.4 (17.5px under 900px), 46ch | -0.02em | The open pane's hook. |
-| `--pn-h3-large` | 700 18.5px/1.35, 48ch | -0.015em | The headings of the future plans, and of pane 2's projects ("Things I’ve built"). |
-| `--pn-h3` | 700 17px/1.4 | -0.015em | A pane's "###" over a block of details, card headings, and project names. |
+| `--pn-h3-large` | 700 18.5px/1.35, 48ch | -0.015em | The heading of a part after a pane's first: pane 2's projects ("Things I’ve built") and pane 3's future plans ("In the future, I want to…"). |
+| `--pn-h3` | 700 17px/1.4 | -0.015em | A pane's "###" over a block of details, card headings, project names, and the future plans' headings. |
 | `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | The search box's input. |
 | `--pn-fold-hook` | 500 14px/1.3 | -0.01em | The one line on a card. |
 | `--pn-ui` | 500 13px/1.3 | -0.01em | Names on cards, his name in the title bar, search rows, the status sign's values. |
@@ -103,7 +103,7 @@ Each part has a card in `components/`. Use the class names as they are.
 - **Search** (`search.html`): `.pn__palette` with its input, a list of `.pn__option` rows that each name their kind, and a foot with the keys. It is the one floating layer and the one shadow.
 - **Hello** (`pages/home.html`): `.pn__hello-title` sets the `.pn__h1` with his sprite beside it (`.pn-hello`) on one rule. `.pn__hello-body` puts the blocks beside the `.pn__photo` and the quiet `.pn__hello-foot` lines.
 
-Left out: the future plans pane, whose pictures sit inside its headings at offsets the site measures in script, luibuilder's spot among the projects, and the robots' beam. Their sprites are all in `sprites/`.
+Left out: the future plans (pane 3's second part), whose pictures sit inside its headings at offsets the site measures in script, luibuilder's spot among the projects, and the robots' beam. Their sprites are all in `sprites/`.
 
 ## Motion
 
