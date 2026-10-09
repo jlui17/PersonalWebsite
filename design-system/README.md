@@ -2,11 +2,11 @@
 
 This is the design system for Justin Lui's personal site, in its `panes` design. Anything made with it should look like his site and not like a template. Everything here is read from the site's code (`src/designs/panes/`, `src/sprites/`, `src/content.js`). Nothing is invented.
 
-`AGENTS.md` at the root of the repo holds the rest, and it wins where the two disagree: the design principles, the voice, the sprite rules, what to avoid, and Justin's words for the parts (pane, pathway, step, select a step, card). Read it first. This file holds only what a generator needs on top of it.
+`AGENTS.md` at the root of the repo holds the rest, and it wins where the two disagree: the design principles, the voice, the sprite rules, what to avoid, and Justin's words for the parts (pane, pathway, step, tab, select a step). Read it first. This file holds only what a generator needs on top of it.
 
 ## The concept
 
-The site is one calm tool window. A **pane** at the upper left shows one section. A column of **cards** on the right lists all four sections, each with a plain title and one line. The **pathway** runs along the bottom: his pixel sprite walks along it between **steps**, one step per section. Selecting a step, by a key, a click or the search, opens its section in the pane and sends him walking to it. A title bar on top holds his name, the search and a live clock in San Francisco time.
+The site is one calm tool window. A title bar on top holds his name, the search and a live clock in San Francisco time. Under it the **pathway** runs along the top: his pixel sprite walks along it between **steps**, one step per section. From the pathway's floor hangs one **tab** per step, with its number and a few plain words, and under the tabs a **pane** at the window's whole width shows one section; the open step's tab is joined to it. Selecting a step, by a key, a click or the search, opens its section in the pane and sends him walking to it.
 
 Calm is the layout, the type and the rest state: nothing in the layout moves until the visitor acts. Fun is the sprites. The site is about who Justin is, never a portfolio or a resume.
 
@@ -17,7 +17,7 @@ Justin is a founding engineer at Scorecard in San Francisco, originally from Van
 - `tokens.css`: every token as a CSS custom property, with the site's names (`--pn-*`, `--sprite-outline`). It mirrors `src/designs/panes/panes.css`, which is the source.
 - `components.css`: the rules of the parts, copied from `panes.css` and `scenes/scenes.css` with the site's class names (`pn__*`, `pn-*`). A page needs both files.
 - `previews/`: the foundation cards: `colors.html`, `type.html`, `spacing.html`.
-- `components/`: one card per part, built from the site's class names and real strings.
+- `components/`: one card per part, built from the site's class names and real strings. (A card here is a design-system page; on the site a card is a box in pane 4.)
 - `pages/home.html`: the whole window with step 1 selected. `pages/assets/` holds the one photo. It has no EXIF data, so do not replace it with another file.
 - `sprites/`: the pixel sprites as static SVGs, with their own `README.md` and an `index.html` that lists them all.
 - `check.mjs` and `sprites/export.mjs`: the two scripts under "Keeping it in line with the site".
@@ -31,29 +31,29 @@ One dark palette, and no light mode. The ground is a dark roast coffee brown, ne
 | Token | Value | Job |
 | --- | --- | --- |
 | `--pn-ground` | `#28221b` | The window behind everything. |
-| `--pn-bar` | `#2b251e` | The title bar, the pathway and the step bar. |
-| `--pn-surface` | `#2f2922` | The pane, the cards, the search button. |
+| `--pn-bar` | `#2b251e` | The title bar and the closed tabs. The pathway is on the ground itself. |
+| `--pn-surface` | `#2f2922` | The pane, the open tab, the search button. |
 | `--pn-raised` | `#373129` | The search box, the photo's mat, a robot's speech bubble. |
-| `--pn-line` | `#3f3931` | Hairlines: card borders, the rule between a pane's parts. |
-| `--pn-line-strong` | `#4e473f` | The rules sprites stand on, button borders, the bar beside a list line. |
+| `--pn-line` | `#3f3931` | Hairlines: the closed tabs' borders, the rule between a pane's parts. |
+| `--pn-line-strong` | `#4e473f` | The rules sprites stand on (the pathway's floor too), button borders, a hovered tab's border, the bar beside a list line. |
 | `--pn-ink` | `#ece5d8` | Titles, hooks, headings, values. |
-| `--pn-ink-2` | `#c3b9a9` | Names on cards, the sentences on his girlfriend's card. |
-| `--pn-muted` | `#afa494` | Labels, buttons, the step bar's words, a card's title, the quieter line under a hook, the hello's last line. |
-| `--pn-dim` | `#9d9080` | The quietest text: the details (paragraphs, list lines, project stories), a card's invite, step numbers. 4.6:1 on the surface, so no text goes below it. |
+| `--pn-ink-2` | `#c3b9a9` | The keys in the title bar's hints, search rows, the sentences on his girlfriend's card. |
+| `--pn-muted` | `#afa494` | Labels, buttons, the closed tabs' words, the quieter line under a hook, the hello's last line. |
+| `--pn-dim` | `#9d9080` | The quietest text: the details (paragraphs, list lines, project stories), the tabs' numbers. 4.6:1 on the surface, so no text goes below it. |
 | `--pn-faint` | `#746e64` | Decoration only: hollow dots, an unlit switch. Never text. |
-| `--pn-amber` | `#e8ab55` | Focus and attention: the open pane's border, the selected card and step, lit dots, the focus ring. |
+| `--pn-amber` | `#e8ab55` | Focus and attention: the open pane's border, the open step's tab, lit dots, the focus ring. |
 | `--pn-amber-dim` | `rgba(232, 171, 85, 0.12)` | The one tinted card (his girlfriend's) and the selected row of the search box. |
 | `--pn-blue` | `#93c2ee` | Links, always with an underline or a drawn arrow. |
 | `--sprite-outline` | `#463d33` | The outer outline of every pixel sprite on this ground. Not for anything else. |
 | `--pn-photo-dim` | `0.87` | The photo's brightness, so nothing in it outshines the heading's ink. |
 
-**The colour rule.** Meaning carried by colour uses blue against yellow or orange, never red against green, and it is always backed by a label or a shape. Here that means: the two robots are told apart as blue against orange and by name, the selected step has a bar under it, a selected or lit dot is filled where the others are hollow, a link is underlined or has an arrow, and the status sign says "on" or "off". Small text clears 4.5:1 on every surface it sits on.
+**The colour rule.** Meaning carried by colour uses blue against yellow or orange, never red against green, and it is always backed by a label or a shape. Here that means: the two robots are told apart as blue against orange and by name, the open step's tab has a filled dot and the pane's border, a selected or lit dot is filled where the others are hollow, a link is underlined or has an arrow, and the status sign says "on" or "off". Small text clears 4.5:1 on every surface it sits on.
 
 ## Type
 
 Two families, split by reading level, and no third: not even for an arrow or a key glyph, which are drawn as small SVGs. The ranks step down by size, weight and colour.
 
-**JetBrains Mono** (`--pn-font-head`, weights 400, 500 and 700) is everything a visitor sees when they skim: titles, hooks, headings, labels, buttons, the cards, the step bar, the clock. Each role is a whole `font` token with a tracking token beside it.
+**JetBrains Mono** (`--pn-font-head`, weights 400, 500 and 700) is everything a visitor sees when they skim: titles, hooks, headings, labels, buttons, the tabs, the clock. Each role is a whole `font` token with a tracking token beside it.
 
 | Role token | Font | Tracking | Used for |
 | --- | --- | --- | --- |
@@ -62,15 +62,14 @@ Two families, split by reading level, and no third: not even for an arrow or a k
 | `--pn-h2` | 500 24px/1.25 (21px on a phone) | -0.03em | A block's heading with no name over it: hello's and pane 3's "###"s, "In the future, I want to…", and a project's name. |
 | `--pn-h3` | 700 17px/1.4 | -0.015em | The bold sentence under a name or heading (a person, a robot, a project's one-line summary, each future plan, which finishes "In the future, I want to…"), card headings. |
 | `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | The search box's input. |
-| `--pn-fold-hook` | 500 14px/1.3 | -0.01em | The one line on a card. |
-| `--pn-ui` | 500 13px/1.3 | -0.01em | Names on cards, his name in the title bar, search rows, the status sign's values. |
-| `--pn-label`, `--pn-sign` | 500 11.5px/1 (10.5px in a phone's step bar) | 0 | All small chrome: tags, captions, buttons, hints, the clock, the step bar, the words on the drawn sign boards. |
+| `--pn-ui` | 500 13px/1.3 | -0.01em | The tabs' words, his name in the title bar, search rows, the status sign's values. |
+| `--pn-label`, `--pn-sign` | 500 11.5px/1 | 0 | All small chrome: tags, captions, buttons, hints, the clock, the tabs' numbers (and their words from 640 to 1050px, on two lines), the words on the drawn sign boards. |
 
 **Instrument Sans** (`--pn-font-body`, weight 400) is the details: the sentences under a heading. The window's base is 15px/1.6. Paragraphs, list lines and project stories are 13px in `--pn-dim`, and paragraphs sit on a 62ch measure. The quieter line under a hook is 14px in `--pn-muted` on 60ch. A project's one-line summary is its bold sentence, in `--pn-h3`.
 
 ## Spacing
 
-The window is a grid of four rows: the title bar (`--pn-title-h`, 40px), the workspace, the pathway (`--pn-pathway-h`, 68px: the tallest pose is 62px) and the step bar (`--pn-bar-h`, 30px). The window never scrolls as a whole. The pane's body scrolls, and its last lines fade when there is more below. The workspace has 10px of padding and a 10px gap. The cards take `--pn-stack-w` (424px, at most half the width) and sit 4px apart with `--pn-fold-pad` inside. The pane takes the rest, and its body has 24px 26px of padding. Corners are `--pn-radius` (6px), and buttons inside take 4px. Every border and rule is 1px. Columns inside a pane are 32px apart.
+The window is a grid of four rows: the title bar (`--pn-title-h`, 40px), the pathway (`--pn-pathway-h`, 68px: the tallest pose is 62px), the steps (34px, 40px on a phone, whose last pixel row is the pane's top border) and the workspace. The window never scrolls as a whole. The pane's body scrolls, and its last lines fade when there is more below; on a phone the row of tabs scrolls sideways. The steps keep 10px from the window's sides and sit 4px apart, and the workspace has 10px of padding at the sides and the foot (8px on a phone). The pane takes the window's whole width, and its body has 24px 26px of padding. Corners are `--pn-radius` (6px), and buttons inside take 4px. Every border and rule is 1px. In a window 1101px or wider, every child of the pane's body keeps `--pn-inset` (11% of the body's width) on each side, and every two columns in it (the robots, the projects, hello's words and photo, now and later, the people) are `--pn-col-gap` (10% of the width between the insets) apart: the values Justin set by eye on pane 2's robots. Under that a pane keeps its whole width: the robots, the projects and pane 3's parts stack, the people stay two to a row 32px apart (one to a row in a pane under 460px), and hello's photo stays beside the words in a pane 600px or wider.
 
 Inside a pane, content flows from the top with one rhythm. Nothing is stretched, spread or pinned to the bottom, and room left at the end stays empty. The first number is the step in a 1280x800 window. In a taller pane all the steps grow together by one rule (`--pn-rise`), up to the second number, and no step between two things passes 54px.
 
@@ -91,15 +90,14 @@ Each part has a card in `components/`. Use the class names as they are.
 
 - **Window** (`pages/home.html`): `.panes` is the root. It sets the ground, the ink and the base font, and lays out the four rows. `html` and `body` take the ground colour too, and `theme-color` is the bar's `#2b251e`.
 - **Title bar** (`titlebar.html`): `.pn__titlebar` with `.pn__title-name` (his name and "pronounced loo-wee" as a `.pn__label`), the search button `.pn__palette-button` with its `.pn__kbd` key, and `.pn__title-right` with two `.pn__hint`s and the `.pn__clock`. The hints hide on touch screens and under 900px.
-- **Card** (`card.html`): `.pn__stack` holds one `.pn__fold` button per section. Each has a `.pn__fold-head` (a `.pn__dot`, the number `.pn__pane-index`, the `.pn__fold-title` and the `.pn__fold-invite` with a `.pn__chevron`) and one `.pn__fold-hook` line. The selected card has `aria-current="true"`: amber border, filled dot, amber title, no invite.
-- **Pane** (`pane.html`): `.pn__pane` with a `.pn__pane-head` (the `.pn__pane-title` button and the `.pn__expand` button) and a scrolling `.pn__pane-body`. The body opens with the hook `.pn__lead` and sometimes a quieter `.pn__more`. `data-more` on the body fades its last lines.
+- **Pane** (`pane.html`): `.pn__pane` with a scrolling `.pn__pane-body` and no head of its own: the open step's tab is its title. The body opens with the hook `.pn__lead` and sometimes a quieter `.pn__more`. `data-more` on the body fades its last lines.
 - **Blocks** (`pane.html`, `pages/home.html`): `.pn__block` is a `.pn__h2` over a paragraph, and a block without a heading reads as the next paragraph of the one above it. `.pn__blocks` stacks them in one column. `.pn__part` opens a new part under a hairline, and `.pn__story` does the same and sets its blocks in two columns that keep their reading order. `.pn__link` is a link inside a sentence.
 - **Lists** (`pane.html`): `.pn__does` is a `.pn__label` over a list whose lines each take a small bar. `.pn__week` with `.pn__week-days` sets one such list per day. A line with `data-next` is a side quest: a hollow box for its marker and a `.pn__next-tag` ("next") before its words.
-- **Agent** (`pane.html`): `.pn__agents` holds two `.pn__agent` columns, with no hook above them. The `.pn__agent-head` has the name (in the h1 role inside `[data-agents]`), a tag and the robot (`.pn-robot`), who stands on the head's rule and speaks in a `.pn-robot__bubble`. A later part (`.pn__part`) opens with a `.pn__part-head`: a heading and the quiet note beside it.
-- **People cards** (`people.html`): `.pn__people` holds `.pn__card`s, each a `.pn__card-name`, a heading and a paragraph. `.pn__card--tinted` with `.pn__people-wide` is his girlfriend's card, the one highlight. `.pn__card-live` is Truffle's live label.
+- **Agent** (`pane.html`): `.pn__agents` holds two `.pn__agent` columns, with no hook above them. The `.pn__agent-head` has the name (`.pn__card-name`, in the h1 role), a tag and the robot (`.pn-robot`), who stands on the head's rule and speaks in a `.pn-robot__bubble`. A later part (`.pn__part`) opens with a `.pn__part-head`: a heading and the quiet note beside it.
+- **People cards** (`people.html`): `.pn__people` holds `.pn__card`s, each a `.pn__card-name` (in the h1 role), a heading and a paragraph. `.pn__card--tinted` with `.pn__people-wide` is his girlfriend's card, the one highlight. `.pn__card-live` is Truffle's live label.
 - **Projects** (`projects.html`): the last part of pane 2. `.pn__projects` holds `.pn__project`s. Each has a `.pn__project-head` with the blue `.pn__project-title` link, a drawn `.pn__arrow--out` and a tag, then, in one box under it, a `.pn__project-kicker` and a `.pn__project-story`. The heads of two projects side by side share a row, so their names and rules line up.
 - **Status sign** (`status-sign.html`): `.pn-upto` holds the `.pn-upto__sign`: a status line with the date and the switch (`.pn-sign__switch`), then one `.pn-upto__line` per thing. `data-lit` lights it. It is the one live readout, so bump its date whenever a line changes.
-- **Pathway and step bar** (`pathway.html`): `.pn__stage` is the strip, with one `.pn__stretch` per step, `.pn__prop` for the things that live there and `.pn__actor` for Justin, Truffle and the ball. luibot is on his own layer, `.pn__bot`. The site places all of these from script, and the static pages place them in CSS from each step's number. Under it, `.pn__statusbar` holds the `.pn__segment` buttons, and the selected one has `aria-current="true"`.
+- **Pathway and steps** (`pathway.html`): `.pn__stage` is the strip, with one `.pn__stretch` per step, `.pn__prop` for the things that live there and `.pn__actor` for Justin, Truffle and the ball. luibot is on his own layer, `.pn__bot`, a line with no height at the pathway's floor that his svg stands on. The site places all of these from script, and the static pages place them in CSS from each step's number. Under it, `.pn__steps` holds one `.pn__step` tab per step (`--pn-steps` on `.panes` is how many), each a `.pn__dot` and its words with the number `.pn__step-n`. The open one has `aria-current="true"`: amber border and words, a filled dot, the pane's surface, one pixel taller so it covers the pane's top border. On a phone the row scrolls sideways.
 - **Search** (`search.html`): `.pn__palette` with its input, a list of `.pn__option` rows that each name their kind, and a foot with the keys. It is the one floating layer and the one shadow.
 - **Hello** (`pages/home.html`): `.pn__hello-title` sets the `.pn__h1` with his sprite beside it (`.pn-hello`) on one rule. `.pn__hello-body` puts the blocks beside the `.pn__photo` and the quiet `.pn__hello-foot` lines.
 

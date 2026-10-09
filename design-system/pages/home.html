@@ -18,17 +18,18 @@
     it: --step is the step's number from 0, --from-centre is the offset from the step's centre. */
   .pn__stretch { left: calc(100% / 4 * var(--step)); width: calc(100% / 4); }
   .pn__actor, .pn__bot { left: calc(100% / 8 * (2 * var(--step) + 1) + var(--from-centre)); }
-  /* On a phone the site shows the selected step's stretch alone, and the open pane without the cards. */
+  /* luibot's svg stands on his layer's line at the pathway's floor, as this img does. */
+  .pn__bot img { position: absolute; left: 0; bottom: 0; max-width: none; }
+  /* On a phone the site shows the selected step's stretch alone. */
   @media (max-width: 639px) {
     .pn__stretch { left: 0; width: 100%; }
     .pn__actor { left: calc(50% + var(--from-centre)); }
-    .pn__stretch:not([data-selected]), .pn__actor:not([data-selected]), .pn__bot, .pn__stack, .pn__expand { display: none; }
-    .pn__work { grid-template-columns: minmax(0, 1fr); }
+    .pn__stretch:not([data-selected]), .pn__actor:not([data-selected]), .pn__bot { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="panes">
+<div class="panes" style="--pn-steps: 4">
   <header class="pn__titlebar">
     <div class="pn__title-name">
       Justin Lui
@@ -46,17 +47,15 @@
     </div>
   </header>
 
+  <nav class="pn__steps" aria-label="Sections">
+    <button type="button" class="pn__step" aria-current="true"><span class="pn__dot" aria-hidden="true"></span><span class="pn__step-label"><span class="pn__step-n" aria-hidden="true">1</span>A bit about me</span></button>
+    <button type="button" class="pn__step"><span class="pn__dot" aria-hidden="true"></span><span class="pn__step-label"><span class="pn__step-n" aria-hidden="true">2</span>Projects &amp; Agents</span></button>
+    <button type="button" class="pn__step"><span class="pn__dot" aria-hidden="true"></span><span class="pn__step-label"><span class="pn__step-n" aria-hidden="true">3</span>Now and later</span></button>
+    <button type="button" class="pn__step"><span class="pn__dot" aria-hidden="true"></span><span class="pn__step-label"><span class="pn__step-n" aria-hidden="true">4</span>My favourite people</span></button>
+  </nav>
+
   <main class="pn__work">
-    <article class="pn__pane pn__pane--open" aria-labelledby="pn-title-hello">
-      <div class="pn__pane-head">
-        <button type="button" id="pn-title-hello" class="pn__pane-title" aria-expanded="true">
-          <span class="pn__dot" aria-hidden="true"></span>
-          <span class="pn__pane-index" aria-hidden="true">1</span>
-          Hello
-          <svg class="pn__chevron pn__chevron--open" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg>
-        </button>
-        <button type="button" class="pn__expand" aria-label="Expand this section"><svg class="pn__expand-icon" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1.5h3.5V5M10.5 1.5 7 5M5 10.5H1.5V7M1.5 10.5 5 7"/></svg>Expand</button>
-      </div>
+    <article class="pn__pane pn__pane--open" aria-label="A bit about me">
       <div class="pn__pane-body" data-more>
         <div class="pn__flow">
           <div>
@@ -103,43 +102,6 @@
       </div>
     </article>
 
-    <nav class="pn__stack" aria-label="All sections">
-      <button type="button" class="pn__fold" aria-current="true">
-        <span class="pn__fold-head">
-          <span class="pn__dot" aria-hidden="true"></span>
-          <span class="pn__pane-index" aria-hidden="true">1</span>
-          <span class="pn__fold-title">Hello</span>
-        </span>
-        <span class="pn__fold-hook">I build AI simulations for work and automate way too much for fun.</span>
-      </button>
-      <button type="button" class="pn__fold">
-        <span class="pn__fold-head">
-          <span class="pn__dot" aria-hidden="true"></span>
-          <span class="pn__pane-index" aria-hidden="true">2</span>
-          <span class="pn__fold-title">Projects &amp; Agents</span>
-          <span class="pn__fold-invite">Meet luibot and luibuilder<svg class="pn__chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg></span>
-        </span>
-        <span class="pn__fold-hook">I have two OpenClaw agents running around.</span>
-      </button>
-      <button type="button" class="pn__fold">
-        <span class="pn__fold-head">
-          <span class="pn__dot" aria-hidden="true"></span>
-          <span class="pn__pane-index" aria-hidden="true">3</span>
-          <span class="pn__fold-title">Now and later</span>
-          <span class="pn__fold-invite">See what I’m up to<svg class="pn__chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg></span>
-        </span>
-        <span class="pn__fold-hook">Silly AI experiments, Japanese workbooks, and a lot of Trader Joe’s.</span>
-      </button>
-      <button type="button" class="pn__fold">
-        <span class="pn__fold-head">
-          <span class="pn__dot" aria-hidden="true"></span>
-          <span class="pn__pane-index" aria-hidden="true">4</span>
-          <span class="pn__fold-title">My people</span>
-          <span class="pn__fold-invite">Meet them<svg class="pn__chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2 7 5 3.5 8"/></svg></span>
-        </span>
-        <span class="pn__fold-hook">My parents, my little sister, my girlfriend, and a French Bulldog named Truffle.</span>
-      </button>
-    </nav>
   </main>
 
   <div class="pn__stage" aria-hidden="true">
@@ -153,14 +115,6 @@
   </div>
   <span class="pn__bot" aria-hidden="true" style="--step: 1; --from-centre: 1px"><img src="../sprites/luibot-idle.svg" width="28" height="32" alt=""></span>
 
-  <footer class="pn__statusbar">
-    <nav class="pn__segments" aria-label="Sections">
-      <button type="button" class="pn__segment" aria-current="true"><span class="pn__segment-n" aria-hidden="true">1</span>hello</button>
-      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">2</span>agents</button>
-      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">3</span>now</button>
-      <button type="button" class="pn__segment"><span class="pn__segment-n" aria-hidden="true">4</span>people</button>
-    </nav>
-  </footer>
 </div>
 <script>
   const digits = (text) => [...text].map((ch) => (/\d/.test(ch) ? '<span class="pn__digit">' + ch + "</span>" : ch)).join("");

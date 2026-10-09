@@ -29,8 +29,7 @@
   .shapes { display: flex; flex-wrap: wrap; gap: 10px; }
   .shape { display: flex; flex-direction: column; gap: 10px; min-width: 220px; padding: 12px 14px 14px; border: 1px solid var(--pn-line); border-radius: var(--pn-radius); background: var(--pn-surface); }
   .shape__row { display: flex; align-items: center; gap: 9px; }
-  .shape .pn__statusbar { width: fit-content; border-top: 0; }
-  .shape .pn__segment { flex: none; padding: 0 14px; }
+  .shape .pn__steps { --pn-steps: 2; width: 400px; margin: 0; padding: 0; }
 </style>
 </head>
 <body>
@@ -40,24 +39,24 @@
   <p class="pn__label group">Grounds and surfaces</p>
   <ul class="swatches">
     <li class="swatch"><div class="swatch__chip" style="background: var(--pn-ground)"></div><div class="swatch__text"><strong>Ground</strong><span class="pn__label">--pn-ground #28221b</span><p>The window behind everything.</p></div></li>
-    <li class="swatch"><div class="swatch__chip" style="background: var(--pn-bar)"></div><div class="swatch__text"><strong>Bar</strong><span class="pn__label">--pn-bar #2b251e</span><p>The title bar, the pathway and the step bar.</p></div></li>
-    <li class="swatch"><div class="swatch__chip" style="background: var(--pn-surface)"></div><div class="swatch__text"><strong>Surface</strong><span class="pn__label">--pn-surface #2f2922</span><p>The pane, the cards and the search button.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--pn-bar)"></div><div class="swatch__text"><strong>Bar</strong><span class="pn__label">--pn-bar #2b251e</span><p>The title bar and the closed tabs. The pathway is on the ground itself.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--pn-surface)"></div><div class="swatch__text"><strong>Surface</strong><span class="pn__label">--pn-surface #2f2922</span><p>The pane, the open tab and the search button.</p></div></li>
     <li class="swatch"><div class="swatch__chip" style="background: var(--pn-raised)"></div><div class="swatch__text"><strong>Raised</strong><span class="pn__label">--pn-raised #373129</span><p>The search box, the photo's mat and a robot's speech bubble.</p></div></li>
-    <li class="swatch"><div class="swatch__chip" style="background: var(--pn-line)"></div><div class="swatch__text"><strong>Line</strong><span class="pn__label">--pn-line #3f3931</span><p>Hairlines: card borders, the rule between a pane's parts.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--pn-line)"></div><div class="swatch__text"><strong>Line</strong><span class="pn__label">--pn-line #3f3931</span><p>Hairlines: the closed tabs' borders, the rule between a pane's parts.</p></div></li>
     <li class="swatch"><div class="swatch__chip" style="background: var(--pn-line-strong)"></div><div class="swatch__text"><strong>Line, strong</strong><span class="pn__label">--pn-line-strong #4e473f</span><p>The rules sprites stand on, button borders, a list line's bar.</p></div></li>
   </ul>
 
   <p class="pn__label group">Text, on the surface</p>
   <div class="samples">
     <div class="sample"><span class="pn__label">--pn-ink #ece5d8</span><p style="color: var(--pn-ink)">I automate things that don’t need it</p><p style="color: var(--pn-muted); font-size: 13.5px">Titles, hooks, headings, values.</p></div>
-    <div class="sample"><span class="pn__label">--pn-ink-2 #c3b9a9</span><p style="color: var(--pn-ink-2)">Being with her makes me kinder, healthier, and more emotionally aware.</p><p style="color: var(--pn-muted); font-size: 13.5px">Names on cards, the sentences on his girlfriend's card.</p></div>
-    <div class="sample"><span class="pn__label">--pn-muted #afa494</span><p style="color: var(--pn-muted)">Ideas I plan to build with them</p><p style="color: var(--pn-muted); font-size: 13.5px">Labels, buttons, the step bar's words, a card's title, the quieter line under a hook.</p></div>
-    <div class="sample"><span class="pn__label">--pn-dim #9d9080</span><p style="color: var(--pn-dim)">See the plan</p><p style="color: var(--pn-muted); font-size: 13.5px">The quietest text: the details (paragraphs, list lines, project stories), a card's invite, step numbers. It is 4.6:1 on the surface, so nothing that is text goes below it.</p></div>
+    <div class="sample"><span class="pn__label">--pn-ink-2 #c3b9a9</span><p style="color: var(--pn-ink-2)">Being with her makes me kinder, healthier, and more emotionally aware.</p><p style="color: var(--pn-muted); font-size: 13.5px">The keys in the title bar's hints, search rows, the sentences on his girlfriend's card.</p></div>
+    <div class="sample"><span class="pn__label">--pn-muted #afa494</span><p style="color: var(--pn-muted)">Ideas I plan to build with them</p><p style="color: var(--pn-muted); font-size: 13.5px">Labels, buttons, the closed tabs' words, the quieter line under a hook.</p></div>
+    <div class="sample"><span class="pn__label">--pn-dim #9d9080</span><p style="color: var(--pn-dim)">It helped my friends get into the classes they wanted.</p><p style="color: var(--pn-muted); font-size: 13.5px">The quietest text: the details (paragraphs, list lines, project stories), the tabs' numbers. It is 4.6:1 on the surface, so nothing that is text goes below it.</p></div>
   </div>
 
   <p class="pn__label group">Accents and decoration</p>
   <ul class="swatches">
-    <li class="swatch"><div class="swatch__chip" style="background: var(--pn-amber)"></div><div class="swatch__text"><strong>Amber</strong><span class="pn__label">--pn-amber #e8ab55</span><p>Focus and attention: the open pane's border, the selected card and step, lit dots, the focus ring.</p></div></li>
+    <li class="swatch"><div class="swatch__chip" style="background: var(--pn-amber)"></div><div class="swatch__text"><strong>Amber</strong><span class="pn__label">--pn-amber #e8ab55</span><p>Focus and attention: the open pane's border, the open step's tab, lit dots, the focus ring.</p></div></li>
     <li class="swatch"><div class="swatch__chip" style="background: var(--pn-amber-dim)"></div><div class="swatch__text"><strong>Amber, dim</strong><span class="pn__label">--pn-amber-dim 12% amber</span><p>The one tinted card (his girlfriend's) and the selected row of the search box.</p></div></li>
     <li class="swatch"><div class="swatch__chip" style="background: var(--pn-blue)"></div><div class="swatch__text"><strong>Blue</strong><span class="pn__label">--pn-blue #93c2ee</span><p>Links, always with an underline or an arrow.</p></div></li>
     <li class="swatch"><div class="swatch__chip" style="background: var(--pn-faint)"></div><div class="swatch__text"><strong>Faint</strong><span class="pn__label">--pn-faint #746e64</span><p>Decoration only: hollow dots, an unlit switch. Never text.</p></div></li>
@@ -67,15 +66,10 @@
   <p class="pn__label group">Colour is always backed by a shape or a label</p>
   <div class="shapes">
     <div class="shape">
-      <span class="pn__label">selected: a filled dot</span>
-      <span class="pn__fold-head" style="margin: 0 8px"><span class="pn__dot"></span><span class="pn__fold-title">My people</span></span>
-      <span class="pn__pane-title"><span class="pn__dot"></span>Projects &amp; Agents</span>
-    </div>
-    <div class="shape">
-      <span class="pn__label">selected step: a bar under it</span>
-      <span class="pn__statusbar">
-        <span class="pn__segment" aria-current="true"><span class="pn__segment-n">2</span>agents</span>
-        <span class="pn__segment"><span class="pn__segment-n">4</span>people</span>
+      <span class="pn__label">the open step: a filled dot, and its tab joins the pane</span>
+      <span class="pn__steps">
+        <span class="pn__step" aria-current="true"><span class="pn__dot"></span><span class="pn__step-label"><span class="pn__step-n">2</span>Projects &amp; Agents</span></span>
+        <span class="pn__step"><span class="pn__dot"></span><span class="pn__step-label"><span class="pn__step-n">4</span>My favourite people</span></span>
       </span>
     </div>
     <div class="shape">
