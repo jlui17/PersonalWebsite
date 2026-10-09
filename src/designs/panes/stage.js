@@ -1266,6 +1266,73 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     scene += 1;
   }
 
+  // Woken for a throw or a pet that the visitor has since left: she stands
+  // (her wake ends on walk f0) for her minimum hold, then sits where she is,
+  // and lies down after her sit. Waiting on her feet while he was busy (the
+  // rule for a throw that is coming) kept her standing at home through his
+  // whole walk and espresso.
+  function settleHere() {
+    const sitDown = () => {
+      if (truffle.plan || truffle.shot || !/walk|trot/.test(truffle.pose)) return;
+      truffle.pose = "sit";
+      truffle.frame = undefined;
+      truffle.sitUntil = performance.now() + TRUFFLE.sitFor;
+    };
+    if (!holdFor(truffle, sitDown)) sitDown();
+  }
+
+  // Room for him at `spots` ([{ cx, poses, facing }]), then `go`: the first
+  // spot is where he goes now (the espresso at the coffee corner), the others
+  // where he stands next (the yard's spot, right of it). If she lies or sits
+  // at the first, or a walk she is on ends there, she gets up and walks clear
+  // of all of them and of the ball, to the right, and `go` waits until she is
+  // out of the first: meanwhile he waits short of her on her left (walking,
+  // he goes on past her to it), or, standing or resting on her right, stays
+  // where he is while she walks past him. He never stands over her, and
+  // nobody is cut to a new place. The request belongs to the step's scene:
+  // leaving the step drops it, and a walk she is on finishes.
+  const HALF = poseBox("truffle", "sleep")[0] / 2; // her widest still pose
+  let room = null;
+  function makeRoom(spots, go) {
+    const edge = ({ cx, poses, facing }, side) => cx + side * Math.max(...poses.map((p) => extent("justin", p, facing, side)));
+    room = { left: edge(spots[0], -1), right: edge(spots[0], 1), far: Math.max(...spots.map((s) => edge(s, 1))), go, live: inScene() };
+    if (tickRoom() || reduced()) return;
+    const at = truffle.plan?.kind === "goto" ? fitsTruffle(truffle.plan.target()) : truffle.cx;
+    if (justin.cx <= at || justin.walking) walkTo(Math.min(spots[0].cx, at - HALF - extent("justin", "idle", 1, 1)), { rest: "idle", face: spots[0].facing });
+  }
+  // True once there is room (and `go` has run).
+  function tickRoom() {
+    if (!room) return true;
+    if (!room.live()) {
+      room = null;
+      return true;
+    }
+    const over = (x) => x + HALF > room.left && x - HALF < room.right;
+    const p = truffle.plan;
+    const ends = !p ? truffle.cx : p.kind === "goto" ? fitsTruffle(p.target()) : null; // a fetch: not known yet
+    if (ends !== null && !over(ends) && !over(truffle.cx)) {
+      const { go } = room;
+      room = null;
+      go();
+      return true;
+    }
+    const still = !p && !truffle.shot && !truffle.trotting;
+    if (!still || !over(truffle.cx) || (!reduced() && performance.now() - holds.get(truffle).since < MIN_HOLD)) return false;
+    let spot = room.far + HALF;
+    if (Math.abs(spot - ball.x) < HALF + BALL.size / 2) spot = ball.x + BALL.size / 2 + BALL.gap + HALF; // not on the ball
+    const target = fitsTruffle(spot);
+    if (reduced()) {
+      truffle.cx = truffle.target = target;
+      return tickRoom();
+    }
+    const walk = () => (room ? start({ kind: "goto", gait: Math.abs(target - truffle.cx) > 80 ? TROT : WALK, target: () => target, lookAt: () => justin.cx }, { earIn: 0, trotIn: 0 }) : settleHere());
+    if (truffle.pose === "sleep" || truffle.pose === "ear") {
+      truffle.earAt = truffle.earDown = 0;
+      truffleShot("wake", 1, walk);
+    } else walk();
+    return false;
+  }
+
   // A hand on Truffle, staged as the sheets say (the comments above `paw`
   // and `wake` in truffle.js, `nod` in justin.js): she comes to him and asks.
   // He stands still (idle, flagged "asked") while she does. Asleep or one ear
@@ -1347,11 +1414,12 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
       });
     };
     const come = () =>
-      live() &&
-      start(
-        { kind: "goto", gait: Math.abs(spot - truffle.cx) > 80 ? TROT : WALK, target: () => spot, lookAt: () => justin.cx, then: ask },
-        { earIn: 0, trotIn: 0 },
-      );
+      live()
+        ? start(
+            { kind: "goto", gait: Math.abs(spot - truffle.cx) > 80 ? TROT : WALK, target: () => spot, lookAt: () => justin.cx, then: ask },
+            { earIn: 0, trotIn: 0 },
+          )
+        : settleHere(); // called away during her wake: she settles where she stood up
     if (truffle.pose === "sleep" || truffle.pose === "ear") {
       truffle.earAt = truffle.earDown = 0;
       truffleShot("wake", 1, come);
@@ -1417,7 +1485,10 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     if ((lying || covering) && !truffle.plan && !truffle.shot) {
       const aside = fitsTruffle(ball.x + (sign(truffle.cx - justin.cx) || 1) * 30);
       const off = () => {
-        if (!live()) return; // the visitor has left: awake, she settles where she is
+        if (!live()) {
+          settleHere(); // the visitor has left: awake, she settles where she is
+          return;
+        }
         if (covering) start({ kind: "goto", gait: WALK, target: () => aside, lookAt: () => justin.cx, then: again }, { earIn: 0, trotIn: 0 });
         else again();
       };
@@ -1567,6 +1638,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     tickTimers(now);
     tickJustin(now, dt);
     tickTruffle(now, dt);
+    tickRoom();
     tickBall(now);
     tickBot(now, dt);
     tickHolds(now);
@@ -1623,6 +1695,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     justin.whenFree = [];
     dropPending(justin);
     dropPending(truffle);
+    room = null;
     justin.override = null;
     justin.script = [];
     justin.scriptDone = null;
@@ -1687,6 +1760,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
     callTruffle,
     throwBall,
     cancelScene,
+    makeRoom,
     pet,
     tipHat: () => strike("hat", 0, undefined, { frames: HAT_TIP }),
     // On his feet for a while (a direct load of step 4: Truffle is about to
