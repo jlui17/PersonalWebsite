@@ -1885,12 +1885,11 @@ body {
   height: 34px;
 }
 
-/* the open tab's focus ring stands inside it, clear of its border, so a
-   step selected from the keyboard keeps the tab's sides 1px like the pane's
-   and the join seamless (a ring on the border made them 2px at the corner) */
+/* the open tab takes no focus ring: its own 1px amber border already marks
+   it, and the arrow keys move focus and the open step together (Justin: "the
+   inner highlight/border isn't necessary. just the thinner outer border") */
 .panes[data-top="a"] .pn__step[aria-current="true"]:focus-visible {
-  outline: 2px solid var(--pn-amber);
-  outline-offset: -5px;
+  outline: none;
 }
 
 /* where the open tab stands on the pane's corner, the corner is square, so
