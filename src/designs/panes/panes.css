@@ -1460,8 +1460,11 @@ body {
   }
 
   /* the photo no wider than its column at his window (about 1440x1000):
-     wider, in a 1920x1080 window, it pushed his links under the pane's foot */
+     wider, in a 1920x1080 window, it pushed his links under the pane's foot.
+     It ends on the column's right edge, where every pane's content ends, so a
+     wider window leaves no room right of it. */
   .pn__hello-side {
     max-width: 480px;
+    justify-self: end;
   }
 }

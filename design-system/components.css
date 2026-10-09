@@ -1447,6 +1447,7 @@ body {
      wider, in a 1920x1080 window, it pushed his links under the pane's foot */
   .pn__hello-side {
     max-width: 480px;
+    justify-self: end;
   }
 }
 
