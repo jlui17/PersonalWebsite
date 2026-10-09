@@ -1,12 +1,11 @@
-// Screenshots of pages × window sizes × trial values, and one index.html that shows them side by side.
+// Screenshots of pages × window sizes, and one index.html that shows them side by side.
 //
 //   node tools/sweep.mjs                                   every step, at 375, 1280 and 1440x1000
 //   node tools/sweep.mjs --paths "/#agents,/?design=sprites" --widths 600,900,1440x1000
-//   node tools/sweep.mjs --top a,b,c,old --agents a,b --hour 19
+//   node tools/sweep.mjs --hour 19 --reduced
 //
 // --paths   comma-separated paths (default every step's hash, read from PANES)
 // --widths  comma-separated WIDTH or WIDTHxHEIGHT (a width alone: 812 tall under 640, else 800)
-// --top, --agents  trial values to sweep (?top=, ?agents=); default the page's own default
 // --wait    page seconds after the load before the shot (default 2), --speed (default 4)
 // --hour    ?hour= (default 14, "none" for the real hour), --reduced, --chromes N (default 2)
 // --measure also measures the open pane's use of space (MEASURE in tools/site.mjs) into measure.json
@@ -26,8 +25,6 @@ const args = cli(import.meta.url, {
   ...SITE_OPTIONS,
   paths: "",
   widths: "375,1280,1440x1000",
-  top: "",
-  agents: "",
   wait: 2,
   speed: 4,
   hour: "14",
@@ -44,19 +41,14 @@ const sizes = String(args.widths)
     const [width, height] = w.split("x").map(Number);
     return { width, height: height || (width < 640 ? 812 : 800) };
   });
-const list = (v) => (v ? String(v).split(",") : [null]);
-
 const shots = [];
 for (const path of paths)
-  for (const top of list(args.top))
-    for (const agents of list(args.agents))
-      for (const size of sizes) {
-        const url = new URL(path, site.url);
-        for (const [k, v] of Object.entries({ top, agents, hour: args.hour === "none" ? null : args.hour }))
-          if (v && !url.searchParams.has(k)) url.searchParams.set(k, v);
-        const name = `${path.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "root"}${top ? `-top-${top}` : ""}${agents ? `-agents-${agents}` : ""}-${size.width}x${size.height}.png`;
-        shots.push({ row: `${path}${top ? ` top=${top}` : ""}${agents ? ` agents=${agents}` : ""}`, url: url.href, size, name });
-      }
+  for (const size of sizes) {
+    const url = new URL(path, site.url);
+    if (args.hour !== "none" && !url.searchParams.has("hour")) url.searchParams.set("hour", args.hour);
+    const name = `${path.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "root"}-${size.width}x${size.height}.png`;
+    shots.push({ row: path, url: url.href, size, name });
+  }
 
 const dir = outDir("sweep");
 const wait = args.wait * 1000;

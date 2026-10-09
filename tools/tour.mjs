@@ -6,7 +6,7 @@
 //   node tools/tour.mjs --step people --runs 5 --cpu 4 --expect "truffle paw,justin pet"
 //
 // Scenario (see SCENARIO in tools/site.mjs): --step --way load|key|click|tap --from --walk
-//   --settle <page s> --seconds <page s> --width --height --phone --hour <0..23|none> --top --agents
+//   --settle <page s> --seconds <page s> --width --height --phone --hour <0..23|none>
 //   --reduced --cpu <throttle> --speed <x> --seed <n|none>
 // Site: --url <running server> | --dev | --commit <rev>; default a frozen build of this tree.
 // --runs N plays it N times and prints, for --expect (sprite poses that must happen in that order),

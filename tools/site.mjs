@@ -11,9 +11,9 @@ export function steps(root) {
   return [...panes[1].matchAll(/short: "([^"]+)"/g)].map((m) => m[1]);
 }
 
-export function siteUrl(base, { step, hour, top, agents, design } = {}) {
+export function siteUrl(base, { step, hour, design } = {}) {
   const query = new URLSearchParams();
-  for (const [k, v] of Object.entries({ design, top, agents, hour })) if (v !== undefined && v !== null && v !== "") query.set(k, v);
+  for (const [k, v] of Object.entries({ design, hour })) if (v !== undefined && v !== null && v !== "") query.set(k, v);
   return `${base}${query.size ? `?${query}` : ""}${step ? `#${step}` : ""}`;
 }
 
@@ -187,8 +187,6 @@ export const SCENARIO = {
   height: null,
   phone: false,
   hour: "14",
-  top: null,
-  agents: null,
   reduced: false,
   cpu: 1,
   speed: 1,
@@ -241,8 +239,6 @@ export async function runScenario(page, base, s, order, frames = null) {
   const url = siteUrl(base, {
     step: start === first && s.way !== "load" ? null : start,
     hour: s.hour === "none" ? null : s.hour,
-    top: s.top,
-    agents: s.agents,
   });
   const settle = s.settle * 1000,
     seconds = s.seconds * 1000;
