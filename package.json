@@ -12,7 +12,8 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "check": "node tools/check.mjs"
   },
   "devDependencies": {
     "prettier": "^3.9.5"
