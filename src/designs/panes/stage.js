@@ -341,6 +341,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
       bot.steps.shift();
       bot.x = to.x;
       bot.y = to.y;
+      bot.atChair = false;
       bot.hidden = false; // here he comes
       if (step.face) bot.facing = step.face;
       const air = to.y !== 0;
@@ -491,6 +492,18 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   const botBusy = () => bot.steps.length > 0 || bot.queue.length > 0;
   function wantBotUp(onFree) {
     bot.onFree = onFree;
+    // On his way home he goes up from where he is, with no stop at home
+    // first: a beam-out already playing finishes, else the trip is dropped.
+    // Still at the chair after a tuck (on his way home, or to an errand
+    // the visitor has just dropped), he goes at once, as `cancelTuck` lets
+    // him: Justin is coming to sit there, so waiting for the spot to clear
+    // of him kept him hovering over Justin for seconds.
+    if (onFree && bot.steps.at(-1)?.home) {
+      const cur = bot.steps[0];
+      bot.steps = cur?.kind === "shot" && cur.pose.startsWith("beam-out") ? [cur, { kind: "hide", ms: 150 }] : [];
+      if (!bot.steps.length) bot.frame = undefined;
+    }
+    if (onFree && bot.atChair) bot.inTheWay = true;
     tryBotUp();
   }
   function tryBotUp() {
@@ -506,6 +519,7 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
   // back down at his spot at the agents step, on his feet, however he left.
   function botTaken() {
     bot.inTheWay = false;
+    bot.atChair = false;
     bot.x = bot.home;
     bot.y = 0;
     bot.pose = "idle";
@@ -610,7 +624,16 @@ export function createStage({ reduced, sheet, luibot: luibotSheet, botShown = ()
         },
       });
     }
-    steps.push({ kind: "hold", ms: 250, pose: "fly", frame: undefined }, { kind: "do", fn: () => (chair.busy = false) });
+    steps.push(
+      { kind: "hold", ms: 250, pose: "fly", frame: undefined },
+      {
+        kind: "do",
+        fn: () => {
+          chair.busy = false;
+          bot.atChair = true; // until he lands somewhere else
+        },
+      },
+    );
     bot.queue.unshift({ steps, kind: "tuck" }); // before any pane errand queued at the same step
   }
 
