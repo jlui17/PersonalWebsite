@@ -48,7 +48,7 @@
   --pn-sign: 500 11.5px/1 var(--pn-font-head);
   --pn-sign-track: 0;
   --pn-ui: 500 13px/1.3 var(--pn-font-head); /* names, search box rows */
-  --pn-ui-large: 500 14.5px/1.3 var(--pn-font-head); /* project and agent names */
+  --pn-ui-large: 500 14.5px/1.3 var(--pn-font-head); /* the search box's input */
   --pn-ui-track: -0.01em;
   /* The heading ranks, each a visible step under the last by size, weight and colour together.
      Pane 4 set the grammar: a large name, a bold sentence under it, then the quiet detail. */

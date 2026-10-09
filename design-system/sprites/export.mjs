@@ -237,7 +237,7 @@ const cards = {
   feed: { title: "Feed", note: "The grain luibot pours for the hen.", actions: { fall: "falling; plays once and holds", pile: "a full pile", "pile-half": "half eaten" } },
   chicken: { title: "Hen", note: "The hen of the farm.", actions: { idle: "standing, blinking", peck: "pecking at the feed", walk: "walking, facing right" } },
   cow: { title: "Cow", note: "The cow at step 3 of the pathway, before the coffee corner.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right", tail: "a swish of the tail" } },
-  sheep: { title: "Sheep", note: "The sheep grazing beside the farm's heading.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right" } },
+  sheep: { title: "Sheep", note: "The sheep grazing inside the farm's heading.", actions: { idle: "standing, blinking", graze: "grazing", walk: "walking, facing right" } },
 };
 cards["justin-overshirt"].actions = cards["justin-hoodie"].actions = {
   idle: "standing, blinking",
