@@ -63,7 +63,7 @@ Two families, split by reading level, and no third: not even for an arrow or a k
 | `--pn-h3` | 700 17px/1.4 | -0.015em | The bold sentence under a name or heading (a person, a robot, a project's one-line summary, each future plan, which finishes "In the future, I want to…"), card headings. |
 | `--pn-ui-large` | 500 14.5px/1.3 | -0.01em | The search box's input. |
 | `--pn-ui` | 500 13px/1.3 | -0.01em | The tabs' words, his name in the title bar, search rows, the status sign's values. |
-| `--pn-label`, `--pn-sign` | 500 11.5px/1 | 0 | All small chrome: tags, captions, buttons, hints, the clock, the tabs' numbers (and their words from 640 to 1050px, on two lines), the words on the drawn sign boards. |
+| `--pn-label`, `--pn-sign` | 500 11.5px/1 | 0 | All small chrome: tags, captions, buttons, hints, the clock, the tabs' numbers (and their words from 640 to 1050px, which wrap to two lines only below about 700px), the words on the drawn sign boards. |
 
 **Instrument Sans** (`--pn-font-body`, weight 400) is the details: the sentences under a heading. The window's base is 15px/1.6. Paragraphs, list lines and project stories are 13px in `--pn-dim`, and paragraphs sit on a 62ch measure. The quieter line under a hook is 14px in `--pn-muted` on 60ch. A project's one-line summary is its bold sentence, in `--pn-h3`.
 

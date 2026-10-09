@@ -86,7 +86,7 @@ Each line points to its rule in `AGENTS.md` where one exists.
 - A thing another pane tells in full gets one brief mention here, not its own block: puzzlewithme was one list line in the agents pane while the projects pane told its story ("we can just give a really brief summary").
 - Two short blocks about related things become one ("I think these two can be combined").
 - A skimmer who reads only the tab, the hook and the headings knows what the pane holds ("Three heading sizes").
-- The hook is a short, natural opener that does not sum up the blocks: "Meet my AI agents.", "In the future, I want to…" ("Each piece of text a skimmer sees has one job").
+- The hook is a short, natural opener that does not sum up the blocks: "Since moving to San Francisco, I've been a lot more ambitious.", "These are the people I love the most." ("Each piece of text a skimmer sees has one job").
 - Every `###` follows "How a `###` is worded" above.
 - Every sentence is complete, and sentences that belong together are joined by "but" or "so" ("Simple, complete sentences"). A run of adjectives goes in one clause: "She's so kind, sweet, and beautiful." replaced "She's so kind and sweet, and she's beautiful."
 - A person's details start with what they are like, then what they mean to him: "for my gf, the details should start off with how kind and nice she is."
