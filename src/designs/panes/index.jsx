@@ -487,12 +487,11 @@ const centreInRow = (step) => {
   row.scrollTo({ left: row.scrollLeft + s.left - r.left - (r.width - s.width) / 2, behavior: reducedMotion() ? "auto" : "smooth" });
 };
 
-// The steps on top (?top=a|b|c): one button per step, each over its own
-// stretch of the pathway, with its number and its few plain words. The open
-// step's button wears the open pane's amber, a filled dot and its own shape
-// per trial (a tab joined to the pane, a lit sign, a stop on the line). The
-// left and right keys move along them, as along the old step bar.
-function Steps({ focused, onSelect, refs, onPreview }) {
+// The steps on top: one tab per step, each over its own stretch of the
+// pathway, with its number and its few plain words. The open step's tab wears
+// the open pane's amber and a filled dot, and is joined to the pane. The left
+// and right keys move along them, as along the old step bar.
+function Steps({ focused, onSelect, refs }) {
   return (
     <nav className="pn__steps" aria-label="Sections">
       {PANES.map((p, i) => (
@@ -506,8 +505,6 @@ function Steps({ focused, onSelect, refs, onPreview }) {
           data-segment={p.id}
           aria-current={focused === p.id ? "true" : undefined}
           onClick={() => onSelect(p.id)}
-          onPointerEnter={(event) => event.pointerType === "mouse" && onPreview?.(p.id)}
-          onPointerLeave={(event) => event.pointerType === "mouse" && onPreview?.(null)}
           onFocus={(event) => {
             // a step the keyboard reaches comes wholly into view; a tap's focus
             // does not scroll the row (an instant scroll under reduced motion
@@ -515,9 +512,7 @@ function Steps({ focused, onSelect, refs, onPreview }) {
             // selection centres the row once the step opens
             if (!event.target.matches(":focus-visible")) return;
             centreInRow(event.currentTarget);
-            onPreview?.(p.id);
           }}
-          onBlur={() => onPreview?.(null)}
         >
           <span className="pn__dot" aria-hidden="true" />
           {/* the number inside the words, so a label that wraps keeps it beside its first word */}
@@ -530,29 +525,6 @@ function Steps({ focused, onSelect, refs, onPreview }) {
         </button>
       ))}
     </nav>
-  );
-}
-
-// ?top=c: one quiet line under the steps, in the cards' words: the step the
-// visitor points at, or else the next one, so there is always an obvious next
-// place to go. Its box keeps one height, so nothing under it moves.
-function NextLine({ focused, preview, onSelect }) {
-  const pointed = preview && preview !== focused;
-  const last = order.indexOf(focused) === order.length - 1;
-  const p = PANES.find((x) => x.id === (pointed ? preview : order[last ? 0 : order.indexOf(focused) + 1]));
-  return (
-    <div className="pn__next">
-      {p && (
-        <button type="button" className="pn__next-button" onClick={() => onSelect(p.id)} tabIndex={-1}>
-          {!pointed && <span className="pn__next-kind">{last ? "Back to the start" : "Next"}</span>}
-          <span className="pn__next-line">{cardLine(p)}</span>
-          <span className="pn__fold-invite">
-            {p.invite}
-            <Chevron open={false} />
-          </span>
-        </button>
-      )}
-    </div>
   );
 }
 
@@ -653,7 +625,6 @@ export default function Panes() {
   const [expanded, setExpanded] = useState(false); // desktop: the open pane alone
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [robotBeat, setRobotBeat] = useState(null); // 'luibot' | 'luibuilder' | null
-  const [preview, setPreview] = useState(null); // ?top=c: the step the visitor points at
   const showStack = onTop ? false : phone ? !open : !expanded;
   const showMaster = onTop || (phone ? open : true);
 
@@ -1776,14 +1747,8 @@ export default function Panes() {
       </header>
 
       {onTop && (
-        <Steps
-          focused={focused}
-          refs={segmentRefs}
-          onSelect={(id) => focusPane(id)}
-          onPreview={TOP === "c" ? setPreview : undefined}
-        />
+        <Steps focused={focused} refs={segmentRefs} onSelect={(id) => focusPane(id)} />
       )}
-      {TOP === "c" && <NextLine focused={focused} preview={preview} onSelect={(id) => focusPane(id)} />}
 
       <main
         className={`pn__work${showStack || onTop ? "" : " pn__work--solo"}${showMaster ? "" : " pn__work--list"}`}

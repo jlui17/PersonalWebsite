@@ -1684,8 +1684,8 @@ body {
   grid-row: 1;
 }
 
-/* one column: b lays its signs and its pathway in one cell */
-.panes[data-top] > :is(.pn__titlebar, .pn__steps, .pn__next, .pn__work, .pn__stage) {
+/* every row in the one column */
+.panes[data-top] > :is(.pn__titlebar, .pn__steps, .pn__work, .pn__stage) {
   grid-column: 1;
 }
 
@@ -1825,181 +1825,6 @@ body {
   padding-top: 0;
 }
 
-/* b: signs over the walk, and the walk on the pane. Each step's name floats
-   on a small sign over its stretch, the way the board floats over the
-   buildings in pane 3; the open step's sign is lit amber. There is no bar
-   under the sprites: they walk on the pane's own top edge, and the pane fills
-   the window under it from side to side. */
-.panes[data-top="b"] .pn__steps {
-  grid-row: 2;
-  align-self: start;
-  position: relative;
-  z-index: 1; /* over the pathway's layer, which comes after it */
-  display: grid;
-  grid-template-columns: repeat(var(--pn-steps), minmax(0, 1fr));
-  justify-items: center;
-  padding-top: 10px;
-}
-
-.panes[data-top="b"] .pn__step {
-  max-width: calc(100% - 12px);
-  height: 26px;
-  padding: 0 10px;
-  border: 1px solid var(--pn-line);
-  border-radius: 4px;
-}
-
-.panes[data-top="b"] .pn__step:hover {
-  border-color: var(--pn-line-strong);
-}
-
-.panes[data-top="b"] .pn__step[aria-current="true"] {
-  border-color: var(--pn-amber);
-  background: var(--pn-amber-dim);
-}
-
-.panes[data-top="b"] .pn__stage {
-  height: 112px; /* the signs' row, then the ball's highest arc (it peaks 67px over the floor) and air */
-}
-
-.panes[data-top="b"] .pn__bot {
-  top: calc(var(--pn-title-h) + 112px);
-}
-
-.panes[data-top="b"] .pn__work {
-  padding: 0;
-}
-
-.panes[data-top="b"] .pn__pane {
-  border: 0;
-  border-top: 1px solid var(--pn-line-strong); /* the floor they walk on */
-  border-radius: 0;
-}
-
-.panes[data-top="b"] .pn__pane-body {
-  padding-left: 36px;
-  padding-right: 36px;
-}
-
-/* c: a timeline, with the next step's line. The title bar and the walk are
-   one bar of chrome. Under the walk is its floor, a line with a short tick
-   under each step and the step's name under the tick, like the stops on a
-   map of a train line; the open step's tick is long and amber. Under the
-   stops, one quiet line in the cards' words says where to go next, or what
-   is in the step the visitor points at. */
-.panes[data-top="c"] {
-  grid-template-rows: var(--pn-title-h) auto auto auto minmax(0, 1fr);
-}
-
-.panes[data-top="c"] .pn__titlebar {
-  border-bottom: 0;
-}
-
-.panes[data-top="c"] .pn__stage {
-  background: var(--pn-bar);
-}
-
-.panes[data-top="c"] .pn__bot {
-  top: calc(var(--pn-title-h) + var(--pn-pathway-h));
-}
-
-.panes[data-top="c"] .pn__steps {
-  grid-row: 3;
-  display: grid;
-  grid-template-columns: repeat(var(--pn-steps), minmax(0, 1fr));
-  height: 32px;
-  background: var(--pn-bar);
-  border-top: 1px solid var(--pn-line-strong); /* the floor */
-}
-
-.panes[data-top="c"] .pn__step {
-  position: relative;
-  padding: 8px 6px 0;
-  align-items: flex-start;
-  color: var(--pn-dim);
-}
-
-.panes[data-top="c"] .pn__step:hover {
-  color: var(--pn-ink);
-}
-
-.panes[data-top="c"] .pn__step::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 2px;
-  margin-left: -1px;
-  height: 6px;
-  background: var(--pn-faint);
-}
-
-.panes[data-top="c"] .pn__step .pn__dot {
-  display: none;
-}
-
-.panes[data-top="c"] .pn__step[aria-current="true"] {
-  color: var(--pn-amber);
-}
-
-.panes[data-top="c"] .pn__step[aria-current="true"]::before {
-  width: 4px;
-  margin-left: -2px;
-  height: 9px;
-  background: var(--pn-amber);
-}
-
-.pn__next {
-  display: none;
-}
-
-.panes[data-top="c"] .pn__next {
-  grid-row: 4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 34px;
-  padding: 0 12px;
-  background: var(--pn-bar);
-  border-bottom: 1px solid var(--pn-line);
-}
-
-.pn__next-button {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  min-width: 0;
-  max-width: 100%; /* a long line is cut with an ellipsis, never widens the window */
-  color: var(--pn-ink-2);
-  white-space: nowrap;
-}
-
-.pn__next-kind {
-  flex: none;
-  font: var(--pn-label);
-  color: var(--pn-dim);
-}
-
-.pn__next-line {
-  font: var(--pn-fold-hook);
-  letter-spacing: var(--pn-fold-hook-track);
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pn__next-button .pn__fold-invite {
-  flex: none;
-  font: var(--pn-label);
-}
-
-.pn__next-button:hover .pn__fold-invite {
-  color: var(--pn-amber);
-}
-
-.panes[data-top="c"] .pn__work {
-  grid-row: 5;
-}
-
 /* Where a step's room is too narrow for its words on one line, they take
    two, and the dot goes (the number and the amber still mark the open one). */
 @media (min-width: 640px) and (max-width: 1050px) {
@@ -2014,51 +1839,16 @@ body {
     display: none;
   }
 
-  .panes[data-top="b"] .pn__step {
-    height: auto;
-    min-height: 26px;
-    padding: 4px 8px;
-  }
-
-  /* every tab and stop keeps room at its sides, so the longest name wraps
-     like the others instead of running to its edges */
-  .panes[data-top="a"] .pn__step,
-  .panes[data-top="c"] .pn__step {
+  /* every tab keeps room at its sides, so the longest name wraps like the
+     others instead of running to its edges */
+  .panes[data-top="a"] .pn__step {
     padding-inline: 10px;
-  }
-
-  .panes[data-top="c"] .pn__steps {
-    height: auto;
-    min-height: 32px;
-  }
-
-  .panes[data-top="c"] .pn__step {
-    padding-bottom: 5px;
-  }
-}
-
-/* b's signs are narrower than a's tabs and c's stops (each sign keeps air
-   on both sides), so its longest name needs the two lines up to 1200px */
-@media (min-width: 1051px) and (max-width: 1200px) {
-  .panes[data-top="b"] .pn__step {
-    height: auto;
-    min-height: 26px;
-    padding: 4px 8px;
-    font: var(--pn-label);
-    line-height: 1.15;
-    white-space: normal;
-    text-align: center;
-  }
-
-  .panes[data-top="b"] .pn__step .pn__dot {
-    display: none;
   }
 }
 
 /* A phone: the pathway is the open step's stretch alone, as before, and the
-   steps under it (over it, in b) are one row that scrolls sideways, with the
-   open one scrolled into view. Every step is a 40px tap target. The line of
-   c needs more room than a phone has, so it waits for a wider window. */
+   steps under it are one row that scrolls sideways, with the open one
+   scrolled into view. Every step is a 40px tap target. */
 @media (max-width: 639px) {
   .panes[data-top] .pn__steps {
     display: flex;
@@ -2085,57 +1875,6 @@ body {
 
   .panes[data-top="a"] .pn__step[aria-current="true"] {
     height: 40px;
-  }
-
-  .panes[data-top="b"] .pn__steps {
-    padding: 8px 8px 0;
-    gap: 8px;
-  }
-
-  .panes[data-top="b"] .pn__step {
-    max-width: none;
-    height: 40px;
-  }
-
-  .panes[data-top="b"] .pn__stage {
-    height: 124px; /* the taller signs' row */
-  }
-
-  .panes[data-top="b"] .pn__bot {
-    top: calc(var(--pn-title-h) + 124px);
-  }
-
-  .panes[data-top="b"] .pn__pane-body {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .panes[data-top="c"] .pn__steps {
-    height: 42px;
-    padding: 0 8px;
-  }
-
-  /* the row scrolls and the pathway shows one step, so no tick can stand
-     under where he is: the dot marks the open step instead */
-  .panes[data-top="c"] .pn__step {
-    padding: 0 12px;
-    align-items: center;
-  }
-
-  .panes[data-top="c"] .pn__step::before {
-    display: none;
-  }
-
-  .panes[data-top="c"] .pn__step .pn__dot {
-    display: inline-block;
-  }
-
-  .panes[data-top="c"] .pn__next {
-    display: none;
-  }
-
-  .panes[data-top="c"] .pn__steps {
-    border-bottom: 1px solid var(--pn-line);
   }
 }
 
