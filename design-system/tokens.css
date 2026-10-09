@@ -56,6 +56,7 @@
   --pn-lead: 400 19px/1.4 var(--pn-font-head); /* the open section's hook */
   --pn-lead-track: -0.02em;
   --pn-lead-measure: 46ch;
+  --pn-lead-measure-wide: 730px; /* 64ch of the 19px hook. In a pane at the window's whole width a hook takes one or two long lines, not three short ones; hello's text column is this wide */
   --pn-h3: 700 17px/1.4 var(--pn-font-head); /* a pane's "###", card headings */
   --pn-h3-large: 700 18.5px/1.35 var(--pn-font-head); /* future plans */
   --pn-h3-track: -0.015em;

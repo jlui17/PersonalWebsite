@@ -60,6 +60,7 @@
   --pn-lead: 400 19px/1.4 var(--pn-font-head); /* the open section's hook */
   --pn-lead-track: -0.02em;
   --pn-lead-measure: 46ch;
+  --pn-lead-measure-wide: 730px; /* 64ch of the 19px hook. In a pane at the window's whole width a hook takes one or two long lines, not three short ones; hello's text column is this wide */
   --pn-h3: 700 17px/1.4 var(--pn-font-head); /* a pane's "###", card headings */
   --pn-h3-large: 700 18.5px/1.35 var(--pn-font-head); /* future plans */
   --pn-h3-track: -0.015em;
@@ -2088,18 +2089,54 @@ body {
     padding-bottom: 0;
   }
 
-  /* future plans: the two places to live side by side (both "Live in ... with
-     my girlfriend."), the farm, the bigger plan, across the whole pane under them */
+  .panes[data-top] .pn__lead {
+    max-width: var(--pn-lead-measure-wide);
+  }
+
+  /* now and later: the two parts side by side, each read top to bottom, the
+     now part on the left. The later part opens beside a hairline, as it opens
+     under one when they are stacked. Inside a half, one column of blocks. The
+     later half is a little wider: at a 1440 window it holds the farm's title
+     row on one line (its heading, the gap and the scene: 687px). */
+  .panes[data-top] .pn__now-later {
+    display: grid;
+    grid-template-columns: minmax(0, 8fr) minmax(0, 9fr);
+    column-gap: 56px;
+    align-items: start;
+  }
+
+  .panes[data-top] .pn__now .pn__story {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panes[data-top] .pn__now-later > .pn__later {
+    margin-top: 0;
+    padding: 0 0 0 28px;
+    border-top: 0;
+    border-left: 1px solid var(--pn-line);
+    margin-left: -28px;
+  }
+
+}
+
+/* A wider pane still (a window of about 1700px and up): inside each half,
+   two columns of its own, so no half is mostly a margin. The two story
+   blocks side by side; New York and Japan side by side (both "Live in ...
+   with my girlfriend."), the farm, the bigger plan, under them. */
+@container pane (min-width: 1600px) {
+  .panes[data-top] .pn__now .pn__story {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .panes[data-top] .pn__chapters {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 48px;
+    column-gap: 32px;
   }
 
   .panes[data-top] .pn__chapter:nth-child(3) {
     grid-column: 1 / -1;
   }
-
 }
 
 /* hello in the trials: the blocks one column, in the order they are written

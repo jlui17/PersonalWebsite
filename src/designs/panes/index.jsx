@@ -1665,33 +1665,37 @@ export default function Panes() {
     ),
     agents: agentsDetail(),
     now: (
-      <>
-        <UpTo lit={!!luibotDone["sign-switch"]} />
-        {/* under the sign, what he is up to in blocks like pane 1's, in two balanced columns */}
-        <Balanced className="pn__story">
-          {lately.blocks.map((block) => (
-            <Block block={block} key={block.heading} />
-          ))}
-        </Balanced>
-        {/* his week as lists, a day to a column: the items read in order through the day,
-            in the grammar of pane 2's "what I hand him" lists */}
-        {lately.week && (
-          <section className="pn__week">
-            <h3 className="pn__h3">{lately.week.heading}</h3>
-            <div className="pn__week-days">
-              {lately.week.days.map((day) => (
-                <div className="pn__does" key={day.label}>
-                  <Label>{day.label.toLowerCase()}</Label>
-                  <ol>
-                    {day.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ol>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+      // under the hook, the now part, then the later part: one after the
+      // other, or side by side in a wide pane, each read top to bottom
+      <div className="pn__now-later">
+        <div className="pn__now">
+          <UpTo lit={!!luibotDone["sign-switch"]} />
+          {/* under the sign, what he is up to in blocks like pane 1's, in two balanced columns */}
+          <Balanced className="pn__story">
+            {lately.blocks.map((block) => (
+              <Block block={block} key={block.heading} />
+            ))}
+          </Balanced>
+          {/* his week as lists, a day to a column: the items read in order through the day,
+              in the grammar of pane 2's "what I hand him" lists */}
+          {lately.week && (
+            <section className="pn__week">
+              <h3 className="pn__h3">{lately.week.heading}</h3>
+              <div className="pn__week-days">
+                {lately.week.days.map((day) => (
+                  <div className="pn__does" key={day.label}>
+                    <Label>{day.label.toLowerCase()}</Label>
+                    <ol>
+                      {day.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
         {/* the second part, his future plans: its heading is the sentence each plan's heading
             finishes. Each plan's scene stands inside its heading where the place is named (the
             skyline, the cherry tree and the gate), or beside it (the hen and the sheep; the
@@ -1719,7 +1723,7 @@ export default function Panes() {
             ))}
           </div>
         </section>
-      </>
+      </div>
     ),
   };
 
