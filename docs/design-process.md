@@ -76,5 +76,5 @@ These were seen and left on purpose, so finding one again is not a miss. Remove 
 - Leaving pane 2, both robots beam out where they stood, over the next pane's opening text, on a phone as on a wide window (the pane is gone by the time the beam plays). A beam was kept over a plain vanish, as above.
 - One lagging sample with words under luibot on a 60px scroll; the robots drawn nowhere for up to 6.4 s during a key mash; luibuilder beams twice on a quick agents, hello, agents (seen with six steps); at 700px wide luibot's box overlapped Justin's at the agents step (seen before the desk joined that step).
 - By design: a stand-up beat of about 0.3 s when he leaves the people step and the desk, Truffle's `ear` pose for about 0.3 s before she trots home, and one tick of empty-handed idle when he leaves step 1.
-- The photo is 637 KB and shows at about 220px; the bundle is 718 kB, mostly sprites, and the sprite viewer ships in it.
+- The photo is 637 KB and shows at about 570px wide at his window (up to 630px); the bundle is about 730 kB, mostly sprites, and the sprite viewer ships in it.
 - The favicon is empty, the `og:image` is a portrait and there is no `twitter:card`; there is no `robots.txt`, no `_headers` file (hashed assets revalidate on every load) and no `404.html` (an unknown path returns the page with status 200).
