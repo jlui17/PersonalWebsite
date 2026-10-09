@@ -1595,9 +1595,6 @@ export default function Panes() {
       );
     return (
       <div data-agents="a">
-        <p className="pn__agents-hook" data-reason="agents">
-          {sections.agents.hook}
-        </p>
         <div className="pn__agents">{agentList}</div>
         <section className="pn__part" data-reason="projects">
           {partHead(projectsHead)}
@@ -1840,7 +1837,7 @@ export default function Panes() {
               </div>
             )}
             <div className="pn__pane-body" ref={bodyRef} data-more={moreBelow || undefined} onScroll={measureMore}>
-              {/* hello's lead is under its h1; pane 2 places (or drops) its own */}
+              {/* hello's lead is under its h1; pane 2 opens on the robots' names, with no hook */}
               {pane.id !== "hello" && pane.id !== "agents" && (
                 <>
                   <p className="pn__lead">{pane.hook}</p>

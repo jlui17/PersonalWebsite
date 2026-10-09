@@ -770,14 +770,6 @@ body {
   letter-spacing: var(--pn-h3-track);
 }
 
-/* a: the hook, quiet, as the line the two agents hang from */
-.pn__agents-hook {
-  font: var(--pn-ui);
-  letter-spacing: var(--pn-ui-track);
-  color: var(--pn-muted);
-  margin-bottom: calc(6px + var(--pn-more-text));
-}
-
 /* A part of a pane after its first: a hairline, then the part. In pane 2,
    under the two agents, the projects; in pane 3, under
    the sign, its story in blocks like pane 1's, in two columns, and the week.

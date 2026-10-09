@@ -819,15 +819,13 @@ body {
    kept apart by a wider gap, so the room is shared around them (his asks:
    "too much space to the right here for luibot and luibuilder"; centred on
    thirds was "too close now", on quarters "too far apart now"; this sits in
-   between). The hook keeps to luibot's left edge. */
+   between). Pane 4's people take the same inset and gap, so the two panes'
+   pairs of columns match. */
 @media (min-width: 1101px) {
-  .pn__agents {
+  .panes[data-top] .pn__agents,
+  .panes[data-top] .pn__people {
     padding-inline: 11%;
     column-gap: 10%;
-  }
-
-  .pn__agents-hook {
-    padding-inline-start: 11%;
   }
 }
 
@@ -930,14 +928,6 @@ body {
 [data-agents] .pn__part-head .pn__h3 {
   font: var(--pn-h3-large);
   letter-spacing: var(--pn-h3-track);
-}
-
-/* a: the hook, quiet, as the line the two agents hang from */
-.pn__agents-hook {
-  font: var(--pn-ui);
-  letter-spacing: var(--pn-ui-track);
-  color: var(--pn-muted);
-  margin-bottom: calc(6px + var(--pn-more-text));
 }
 
 /* b: one grid for the whole pane. The left column is the skim level (each

@@ -235,7 +235,7 @@ export const projects = [
 // words: `title` names it, `trailer` is its card's line, `invite` labels the
 // way in, `hook` is the short first line of the open pane, and `more` is an
 // optional quieter line under it. The job of each is in AGENTS.md under Voice.
-// Keyed by section.
+// `agents` has no hook: pane 2 opens on the robots' names. Keyed by section.
 export const sections = {
   intro: {
     title: "Hi, I’m Justin.",
@@ -260,7 +260,6 @@ export const sections = {
   agents: {
     title: "Projects & Agents",
     trailer: "I have two OpenClaw agents running around.",
-    hook: "Meet my AI agents.",
     invite: "Meet luibot and luibuilder",
   },
 };
