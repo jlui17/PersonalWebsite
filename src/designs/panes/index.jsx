@@ -401,19 +401,14 @@ function Agent({ agent, waving, present, rail = false }) {
   );
 }
 
-// `pn__card-lead` holds the name and the sentence: one box where the people
-// go one to a row, the tint behind her card's (panes.css); elsewhere it has
-// no box of its own.
 function Card({ name, tag, heading, body, tinted, className = "", children }) {
   return (
     <article className={`pn__card${tinted ? " pn__card--tinted" : ""} ${className}`}>
-      <div className="pn__card-lead">
-        <div className="pn__card-head">
-          {name ? <span className="pn__card-name">{name}</span> : <Label>{tag}</Label>}
-          {name && tag && <Label>{tag}</Label>}
-        </div>
-        <h3>{heading}</h3>
+      <div className="pn__card-head">
+        {name ? <span className="pn__card-name">{name}</span> : <Label>{tag}</Label>}
+        {name && tag && <Label>{tag}</Label>}
       </div>
+      <h3>{heading}</h3>
       <p>{body}</p>
       {children}
     </article>
