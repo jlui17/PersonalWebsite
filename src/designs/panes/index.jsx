@@ -1576,8 +1576,10 @@ export default function Panes() {
                 <Label>{project.tag}</Label>
                 <BuilderSpot index={i} />
               </div>
-              <p className="pn__project-kicker">{project.kicker}</p>
-              <p className="pn__project-story">{project.story}</p>
+              <div>
+                <p className="pn__project-kicker">{project.kicker}</p>
+                <p className="pn__project-story">{project.story}</p>
+              </div>
             </li>
           ))}
         </ul>

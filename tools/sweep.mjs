@@ -10,6 +10,7 @@
 // --wait    page seconds after the load before the shot (default 2), --speed (default 4)
 // --hour    ?hour= (default 14, "none" for the real hour), --reduced, --chromes N (default 2)
 // --measure also measures the open pane's use of space (MEASURE in tools/site.mjs) into measure.json
+// --eval    a page expression to print for each shot, e.g. --eval "document.querySelectorAll('[data-own-line]').length"
 // Site: --url | --dev | --commit, as in tools/tour.mjs. Writes tools/out/sweep-<time>/.
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -30,6 +31,7 @@ const args = cli(import.meta.url, {
   reduced: false,
   chromes: 2,
   measure: false,
+  eval: "",
 });
 const site = await openSite(args);
 const paths = args.paths ? args.paths.split(",") : steps(site.root).map((s) => `/#${s}`);
@@ -72,9 +74,10 @@ async function worker(queue) {
     shot.errors = [...page.errors];
     shot.sideways = await page.eval("document.documentElement.scrollWidth - document.documentElement.clientWidth");
     if (args.measure) shot.measure = await page.eval(MEASURE);
+    if (args.eval) shot.evaluated = await page.eval(args.eval);
     await release(page);
     console.log(
-      `${shot.name}${shot.errors.length ? `  ERRORS: ${shot.errors.join("; ")}` : ""}${shot.sideways > 0 ? `  scrolls sideways by ${shot.sideways}px` : ""}`,
+      `${shot.name}${args.eval ? `  ${JSON.stringify(shot.evaluated)}` : ""}${shot.errors.length ? `  ERRORS: ${shot.errors.join("; ")}` : ""}${shot.sideways > 0 ? `  scrolls sideways by ${shot.sideways}px` : ""}`,
     );
   }
   await page.close();
